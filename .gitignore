@@ -1,4 +1,4 @@
 .history/
 **/.junk/
-
 node_modules/
+.vscode/
