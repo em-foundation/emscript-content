@@ -11,6 +11,9 @@
             "@EM-SCRIPT": [
                 "./workspace/em.core/em.lang/em-script"
             ],
+            "@bob.test/*": [
+                "./workspace/bob.pkg/bob.test/*"
+            ],
             "@em.hal/*": [
                 "./workspace/em.core/em.hal/*"
             ],
