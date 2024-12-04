@@ -1,0 +1,22 @@
+{
+    "name": "em-script",
+    "devDependencies": {
+        "@types/node": "^22.10.1",
+        "tsconfig-paths": "^4.2.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2"
+    },
+    "scripts": {
+        "watch": "tsc --watch"
+    },
+    "dependencies": {
+        "module-alias": "^2.2.3"
+    },
+    "_moduleAliases": {
+        "@EM-SCRIPT": "out/em-script",
+        "@bob.test": "out/workspace/bob.pkg/bob.test",
+        "@em.hal": "out/workspace/em.core/em.hal",
+        "@em.mcu": "out/workspace/em.core/em.mcu",
+        "@em.utils": "out/workspace/em.core/em.utils"
+    }
+}
