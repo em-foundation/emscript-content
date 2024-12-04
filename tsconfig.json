@@ -1,0 +1,36 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "lib": [
+            "ESNext"
+        ],
+        "outDir": "out",
+        "paths": {
+            "@EM-SCRIPT": [
+                "./workspace/em.core/em.lang/em-script"
+            ],
+            "@em.hal/*": [
+                "./workspace/em.core/em.hal/*"
+            ],
+            "@em.mcu/*": [
+                "./workspace/em.core/em.mcu/*"
+            ],
+            "@em.utils/*": [
+                "./workspace/em.core/em.utils/*"
+            ],
+        },
+        "sourceMap": true,
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+    },
+    "include": [
+        "./workspace/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "junk"
+    ],
+}
