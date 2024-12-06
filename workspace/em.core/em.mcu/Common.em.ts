@@ -1,4 +1,5 @@
 import em from '@EM-SCRIPT'
+const em$_U = em.declare('MODULE', __filename)
 
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
 import * as UsCounterI from '@em.hal/UsCounterI.em'
@@ -18,4 +19,4 @@ namespace em$targ {
     export const UsCounter = em$config.UsCounter.unwrap()
 }
 
-export default { ...em$meta, ...em$targ }
+export default { em$_U, ...em$meta, ...em$targ }

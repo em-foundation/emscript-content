@@ -46,6 +46,4 @@ namespace em$targ {
     }
 }
 
-const em$export = { em$_U, ...em$meta, ...em$targ }
-// em$_U.bind(em$export)
-export default em$export
+export default { em$_U, ...em$meta, ...em$targ }

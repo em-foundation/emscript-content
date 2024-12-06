@@ -1,5 +1,5 @@
 import em from '@EM-SCRIPT'
-em.declare('MODULE', __filename)
+export const em$_U = em.declare('MODULE', __filename)
 
 namespace em$targ {
     export function pause(time_ms: em.u32): void {
@@ -7,4 +7,4 @@ namespace em$targ {
     }
 }
 
-export default { ...em$targ }
+export default { em$_U, ...em$targ }
