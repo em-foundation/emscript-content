@@ -1,5 +1,5 @@
 import em from '@EM-SCRIPT'
-let em$_U = em.declare('COMPOSITE', __filename)
+let em$_U = em.declare('COMPOSITE')
 
 import * as LedT from '@em.utils/LedT.em'
 

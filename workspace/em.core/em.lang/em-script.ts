@@ -21,10 +21,10 @@ namespace EM {
         ) { }
     }
 
-    export function declare<T extends Object = {}>(kind: UnitKind, path: string): Unit<T> {
-        const upath = `${Path.basename(Path.dirname(path))}/${Path.basename(path, '.em.ts')}`
+    export function declare<T extends Object = {}>(kind: UnitKind, path?: string): Unit<T> {
+        const upath = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const stubs = genStubs<T>()
-        const unit = new Unit<T>(path, kind, stubs, upath)
+        const unit = new Unit<T>(path!, kind, stubs, upath)
         unit_map.set(upath, unit)
         return unit
     }

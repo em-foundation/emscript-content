@@ -1,5 +1,5 @@
 import em from '@EM-SCRIPT'
-const em$_U = em.declare<ConsoleUartI.em$_I>('MODULE', __filename)
+const em$_U = em.declare<ConsoleUartI.em$_I>('MODULE')
 
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
