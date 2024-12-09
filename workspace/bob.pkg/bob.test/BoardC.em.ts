@@ -6,6 +6,8 @@ import * as LedT from '@em.utils/LedT.em'
 export const AppLed = LedT.em$clone()
 export const SysLed = LedT.em$clone()
 
+console.log(AppLed.em$_U.upath)
+
 export function em$configureM(): void {
 }
 
