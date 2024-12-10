@@ -1,5 +1,4 @@
 import em from '@EM-SCRIPT'
-export const em$_T = em.declare('TEMPLATE')
 
 import * as GpioI from '@em.hal/GpioI.em'
 import * as LedI from '@em.hal/LedI.em'
@@ -52,4 +51,4 @@ namespace em$template {
     export const em$clone = { em$_U, ...em$meta, ...em$targ }
 }
 
-export function em$clone() { return { em$_T, ...em$template.em$clone } }
+export default { ...em$template.em$clone }
