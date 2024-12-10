@@ -39,7 +39,8 @@
         "esModuleInterop": true
     },
     "include": [
-        "./workspace/**/*.ts"
+        "./workspace/**/*.ts",
+        "./workspace/.emscript/clone/**/*.ts"
     ],
     "exclude": [
         "node_modules",
