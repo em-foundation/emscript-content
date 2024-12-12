@@ -8,3 +8,6 @@ export const SysLed = LedT.em$clone()
 
 export function em$configureM(): void {
 }
+
+console.log(LedT.em$_T)
+console.log(AppLed.em$_U)
