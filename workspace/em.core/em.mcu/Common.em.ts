@@ -1,5 +1,5 @@
 import em from '@EM-SCRIPT'
-const em$_U = em.declare('MODULE')
+export const em$_U = em.declare('MODULE')
 
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
 import * as UsCounterI from '@em.hal/UsCounterI.em'
