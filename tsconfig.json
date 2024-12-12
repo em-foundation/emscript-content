@@ -9,7 +9,7 @@
         "outDir": "out",
         "paths": {
             "@EM-SCRIPT": [
-                "./workspace/em.core/em.lang/em-script"
+                "./workspace/em.core/em.lang/em-script",
             ],
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"
@@ -39,7 +39,8 @@
         "esModuleInterop": true
     },
     "include": [
-        "./workspace/**/*.ts"
+        "./workspace/**/*.ts",
+        "./workspace/.emscript/.clone/**/*.ts",
     ],
     "exclude": [
         "node_modules",
