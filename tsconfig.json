@@ -40,7 +40,7 @@
     },
     "include": [
         "./workspace/**/*.ts",
-        "./workspace/.emscript/.clone/**/*.ts",
+        "./workspace/.emscript/*/*.ts",
     ],
     "exclude": [
         "node_modules",
