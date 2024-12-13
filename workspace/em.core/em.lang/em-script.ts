@@ -32,7 +32,8 @@ namespace EM {
     export function halt() { }
 
     export class param<T> {
-        val: T | null = null
+        private $$em$config: string = 'param'
+        private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         getM(): T | null { return this.val }
         setM(v: T) { this.val = v }
@@ -40,6 +41,7 @@ namespace EM {
     }
 
     export class proxy<I extends Object> {
+        private $$em$config: string = 'proxy'
         private prx: I = genStubs<I>()
         getM(): I { return this.prx }
         setM(delegate: I): void { this.prx = delegate }
