@@ -9,9 +9,9 @@ namespace em$template {
 
     export const em$_U = em.declare<LedI.em$_I>('MODULE')
 
-    namespace em$config {
-        export let Pin = new em.proxy<GpioI.em$_I>
-        export let active_low = new em.param<em.bool>(false)
+    const em$config = {
+        Pin: new em.proxy<GpioI.em$_I>(),
+        active_low: new em.param<em.bool>(false)
     }
 
     namespace em$meta {

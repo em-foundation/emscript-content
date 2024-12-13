@@ -4,9 +4,9 @@ export const em$_U = em.declare('MODULE')
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
 import * as UsCounterI from '@em.hal/UsCounterI.em'
 
-namespace em$config {
-    export let GlobalInterrupts = new em.proxy<GlobalInterruptsI.em$_I>
-    export let UsCounter = new em.proxy<UsCounterI.em$_I>
+const em$config = {
+    GlobalInterrupts: new em.proxy<GlobalInterruptsI.em$_I>(),
+    UsCounter: new em.proxy<UsCounterI.em$_I>()
 }
 
 namespace em$meta {

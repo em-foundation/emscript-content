@@ -6,8 +6,8 @@ import * as GpioI from '@em.hal/GpioI.em'
 
 import Common from '@em.mcu/Common.em'
 
-namespace em$config {
-    export let TxPin = new em.proxy<GpioI.em$_I>
+const em$config = {
+    TxPin: new em.proxy<GpioI.em$_I>()
 }
 
 namespace em$meta {
