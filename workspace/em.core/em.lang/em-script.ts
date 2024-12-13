@@ -4,6 +4,10 @@ import * as Ts from 'typescript'
 
 namespace EM {
 
+    export type i8 = number
+    export type i16 = number
+    export type i32 = number
+
     export type u8 = number
     export type u16 = number
     export type u32 = number
@@ -13,12 +17,14 @@ namespace EM {
     export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
     export class Unit<T extends Object> {
+        private _used: boolean = false
         constructor(
             readonly file: string,
             readonly kind: UnitKind,
             readonly proto: T,
             readonly upath: string,
         ) { }
+        used() { this._used = true }
     }
 
     export function declare<T extends Object = {}>(kind: UnitKind, path?: string): Unit<T> {
