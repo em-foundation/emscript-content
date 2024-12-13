@@ -1,5 +1,5 @@
 import em from '@EM-SCRIPT'
-export const em$_U = em.declare<em$_I>('INTERFACE')
+export const em$_U = em.declare('INTERFACE')
 
 export interface em$_I {
     off(): void
