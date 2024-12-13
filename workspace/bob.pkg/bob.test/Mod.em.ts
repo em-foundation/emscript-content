@@ -1,4 +1,4 @@
-import em from '@EM-SCRIPT'
+import em from '@$$em-script'
 const em$_U = em.declare('MODULE')
 
 const em$config = {

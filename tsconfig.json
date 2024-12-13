@@ -8,8 +8,11 @@
         ],
         "outDir": "out",
         "paths": {
-            "@EM-SCRIPT": [
+            "@$$em-script": [
                 "./workspace/em.core/em.lang/em-script",
+            ],
+            "@$em$distro/*": [
+                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
             ],
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"

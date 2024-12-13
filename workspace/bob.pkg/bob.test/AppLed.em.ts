@@ -1,4 +1,4 @@
-import em from '@EM-SCRIPT'
+import em from '@$$em-script'
 
 import * as GpioI from '@em.hal/GpioI.em'
 import * as LedI from '@em.hal/LedI.em'

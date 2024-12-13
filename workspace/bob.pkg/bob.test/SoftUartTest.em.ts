@@ -1,4 +1,4 @@
-import em from '@EM-SCRIPT'
+import em from '@$$em-script'
 export const em$_U = em.declare('MODULE')
 
 import TxPin from '@bob.test/GpioMock.em'

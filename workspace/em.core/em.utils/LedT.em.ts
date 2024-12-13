@@ -1,4 +1,4 @@
-import em from '@EM-SCRIPT'
+import em from '@$$em-script'
 export const em$_T = em.declare('TEMPLATE')
 
 import * as GpioI from '@em.hal/GpioI.em'

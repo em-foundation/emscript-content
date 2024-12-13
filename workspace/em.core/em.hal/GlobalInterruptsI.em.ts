@@ -1,4 +1,4 @@
-import em from '@EM-SCRIPT'
+import em from '@$$em-script'
 export const em$_U = em.declare('INTERFACE')
 
 export type Key = em.u32
