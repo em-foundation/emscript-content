@@ -50,7 +50,9 @@ namespace EM {
         private $$em$config: string = 'proxy'
         private prx: I = genStubs<I>()
         getM(): I { return this.prx }
-        setM(delegate: I): void { this.prx = delegate }
+        setM(delegate: I): void {
+            (delegate as any).em$_U.used()
+            this.prx = delegate }
         unwrap(): I { return this.prx }
     }
 

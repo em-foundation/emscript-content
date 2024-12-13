@@ -6,8 +6,8 @@ import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 const em$config = {}
 
 namespace em$meta {
-    export function em$configureM() {
-        console.log('Client')
+    export function em$constructM() {
+        console.log(BoardC.AppLed.x_Pin)
     }
 }
 

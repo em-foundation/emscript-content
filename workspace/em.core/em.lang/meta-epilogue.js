@@ -16,5 +16,5 @@ exports.$$exec = function() {
     //     }
     //     if (k == 0) break;
     // }
-    $$uarrTop.forEach(u => { if (u.em$used && 'em$constructM' in u) u.em$constructM(); })
+    $$uarrTop.forEach(u => { if (u.em$_U && u.em$_U['_used'] && 'em$constructM' in u) u.em$constructM(); })
 }
