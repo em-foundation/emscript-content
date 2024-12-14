@@ -16,25 +16,33 @@ namespace EM {
 
     export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
-    export class Unit<T extends Object> {
+    export class Unit {
         private _used: boolean = false
         constructor(
             readonly uid: string,
             readonly kind: UnitKind,
-            readonly proto: T,
         ) { }
         used() { this._used = true }
     }
 
-    export function declare<T extends Object = {}>(kind: UnitKind, path?: string): Unit<T> {
+    export function declare(kind: UnitKind, path?: string): Unit {
         const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
-        const stubs = genStubs<T>()
-        const unit = new Unit<T>(uid, kind, stubs)
+        const unit = new Unit(uid, kind)
         unit_map.set(uid, unit)
         return unit
     }
 
     export function halt() { }
+
+    export function isa<T extends Object>(): T {
+        return new Proxy({} as T, {
+            get(_, prop: string) {
+                return (...args: any[]) => {
+                    return undefined; // Adjust this for specific return types if necessary
+                };
+            }
+        });
+    }
 
     export class param<T> {
         private $$em$config: string = 'param'
@@ -47,11 +55,9 @@ namespace EM {
 
     export class proxy<I extends Object> {
         private $$em$config: string = 'proxy'
-        private prx: I = genStubs<I>()
+        private prx: I = isa<I>()
         getM(): I { return this.prx }
-        setM(delegate: I): void {
-            (delegate as any).em$_U.used()
-            this.prx = delegate }
+        setM(delegate: I): void { this.prx = delegate }
         unwrap(): I { return this.prx }
     }
 
@@ -76,17 +82,8 @@ namespace EM {
         readonly kind: UnitKind
     }
 
-    let unit_map = new Map<string, Unit<Object>>
+    let unit_map = new Map<string, Unit>()
 
-    function genStubs<T extends Object>(): T {
-        return new Proxy({} as T, {
-            get(_, prop: string) {
-                return (...args: any[]) => {
-                    return undefined; // Adjust this for specific return types if necessary
-                };
-            }
-        });
-    }
 
     export function $Ref<T>(): _Ref<T> {
         return new _Ref<T>()
