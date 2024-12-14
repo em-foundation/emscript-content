@@ -9,10 +9,7 @@
         "outDir": "out",
         "paths": {
             "@$$em-script": [
-                "./workspace/em.core/em.lang/em-script",
-            ],
-            "@$em$distro/*": [
-                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
+                "./workspace/em.core/em.lang/em-script"
             ],
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"
@@ -43,7 +40,7 @@
     },
     "include": [
         "./workspace/**/*.ts",
-        "./workspace/.emscript/*/*.ts",
+        "./workspace/.emscript/*/*.ts"
     ],
     "exclude": [
         "node_modules",
