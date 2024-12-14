@@ -10,20 +10,20 @@ namespace em$template {
 
     export const em$_U = em.declare<LedI.em$_I>('MODULE')
 
-    const em$config = {
+    const em$_C = {
         Pin: new em.proxy<GpioI.em$_I>(),
         active_low: new em.param<em.bool>(false),
     }
 
     namespace em$meta {
-        export const x_Pin = em$config.Pin
-        export const c_active_low = em$config.active_low
+        export const x_Pin = em$_C.Pin
+        export const c_active_low = em$_C.active_low
     }
 
     namespace em$targ {
         //
-        const Pin = em$config.Pin.unwrap()
-        const active_low = em$config.active_low.unwrap()
+        const Pin = em$_C.Pin.unwrap()
+        const active_low = em$_C.active_low.unwrap()
 
         export function em$startup(): void {
             Pin.makeOutput()
@@ -49,7 +49,7 @@ namespace em$template {
         }
     }
 
-    export const em$clone = { em$_U, ...em$meta, ...em$targ }
+    export const em$clone = { em$_U, em$_C, ...em$meta, ...em$targ }
 }
 
 export function em$clone() { return { em$_T, ...em$template.em$clone } }

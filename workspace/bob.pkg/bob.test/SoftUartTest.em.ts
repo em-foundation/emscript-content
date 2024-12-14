@@ -12,6 +12,3 @@ namespace em$meta {
 }
 
 export default { em$_U, ...em$meta }
-
-// SoftUart.x_TxPin.setM(TxPin)
-// SoftUart.em$construct()

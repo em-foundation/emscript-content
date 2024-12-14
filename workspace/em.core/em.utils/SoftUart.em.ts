@@ -6,21 +6,21 @@ import * as GpioI from '@em.hal/GpioI.em'
 
 import Common from '@em.mcu/Common.em'
 
-const em$config = {
+const em$_C = {
     TxPin: new em.proxy<GpioI.em$_I>()
 }
 
 namespace em$meta {
-    export const x_TxPin = em$config.TxPin
+    export const x_TxPin = em$_C.TxPin
 
     export function em$construct() {
-        console.log(em$config.TxPin.getM())
+        console.log(em$_C.TxPin.getM())
     }
 }
 
 namespace em$targ {
 
-    const TxPin = em$config.TxPin.unwrap()
+    const TxPin = em$_C.TxPin.unwrap()
 
     export function em$startup(): void {
         TxPin.makeOutput()
@@ -50,4 +50,4 @@ namespace em$targ {
     }
 }
 
-export default { em$_U, ...em$meta, ...em$targ }
+export default { em$_U, em$_C, ...em$meta, ...em$targ }

@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 
-const em$config = {}
+const em$_C = {}
 
 namespace em$meta {
     export function em$constructM() {
