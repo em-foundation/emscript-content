@@ -19,19 +19,18 @@ namespace EM {
     export class Unit<T extends Object> {
         private _used: boolean = false
         constructor(
-            readonly file: string,
+            readonly uid: string,
             readonly kind: UnitKind,
             readonly proto: T,
-            readonly upath: string,
         ) { }
         used() { this._used = true }
     }
 
     export function declare<T extends Object = {}>(kind: UnitKind, path?: string): Unit<T> {
-        const upath = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
+        const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const stubs = genStubs<T>()
-        const unit = new Unit<T>(path!, kind, stubs, upath)
-        unit_map.set(upath, unit)
+        const unit = new Unit<T>(uid, kind, stubs)
+        unit_map.set(uid, unit)
         return unit
     }
 
@@ -73,9 +72,8 @@ namespace EM {
     // privates
 
     interface UnitDesc {
-        readonly file: string
+        readonly uid: string
         readonly kind: UnitKind
-        readonly upath: string
     }
 
     let unit_map = new Map<string, Unit<Object>>
@@ -84,8 +82,6 @@ namespace EM {
         return new Proxy({} as T, {
             get(_, prop: string) {
                 return (...args: any[]) => {
-                    // console.log(`Function ${prop} called with arguments:`, args);
-                    // Return default values based on common types
                     return undefined; // Adjust this for specific return types if necessary
                 };
             }

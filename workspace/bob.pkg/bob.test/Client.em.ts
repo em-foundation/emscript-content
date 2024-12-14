@@ -7,6 +7,7 @@ const em$config = {}
 
 namespace em$meta {
     export function em$constructM() {
+        console.log(em$_U)
         console.log(BoardC.AppLed.x_Pin)
     }
 }
