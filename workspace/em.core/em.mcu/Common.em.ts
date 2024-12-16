@@ -21,10 +21,10 @@ namespace em$meta {
 }
 
 namespace em$targ {
-    export const BusyWait = em$_C.BusyWait.unwrap()
-    export const ConsoleUart = em$_C.ConsoleUart.unwrap()
-    export const GlobalInterrupts = em$_C.GlobalInterrupts.unwrap()
-    export const Mcu = em$_C.Mcu.unwrap()
+    export const BusyWait = em$_C.BusyWait.$$
+    export const ConsoleUart = em$_C.ConsoleUart.$$
+    export const GlobalInterrupts = em$_C.GlobalInterrupts.$$
+    export const Mcu = em$_C.Mcu.$$
 }
 
 export default { em$_U, em$_C, ...em$meta, ...em$targ }

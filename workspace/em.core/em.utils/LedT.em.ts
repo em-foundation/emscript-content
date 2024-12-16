@@ -22,8 +22,8 @@ namespace em$template {
 
     namespace em$targ {
         //
-        const Pin = em$_C.Pin.unwrap()
-        const active_low = em$_C.active_low.unwrap()
+        const Pin = em$_C.Pin.$$
+        const active_low = em$_C.active_low.$$
 
         export function em$startup(): void {
             Pin.makeOutput()

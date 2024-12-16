@@ -20,7 +20,7 @@ namespace em$meta {
 
 namespace em$targ {
 
-    const TxPin = em$_C.TxPin.unwrap()
+    const TxPin = em$_C.TxPin.$$
 
     export function em$startup(): void {
         TxPin.makeOutput()

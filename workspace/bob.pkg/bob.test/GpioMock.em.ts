@@ -1,5 +1,5 @@
 import em from '@$$em-script'
-export const em$_U = em.declare<GpioI.em$_I>('MODULE')
+export const em$_U = em.declare('MODULE')
 
 import * as GpioI from '@em.hal/GpioI.em'
 
@@ -11,4 +11,4 @@ namespace em$meta {
     export const c_pin = em$_C.pin
 }
 
-export default { em$_U, em$_C, ...em$_U.proto, ...em$meta }
+export default { em$_U, em$_C, ...em$meta, ...em.isa<GpioI.em$_I>() }

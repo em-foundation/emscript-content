@@ -48,17 +48,16 @@ namespace EM {
         private $$em$config: string = 'param'
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
-        getM(): T | null { return this.val }
-        setM(v: T) { this.val = v }
-        unwrap(): T { return this.val! }
+        get $$(): T | null { return this.val }
+        $(v: T) { this.val = v }
     }
 
     export class proxy<I extends Object> {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
         private prx: I = isa<I>()
-        getM(): I { return this.prx }
-        setM(delegate: I): void { 
+        get $$(): I { return this.prx}
+        $(delegate: I): void { 
             this.prx = delegate
             this.bound = true
         }
