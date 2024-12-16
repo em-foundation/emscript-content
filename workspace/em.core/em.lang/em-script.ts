@@ -74,8 +74,80 @@ namespace EM {
         }
     }
 
+    export function reg(addr: any): {$$: any} { return {$$: undefined}}
+
     export function $units(): ReadonlyArray<UnitDesc> {
         return Array.from(unit_map.values())
+    }
+
+    export class OutFile {
+        static readonly TAB = 4
+        private col: number
+        private text: Array<string>
+        constructor(readonly path: string) {
+            this.col = 0
+            this.path = path
+            this.text = []
+        }
+        addFile(path: string) {
+            this.addText(String(Fs.readFileSync(path)))
+        }
+        addText(...text: string[]) {
+            text.forEach(t => this.text.push(t))
+        }
+        clearText(): string {
+            let res = this.getText()
+            this.col = 0
+            this.text = []
+            return res
+        }
+        close() {
+            Fs.writeFileSync(this.path, this.getText())
+        }
+        genTitle(msg: string) {
+            this.print("\n// -------- %1 -------- //\n\n", msg)
+        }
+        getText(): string {
+            return this.text.join('')
+        }
+        print(fmt: string, a0?: any, a1?: any, a2?: any, a3?: any) {
+            let res = ""
+            let idx = 0
+            while (idx < fmt.length) {
+                const c = fmt.charAt(idx++)
+                if (c != '%') {
+                    res += c
+                    continue
+                }
+                switch (fmt.charAt(idx++)) {
+                case '%':
+                    res += '%'
+                    continue
+                case 't':
+                    res += ' '.repeat(this.col)
+                    continue
+                case '+':
+                    this.col += OutFile.TAB
+                    continue
+                case '-':
+                    this.col && (this.col -= OutFile.TAB)
+                    continue
+                case '1':
+                    res += a0
+                    continue
+                case '2':
+                    res += a1
+                    continue
+                case '3':
+                    res += a2
+                    continue
+                case '4':
+                    res += a3
+                    continue
+                }
+            }
+            this.addText(res)
+        }
     }
 
     // privates
