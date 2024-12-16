@@ -14,6 +14,9 @@
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"
             ],
+            "@em.arch.arm/*": [
+                "./workspace/em.core/em.arch.arm/*"
+            ],
             "@em.hal/*": [
                 "./workspace/em.core/em.hal/*"
             ],
