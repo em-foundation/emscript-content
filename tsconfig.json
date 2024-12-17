@@ -17,6 +17,9 @@
             "@em.arch.arm/*": [
                 "./workspace/em.core/em.arch.arm/*"
             ],
+            "@em.examples.basic/*": [
+                "./workspace/em.core/em.examples.basic/*"
+            ],
             "@em.hal/*": [
                 "./workspace/em.core/em.hal/*"
             ],
