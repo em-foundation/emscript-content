@@ -15,7 +15,6 @@ namespace em$meta {
     export const TxPinX = em$_C.TxPin
 
     export function em$construct() {
-        console.log(em$_C.TxPin.$$)
     }
 }
 
