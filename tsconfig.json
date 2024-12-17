@@ -8,8 +8,8 @@
         ],
         "outDir": "out",
         "paths": {
-            "@$$em-script": [
-                "./workspace/em.core/em.lang/em-script"
+            "@$$emscript": [
+                "./workspace/em.core/em.lang/emscript"
             ],
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"

@@ -1,4 +1,4 @@
-import em from '@$$em-script'
+import em from '@$$emscript'
 export function exec() {
     console.log('talker')
 }

@@ -1,4 +1,4 @@
-import em from '@$$em-script'
+import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
