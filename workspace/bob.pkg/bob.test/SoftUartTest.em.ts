@@ -6,7 +6,7 @@ import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import SoftUart from '@em.utils/SoftUart.em'
 
 namespace em$meta {
-    export function em$configureM() {
+    export function em$configure() {
         console.log('configure')
         SoftUart.TxPinX.$$ = BoardC.AppOutPin
     }

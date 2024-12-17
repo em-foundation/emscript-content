@@ -2,7 +2,7 @@ import em from '@$$em-script'
 export const em$_U = em.declare('MODULE')
 
 namespace em$meta {
-    export function em$initM() {
+    export function em$init() {
         console.log('initM', foo(10))
     }
     function foo(x: Readonly<em.u8>): em.u8 {

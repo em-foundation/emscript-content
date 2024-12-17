@@ -16,7 +16,7 @@ export const AppOutPin = GpioT.em$clone()
 export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
-export function em$configureM(): void {
+export function em$configure(): void {
     AppLed.PinX.$$ = AppLedPin
     AppLedPin.pin_num.$$ = 15
     AppOutPin.pin_num.$$ = 20

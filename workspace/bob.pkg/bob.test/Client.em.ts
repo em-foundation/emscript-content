@@ -6,7 +6,7 @@ import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 const em$_C = {}
 
 namespace em$meta {
-    export function em$constructM() {
+    export function em$construct() {
         // console.log(em$_U)
         // console.log(BoardC.AppLed.x_Pin)
     }
