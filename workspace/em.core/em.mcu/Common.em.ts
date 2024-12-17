@@ -14,9 +14,9 @@ const em$_C = {
 }
 
 namespace em$meta {
-    export const x_BusyWait = em$_C.BusyWait
-    export const x_ConsoleUart = em$_C.ConsoleUart
-    export const x_GlobalInterrupts = em$_C.GlobalInterrupts
+    export const BusyWaitX = em$_C.BusyWait
+    export const ConsoleUartX = em$_C.ConsoleUart
+    export const GlobalInterruptsX = em$_C.GlobalInterrupts
     export const x_Mcu = em$_C.Mcu
 }
 

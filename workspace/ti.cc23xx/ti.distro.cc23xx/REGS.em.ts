@@ -1,3 +1,5 @@
+import em from '@$$em-script'
+export const em$_U = em.declare('COMPOSITE')
 
 // -------- MODULE CLKCTL -------- //
 

@@ -12,7 +12,7 @@ namespace em$template {
     }
 
     namespace em$meta {
-        export const c_pin_num = em$_C.pin_num
+        export const pin_num = em$_C.pin_num
     }
 
     export const em$clone = { em$_U, em$_C, ...em$meta, ...em.isa<GpioI.em$_I>() }

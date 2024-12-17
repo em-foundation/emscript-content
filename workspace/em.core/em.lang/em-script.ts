@@ -49,7 +49,7 @@ namespace EM {
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T | null { return this.val }
-        $(v: T) { this.val = v }
+        set $$(v: T) { this.val = v }
     }
 
     export class proxy<I extends Object> {
@@ -57,11 +57,10 @@ namespace EM {
         private bound: boolean = false
         private prx: I = isa<I>()
         get $$(): I { return this.prx}
-        $(delegate: I): void { 
+        set $$(delegate: I) { 
             this.prx = delegate
             this.bound = true
         }
-        unwrap(): I { return this.prx }
     }
 
     export class ptr<T> {

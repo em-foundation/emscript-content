@@ -16,8 +16,8 @@ namespace em$template {
     }
 
     namespace em$meta {
-        export const x_Pin = em$_C.Pin
-        export const c_active_low = em$_C.active_low
+        export const PinX = em$_C.Pin
+        export const active_low = em$_C.active_low
     }
 
     namespace em$targ {

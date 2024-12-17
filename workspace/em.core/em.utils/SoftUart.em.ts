@@ -1,5 +1,5 @@
 import em from '@$$em-script'
-export const em$_U = em.declare<ConsoleUartI.em$_I>('MODULE')
+export const em$_U = em.declare('MODULE')
 
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
@@ -11,10 +11,11 @@ const em$_C = {
 }
 
 namespace em$meta {
-    export const x_TxPin = em$_C.TxPin
+
+    export const TxPinX = em$_C.TxPin
 
     export function em$construct() {
-        console.log(em$_C.TxPin.getM())
+        console.log(em$_C.TxPin.$$)
     }
 }
 

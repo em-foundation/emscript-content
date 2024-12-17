@@ -8,7 +8,7 @@ import SoftUart from '@em.utils/SoftUart.em'
 namespace em$meta {
     export function em$configureM() {
         console.log('configure')
-        SoftUart.x_TxPin.$(BoardC.AppOutPin)
+        SoftUart.TxPinX.$$ = BoardC.AppOutPin
     }
 }
 

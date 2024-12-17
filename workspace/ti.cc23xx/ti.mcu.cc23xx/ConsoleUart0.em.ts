@@ -3,14 +3,14 @@ export const em$_U = em.declare('MODULE')
 
 import * as Gpio from '@em.hal/GpioI.em'
 
-import * as em$_R from '@ti.distro.cc23xx/REGS'
+import * as em$_R from '@ti.distro.cc23xx/REGS.em'
 
 const em$_C = {
     TxPin: new em.proxy<Gpio.em$_I>()
 }
 
 namespace em$meta {
-    export const x_TxPin = em$_C.TxPin
+    export const TxPinX = em$_C.TxPin
 }
 
 namespace em$targ {
@@ -38,9 +38,4 @@ namespace em$targ {
     }
 }
 
-export default {
-    em$_U,
-    // em$_C,
-    // ...em$meta,
-    // ...em$targ,
-}
+export default { em$_U, em$_C, ...em$meta, ...em$targ }

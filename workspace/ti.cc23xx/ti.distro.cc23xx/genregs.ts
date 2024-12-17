@@ -65,7 +65,9 @@ function readXmlFile(xfile: string): any {
     return xml
 }
 
-let out = new em.OutFile('REGS.ts')
+let out = new em.OutFile('REGS.em.ts')
+out.addText(`import em from '@$$em-script'\n`)
+out.addText(`export const em$_U = em.declare('COMPOSITE')\n`)
 Fs.readdirSync('./xml').forEach(f => genModule(`./xml/${f}`, out))
 out.genTitle("INSTANCES")
 const dev = readXmlFile('./device.xml').device
