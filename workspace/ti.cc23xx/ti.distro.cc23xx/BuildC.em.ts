@@ -2,11 +2,16 @@ import em from '@$$emscript'
 export const em$_U = em.declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
-import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+// import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
 
-const txt = `
+import IntrVec from '@em.arch.arm/IntrVec.em'
+
+
+export function em$generate() {
+    let out = new em.OutFile('build.sh')
+    const txt = `
 #!/bin/sh
 
 CC=clang
@@ -64,9 +69,6 @@ sort -k1 $OUT/main.out.sym > $OUT/main.out.syma
 sort -k5 $OUT/main.out.sym > $OUT/main.out.symn
 ## $OBJDUMP -h $OUT/main.out
 `
-
-export function em$generate() {
-    let out = new em.OutFile('build.sh')
     out.addText(txt)
     out.close()
 }

@@ -6,9 +6,8 @@ export function em$generate() {
 #include <stdbool.h>
 #include <stdint.h>
 
-// #include "intr.c"
-
-#include "../em.arch.arm/arm-startup.c"
+#include "../em.arch.arm/intr.c"
+#include "../em.arch.arm/startup.c"
 
 extern void em_main();
 

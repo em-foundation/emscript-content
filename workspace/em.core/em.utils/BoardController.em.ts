@@ -11,6 +11,9 @@ const em$_C = {
 
 namespace em$meta {
     export const x_Led = em$_C.Led
+    export function em$init() {
+        em$_U.used()
+    }
 }
 
 namespace em$targ {

@@ -69,7 +69,7 @@ extern const void*  __attribute__((section(".start_vec"))) __em_start_vec[] = {
 #endif
 `
 
-    let out = new em.OutFile('em.arch.arm/arm-startup.c')
+    let out = new em.OutFile('em.arch.arm/startup.c')
     out.addText("#define __EM_BOOT_FLASH__ 0\n\n")
     out.addText(txt)
     out.close()
