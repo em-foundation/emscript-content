@@ -91,6 +91,10 @@ namespace EM {
         addFile(path: string) {
             this.addText(String(Fs.readFileSync(path)))
         }
+        addFrag(frag: string) {
+            this.addText(frag.replaceAll(/^\s+\|-> /gm, '').trim())
+            this.addText('\n')
+        }
         addText(...text: string[]) {
             text.forEach(t => this.text.push(t))
         }
@@ -101,6 +105,7 @@ namespace EM {
             return res
         }
         close() {
+            Fs.mkdirSync(Path.dirname(this.path), {recursive: true})
             Fs.writeFileSync(this.path, this.getText())
         }
         genTitle(msg: string) {
