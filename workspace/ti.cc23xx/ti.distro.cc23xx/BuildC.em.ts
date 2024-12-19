@@ -5,6 +5,7 @@ import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 // import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
+import * as TargC from '@em.lang/TargC.em'
 
 import IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -50,6 +51,10 @@ CFLAGS="\
     -Wpointer-to-int-cast \
 "
 
+CINCS="\
+    -I. \
+"
+
 COPTS="\
     -Oz \
 "
@@ -60,7 +65,7 @@ LFLAGS="\
     --gc-sections \
 "
 
-$CC -c $CFLAGS $COPTS main.cpp -o $OUT/main.obj
+$CC -c $CFLAGS $COPTS $CINCS main.cpp -o $OUT/main.obj
 $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj
 $OBJCOPY -O ihex $OUT/main.out $OUT/main.out.hex
 $OBJDUMP -h -d $OUT/main.out >$OUT/main.out.dis
