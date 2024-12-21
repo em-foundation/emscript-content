@@ -30,7 +30,7 @@ namespace em$targ {
     }
 
     export function flush(): void {
-        while (em$_R.UART0.FR.BUSY) {}
+        while (em$_R.UART0.FR & em$_R.UART_FR_BUSY) {}
     }
 
     export function put(data: em.u8): void {

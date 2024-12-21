@@ -2,58 +2,50 @@ import * as Path from 'path'
 import * as Fs from 'fs'
 import * as Xml2Js from 'xml2js'
 
-import em from '@$$em-script'
+import em from '@$$emscript'
 
 let instArr: Array<any>
 
-function genModule(xfile: string, out: em.OutFile): void {
+let meta = new em.OutFile('REGS.em.ts')
+let targ = new em.OutFile('REGS.hpp.txt')
+
+function genModule(xfile: string): void {
     const modName = Path.basename(xfile, '.xml')
-    // let out = new em.OutFile(`./regs/${modName}.ts`)
-    out.genTitle(`MODULE ${modName}`)
+    targ.print('#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_%1.h"\n', modName.toLowerCase())
+    meta.genTitle(`MODULE ${modName}`)
     const mod = readXmlFile(xfile).module
     const regArr = mod.register as Array<any>
-    out.print("export interface %1_t {\n%+", modName)
+    meta.print("export interface %1_t {\n%+", modName)
     regArr.forEach(r => {
         const reg = r.$
-        out.print("%t%1: typeof %1\n", reg.id)
+        meta.print("%t%1: any\n", reg.id)
     })
-    out.print("%-}\n")
+    meta.print("%-}\n")
     regArr.forEach(r => {
         const reg = r.$
-        out.genTitle(`REGISTER ${reg.id}`)
-        out.addText("/**\n")
-        const desc = reg.description as string
-        out.addText(desc.replace("\n", "\n\n"))
-        out.addText("*/\n")
-        out.print("const %1 = new class {\n%+", reg.id)
-        out.print("%t$$: any\n")
         const fldArr = r.bitfield as Array<any>
+        meta.genTitle(`REGISTER ${reg.id}`)
+        meta.addText("/**\n")
+        const desc = reg.description as string
+        meta.addText(desc.replace("\n", "\n\n"))
+        meta.addText("*/\n")
         fldArr.forEach(f => {
             const fld = f.$
-            out.print("%t/**\n")
+            meta.addText("/**\n")
             const desc = fld.description as string
-            out.addText(desc.replace("\n", "\n\n"))
-            out.print("%t*/\n")
-            out.print("%t%1: any\n", fld.id)
-        })
-        out.print("%-}\n\n")
-        fldArr.forEach(f => {
-            const fld = f.$
-            out.addText("/**\n")
-            const desc = fld.description as string
-            out.addText(desc.replace("\n", "\n\n"))
-            out.addText("*/\n")
+            meta.addText(desc.replace("\n", "\n\n"))
+            meta.addText("*/\n")
             const fldLab = `${modName}_${reg.id}_${fld.id}`
-            out.print("export const %1: any = '%2'\n\n", fldLab, fld.width)
+            meta.print("export const %1: any = '%2'\n\n", fldLab, fld.width)
             const enmArr = f.bitenum as Array<any>
             if (enmArr === undefined) return
             enmArr.forEach(e => {
                 const enm = e.$
-                out.addText("/**\n")
+                meta.addText("/**\n")
                 const desc = enm.description as string
-                out.addText(desc.replace("\n", "\n\n"))
-                out.addText("*/\n")
-                out.print("export const %1_%2: any = '%3'\n\n", fldLab, enm.id, enm.value)
+                meta.addText(desc.replace("\n", "\n\n"))
+                meta.addText("*/\n")
+                meta.print("export const %1_%2: any = '%3'\n\n", fldLab, enm.id, enm.value)
             })
         })
     })
@@ -65,19 +57,19 @@ function readXmlFile(xfile: string): any {
     return xml
 }
 
-let out = new em.OutFile('REGS.em.ts')
-out.addText(`import em from '@$$em-script'\n`)
-out.addText(`export const em$_U = em.declare('COMPOSITE')\n`)
-Fs.readdirSync('./xml').forEach(f => genModule(`./xml/${f}`, out))
-out.genTitle("INSTANCES")
+meta.addText(`import em from '@$$emscript'\n`)
+meta.addText(`export const em$_U = em.declare('COMPOSITE')\n`)
+Fs.readdirSync('./xml').forEach(f => genModule(`./xml/${f}`))
+meta.genTitle("INSTANCES")
 const dev = readXmlFile('./device.xml').device
 instArr = dev.router[0].subpath[0].cpu[0].instance as Array<any>
     instArr.forEach(m => {
         const instId = m.$.id as string
         const instType = Path.basename(m.$.xml as string, '.xml')
         if (Fs.existsSync(`./xml/${instType}.xml`)) {
-            out.print("export const %1 = { } as %2_t\n", instId, instType)
+            meta.print("export const %1 = { } as %2_t\n", instId, instType)
         }
     })
-    out.addText("\n")
-out.close()
+    meta.addText("\n")
+meta.close()
+targ.close()

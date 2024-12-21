@@ -1,0 +1,2 @@
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_clkctl.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_uart.h"
