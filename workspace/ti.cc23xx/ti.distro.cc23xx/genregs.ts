@@ -59,7 +59,18 @@ function readXmlFile(xfile: string): any {
 
 meta.addText(`import em from '@$$emscript'\n`)
 meta.addText(`export const em$_U = em.declare('COMPOSITE')\n`)
+meta.addText(`
+export function em$generate() {
+    let out = new em.OutFile('ti.distro.cc23xx/REGS.hpp')
+    out.addFile('../ti.cc23xx/ti.distro.cc23xx/REGS.hpp.txt')
+    out.close()
+}
+`)
+targ.addText('#ifndef __REGS_M\n')
+targ.addText("#define __REGS_M\n\n")
+targ.addText('#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"\n\n')
 Fs.readdirSync('./xml').forEach(f => genModule(`./xml/${f}`))
+targ.addText("\n#endif\n")
 meta.genTitle("INSTANCES")
 const dev = readXmlFile('./device.xml').device
 instArr = dev.router[0].subpath[0].cpu[0].instance as Array<any>

@@ -1,2 +1,9 @@
+#ifndef __REGS_M
+#define __REGS_M
+
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"
+
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_clkctl.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_uart.h"
+
+#endif

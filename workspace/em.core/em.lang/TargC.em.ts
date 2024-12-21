@@ -19,6 +19,7 @@ export function em$generate() {
         |->     typedef uint16_t u16;
         |->     typedef uint32_t u32;
         |-> 
+        |->     static inline volatile u32* $reg32(u32 addr) { return (volatile u32*)addr; }
         |-> };
         |-> 
         |-> #endif // emscript__M
