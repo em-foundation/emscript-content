@@ -20,7 +20,7 @@ export function em$generate() {
         |-> extern uint32_t __global_pointer__;
         |-> extern uint32_t __stack_top__;
         |-> 
-        |-> extern void em_main();
+        |-> extern "C" int main();
         |-> extern "C" bool __is_warm();
         |-> 
         |-> typedef struct {
@@ -60,7 +60,7 @@ export function em$generate() {
         |-> #endif
         |->     }
         |-> 
-        |->     em_main();
+        |->     main();
         |->     __builtin_unreachable();
         |-> }
         |-> 
