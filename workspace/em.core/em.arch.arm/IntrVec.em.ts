@@ -22,7 +22,7 @@ extern "C" void em__start( void );
 
 extern void DEFAULT_isr( void );
 
-extern "C" const intvec_elem  __attribute__((section(".intvec"))) __vector_table[] = {
+extern "C" const intvec_elem  __attribute__((section(".intvec"))) __vector_table[64] = {
     { .ptr = (void*)&__stack_top__ },
     { .fxn = em__start },
 };

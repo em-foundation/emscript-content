@@ -18,7 +18,7 @@ function genModule(xfile: string): void {
     meta.print("export interface %1_t {\n%+", modName)
     regArr.forEach(r => {
         const reg = r.$
-        meta.print("%t%1: any\n", reg.id)
+        meta.print("%t%1: em.$Reg\n", reg.id)
     })
     meta.print("%-}\n")
     regArr.forEach(r => {

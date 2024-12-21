@@ -4,6 +4,8 @@
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"
 
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_clkctl.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_gpio.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_ioc.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_uart.h"
 
 #endif

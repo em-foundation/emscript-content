@@ -73,9 +73,7 @@ namespace EM {
         }
     }
 
-    export function reg(addr: any): {$$: any} { return {$$: undefined}}
-
-    export function $units(): ReadonlyArray<UnitDesc> {
+        export function $units(): ReadonlyArray<UnitDesc> {
         return Array.from(unit_map.values())
     }
 
@@ -152,6 +150,11 @@ namespace EM {
             }
             this.addText(res)
         }
+    }
+
+    export interface $Reg {
+        $$: number
+        $: $Reg[]
     }
 
     // privates
