@@ -75,4 +75,8 @@ export function em$generate() {
         |-> $OBJDUMP -h $OUT/main.out
     `)
     out.close()
+    //
+    out = new em.OutFile('load.sh')
+    out.addText('C:/Users/biosb/em-sdk/tools/ti-uniflash/dslite.bat -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n')
+    out.close()
 }
