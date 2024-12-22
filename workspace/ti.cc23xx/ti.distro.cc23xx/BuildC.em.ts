@@ -72,7 +72,7 @@ export function em$generate() {
         |-> $OBJDUMP -t $OUT/main.out | tail -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
         |-> sort -k1 $OUT/main.out.sym > $OUT/main.out.syma
         |-> sort -k5 $OUT/main.out.sym > $OUT/main.out.symn
-        |-> ## $OBJDUMP -h $OUT/main.out
+        |-> $OBJDUMP -h $OUT/main.out
     `)
     out.close()
 }
