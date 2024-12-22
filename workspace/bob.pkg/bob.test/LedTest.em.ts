@@ -5,7 +5,7 @@ import * as em$_R from '@ti.distro.cc23xx/REGS.em'
 
 namespace em$targ {
     export function em$run() {
-        const pin = 15
+        const pin = 15 // appLed
         const mask = 1 << pin
         em$_R.GPIO.DOESET31_0.$$ = mask
         em$_R.IOC.IOC0.$[pin].$$ &= ~em$_R.IOC_IOC0_INPEN
