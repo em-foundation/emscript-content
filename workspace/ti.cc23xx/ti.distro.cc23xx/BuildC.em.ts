@@ -34,7 +34,7 @@ export function em$generate() {
         |->     -D__EM_MCU_null__ \\
         |->     -D__EM_LANG__=1 \\
         |-> 
-        |->     --std=gnu++14 \\
+        |->     --std=c++14 \\
         |->     -target arm-none-eabi \\
         |->     -mcpu=cortex-m0plus \\
         |-> 

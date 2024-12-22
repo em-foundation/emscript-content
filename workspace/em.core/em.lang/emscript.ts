@@ -67,6 +67,8 @@ namespace EM {
         $: T | null = null
     }
 
+    export type volatile_t<T> = T
+
     export function* range(min: number, max: number): Iterable<number> {
         for (let i = min; i < max; i++) {
             yield i
