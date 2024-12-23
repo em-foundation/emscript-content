@@ -1,21 +1,38 @@
 import em from '@$$emscript'
 export const em$_T = em.declare('TEMPLATE')
 
-import * as GpioI from '@em.hal/GpioI.em'
+// import * as GpioI from '@em.hal/GpioI.em'
+import * as em$_R from '@ti.distro.cc23xx/REGS.em'
 
-namespace em$template {
+export namespace em$template {
 
     export const em$_U = em.declare('MODULE')
 
-    const em$_C = {
-        pin_num: new em.param<em.i16>(-1),
+    export const pin_num = new em.param<em.i16>(-1)
+
+    const pn = pin_num.$$
+    const mask = 1 << pn
+
+    export function clear(): void {
+        em$_R.GPIO.DOUTCLR31_0.$$ = mask
     }
 
-    namespace em$meta {
-        export const pin_num = em$_C.pin_num
+    export function functionSelect(select: em.u8): void {
+        em$_R.IOC.IOC0.$[pn].$$ = select
     }
 
-    export const em$clone = { em$_U, em$_C, ...em$meta, ...em.isa<GpioI.em$_I>() }
+    export function makeOutput(): void {
+        em$_R.GPIO.DOESET31_0.$$ = mask
+        em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_INPEN
+    }
+
+    export function set(): void {
+        em$_R.GPIO.DOUTSET31_0.$$ = mask
+    }
+
+    export function toggle(): void {
+        em$_R.GPIO.DOUTTGL31_0.$$ = mask
+    }
 }
 
-export function em$clone() { return { em$_T, ...em$template.em$clone } }
+export function em$clone() { return { em$_T, ...em$template } }
