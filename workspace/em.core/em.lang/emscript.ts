@@ -2,7 +2,7 @@ import * as Fs from 'fs'
 import * as Path from 'path'
 import * as Ts from 'typescript'
 
-namespace EM {
+namespace em {
 
     export type i8 = number
     export type i16 = number
@@ -48,8 +48,7 @@ namespace EM {
         private $$em$config: string = 'param'
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
-        get $$(): T | null { return this.val }
-        $(v: T) { this.val = v }
+        get $$(): T { return this.val! }
         $bind(v: T) { this.val = v }
     }
 
@@ -57,19 +56,18 @@ namespace EM {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
         private prx: I = isa<I>()
-        get $$(): I { return this.prx}
-        $(delegate: I) { 
+        get $$(): I { return this.prx }
+        $(delegate: I) {
             this.prx = delegate
             this.bound = true
         }
-        $bind(delegate: I) { this.$(delegate )}
+        $bind(delegate: I) { this.$(delegate) }
     }
 
     export class ptr<T> {
         $: T | null = null
     }
 
-    export type param_t<T> = T
     export type volatile_t<T> = T
 
     export function* range(min: number, max: number): Iterable<number> {
@@ -78,7 +76,7 @@ namespace EM {
         }
     }
 
-        export function $units(): ReadonlyArray<UnitDesc> {
+    export function $units(): ReadonlyArray<UnitDesc> {
         return Array.from(unit_map.values())
     }
 
@@ -108,7 +106,7 @@ namespace EM {
             return res
         }
         close() {
-            Fs.mkdirSync(Path.dirname(this.path), {recursive: true})
+            Fs.mkdirSync(Path.dirname(this.path), { recursive: true })
             Fs.writeFileSync(this.path, this.getText())
         }
         genTitle(msg: string) {
@@ -127,30 +125,30 @@ namespace EM {
                     continue
                 }
                 switch (fmt.charAt(idx++)) {
-                case '%':
-                    res += '%'
-                    continue
-                case 't':
-                    res += ' '.repeat(this.col)
-                    continue
-                case '+':
-                    this.col += OutFile.TAB
-                    continue
-                case '-':
-                    this.col && (this.col -= OutFile.TAB)
-                    continue
-                case '1':
-                    res += a0
-                    continue
-                case '2':
-                    res += a1
-                    continue
-                case '3':
-                    res += a2
-                    continue
-                case '4':
-                    res += a3
-                    continue
+                    case '%':
+                        res += '%'
+                        continue
+                    case 't':
+                        res += ' '.repeat(this.col)
+                        continue
+                    case '+':
+                        this.col += OutFile.TAB
+                        continue
+                    case '-':
+                        this.col && (this.col -= OutFile.TAB)
+                        continue
+                    case '1':
+                        res += a0
+                        continue
+                    case '2':
+                        res += a1
+                        continue
+                    case '3':
+                        res += a2
+                        continue
+                    case '4':
+                        res += a3
+                        continue
                 }
             }
             this.addText(res)
@@ -183,4 +181,4 @@ namespace EM {
     }
 }
 
-export default EM
+export default em
