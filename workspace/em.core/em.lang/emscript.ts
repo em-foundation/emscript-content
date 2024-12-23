@@ -49,7 +49,8 @@ namespace EM {
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T | null { return this.val }
-        set $$(v: T) { this.val = v }
+        $(v: T) { this.val = v }
+        $bind(v: T) { this.val = v }
     }
 
     export class proxy<I extends Object> {
@@ -57,16 +58,18 @@ namespace EM {
         private bound: boolean = false
         private prx: I = isa<I>()
         get $$(): I { return this.prx}
-        set $$(delegate: I) { 
+        $(delegate: I) { 
             this.prx = delegate
             this.bound = true
         }
+        $bind(delegate: I) { this.$(delegate )}
     }
 
     export class ptr<T> {
         $: T | null = null
     }
 
+    export type param_t<T> = T
     export type volatile_t<T> = T
 
     export function* range(min: number, max: number): Iterable<number> {

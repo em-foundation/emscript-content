@@ -12,12 +12,13 @@ namespace em$meta {
 }
 
 namespace em$targ {
+    const scalar = em$_C.scalar.$$!
+    export function wait(usecs: em.u32): void {
+        if (usecs == 0) return
+        var cnt = usecs * scalar
+        var dummy: em.volatile_t<em.u32>
+        while (cnt--) dummy = 0
+    }
 }
 
-export default {
-    em$_U,
-    em$_C,
-    ...em$meta,
-    ...em.isa<BusyWaitI.em$_I>()
-    // ...em$targ,
-}
+export default { em$_U, em$_C, ...em$meta, ...em$targ }

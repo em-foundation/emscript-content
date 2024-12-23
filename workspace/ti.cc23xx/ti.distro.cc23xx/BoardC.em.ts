@@ -18,15 +18,15 @@ export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
 export function em$configure(): void {
-    AppLed.PinX.$$ = AppLedPin
-    AppLedPin.pin_num.$$ = 15
-    AppOutPin.pin_num.$$ = 20
-    BoardController.x_Led.$$ = SysLed
-    Common.BusyWaitX.$$ = BusyWait
-    Common.ConsoleUartX.$$ = ConsoleUart0
-    Common.GlobalInterruptsX.$$ = GlobalInterrupts
-    Common.x_Mcu.$$ = Mcu
-    ConsoleUart0.TxPinX.$$ = AppOutPin
-    SysLed.PinX.$$ = SysLedPin
-    SysLedPin.pin_num.$$ = 14
+    AppLed.PinX.$bind(AppLedPin)
+    AppLedPin.pin_num.$bind(15)
+    AppOutPin.pin_num.$bind(20)
+    BoardController.x_Led.$bind(SysLed)
+    Common.BusyWaitX.$bind(BusyWait)
+    Common.ConsoleUartX.$bind(ConsoleUart0)
+    Common.GlobalInterruptsX.$bind(GlobalInterrupts)
+    Common.x_Mcu.$bind(Mcu)
+    ConsoleUart0.TxPinX.$bind(AppOutPin)
+    SysLed.PinX.$bind(SysLedPin)
+    SysLedPin.pin_num.$bind(14)
 }

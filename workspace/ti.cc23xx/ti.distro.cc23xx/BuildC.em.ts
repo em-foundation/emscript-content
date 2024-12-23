@@ -3,12 +3,10 @@ export const em$_U = em.declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 // import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
-
-import IntrVec from '@em.arch.arm/IntrVec.em'
-
 
 export function em$generate() {
     let out = new em.OutFile('build.sh')
