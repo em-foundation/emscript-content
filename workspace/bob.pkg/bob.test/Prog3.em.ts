@@ -14,9 +14,12 @@ export namespace em$meta {
     }
 }
 
-export function em$run() {
+export function em$startup() {
     AppLedPin.makeOutput()
     SysLedPin.makeOutput()
+}
+
+export function em$run() {
     for (let i = 0; i < 10; i++) {
         AppLedPin.toggle()
         BusyWait.wait(250_000)
