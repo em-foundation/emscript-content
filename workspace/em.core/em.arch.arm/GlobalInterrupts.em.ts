@@ -3,10 +3,18 @@ export const em$_U = em.declare('MODULE')
 
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
 
-namespace em$targ {}
+export function disable(): GlobalInterruptsI.Key {
+    return 0
+}
 
-export default {
-    em$_U,
-    // ...em$targ,
-    ...em.isa<GlobalInterruptsI.em$_I>()
+export function enable() {
+    return
+}
+
+export function isEnabled(): em.bool_t {
+    return false
+}
+
+export function restore(key: GlobalInterruptsI.Key) {
+    return
 }
