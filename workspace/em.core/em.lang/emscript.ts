@@ -57,11 +57,10 @@ namespace em {
         private bound: boolean = false
         private prx: I = isa<I>()
         get $$(): I { return this.prx }
-        $(delegate: I) {
+        $bind(delegate: I) {
             this.prx = delegate
             this.bound = true
         }
-        $bind(delegate: I) { this.$(delegate) }
     }
 
     export class ptr<T> {

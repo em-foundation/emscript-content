@@ -11,6 +11,12 @@
             "@$$emscript": [
                 "./workspace/em.core/em.lang/emscript"
             ],
+            "@bob.gist/*": [
+                "./workspace/bob.pkg/bob.gist/*"
+            ],
+            "@bob.scratch/*": [
+                "./workspace/bob.pkg/bob.scratch/*"
+            ],
             "@bob.test/*": [
                 "./workspace/bob.pkg/bob.test/*"
             ],
