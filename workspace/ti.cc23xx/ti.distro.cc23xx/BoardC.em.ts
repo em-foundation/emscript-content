@@ -4,7 +4,7 @@ export const em$_U = em.declare('COMPOSITE')
 // import BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
-// import ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
+import * as ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
 // import GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as LedT from '@em.utils/LedT.em'
@@ -22,10 +22,10 @@ export function em$configure(): void {
     AppOutPin.pin_num.$bind(20)
     // BoardController.x_Led.$bind(SysLed)
     Common.BusyWait.$bind(BusyWait)
-    // Common.ConsoleUartX.$bind(ConsoleUart0)
+    Common.ConsoleUart.$bind(ConsoleUart0)
     // Common.GlobalInterruptsX.$bind(GlobalInterrupts)
     // Common.x_Mcu.$bind(Mcu)
-    // ConsoleUart0.TxPinX.$bind(AppOutPin)
+    ConsoleUart0.TxPin.$bind(AppOutPin)
     SysLed.Pin.$bind(SysLedPin)
     SysLedPin.pin_num.$bind(14)
 }
