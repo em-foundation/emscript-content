@@ -7,25 +7,25 @@ import * as Common from '@em.mcu/Common.em'
 // import ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
 // import GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
-// import * as LedT from '@em.utils/LedT.em'
+import * as LedT from '@em.utils/LedT.em'
 // import Mcu from '@ti.mcu.cc23xx/Mcu.em'
 // 
-// export const AppLed = LedT.em$clone()
+export const AppLed = LedT.em$clone()
 export const AppLedPin = GpioT.em$clone()
-// export const AppOutPin = GpioT.em$clone()
-// export const SysLed = LedT.em$clone()
+export const AppOutPin = GpioT.em$clone()
+export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
 export function em$configure(): void {
-    // AppLed.PinX.$bind(AppLedPin)
+    AppLed.Pin.$bind(AppLedPin)
     AppLedPin.pin_num.$bind(15)
-    // AppOutPin.pin_num.$bind(20)
+    AppOutPin.pin_num.$bind(20)
     // BoardController.x_Led.$bind(SysLed)
     Common.BusyWait.$bind(BusyWait)
     // Common.ConsoleUartX.$bind(ConsoleUart0)
     // Common.GlobalInterruptsX.$bind(GlobalInterrupts)
     // Common.x_Mcu.$bind(Mcu)
     // ConsoleUart0.TxPinX.$bind(AppOutPin)
-    // SysLed.PinX.$bind(SysLedPin)
+    SysLed.Pin.$bind(SysLedPin)
     SysLedPin.pin_num.$bind(14)
 }
