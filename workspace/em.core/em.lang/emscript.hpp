@@ -16,6 +16,8 @@ namespace em {
     using u16 = uint16_t;
     using u32 = uint32_t;
 
+    using bool_t = bool;
+
     template <typename T>
     struct param {
         T $$;

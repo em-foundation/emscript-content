@@ -12,7 +12,7 @@ namespace em {
     export type u16 = number
     export type u32 = number
 
-    export type bool = boolean
+    export type bool_t = boolean
 
     export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
