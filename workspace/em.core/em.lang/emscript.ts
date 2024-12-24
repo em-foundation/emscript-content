@@ -32,6 +32,13 @@ namespace em {
         return unit
     }
 
+    export function delegate<U extends Object>(unit: U): em.proxy<U> {
+        const prx = new em.proxy<U>()
+        prx.$bind(unit)
+        return prx
+    }
+
+    export function fail() { }
     export function halt() { }
 
     export function isa<T extends Object>(): T {
@@ -56,10 +63,12 @@ namespace em {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
         private prx: I = isa<I>()
+        private dunit: Unit | null = null
         get $$(): I { return this.prx }
         $bind(delegate: I) {
             this.prx = delegate
             this.bound = true
+            if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
     }
 
