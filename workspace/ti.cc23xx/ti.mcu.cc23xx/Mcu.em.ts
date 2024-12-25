@@ -5,5 +5,5 @@ import * as Debug from '@em.lang/Debug.em'
 
 export function startup(): void {
     Debug.startup()
-    Debug.mark(0, 2)
+    em.$['%%a:'](2)
 }
