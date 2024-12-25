@@ -1,6 +1,9 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export function startup(): void {
+import * as Debug from '@em.lang/Debug.em'
 
+export function startup(): void {
+    Debug.startup()
+    Debug.mark(0, 2)
 }
