@@ -1,9 +1,9 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export function em$run() {
-    em.$['%%a']
-    em.$['%%a:'](5)
+import * as Debug from '@em.lang/Debug.em'
 
-    em.halt()
+export function em$run() {
+    Debug.startup()
+    Debug.pulse(0)
 }
