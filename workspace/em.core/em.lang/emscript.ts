@@ -168,6 +168,13 @@ namespace em {
         $: $Reg[]
     }
 
+    export const $ = {
+        '%%a': null as null,
+        '%%a+': null as null,
+        '%%a-': null as null,
+        '%%a:': (val: u8) => null as null,
+    }
+
     // privates
 
     interface UnitDesc {
