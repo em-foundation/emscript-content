@@ -24,4 +24,5 @@ export function flush(): void {
 
 export function put(data: em.u8): void {
     em$_R.UART0.DR.$$ = data
+    flush()
 }
