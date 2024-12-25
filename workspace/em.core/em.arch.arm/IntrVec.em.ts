@@ -21,7 +21,7 @@ export namespace em$meta {
             |-> 
             |-> extern void DEFAULT_isr( void );
             |-> 
-            |-> extern "C" const intvec_elem  __attribute__((section(".intvec"))) __vector_table[2] = {
+            |-> extern "C" const intvec_elem  __attribute__((section(".intvec"))) __vector_table[35] = {
             |->     { .ptr = (void*)&__stack_top__ },
             |->     { .fxn = em__start },
             |-> };
