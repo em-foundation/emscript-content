@@ -169,10 +169,23 @@ namespace em {
     }
 
     export const $ = {
+        '%%>': (val: any) => null as null,
         '%%a': null as null,
         '%%a+': null as null,
         '%%a-': null as null,
         '%%a:': (val: u8) => null as null,
+        '%%b': null as null,
+        '%%b+': null as null,
+        '%%b-': null as null,
+        '%%b:': (val: u8) => null as null,
+        '%%c': null as null,
+        '%%c+': null as null,
+        '%%c-': null as null,
+        '%%c:': (val: u8) => null as null,
+        '%%d': null as null,
+        '%%d+': null as null,
+        '%%d-': null as null,
+        '%%d:': (val: u8) => null as null,
     }
 
     // privates
