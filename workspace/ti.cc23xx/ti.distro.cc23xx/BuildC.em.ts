@@ -5,8 +5,19 @@ import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
+import * as REGS from '@ti.distro.cc23xx/REGS.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
+
+export function em$configure() {
+    ArmStartupC.em$_U.used()
+    BoardC.em$_U.used()
+    IntrVec.em$_U.used()
+    LinkerC.em$_U.used()
+    REGS.em$_U.used()
+    StartupC.em$_U.used()
+    TargC.em$_U.used()
+}
 
 export function em$generate() {
     let out = new em.OutFile('build.sh')
