@@ -57,14 +57,14 @@ namespace em {
         });
     }
 
-    export function $layout(obj: Object): { size: number, align: number} {
+    export function $memory(obj: Object): MemInfo {
         const align = (sz: number, al: number): number => {
             return (sz + al - 1) & ~(al - 1)
         }
         let res = { size: 0, align: 0 }
         for (const [key, val] of Object.entries(obj)) {
-            const sz = val.$sz
-            if (!sz) throw new Error(`*** $sizeof: field '${key}' is of unsized type`)
+            if (!val.$memory) throw new Error(`*** $memory: no information available for field '${key}' `)
+            const sz = val.$memory.size
             if (sz > res.align) res.align = sz
             res.size = align(res.size, sz) + sz
         }
@@ -97,13 +97,12 @@ namespace em {
         $: T | null = null
     }
 
-    export function struct_t<T extends Object>(proto: T): T & { $proto: T, $tot_sz: number, $max_al: number } {
+    export function struct_t<T extends Object>(proto: T): T & { $proto: T, $memory: MemInfo } {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 switch (prop) {
                     case '$proto': return targ.$proto
-                    case '$tot_sz': return targ.$tot_sz
-                    case '$max_al': return targ.$max_al
+                    case '$memory': return targ.$memory
                     default: return targ.get(prop)
                 }
             }
@@ -225,6 +224,11 @@ namespace em {
 
     const $$PRIVATES = null
 
+    interface MemInfo {
+        size: number
+        align: number
+    }
+
     interface UnitDesc {
         readonly uid: string
         readonly kind: UnitKind
@@ -238,35 +242,21 @@ namespace em {
 
     export class Sized_t<T> {
         $val: T
-        $sz: number
+        $memory: MemInfo
         constructor(val: T, sz: number) {
             this.$val = val
-            this.$sz = sz
+            this.$memory = {size: sz, align: sz}
         }
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
     }
 
     export class Struct_t<T extends Object> {
-        private static align(sz: number, al: number): number {
-            return (sz + al - 1) & ~(al - 1)
-        }
         $proto: T
-        $tot_sz: number
-        $max_al: number
+        $memory: MemInfo
         constructor(proto: T) {
             this.$proto = proto
-            this.$tot_sz = 0
-            this.$max_al = 1
-            for (const [key, val] of Object.entries(proto)) {
-                const sz = val.$sz
-                if (!sz) throw new Error(`*** struct_t: field '${key}' is of unsized type`)
-                const al = Struct_t.align(this.$tot_sz, sz)
-                this.$max_al = Math.max(this.$max_al, al)
-                this.$tot_sz += sz
-                console.log(`tot_sz = ${this.$tot_sz}, max_al = ${this.$max_al}`)
-                this.$tot_sz = Struct_t.align(this.$tot_sz, this.$max_al)
-            }
+            this.$memory = $memory(proto)
         }
         get<K extends keyof T>(key: K): T[K] { return this.$proto[key] }
         get $$() { return this.$proto }

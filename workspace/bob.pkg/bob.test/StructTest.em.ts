@@ -10,12 +10,13 @@ export namespace em$meta {
 
     const Obj = {
         z: em.u32_t(100),
+        p: em.struct_t(Pair),
         y: em.u16_t(20),
         x: em.u8_t(10),
         c: em.u8_t(5)
     }
 
-    console.log(em.$layout(Obj))
+    console.log(em.$memory(Obj))
 
     // let o1 = em.struct_t(Obj)
 
