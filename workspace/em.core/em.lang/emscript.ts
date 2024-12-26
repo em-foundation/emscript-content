@@ -4,15 +4,21 @@ import * as Ts from 'typescript'
 
 namespace em {
 
+    export type bool_t = boolean
     export type i8 = number
     export type i16 = number
     export type i32 = number
-
     export type u8 = number
     export type u16 = number
     export type u32 = number
 
-    export type bool_t = boolean
+    export function bool_t(val: bool_t): Sized_t<bool_t> { return new Sized_t(val, 1) }
+    export function i8_t(val: i8): Sized_t<i8> { return new Sized_t(val, 1) }
+    export function i16_t(val: i16): Sized_t<i16> { return new Sized_t(val, 2) }
+    export function i32_t(val: i32): Sized_t<i32> { return new Sized_t(val, 4) }
+    export function u8_t(val: u8): Sized_t<u8> { return new Sized_t(val, 1) }
+    export function u16_t(val: u16): Sized_t<u16> { return new Sized_t(val, 2) }
+    export function u32_t(val: u32): Sized_t<u32> { return new Sized_t(val, 4) }
 
     export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
@@ -51,6 +57,21 @@ namespace em {
         });
     }
 
+    export function $layout(obj: Object): { size: number, align: number} {
+        const align = (sz: number, al: number): number => {
+            return (sz + al - 1) & ~(al - 1)
+        }
+        let res = { size: 0, align: 0 }
+        for (const [key, val] of Object.entries(obj)) {
+            const sz = val.$sz
+            if (!sz) throw new Error(`*** $sizeof: field '${key}' is of unsized type`)
+            if (sz > res.align) res.align = sz
+            res.size = align(res.size, sz) + sz
+        }
+        res.size = align(res.size, res.align)
+        return res
+    }
+
     export class param<T> {
         private $$em$config: string = 'param'
         private val: T | null = null
@@ -74,6 +95,20 @@ namespace em {
 
     export class ptr<T> {
         $: T | null = null
+    }
+
+    export function struct_t<T extends Object>(proto: T): T & { $proto: T, $tot_sz: number, $max_al: number } {
+        const handler = {
+            get(targ: any, prop: string | symbol) {
+                switch (prop) {
+                    case '$proto': return targ.$proto
+                    case '$tot_sz': return targ.$tot_sz
+                    case '$max_al': return targ.$max_al
+                    default: return targ.get(prop)
+                }
+            }
+        }
+        return new Proxy(new Struct_t(proto), handler)
     }
 
     export type volatile_t<T> = T
@@ -188,7 +223,7 @@ namespace em {
         '%%d:': (val: u8) => null as null,
     }
 
-    // privates
+    const $$PRIVATES = null
 
     interface UnitDesc {
         readonly uid: string
@@ -197,9 +232,44 @@ namespace em {
 
     let unit_map = new Map<string, Unit>()
 
-
     export function $Ref<T>(): _Ref<T> {
         return new _Ref<T>()
+    }
+
+    export class Sized_t<T> {
+        $val: T
+        $sz: number
+        constructor(val: T, sz: number) {
+            this.$val = val
+            this.$sz = sz
+        }
+        get $$(): T { return this.$val }
+        set $$(val: T) { this.$val = val }
+    }
+
+    export class Struct_t<T extends Object> {
+        private static align(sz: number, al: number): number {
+            return (sz + al - 1) & ~(al - 1)
+        }
+        $proto: T
+        $tot_sz: number
+        $max_al: number
+        constructor(proto: T) {
+            this.$proto = proto
+            this.$tot_sz = 0
+            this.$max_al = 1
+            for (const [key, val] of Object.entries(proto)) {
+                const sz = val.$sz
+                if (!sz) throw new Error(`*** struct_t: field '${key}' is of unsized type`)
+                const al = Struct_t.align(this.$tot_sz, sz)
+                this.$max_al = Math.max(this.$max_al, al)
+                this.$tot_sz += sz
+                console.log(`tot_sz = ${this.$tot_sz}, max_al = ${this.$max_al}`)
+                this.$tot_sz = Struct_t.align(this.$tot_sz, this.$max_al)
+            }
+        }
+        get<K extends keyof T>(key: K): T[K] { return this.$proto[key] }
+        get $$() { return this.$proto }
     }
 
     class _Ref<T> {
@@ -207,6 +277,7 @@ namespace em {
         public get val(): T { return this._v }
         public set val(v: T) { this._v = v }
     }
+
 }
 
 export default em
