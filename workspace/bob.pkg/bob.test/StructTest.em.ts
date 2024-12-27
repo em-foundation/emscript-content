@@ -18,6 +18,11 @@ export namespace em$meta {
 
     console.log(em.$memory(Obj))
 
+    const o = em.struct_t(Obj)
+    console.log(em.$memory(o))
+
+
+
     // let o1 = em.struct_t(Obj)
 
     // o1.x.$$ += 10

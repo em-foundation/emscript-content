@@ -58,6 +58,8 @@ namespace em {
     }
 
     export function $memory(obj: Object): MemInfo {
+        const mi = (obj as any).$memory
+        if (mi) return mi
         const align = (sz: number, al: number): number => {
             return (sz + al - 1) & ~(al - 1)
         }
