@@ -161,6 +161,27 @@ namespace em {
         return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
+    class Text_t {
+        private str: string
+        constructor(str: string) { this.str = str }
+        get $$() { return this.str }
+        get $len() { return this.str.length }
+    }
+
+    export function text_t(str: string): Text_t & em.u8[] {
+        const handler = {
+            get(targ: any, prop: string | symbol) {
+                const idx = Number(prop)
+                if (!isNaN(idx)) return targ.$$.charCodeAt(idx)
+                switch (prop) {
+                    default: return targ[prop]
+                }
+            }
+        }
+        return new Proxy(new Text_t(str), handler)
+
+    }
+
     export type volatile_t<T> = T
 
     export function* range(min: number, max: number): Iterable<number> {
