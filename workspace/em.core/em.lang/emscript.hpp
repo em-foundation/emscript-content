@@ -34,6 +34,7 @@ namespace em {
         const char* $$;
         u16 $len;
         constexpr Text_t(const char* s, u16 l) : $$(s), $len(l) {}
+        constexpr const char& operator[](u16 idx) const { return $$[idx]; }
     };
 
     Text_t text_t(const char* str) {

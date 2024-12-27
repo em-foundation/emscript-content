@@ -9,6 +9,9 @@ import * as Common from '@em.mcu/Common.em'
 // }
 
 export function em$run() {
-    const s = em.text_t("hello world\n")
-    Common.ConsoleUart.$$.put(s.$len)
+    let s = em.text_t("hello world\n")
+    // Common.ConsoleUart.$$.put(s.$len)
+    for (let i = 0; i < s.$len; i++) {
+        Common.ConsoleUart.$$.put(s[i])
+    }
 }

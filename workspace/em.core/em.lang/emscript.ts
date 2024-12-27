@@ -165,11 +165,10 @@ namespace em {
         private str: string
         constructor(str: string) { this.str = str }
         get $$() { return this.str }
-        $get(idx: u16): u8 { return this.str.charCodeAt(idx) }
         get $len() { return this.str.length }
     }
 
-    export function text_t(str: string): Text_t {
+    export function text_t(str: string): Text_t & u8[] {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
