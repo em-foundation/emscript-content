@@ -24,6 +24,22 @@ namespace em {
         constexpr param(T v) : $$(v) {}
     };
 
+    constexpr u16 strlen(const char* str) {
+        u16 len = 0;
+        while (str[len] != '\0') len++;
+        return len;
+    }
+
+    struct Text_t {
+        const char* $$;
+        u16 $len;
+        constexpr Text_t(const char* s, u16 l) : $$(s), $len(l) {}
+    };
+
+    Text_t text_t(const char* str) {
+        return Text_t(str, strlen(str));
+    }
+
     template <typename T>
     using volatile_t = volatile T;
 

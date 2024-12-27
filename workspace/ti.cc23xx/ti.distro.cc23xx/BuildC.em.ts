@@ -51,6 +51,7 @@ export function em$generate() {
         |->     -fdata-sections \\
         |->     -fomit-frame-pointer \\
         |->     -fno-exceptions \\
+        |->     -fno-threadsafe-statics \\
         |->     -nostdlib \\
         |->     -Wno-deprecated-register \\
         |->     -Wno-invalid-noreturn \\
