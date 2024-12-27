@@ -23,6 +23,9 @@
             "@em.arch.arm/*": [
                 "./workspace/em.core/em.arch.arm/*"
             ],
+            "@em.bench.coremark/*": [
+                "./workspace/em.core/em.bench.coremark/*"
+            ],
             "@em.examples.basic/*": [
                 "./workspace/em.core/em.examples.basic/*"
             ],
