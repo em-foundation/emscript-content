@@ -31,6 +31,45 @@ namespace em {
         used() { this._used = true }
     }
 
+    class Buffer_t<T extends Object> {
+        $$: Array<T>
+        $memory: MemInfo
+        constructor(proto: T, size: number) {
+            let mi = $memory(proto)
+            this.$memory = {size: mi.size * size, align: mi.align }
+            this.$$ = new Array<T>(size)
+            for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
+        }
+    }
+    
+    export function buffer_t<T extends Object>(proto: T, size: number): T[] & {$$: ReadonlyArray<T>, $memory: MemInfo} {
+        const handler = {
+            get(targ: any, prop: string | symbol) {
+                const idx = Number(prop)
+                if (!isNaN(idx)) return targ.$$[idx]
+                switch (prop) {
+                    case '$$': return targ.$$ as ReadonlyArray<T>
+                    default: return targ[prop]
+                }
+            }
+        }
+        return new Proxy(new Buffer_t(proto, size), handler)
+    }
+
+    export function clone<T extends Object>(obj: T): T {
+        if (obj === null || typeof obj !== 'object') {
+            return obj
+        }
+        if (Array.isArray(obj)) {
+            return obj.map(e => clone(e)) as unknown as T
+        }
+        const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
+        for (const key of Object.keys(cobj)) {
+            cobj[key] = clone(cobj[key])
+        }
+        return cobj
+    }
+
     export function declare(kind: UnitKind, path?: string): Unit {
         const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const unit = new Unit(uid, kind)
@@ -99,16 +138,16 @@ namespace em {
         $: T | null = null
     }
 
-    export function struct_t<T extends Object>(proto: T): T & { $proto: T, $memory: MemInfo } {
-        class Struct_t<T extends Object> {
-            $proto: T
+    export function struct_t<T extends Object>(inst: T): T & { $inst: T, $memory: MemInfo } {
+        class Struct_t {
+            $inst: T
             $memory: MemInfo
             constructor(proto: T) {
-                this.$proto = proto
+                this.$inst = clone(proto)
                 this.$memory = $memory(proto)
             }
-            get<K extends keyof T>(key: K): T[K] { return this.$proto[key] }
-            get $$() { return this.$proto }
+            get<K extends keyof T>(key: K): T[K] { return this.$inst[key] }
+            get $$() { return this.$inst }
         }
         const handler = {
             get(targ: any, prop: string | symbol) {
@@ -119,7 +158,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new Struct_t(proto), handler)
+        return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
     export type volatile_t<T> = T
