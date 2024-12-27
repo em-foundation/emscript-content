@@ -12,13 +12,13 @@ namespace em {
     export type u16 = number
     export type u32 = number
 
-    export function bool_t(val: bool_t): Sized_t<bool_t> { return new Sized_t(val, 1) }
-    export function i8_t(val: i8): Sized_t<i8> { return new Sized_t(val, 1) }
-    export function i16_t(val: i16): Sized_t<i16> { return new Sized_t(val, 2) }
-    export function i32_t(val: i32): Sized_t<i32> { return new Sized_t(val, 4) }
-    export function u8_t(val: u8): Sized_t<u8> { return new Sized_t(val, 1) }
-    export function u16_t(val: u16): Sized_t<u16> { return new Sized_t(val, 2) }
-    export function u32_t(val: u32): Sized_t<u32> { return new Sized_t(val, 4) }
+    export function Bool(val: bool_t = false): Sized_t<bool_t> { return new Sized_t(val, 1) }
+    export function I8(val: i8 = 0): Sized_t<i8> { return new Sized_t(val, 1) }
+    export function I16(val: i16 = 0): Sized_t<i16> { return new Sized_t(val, 2) }
+    export function I32(val: i32= 0): Sized_t<i32> { return new Sized_t(val, 4) }
+    export function U8(val: u8 = 0): Sized_t<u8> { return new Sized_t(val, 1) }
+    export function U16(val: u16 = 0): Sized_t<u16> { return new Sized_t(val, 2) }
+    export function U32(val: u32 = 0): Sized_t<u32> { return new Sized_t(val, 4) }
 
     export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
@@ -98,6 +98,16 @@ namespace em {
     }
 
     export function struct_t<T extends Object>(proto: T): T & { $proto: T, $memory: MemInfo } {
+        class Struct_t<T extends Object> {
+            $proto: T
+            $memory: MemInfo
+            constructor(proto: T) {
+                this.$proto = proto
+                this.$memory = $memory(proto)
+            }
+            get<K extends keyof T>(key: K): T[K] { return this.$proto[key] }
+            get $$() { return this.$proto }
+        }
         const handler = {
             get(targ: any, prop: string | symbol) {
                 switch (prop) {
@@ -249,17 +259,6 @@ namespace em {
         }
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
-    }
-
-    export class Struct_t<T extends Object> {
-        $proto: T
-        $memory: MemInfo
-        constructor(proto: T) {
-            this.$proto = proto
-            this.$memory = $memory(proto)
-        }
-        get<K extends keyof T>(key: K): T[K] { return this.$proto[key] }
-        get $$() { return this.$proto }
     }
 
     class _Ref<T> {

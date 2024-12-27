@@ -4,16 +4,16 @@ export const em$_U = em.declare('MODULE')
 export namespace em$meta {
 
     const Pair = {
-        x: em.i16_t(0),
-        y: em.i16_t(0),
+        x: em.I16(),
+        y: em.I16(),
     }
 
     const Obj = {
-        z: em.u32_t(100),
+        z: em.U32(),
         p: em.struct_t(Pair),
-        y: em.u16_t(20),
-        x: em.u8_t(10),
-        c: em.u8_t(5)
+        y: em.U16(),
+        x: em.U8(),
+        c: em.U8()
     }
 
     console.log(em.$memory(Obj))
