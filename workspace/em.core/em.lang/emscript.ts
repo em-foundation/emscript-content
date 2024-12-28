@@ -42,7 +42,7 @@ namespace em {
         }
     }
     
-    export function buffer_t<T extends Object>(proto: T, size: number): T[] & {$$: ReadonlyArray<T>, $memory: MemInfo} {
+    export function buffer_t<T extends Object>(proto: T, size: number): Indexable<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -164,11 +164,11 @@ namespace em {
     class Text_t {
         private str: string
         constructor(str: string) { this.str = str }
-        get $$() { return this.str }
+        private get $$() { return this.str }
         get $len() { return this.str.length }
     }
 
-    export function text_t(str: string): Text_t & u8[] {
+    export function text_t(str: string): Text_t & Indexable<u8> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -295,6 +295,8 @@ namespace em {
     }
 
     const $$PRIVATES = null
+
+    type Indexable<T> = { [index: number]: T }
 
     interface MemInfo {
         size: number

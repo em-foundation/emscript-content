@@ -24,12 +24,6 @@ namespace em {
         constexpr param(T v) : $$(v) {}
     };
 
-    constexpr u16 strlen(const char* str) {
-        u16 len = 0;
-        while (str[len] != '\0') len++;
-        return len;
-    }
-
     struct Text_t {
         const char* $$;
         u16 $len;
@@ -37,8 +31,8 @@ namespace em {
         constexpr const char& operator[](u16 idx) const { return $$[idx]; }
     };
 
-    Text_t text_t(const char* str) {
-        return Text_t(str, strlen(str));
+    Text_t text_t(const char* str, u16 len) {
+        return Text_t(str, len);
     }
 
     template <typename T>

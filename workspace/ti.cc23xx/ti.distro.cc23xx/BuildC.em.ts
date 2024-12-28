@@ -78,7 +78,7 @@ export function em$generate() {
         |-> $CC -c $CFLAGS $COPTS $CINCS main.cpp -o $OUT/main.obj
         |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj
         |-> $OBJCOPY -O ihex $OUT/main.out $OUT/main.out.hex
-        |-> $OBJDUMP -h -d $OUT/main.out >$OUT/main.out.dis
+        |-> $OBJDUMP -h -d --demangle $OUT/main.out >$OUT/main.out.dis
         |-> $OBJDUMP -t $OUT/main.out | tail -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
         |-> sort -k1 $OUT/main.out.sym > $OUT/main.out.syma
         |-> sort -k5 $OUT/main.out.sym > $OUT/main.out.symn
