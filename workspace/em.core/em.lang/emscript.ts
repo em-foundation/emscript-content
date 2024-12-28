@@ -31,7 +31,7 @@ namespace em {
         used() { this._used = true }
     }
 
-    class Buffer_t<T extends Object> {
+    class $$Buffer<T extends Object> {
         $$: Array<T>
         $memory: MemInfo
         constructor(proto: T, size: number) {
@@ -53,7 +53,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new Buffer_t(proto, size), handler)
+        return new Proxy(new $$Buffer(proto, size), handler)
     }
 
     export function clone<T extends Object>(obj: T): T {
@@ -113,6 +113,8 @@ namespace em {
         return res
     }
 
+    // class $$Param
+
     export class param<T> {
         private $$em$config: string = 'param'
         private val: T | null = null
@@ -161,14 +163,14 @@ namespace em {
         return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
-    class Text_t {
+    class $$Text {
         private str: string
         constructor(str: string) { this.str = str }
         private get $$() { return this.str }
         get $len() { return this.str.length }
     }
 
-    export function text_t(str: string): Text_t & Indexable<u8> {
+    export function text_t(str: string): $$Text & Indexable<u8> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -178,7 +180,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new Text_t(str), handler)
+        return new Proxy(new $$Text(str), handler)
 
     }
 
