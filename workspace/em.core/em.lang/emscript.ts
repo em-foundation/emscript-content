@@ -77,8 +77,8 @@ namespace em {
         return unit
     }
 
-    export function delegate<U extends Object>(unit: U): $$Proxy<U> {
-        const prx = new $$Proxy<U>()
+    export function delegate<U extends Object>(unit: U): em$proxy_t<U> {
+        const prx = new em$proxy_t<U>()
         prx.$bind(unit)
         return prx
     }
@@ -113,18 +113,18 @@ namespace em {
         return res
     }
 
-    class $$Param<T> {
+    class em$param_t<T> {
         private $$em$config: string = 'param'
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T { return this.val! }
         $bind(v: T) { this.val = v }
     }
-    export function param<T>(val?: T): $$Param<T> {
-        return new $$Param<T>(val)
+    export function param<T>(val?: T): em$param_t<T> {
+        return new em$param_t<T>(val)
     }
 
-    class $$Proxy<I extends Object> {
+    class em$proxy_t<I extends Object> {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
         private prx: I = isa<I>()
@@ -136,8 +136,8 @@ namespace em {
             if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
     }
-    export function proxy<I extends Object>(): $$Proxy<I> {
-        return new $$Proxy<I>()
+    export function proxy<I extends Object>(): em$proxy_t<I> {
+        return new em$proxy_t<I>()
     }
 
     export class ptr<T> {
@@ -167,14 +167,13 @@ namespace em {
         return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
-    class $$Text {
+    class em$text_t {
         private str: string
         constructor(str: string) { this.str = str }
         private get $$() { return this.str }
         get $len() { return this.str.length }
     }
-
-    export function text_t(str: string): $$Text & Indexable<u8> {
+    export function text_t(str: string): em$text_t & Indexable<u8> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -184,7 +183,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new $$Text(str), handler)
+        return new Proxy(new em$text_t(str), handler)
 
     }
 
