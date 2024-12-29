@@ -171,14 +171,17 @@ namespace em {
         return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
+    export type TableAccess = 'ro' | 'rw'
+
     class em$table_t<T> {
         private $$em$config: string = 'table'
         private elems: T[] = []
+        constructor(readonly access: TableAccess) {}
         get $$(): T[] { return this.elems }
         $add(e: T) { this.elems.push(e) }
         get $len(): u16 { return this.elems.length }
     }
-    export function table<T>(): em$table_t<T> & Indexable<T> {
+    export function table<T>(access: TableAccess = 'rw'): em$table_t<T> & Indexable<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -194,7 +197,7 @@ namespace em {
                 return true
             }
         }
-        return new Proxy(new em$table_t(), handler)
+        return new Proxy(new em$table_t(access), handler)
     }
 
     class em$text_t {

@@ -23,7 +23,13 @@ namespace em {
         constexpr param(T v) : $$(v) {}
     };
 
-    template <typename T, u16 N> struct table_RW {
+    template <typename T, u16 N> struct table_ro {
+        T $$[N];
+        static constexpr u16 $len = N;
+        inline const T &operator[](u16 index) const { return $$[index]; }
+    };
+
+    template <typename T, u16 N> struct table_rw {
         T $$[N];
         static constexpr u16 $len = N;
         inline T &operator[](u16 index) { return $$[index]; }
