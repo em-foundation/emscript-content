@@ -12,24 +12,23 @@ namespace em {
     export type u16 = number
     export type u32 = number
 
-    export function Bool(val: bool_t = false): Sized_t<bool_t> { return new Sized_t(val, 1) }
-    export function I8(val: i8 = 0): Sized_t<i8> { return new Sized_t(val, 1) }
-    export function I16(val: i16 = 0): Sized_t<i16> { return new Sized_t(val, 2) }
-    export function I32(val: i32= 0): Sized_t<i32> { return new Sized_t(val, 4) }
-    export function U8(val: u8 = 0): Sized_t<u8> { return new Sized_t(val, 1) }
-    export function U16(val: u16 = 0): Sized_t<u16> { return new Sized_t(val, 2) }
-    export function U32(val: u32 = 0): Sized_t<u32> { return new Sized_t(val, 4) }
-
-    export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
-
-    export class Unit {
-        private _used: boolean = false
-        constructor(
-            readonly uid: string,
-            readonly kind: UnitKind,
-        ) { }
-        used() { this._used = true }
+    class em$sized_t<T> {
+        $val: T
+        $memory: MemInfo
+        constructor(val: T, sz: number) {
+            this.$val = val
+            this.$memory = {size: sz, align: sz}
+        }
+        get $$(): T { return this.$val }
+        set $$(val: T) { this.$val = val }
     }
+    export function Bool(val: bool_t = false): em$sized_t<bool_t> { return new em$sized_t(val, 1) }
+    export function I8(val: i8 = 0): em$sized_t<i8> { return new em$sized_t(val, 1) }
+    export function I16(val: i16 = 0): em$sized_t<i16> { return new em$sized_t(val, 2) }
+    export function I32(val: i32= 0): em$sized_t<i32> { return new em$sized_t(val, 4) }
+    export function U8(val: u8 = 0): em$sized_t<u8> { return new em$sized_t(val, 1) }
+    export function U16(val: u16 = 0): em$sized_t<u16> { return new em$sized_t(val, 2) }
+    export function U32(val: u32 = 0): em$sized_t<u32> { return new em$sized_t(val, 4) }
 
     class $$Buffer<T extends Object> {
         $$: Array<T>
@@ -41,7 +40,6 @@ namespace em {
             for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
         }
     }
-    
     export function buffer_t<T extends Object>(proto: T, size: number): Indexable<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
         const handler = {
             get(targ: any, prop: string | symbol) {
@@ -144,6 +142,12 @@ namespace em {
         $: T | null = null
     }
 
+    export function* range(min: number, max: number): Iterable<number> {
+        for (let i = min; i < max; i++) {
+            yield i
+        }
+    }
+
     export function struct_t<T extends Object>(inst: T): T & { $inst: T, $memory: MemInfo } {
         class Struct_t {
             $inst: T
@@ -167,6 +171,32 @@ namespace em {
         return new Proxy(new Struct_t(clone(inst)), handler)
     }
 
+    class em$table_t<T> {
+        private $$em$config: string = 'table'
+        private elems: T[] = []
+        get $$(): T[] { return this.elems }
+        $add(e: T) { this.elems.push(e) }
+        get $len(): u16 { return this.elems.length }
+    }
+    export function table<T>(): em$table_t<T> & Indexable<T> {
+        const handler = {
+            get(targ: any, prop: string | symbol) {
+                const idx = Number(prop)
+                if (!isNaN(idx)) return targ.$$[idx]
+                switch (prop) {
+                    default: return targ[prop]
+                }
+            },
+            set(targ: any, prop: string | symbol, val: any) {
+                const idx = Number(prop)
+                if (isNaN(idx)) return false
+                targ.$$[idx] = val
+                return true
+            }
+        }
+        return new Proxy(new em$table_t(), handler)
+    }
+
     class em$text_t {
         private str: string
         constructor(str: string) { this.str = str }
@@ -187,13 +217,18 @@ namespace em {
 
     }
 
-    export type volatile_t<T> = T
+    export type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
-    export function* range(min: number, max: number): Iterable<number> {
-        for (let i = min; i < max; i++) {
-            yield i
-        }
+    export class Unit {
+        private _used: boolean = false
+        constructor(
+            readonly uid: string,
+            readonly kind: UnitKind,
+        ) { }
+        used() { this._used = true }
     }
+
+    export type volatile_t<T> = T
 
     export function $units(): ReadonlyArray<UnitDesc> {
         return Array.from(unit_map.values())
@@ -317,17 +352,6 @@ namespace em {
 
     export function $Ref<T>(): _Ref<T> {
         return new _Ref<T>()
-    }
-
-    export class Sized_t<T> {
-        $val: T
-        $memory: MemInfo
-        constructor(val: T, sz: number) {
-            this.$val = val
-            this.$memory = {size: sz, align: sz}
-        }
-        get $$(): T { return this.$val }
-        set $$(val: T) { this.$val = val }
     }
 
     class _Ref<T> {
