@@ -23,14 +23,11 @@ namespace em {
         constexpr param(T v) : $$(v) {}
     };
 
-    template <typename T, u16 N> class table {
-      private:
+    template <typename T, u16 N> struct table_RW {
         T $$[N];
-      public:
         static constexpr u16 $len = N;
-        constexpr Buffer_t() = default;
-        T &operator[](u16 index) { return $$[index]; }
-        const T &operator[](u16 index) const { return $$[index]; }
+        inline T &operator[](u16 index) { return $$[index]; }
+        inline const T &operator[](u16 index) const { return $$[index]; }
     };
 
     struct Text_t {
