@@ -77,8 +77,8 @@ namespace em {
         return unit
     }
 
-    export function delegate<U extends Object>(unit: U): em.proxy<U> {
-        const prx = new em.proxy<U>()
+    export function delegate<U extends Object>(unit: U): $$Proxy<U> {
+        const prx = new $$Proxy<U>()
         prx.$bind(unit)
         return prx
     }
@@ -113,17 +113,18 @@ namespace em {
         return res
     }
 
-    // class $$Param
-
-    export class param<T> {
+    class $$Param<T> {
         private $$em$config: string = 'param'
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T { return this.val! }
         $bind(v: T) { this.val = v }
     }
+    export function param<T>(val?: T): $$Param<T> {
+        return new $$Param<T>(val)
+    }
 
-    export class proxy<I extends Object> {
+    class $$Proxy<I extends Object> {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
         private prx: I = isa<I>()
@@ -134,6 +135,9 @@ namespace em {
             this.bound = true
             if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
+    }
+    export function proxy<I extends Object>(): $$Proxy<I> {
+        return new $$Proxy<I>()
     }
 
     export class ptr<T> {

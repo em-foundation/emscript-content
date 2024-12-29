@@ -4,8 +4,8 @@ export const em$_U = em.declare('MODULE')
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const Pin = new em.proxy<GpioI.em$_I>()
-export const active_low = new em.param<em.bool_t>(false)
+export const Pin = em.proxy<GpioI.em$_I>()
+export const active_low = em.param<em.bool_t>(false)
 
 export function em$startup(): void {
     Pin.$$.makeOutput()

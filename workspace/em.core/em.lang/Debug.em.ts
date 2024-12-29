@@ -4,10 +4,10 @@ export const em$_U = em.declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const DbgA = new em.proxy<GpioI.em$_I>()
-export const DbgB = new em.proxy<GpioI.em$_I>()
-export const DbgC = new em.proxy<GpioI.em$_I>()
-export const DbgD = new em.proxy<GpioI.em$_I>()
+export const DbgA = em.proxy<GpioI.em$_I>()
+export const DbgB = em.proxy<GpioI.em$_I>()
+export const DbgC = em.proxy<GpioI.em$_I>()
+export const DbgD = em.proxy<GpioI.em$_I>()
 
 function delay() {
     Common.BusyWait.$$.wait(1)
