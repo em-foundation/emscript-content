@@ -12,23 +12,25 @@ namespace em {
     export type u16 = number
     export type u32 = number
 
-    class em$sized_t<T> {
-        $val: T
-        $memory: MemInfo
+    class em$Scalar<T> {
+        private $val: T
+        private $memory: MemInfo
         constructor(val: T, sz: number) {
             this.$val = val
             this.$memory = {size: sz, align: sz}
         }
+        get $alignof(): number { return this.$memory.align }
+        get $sizeof(): number { return this.$memory.size }
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
     }
-    export function Bool(val: bool_t = false): em$sized_t<bool_t> { return new em$sized_t(val, 1) }
-    export function I8(val: i8 = 0): em$sized_t<i8> { return new em$sized_t(val, 1) }
-    export function I16(val: i16 = 0): em$sized_t<i16> { return new em$sized_t(val, 2) }
-    export function I32(val: i32= 0): em$sized_t<i32> { return new em$sized_t(val, 4) }
-    export function U8(val: u8 = 0): em$sized_t<u8> { return new em$sized_t(val, 1) }
-    export function U16(val: u16 = 0): em$sized_t<u16> { return new em$sized_t(val, 2) }
-    export function U32(val: u32 = 0): em$sized_t<u32> { return new em$sized_t(val, 4) }
+    export function Bool(val: bool_t = false): em$Scalar<bool_t> & Sized { return new em$Scalar(val, 1) }
+    export function I8(val: i8 = 0): em$Scalar<i8> & Sized { return new em$Scalar(val, 1) }
+    export function I16(val: i16 = 0): em$Scalar<i16> & Sized { return new em$Scalar(val, 2) }
+    export function I32(val: i32= 0): em$Scalar<i32> & Sized { return new em$Scalar(val, 4) }
+    export function U8(val: u8 = 0): em$Scalar<u8> & Sized { return new em$Scalar(val, 1) }
+    export function U16(val: u16 = 0): em$Scalar<u16> & Sized { return new em$Scalar(val, 2) }
+    export function U32(val: u32 = 0): em$Scalar<u32> & Sized { return new em$Scalar(val, 4) }
 
     class $$Buffer<T extends Object> {
         $$: Array<T>
@@ -148,7 +150,7 @@ namespace em {
         }
     }
 
-    export function struct_t<T extends Object>(inst: T): T & { $inst: T, $memory: MemInfo } {
+    export function struct_t<T extends Object>(inst: T): T & Sized {
         class Struct_t {
             $inst: T
             $memory: MemInfo
@@ -162,8 +164,8 @@ namespace em {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 switch (prop) {
-                    case '$proto': return targ.$proto
-                    case '$memory': return targ.$memory
+                    case '$alignof': return targ.$memory.align
+                    case '$sizeof': return targ.$memory.size
                     default: return targ.get(prop)
                 }
             }
@@ -344,6 +346,11 @@ namespace em {
     interface MemInfo {
         size: number
         align: number
+    }
+
+    type Sized = {
+        $alignof: number
+        $sizeof: number
     }
 
     interface UnitDesc {
