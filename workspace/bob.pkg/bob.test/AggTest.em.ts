@@ -50,7 +50,7 @@ export namespace em$meta {
     // num.$$ = 10
     // console.log(num)
 
-    const buf = em.buffer_t(em.U32(), 5)
+    const buf = em.Block(em.U32(), 5)
 
     // buf[2].$$ = 10
     // console.log(buf[2].$$, buf[3].$$)

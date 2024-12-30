@@ -4,10 +4,10 @@ import * as Ts from 'typescript'
 
 namespace em {
 
-    const __BUFFER__ = null
+    const __BLOCK__ = null
     // #region
 
-    class $$Buffer<T extends Object> {
+    class em$block_t<T extends Object> {
         $$: Array<T>
         $memory: MemInfo
         constructor(proto: T, size: number) {
@@ -17,7 +17,7 @@ namespace em {
             for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
         }
     }
-    export function buffer_t<T extends Object>(proto: T, size: number): Indexed<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
+    export function Block<T extends Object>(proto: T, size: number): Indexed<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -28,7 +28,7 @@ namespace em {
                 }
             }
         }
-        return new globalThis.Proxy(new $$Buffer(proto, size), handler)
+        return new globalThis.Proxy(new em$block_t(proto, size), handler)
     }
 
     // #endregion
