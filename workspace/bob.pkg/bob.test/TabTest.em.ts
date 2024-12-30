@@ -10,7 +10,7 @@ export namespace em$meta {
         my_tab.$add(10)
         my_tab.$add(20)
         // for (let i = 0; i < tab.$len; i++) tab[i] += 50 + i
-        // for (let i = 0; i < tab.$len; i++) console.log(tab[i])
+        for (let i = 0; i < my_tab.$len; i++) console.log(my_tab[i])
     }
 }
 

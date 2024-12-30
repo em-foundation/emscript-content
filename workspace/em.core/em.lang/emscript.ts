@@ -8,25 +8,34 @@ namespace em {
     // #region
 
     class em$block_t<T extends Object> {
-        $$: Array<T>
-        $memory: MemInfo
+        $arr: Array<T>
+        $mem: MemInfo
         constructor(proto: T, size: number) {
             let mi = $memory(proto)
-            this.$memory = {size: mi.size * size, align: mi.align }
-            this.$$ = new Array<T>(size)
-            for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
+            this.$mem = {size: mi.size * size, align: mi.align }
+            this.$arr = new Array<T>(size)
+            for (let i = 0; i < size; i++) this.$arr[i] = clone(proto)
         }
     }
     export function Block<T extends Sized>(proto: T, size: number): Sized & Indexed<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
-                if (!isNaN(idx)) return targ.$$[idx]
+                if (!isNaN(idx)) return targ.$arr[idx]
                 switch (prop) {
-                    case '$$': return targ.$$ as ReadonlyArray<T>
+                    case '$alignof': return targ.$mem.align
+                    case '$sizeof': return targ.$mem.size
                     default: return targ[prop]
                 }
+            },
+            set(targ: any, prop: string | symbol, val: any) {
+                const idx = Number(prop)
+                if (isNaN(idx)) return false
+                let o = targ.$arr[idx]
+                o.$$ = val
+                return true
             }
+
         }
         return new globalThis.Proxy(new em$block_t(proto, size), handler)
     }
@@ -206,7 +215,7 @@ namespace em {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
-                if (!isNaN(idx)) return targ.$$[idx]
+                if (!isNaN(idx)) return targ.elems[idx]
                 switch (prop) {
                     default: return targ[prop]
                 }
