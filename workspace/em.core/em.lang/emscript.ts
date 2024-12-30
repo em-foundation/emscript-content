@@ -17,7 +17,7 @@ namespace em {
             for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
         }
     }
-    export function Block<T extends Object>(proto: T, size: number): Indexed<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
+    export function Block<T extends Sized>(proto: T, size: number): Sized & Indexed<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -152,13 +152,13 @@ namespace em {
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
     }
-    export function Bool(val: bool_t = false): em$Scalar<bool_t> & Sized { return new em$Scalar(val, 1) }
-    export function I8(val: i8 = 0): em$Scalar<i8> & Sized { return new em$Scalar(val, 1) }
-    export function I16(val: i16 = 0): em$Scalar<i16> & Sized { return new em$Scalar(val, 2) }
-    export function I32(val: i32= 0): em$Scalar<i32> & Sized { return new em$Scalar(val, 4) }
-    export function U8(val: u8 = 0): em$Scalar<u8> & Sized { return new em$Scalar(val, 1) }
-    export function U16(val: u16 = 0): em$Scalar<u16> & Sized { return new em$Scalar(val, 2) }
-    export function U32(val: u32 = 0): em$Scalar<u32> & Sized { return new em$Scalar(val, 4) }
+    export function Bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar(val, 1) }
+    export function I8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar(val, 1) }
+    export function I16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar(val, 2) }
+    export function I32(val: i32= 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar(val, 4) }
+    export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar(val, 1) }
+    export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar(val, 2) }
+    export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar(val, 4) }
 
     // #endregion
 
@@ -278,6 +278,8 @@ namespace em {
     interface Boxed<T> {
         $$: T
     }
+
+    type Contained<T> = Boxed<T> & Sized
 
     interface MemInfo {
         size: number
