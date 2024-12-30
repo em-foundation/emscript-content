@@ -6,7 +6,7 @@ import * as Pin from '@bob.scratch/AppLedPin.em'
 
 export namespace em$meta {
     export function em$configure() {
-        BusyWait.scalar.$bind(20)
+        BusyWait.scalar.$$ = 20
     }
 }
 

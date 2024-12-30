@@ -22,24 +22,24 @@ export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
 export function em$configure(): void {
-    AppLed.Pin.$bind(AppLedPin)
-    AppLedPin.pin_num.$bind(15)
-    AppOutPin.pin_num.$bind(20)
-    BoardController.Led.$bind(SysLed)
+    AppLed.Pin.$$ = AppLedPin
+    AppLedPin.pin_num.$$ = 15
+    AppOutPin.pin_num.$$ = 20
+    BoardController.Led.$$ = SysLed
     BoardController.em$_U.used()
-    Common.BusyWait.$bind(BusyWait)
-    Common.ConsoleUart.$bind(ConsoleUart0)
-    Common.GlobalInterrupts.$bind(GlobalInterrupts)
-    Common.Mcu.$bind(Mcu)
-    DbgA.pin_num.$bind(23)
-    DbgB.pin_num.$bind(25)
-    DbgC.pin_num.$bind(1)
-    DbgD.pin_num.$bind(2)
-    Debug.DbgA.$bind(DbgA)
-    Debug.DbgB.$bind(DbgB)
-    Debug.DbgC.$bind(DbgC)
-    Debug.DbgD.$bind(DbgD)
-    ConsoleUart0.TxPin.$bind(AppOutPin)
-    SysLed.Pin.$bind(SysLedPin)
-    SysLedPin.pin_num.$bind(14)
+    Common.BusyWait.$$ = BusyWait
+    Common.ConsoleUart.$$ = ConsoleUart0
+    Common.GlobalInterrupts.$$ = GlobalInterrupts
+    Common.Mcu.$$ = Mcu
+    DbgA.pin_num.$$ = 23
+    DbgB.pin_num.$$ = 25
+    DbgC.pin_num.$$ = 1
+    DbgD.pin_num.$$ = 2
+    Debug.DbgA.$$ = DbgA
+    Debug.DbgB.$$ = DbgB
+    Debug.DbgC.$$ = DbgC
+    Debug.DbgD.$$ = DbgD
+    ConsoleUart0.TxPin.$$ = AppOutPin
+    SysLed.Pin.$$ = SysLedPin
+    SysLedPin.pin_num.$$ = 14
 }

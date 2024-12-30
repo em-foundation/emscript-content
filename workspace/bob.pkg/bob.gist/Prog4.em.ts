@@ -6,7 +6,7 @@ import * as AppLedPin from '@bob.scratch/AppLedPin.em'
 
 export namespace em$meta {
     export function em$configure() {
-        AppLed.Pin.$bind(AppLedPin)
+        AppLed.Pin.$$ = AppLedPin
     }
 }
 

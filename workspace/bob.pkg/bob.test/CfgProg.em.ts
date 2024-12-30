@@ -5,7 +5,7 @@ import * as Mod from '@bob.test/CfgMod.em'
 
 export namespace em$meta {
     export function em$configure() {
-        Mod.scalar.$bind(20)
+        Mod.scalar.$$ = 20
     }
 }
 

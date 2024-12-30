@@ -10,7 +10,7 @@ export namespace em$template {
 
     export const em$_U = em.declare('MODULE')
 
-    export const Pin = em.proxy<GpioI.em$_I>()
+    export const Pin = em.Proxy<GpioI.em$_I>()
     export const active_low = em.param<em.bool_t>(false)
 
     export function em$startup(): void {

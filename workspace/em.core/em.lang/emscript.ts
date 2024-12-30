@@ -28,7 +28,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new $$Buffer(proto, size), handler)
+        return new globalThis.Proxy(new $$Buffer(proto, size), handler)
     }
 
     // #endregion
@@ -69,7 +69,7 @@ namespace em {
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T { return this.val! }
-        $bind(v: T) { this.val = v }
+        set $$(v: T) { this.val = v }
     }
     export function param<T>(val?: T): em$param_t<T> {
         return new em$param_t<T>(val)
@@ -97,7 +97,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new Proto_t(obj), handler)
+        return new globalThis.Proxy(new Proto_t(obj), handler)
     }
 
     // #endregion
@@ -111,19 +111,19 @@ namespace em {
         private prx: I = isa<I>()
         private dunit: Unit | null = null
         get $$(): I { return this.prx }
-        $bind(delegate: I) {
+        set $$(delegate: I) {
             this.prx = delegate
             this.bound = true
             if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
     }
-    export function proxy<I extends Object>(): em$proxy_t<I> {
+    export function Proxy<I extends Object>(): em$proxy_t<I> {
         return new em$proxy_t<I>()
     }
 
-    export function delegate<U extends Object>(unit: U): em$proxy_t<U> {
+    export function Delegate<U extends Object>(unit: U): em$proxy_t<U> {
         const prx = new em$proxy_t<U>()
-        prx.$bind(unit)
+        prx.$$ = unit
         return prx
     }
 
@@ -185,7 +185,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new Struct_t(clone(inst)), handler)
+        return new globalThis.Proxy(new Struct_t(clone(inst)), handler)
     }
 
     // #endregion
@@ -219,7 +219,7 @@ namespace em {
                 return true
             }
         }
-        return new Proxy(new em$table_t(access), handler)
+        return new globalThis.Proxy(new em$table_t(access), handler)
     }
 
     // #endregion
@@ -227,6 +227,8 @@ namespace em {
     const __TEXT__ = null
     // #region
 
+    export type text_t = em$text_t
+    
     class em$text_t {
         private str: string
         constructor(str: string) { this.str = str }
@@ -243,7 +245,7 @@ namespace em {
                 }
             }
         }
-        return new Proxy(new em$text_t(str), handler)
+        return new globalThis.Proxy(new em$text_t(str), handler)
     }
 
     // #endregion
@@ -273,6 +275,10 @@ namespace em {
     }
 
     type Indexable<T> = { [index: number]: T }
+
+    interface Boxed<T> {
+        $$: T
+    }
 
     interface MemInfo {
         size: number
@@ -340,7 +346,7 @@ namespace em {
     }
 
      export function isa<T extends Object>(): T {
-        return new Proxy({} as T, {
+        return new globalThis.Proxy({} as T, {
             get(_, prop: string) {
                 return (...args: any[]) => {
                     return undefined; // Adjust this for specific return types if necessary

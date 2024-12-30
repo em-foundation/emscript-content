@@ -4,7 +4,7 @@ export const em$_U = em.declare('MODULE')
 import * as em$_R from '@ti.distro.cc23xx/REGS.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const TxPin = em.proxy<GpioI.em$_I>()
+export const TxPin = em.Proxy<GpioI.em$_I>()
 
 export function em$startup(): void {
     em$_R.CLKCTL.CLKENSET0.$$ = em$_R.CLKCTL_CLKENSET0_UART0

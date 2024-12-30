@@ -9,8 +9,8 @@ const SysLedPin = GpioT.em$clone()
 
 export namespace em$meta {
     export function em$configure() {
-        AppLedPin.pin_num.$bind(15)
-        SysLedPin.pin_num.$bind(14)
+        AppLedPin.pin_num.$$ = 15
+        SysLedPin.pin_num.$$ = 14
     }
 }
 
