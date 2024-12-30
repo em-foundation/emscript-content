@@ -17,7 +17,7 @@ namespace em {
             for (let i = 0; i < size; i++) this.$$[i] = clone(proto)
         }
     }
-    export function buffer_t<T extends Object>(proto: T, size: number): Indexable<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
+    export function buffer_t<T extends Object>(proto: T, size: number): Indexed<T> & {$$: ReadonlyArray<T>, $memory: MemInfo} {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -71,7 +71,7 @@ namespace em {
         get $$(): T { return this.val! }
         set $$(v: T) { this.val = v }
     }
-    export function param<T>(val?: T): em$param_t<T> {
+    export function param<T>(val?: T): em$param_t<T> & Boxed<T> {
         return new em$param_t<T>(val)
     }
 
@@ -117,7 +117,7 @@ namespace em {
             if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
     }
-    export function Proxy<I extends Object>(): em$proxy_t<I> {
+    export function Proxy<I extends Object>(): em$proxy_t<I> & Boxed<I> {
         return new em$proxy_t<I>()
     }
 
@@ -199,11 +199,10 @@ namespace em {
         private $$em$config: string = 'table'
         private elems: T[] = []
         constructor(readonly access: TableAccess) {}
-        get $$(): T[] { return this.elems }
         $add(e: T) { this.elems.push(e) }
         get $len(): u16 { return this.elems.length }
     }
-    export function table<T>(access: TableAccess = 'rw'): em$table_t<T> & Indexable<T> {
+    export function Table<T>(access: TableAccess = 'rw'): em$table_t<T> & Indexed<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -215,7 +214,7 @@ namespace em {
             set(targ: any, prop: string | symbol, val: any) {
                 const idx = Number(prop)
                 if (isNaN(idx)) return false
-                targ.$$[idx] = val
+                targ.elems[idx] = val
                 return true
             }
         }
@@ -235,7 +234,7 @@ namespace em {
         private get $$() { return this.str }
         get $len() { return this.str.length }
     }
-    export function text_t(str: string): em$text_t & Indexable<u8> {
+    export function text_t(str: string): em$text_t & Indexed<u8> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -274,7 +273,7 @@ namespace em {
         $: $Reg[]
     }
 
-    type Indexable<T> = { [index: number]: T }
+    type Indexed<T> = { [index: number]: T }
 
     interface Boxed<T> {
         $$: T

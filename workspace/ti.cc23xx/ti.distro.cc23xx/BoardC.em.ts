@@ -10,7 +10,7 @@ import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
-// 
+
 export const AppLed = LedT.em$clone()
 export const AppLedPin = GpioT.em$clone()
 export const AppOutPin = GpioT.em$clone()
