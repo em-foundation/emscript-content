@@ -153,13 +153,13 @@ namespace em {
     const __SCALAR__ = null
     // #region
 
-    export type bool_t = boolean
-    export type i8 = number
-    export type i16 = number
-    export type i32 = number
-    export type u8 = number
-    export type u16 = number
-    export type u32 = number
+    export type bool_t = boolean & {__bool?: never}
+    export type i8 = number & {__i8?: never}
+    export type i16 = number & {__i16?: never}
+    export type i32 = number & {__i32?: never}
+    export type u8 = number & {__u8?: never}
+    export type u16 = number & {__u16?: never}
+    export type u32 = number & {__u32?: never}
 
     export class em$Scalar<T> {
         private $val: T
