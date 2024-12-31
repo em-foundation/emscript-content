@@ -4,8 +4,20 @@ import * as Ts from 'typescript'
 
 namespace em {
 
-    const __BLOCK__ = null
+    const __ARR__ = null
     // #region
+
+    class em$Arr {
+        $arr: Array<any>
+        constructor(readonly $proto: any, readonly $len: number) {
+            this.$arr = new Array($len)
+            for (let i = 0; i < $len; i++) this.$arr[i] = $proto
+        }
+    }
+
+    export function Arr(proto: Object, len: number) {
+        return new em$Arr(proto, len)
+    }
 
     class em$block_t<T extends Object> {
         $arr: Array<T>
@@ -149,9 +161,9 @@ namespace em {
     export type u16 = number
     export type u32 = number
 
-    class em$Scalar<T> {
+    export class em$Scalar<T> {
         private $val: T
-        private $memory: MemInfo
+        $memory: MemInfo
         constructor(val: T, sz: number) {
             this.$val = val
             this.$memory = {size: sz, align: sz}
@@ -341,7 +353,7 @@ namespace em {
     const __UTILS__ = null
     // #region
 
-    function clone<T extends Object>(obj: T): T {
+    export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
             return obj
         }
@@ -364,14 +376,61 @@ namespace em {
             }
         });
     }
-    
+
+    export function $create(obj: any): any {
+        if (obj === null || typeof obj !== 'object') {
+            return obj
+        }
+        if (obj instanceof em.em$Scalar) {
+            return obj.$$
+        }
+        if (obj instanceof em$Arr) {
+            return $create(obj.$arr)
+        }
+        if (Array.isArray(obj)) {
+            return obj.map(e => $create(e))
+        }
+        const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
+        for (const key of Object.keys(cobj)) {
+            cobj[key] = $create(cobj[key])
+        }
+        return cobj
+    }
+
+
     export function* range(min: number, max: number): Iterable<number> {
         for (let i = min; i < max; i++) {
             yield i
         }
     }
 
-    function $memory(obj: Object): MemInfo {
+    export function memoryof(obj: any): MemInfo {
+        if (obj === null || typeof obj !== 'object') {
+            return { size: Number.NaN, align: Number.NaN }
+        }
+        if (obj instanceof em.em$Scalar) {
+            return obj.$memory
+        }
+        if (obj instanceof em$Arr) {
+            let mi = memoryof(obj.$proto)
+            mi.size *= obj.$len
+            return mi
+        }
+        let res = { size: 0, align: 0 }
+        const align = (sz: number, al: number): number => {
+            return (sz + al - 1) & ~(al - 1)
+        }
+        for (const [key, val] of Object.entries(obj as Object)) {
+            const mi = memoryof(val)
+            if (Number.isNaN(mi.size)) throw new Error(`*** memoryof: unsized field '${key}' `)
+            if (mi.align > res.align) res.align = mi.align
+            res.size = align(res.size, mi.align) + mi.size
+        }
+        res.size = align(res.size, res.align)
+        return res
+    }
+
+    export function $memory(obj: Object): MemInfo {
         const mi = (obj as any).$memory
         if (mi) return mi
         const align = (sz: number, al: number): number => {
@@ -387,6 +446,8 @@ namespace em {
         res.size = align(res.size, res.align)
         return res
     }
+
+    export function sizeof<T>() { return 0 }
 
     export class OutFile {
         static readonly TAB = 4

@@ -20,6 +20,8 @@ export namespace em$meta {
 
     console.log(p1.$sizeof, p1.x.$$ + p2.x.$$)
     console.log(p1.$sizeof)
+
+    console.log(p1)
 }
 
 
