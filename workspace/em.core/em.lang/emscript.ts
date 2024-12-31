@@ -4,19 +4,21 @@ import * as Ts from 'typescript'
 
 namespace em {
 
-    const __ARR__ = null
+    const __ARRAY__ = null
     // #region
 
-    class em$Arr {
+    class em$Array {
         $arr: Array<any>
         constructor(readonly $proto: any, readonly $len: number) {
-            this.$arr = new Array($len)
+            this.$arr = new globalThis.Array($len)
             for (let i = 0; i < $len; i++) this.$arr[i] = $proto
         }
+        get alignof() { return memoryof(this).align }
+        get sizeof() { return memoryof(this).size }
     }
 
-    export function Arr(proto: Object, len: number) {
-        return new em$Arr(proto, len)
+    export function Array(proto: Object, len: number): em$Array {
+        return new em$Array(proto, len)
     }
 
     class em$block_t<T extends Object> {
@@ -24,8 +26,8 @@ namespace em {
         $mem: MemInfo
         constructor(proto: T, size: number) {
             let mi = $memory(proto)
-            this.$mem = {size: mi.size * size, align: mi.align }
-            this.$arr = new Array<T>(size)
+            this.$mem = { size: mi.size * size, align: mi.align }
+            this.$arr = new globalThis.Array<T>(size)
             for (let i = 0; i < size; i++) this.$arr[i] = clone(proto)
         }
     }
@@ -125,7 +127,7 @@ namespace em {
 
     const __PROXY__ = null
     // #region
-    
+
     class em$proxy_t<I extends Object> {
         private $$em$config: string = 'proxy'
         private bound: boolean = false
@@ -153,20 +155,20 @@ namespace em {
     const __SCALAR__ = null
     // #region
 
-    export type bool_t = boolean & {__bool?: never}
-    export type i8 = number & {__i8?: never}
-    export type i16 = number & {__i16?: never}
-    export type i32 = number & {__i32?: never}
-    export type u8 = number & {__u8?: never}
-    export type u16 = number & {__u16?: never}
-    export type u32 = number & {__u32?: never}
+    export type bool_t = boolean & { __bool?: never }
+    export type i8 = number & { __i8?: never }
+    export type i16 = number & { __i16?: never }
+    export type i32 = number & { __i32?: never }
+    export type u8 = number & { __u8?: never }
+    export type u16 = number & { __u16?: never }
+    export type u32 = number & { __u32?: never }
 
     export class em$Scalar<T> {
         private $val: T
         $memory: MemInfo
         constructor(val: T, sz: number) {
             this.$val = val
-            this.$memory = {size: sz, align: sz}
+            this.$memory = { size: sz, align: sz }
         }
         get $alignof(): number { return this.$memory.align }
         get $sizeof(): number { return this.$memory.size }
@@ -176,7 +178,7 @@ namespace em {
     export function Bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar(val, 1) }
     export function I8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar(val, 1) }
     export function I16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar(val, 2) }
-    export function I32(val: i32= 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar(val, 4) }
+    export function I32(val: i32 = 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar(val, 4) }
     export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar(val, 1) }
     export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar(val, 2) }
     export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar(val, 4) }
@@ -219,7 +221,7 @@ namespace em {
     class em$table_t<T> {
         private $$em$config: string = 'table'
         private elems: T[] = []
-        constructor(readonly access: TableAccess) {}
+        constructor(readonly access: TableAccess) { }
         $add(e: T) { this.elems.push(e) }
         get $len(): u16 { return this.elems.length }
     }
@@ -248,7 +250,7 @@ namespace em {
     // #region
 
     export type text_t = em$text_t
-    
+
     class em$text_t {
         private str: string
         constructor(str: string) { this.str = str }
@@ -307,6 +309,11 @@ namespace em {
         align: number
     }
 
+    interface Factory {
+        alignof: number
+        sizeof: number
+    }
+
     type Sized = {
         $alignof: number
         $sizeof: number
@@ -336,7 +343,7 @@ namespace em {
     }
 
     export function $units(): ReadonlyArray<UnitDesc> {
-        return Array.from(unit_map.values())
+        return globalThis.Array.from(unit_map.values())
     }
 
     interface UnitDesc {
@@ -346,18 +353,62 @@ namespace em {
 
     let unit_map = new Map<string, Unit>()
 
-
-
     // #endregion
 
     const __UTILS__ = null
     // #region
 
+    type Unbox<T> = T extends { $$: infer U }
+        ? U  // Boxed scalar
+        : T extends { $proto: infer Proto, $len: number }
+        ? Unbox<Proto>[]  // Array of unboxed Proto
+        : T extends Record<string, any>
+        ? InstantiateType<T>  // Nested proto object
+        : never;
+
+    type InstantiateType<P> = {
+        [K in keyof P]: Unbox<P[K]>;
+    };
+
+    export function instantiate<T extends Object>(proto: T): Unbox<T> {
+        // Handle Scalar types
+        if ('$$' in proto) {
+            return (proto as { $$: any }).$$;  // Unbox scalar value
+        }
+
+        // Handle Array types
+        if ('$len' in proto && '$proto' in proto) {
+            const len = (proto as { $len: number }).$len;
+            const arrayProto = (proto as { $proto: any }).$proto;
+            const arrayInstance: any[] = [];
+            for (let i = 0; i < len; i++) {
+                arrayInstance.push(instantiate(arrayProto)); // Recursively instantiate array elements
+            }
+            return arrayInstance as Unbox<T>; // Explicit type assertion
+        }
+
+        // Handle Struct types
+        const structInstance: any = {};
+        for (const key in proto) {
+            const fieldProto = proto[key];  // Get the field prototype
+    
+            // Explicitly narrow the type of fieldProto
+            if (typeof fieldProto === 'object' && fieldProto !== null) {
+                structInstance[key] = instantiate(fieldProto);  // Recursively instantiate struct fields
+            } else {
+                structInstance[key] = fieldProto;  // Directly assign primitive value
+            }
+        }
+        return structInstance as Unbox<T>;  // Return instantiated struct
+    }
+
+
+
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
             return obj
         }
-        if (Array.isArray(obj)) {
+        if (globalThis.Array.isArray(obj)) {
             return obj.map(e => clone(e)) as unknown as T
         }
         const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
@@ -367,7 +418,7 @@ namespace em {
         return cobj
     }
 
-     export function isa<T extends Object>(): T {
+    export function isa<T extends Object>(): T {
         return new globalThis.Proxy({} as T, {
             get(_, prop: string) {
                 return (...args: any[]) => {
@@ -384,10 +435,10 @@ namespace em {
         if (obj instanceof em.em$Scalar) {
             return obj.$$
         }
-        if (obj instanceof em$Arr) {
+        if (obj instanceof em$Array) {
             return $create(obj.$arr)
         }
-        if (Array.isArray(obj)) {
+        if (globalThis.Array.isArray(obj)) {
             return obj.map(e => $create(e))
         }
         const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
@@ -411,7 +462,7 @@ namespace em {
         if (obj instanceof em.em$Scalar) {
             return obj.$memory
         }
-        if (obj instanceof em$Arr) {
+        if (obj instanceof em$Array) {
             let mi = memoryof(obj.$proto)
             mi.size *= obj.$len
             return mi
@@ -447,7 +498,13 @@ namespace em {
         return res
     }
 
-    export function sizeof<T>() { return 0 }
+    export function alignof(proto: Object): number {
+        return memoryof(proto).size
+    }
+
+    export function sizeof(proto: Object): number {
+        return memoryof(proto).size
+    }
 
     export class OutFile {
         static readonly TAB = 4

@@ -4,11 +4,13 @@ export const em$_U = em.declare('MODULE')
 export namespace em$meta {
 
 
-    const Vec = em.Arr(em.U8(), 4)
-    const Mat = em.Arr(Vec, 3)
+    const Pair = {
+        x: em.U8(),
+        y: em.U8()
+    }
 
-    // console.log(em.memoryof(Mat))
-    // console.log(em.inst(Mat))
+    const Vec = em.Array(em.U8(), 4)
+    const Mat = em.Array(Vec, 3)
 
     const MyStruct = {
         max: em.U32(),
@@ -19,15 +21,13 @@ export namespace em$meta {
     // console.log(em.memoryof(MyStruct))
 
 
+    const p1 = em.instantiate(Pair)
+    const p2 = em.instantiate(Pair)
 
-    const Pair = {
-        x: em.U8(),
-        y: em.U8()
-    }
+    p1.x = 10
 
-    const p1 = em.$create(Pair)
-    const p2 = em.$create(Pair)
+    console.log(p1)
 
-    console.log(em.$create(Pair))
+    // console.log(em.$create(Pair))
 
 }
