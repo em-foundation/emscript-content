@@ -8,6 +8,10 @@ export namespace em$meta {
     const Mat = em.Array(Vec, 3)
     const mat = em.instantiate(Mat)
 
+    // console.log(Vec)
+    // console.log(vec)
+    console.log(Mat.$sizeof)
+
     // 
     // 
     // const Pair = {

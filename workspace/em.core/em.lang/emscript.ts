@@ -17,36 +17,47 @@ namespace em {
         get sizeof() { return memoryof(this).size }
     }
 
-    export function Array<T>(proto: T, len: number) {
-        return {
-            $proto: proto,
-            $len: len,
-        } as const;
-    }    
-
-    export class ArrayVal<T> {
-        public readonly $len: number;
-        private elements: globalThis.Array<T>;
-
-        constructor(len: number, defaultValue: T) {
+    class ArrayVal<T> {
+        $len: number;
+        private items: globalThis.Array<T>;
+        [index: number]: T
+        constructor(len: number, defaultVal: T) {
             this.$len = len;
-            this.elements = globalThis.Array.from({ length: len }, () => defaultValue);
-        }
-
-        get(index: number): T {
-            if (index < 0 || index >= this.$len) {
-                throw new RangeError(`Index ${index} out of bounds for ArrayVal of length ${this.$len}`);
-            }
-            return this.elements[index];
-        }
-
-        set(index: number, value: T): void {
-            if (index < 0 || index >= this.$len) {
-                throw new RangeError(`Index ${index} out of bounds for ArrayVal of length ${this.$len}`);
-            }
-            this.elements[index] = value;
+            this.items = new globalThis.Array(len).fill(defaultVal);
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        return target.items[Number(prop)];
+                    }
+                    return (target as any)[prop];
+                },
+                set(target, prop, value) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        target.items[Number(prop)] = value;
+                        return true;
+                    }
+                    return false;
+                },
+            });
         }
     }
+
+    export class ArrayProto<T> {
+        $base: T;
+        $len: number;
+        constructor(proto: T, len: number) {
+            this.$base = proto;
+            this.$len = len;
+        }
+        get $alignof() { return memoryof(this).align }
+        get $sizeof() { return memoryof(this).size }
+
+    }
+
+    export function Array<T>(proto: T, len: number): ArrayProto<T> {
+        return new ArrayProto(proto, len);
+    }
+
 
     class em$block_t<T extends Object> {
         $arr: Array<T>
@@ -186,7 +197,7 @@ namespace em {
     export type i8 = number & { __i8?: never }
     export type i16 = number & { __i16?: never }
     export type i32 = number & { __i32?: never }
-    export type u8 = number // & { __u8?: never }
+    export type u8 = number & { __u8?: never }
     export type u16 = number & { __u16?: never }
     export type u32 = number & { __u32?: never }
 
@@ -387,16 +398,16 @@ namespace em {
 
     type Unbox<T> = T extends { $$: infer U }
         ? U // For boxed scalars
-        : T extends { $proto: infer Proto, $len: number }
-        ? em.ArrayVal<Unbox<Proto>> // Array case
+        : T extends em.ArrayProto<infer Proto>
+        ? ArrayVal<Unbox<Proto>> // Array case
         : never;
 
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
-        if ('$len' in proto && '$proto' in proto) {  // Array case
+        if (proto instanceof em.ArrayProto) {  // Array case
             const len = (proto as { $len: number }).$len;
-            const elementProto = (proto as { $proto: any }).$proto;
+            const elementProto = (proto as { $base: any }).$base
             const defaultVal = instantiate(elementProto);
-            return new em.ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
+            return new ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
         } else if ('$$' in proto) {  // Boxed scalar case
             return (proto as { $$: any }).$$ as Unbox<T>;
         } else {
@@ -461,8 +472,8 @@ namespace em {
         if (obj instanceof em.em$Scalar) {
             return obj.$memory
         }
-        if (obj instanceof em$Array) {
-            let mi = memoryof(obj.$proto)
+        if (obj instanceof ArrayProto) {
+            let mi = memoryof(obj.$base)
             mi.size *= obj.$len
             return mi
         }
