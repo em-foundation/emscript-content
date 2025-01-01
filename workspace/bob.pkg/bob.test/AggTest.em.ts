@@ -50,11 +50,6 @@ export namespace em$meta {
     // num.$$ = 10
     // console.log(num)
 
-    const buf = em.Block(em.U32(), 5)
-
-    // buf[2].$$ = 10
-    // console.log(buf[2].$$, buf[3].$$)
-
     const p1 = em.struct_t(Pair)
     const p2 = em.struct_t(Pair)
 
