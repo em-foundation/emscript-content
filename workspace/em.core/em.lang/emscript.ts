@@ -147,13 +147,13 @@ namespace em {
     const __SCALAR__ = null
     // #region
 
-    export type bool_t = boolean & { __bool?: never }
-    export type i8 = number & { __i8?: never }
-    export type i16 = number & { __i16?: never }
-    export type i32 = number & { __i32?: never }
-    export type u8 = number & { __u8?: never }
-    export type u16 = number & { __u16?: never }
-    export type u32 = number & { __u32?: never }
+    export type bool_t = boolean // & { __bool?: never }
+    export type i8 = number // & { __i8?: never }
+    export type i16 = number // & { __i16?: never }
+    export type i32 = number // & { __i32?: never }
+    export type u8 = number // & { __u8?: never }
+    export type u16 = number // & { __u16?: never }
+    export type u32 = number // & { __u32?: never }
 
     export class em$Scalar<T> {
         private $val: T
@@ -180,27 +180,12 @@ namespace em {
     const __STRUCT__ = null
     // #region
 
-    export function struct_t<T extends Object>(inst: T): T & Sized {
-        class Struct_t {
-            $inst: T
-            $memory: MemInfo
-            constructor(proto: T) {
-                this.$inst = clone((proto as any).$obj)
-                this.$memory = $memory(proto)
-            }
-            get<K extends keyof T>(key: K): T[K] { return this.$inst[key] }
-            get $$() { return this.$inst }
-        }
-        const handler = {
-            get(targ: any, prop: string | symbol) {
-                switch (prop) {
-                    case '$alignof': return targ.$memory.align
-                    case '$sizeof': return targ.$memory.size
-                    default: return targ.get(prop)
-                }
-            }
-        }
-        return new globalThis.Proxy(new Struct_t(clone(inst)), handler)
+    export function Struct<T extends Record<string, any>>(fields: T): StructProto<T> {
+        return new StructProto(fields);
+    }
+
+    class StructProto<T extends Record<string, any>> {
+        constructor(public $fields: T) { }
     }
 
     // #endregion
@@ -354,20 +339,30 @@ namespace em {
         ? U // For boxed scalars
         : T extends em.ArrayProto<infer Proto>
         ? ArrayVal<Unbox<Proto>> // Array case
+        : T extends StructProto<infer Fields>
+        ? { [K in keyof Fields]: Unbox<Fields[K]> }
         : never;
 
-    function instantiate<T extends Object>(proto: T): Unbox<T> {
+    export function instantiate<T extends Object>(proto: T): Unbox<T> {
+        if ('$$' in proto) {  // Boxed scalar case
+            return (proto as { $$: any }).$$ as Unbox<T>;
+        }
         if (proto instanceof em.ArrayProto) {  // Array case
             const len = (proto as { $len: number }).$len;
             const elementProto = (proto as { $base: any }).$base
             const defaultVal = instantiate(elementProto);
             return new ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
-        } else if ('$$' in proto) {  // Boxed scalar case
-            return (proto as { $$: any }).$$ as Unbox<T>;
-        } else {
-            throw new Error('Unsupported proto type.');
         }
+        if (proto instanceof StructProto) {
+            const obj: any = {};
+            for (const key in proto.$fields) {
+                obj[key] = instantiate(proto.$fields[key]);
+            }
+            return obj as Unbox<T>;
+        }
+        throw new Error('Unsupported proto type.');
     }
+
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
             return obj
