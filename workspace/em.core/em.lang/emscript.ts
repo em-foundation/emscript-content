@@ -17,8 +17,35 @@ namespace em {
         get sizeof() { return memoryof(this).size }
     }
 
-    export function Array(proto: Object, len: number): em$Array {
-        return new em$Array(proto, len)
+    export function Array<T>(proto: T, len: number) {
+        return {
+            $proto: proto,
+            $len: len,
+        } as const;
+    }    
+
+    export class ArrayVal<T> {
+        public readonly $len: number;
+        private elements: globalThis.Array<T>;
+
+        constructor(len: number, defaultValue: T) {
+            this.$len = len;
+            this.elements = globalThis.Array.from({ length: len }, () => defaultValue);
+        }
+
+        get(index: number): T {
+            if (index < 0 || index >= this.$len) {
+                throw new RangeError(`Index ${index} out of bounds for ArrayVal of length ${this.$len}`);
+            }
+            return this.elements[index];
+        }
+
+        set(index: number, value: T): void {
+            if (index < 0 || index >= this.$len) {
+                throw new RangeError(`Index ${index} out of bounds for ArrayVal of length ${this.$len}`);
+            }
+            this.elements[index] = value;
+        }
     }
 
     class em$block_t<T extends Object> {
@@ -159,7 +186,7 @@ namespace em {
     export type i8 = number & { __i8?: never }
     export type i16 = number & { __i16?: never }
     export type i32 = number & { __i32?: never }
-    export type u8 = number & { __u8?: never }
+    export type u8 = number // & { __u8?: never }
     export type u16 = number & { __u16?: never }
     export type u32 = number & { __u32?: never }
 
@@ -359,51 +386,23 @@ namespace em {
     // #region
 
     type Unbox<T> = T extends { $$: infer U }
-        ? U  // Boxed scalar
+        ? U // For boxed scalars
         : T extends { $proto: infer Proto, $len: number }
-        ? Unbox<Proto>[]  // Array of unboxed Proto
-        : T extends Record<string, any>
-        ? InstantiateType<T>  // Nested proto object
+        ? em.ArrayVal<Unbox<Proto>> // Array case
         : never;
 
-    type InstantiateType<P> = {
-        [K in keyof P]: Unbox<P[K]>;
-    };
-
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
-        // Handle Scalar types
-        if ('$$' in proto) {
-            return (proto as { $$: any }).$$;  // Unbox scalar value
-        }
-
-        // Handle Array types
-        if ('$len' in proto && '$proto' in proto) {
+        if ('$len' in proto && '$proto' in proto) {  // Array case
             const len = (proto as { $len: number }).$len;
-            const arrayProto = (proto as { $proto: any }).$proto;
-            const arrayInstance: any[] = [];
-            for (let i = 0; i < len; i++) {
-                arrayInstance.push(instantiate(arrayProto)); // Recursively instantiate array elements
-            }
-            return arrayInstance as Unbox<T>; // Explicit type assertion
+            const elementProto = (proto as { $proto: any }).$proto;
+            const defaultVal = instantiate(elementProto);
+            return new em.ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
+        } else if ('$$' in proto) {  // Boxed scalar case
+            return (proto as { $$: any }).$$ as Unbox<T>;
+        } else {
+            throw new Error('Unsupported proto type.');
         }
-
-        // Handle Struct types
-        const structInstance: any = {};
-        for (const key in proto) {
-            const fieldProto = proto[key];  // Get the field prototype
-    
-            // Explicitly narrow the type of fieldProto
-            if (typeof fieldProto === 'object' && fieldProto !== null) {
-                structInstance[key] = instantiate(fieldProto);  // Recursively instantiate struct fields
-            } else {
-                structInstance[key] = fieldProto;  // Directly assign primitive value
-            }
-        }
-        return structInstance as Unbox<T>;  // Return instantiated struct
     }
-
-
-
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
             return obj
