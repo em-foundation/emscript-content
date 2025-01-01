@@ -7,10 +7,13 @@ export namespace em$meta {
         x: em.I16(),
         y: em.I16()
     })
-    const p = em.instantiate(Pair)
+    console.log(em.sizeof(Pair))
+
+    const p = Pair.make()
     p.x = 10
     p.y = 20
     console.log(p)
+    console.log(em.sizeof(p))
 
     // console.log(Pair)
 

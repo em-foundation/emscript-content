@@ -186,6 +186,7 @@ namespace em {
 
     class StructProto<T extends Record<string, any>> {
         constructor(public $fields: T) { }
+        make() { return instantiate(this) }
     }
 
     // #endregion
@@ -425,6 +426,9 @@ namespace em {
             let mi = memoryof(obj.$base)
             mi.size *= obj.$len
             return mi
+        }
+        if (obj instanceof StructProto) {
+            return memoryof(obj.$fields)
         }
         let res = { size: 0, align: 0 }
         const align = (sz: number, al: number): number => {
