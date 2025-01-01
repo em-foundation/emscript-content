@@ -4,13 +4,13 @@ export const em$_U = em.declare('MODULE')
 export namespace em$meta {
 
     const Vec = em.Array(em.U8(), 4)
-    const vec = em.instantiate(Vec)
+    const vec = Vec.make()
     const Mat = em.Array(Vec, 3)
-    const mat = em.instantiate(Mat)
+    const mat = Mat.make()
 
     // console.log(Vec)
     // console.log(vec)
-    console.log(Mat.$sizeof)
+    console.log(em.sizeof(Mat))
 
     // 
     // 

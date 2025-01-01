@@ -7,16 +7,20 @@ namespace em {
     const __ARRAY__ = null
     // #region
 
-    class em$Array {
-        $arr: Array<any>
-        constructor(readonly $proto: any, readonly $len: number) {
-            this.$arr = new globalThis.Array($len)
-            for (let i = 0; i < $len; i++) this.$arr[i] = $proto
-        }
-        get alignof() { return memoryof(this).align }
-        get sizeof() { return memoryof(this).size }
+    export function Array<T>(proto: T, len: number): ArrayProto<T> {
+        return new ArrayProto(proto, len);
     }
 
+    export class ArrayProto<T> {
+        readonly $base: T;
+        readonly $len: number;
+        constructor(proto: T, len: number) {
+            this.$base = proto;
+            this.$len = len;
+        }
+        make() { return instantiate(this) }
+
+    }
     class ArrayVal<T> {
         $len: number;
         private items: globalThis.Array<T>;
@@ -40,22 +44,6 @@ namespace em {
                 },
             });
         }
-    }
-
-    export class ArrayProto<T> {
-        $base: T;
-        $len: number;
-        constructor(proto: T, len: number) {
-            this.$base = proto;
-            this.$len = len;
-        }
-        get $alignof() { return memoryof(this).align }
-        get $sizeof() { return memoryof(this).size }
-
-    }
-
-    export function Array<T>(proto: T, len: number): ArrayProto<T> {
-        return new ArrayProto(proto, len);
     }
 
 
@@ -402,7 +390,7 @@ namespace em {
         ? ArrayVal<Unbox<Proto>> // Array case
         : never;
 
-    export function instantiate<T extends Object>(proto: T): Unbox<T> {
+    function instantiate<T extends Object>(proto: T): Unbox<T> {
         if (proto instanceof em.ArrayProto) {  // Array case
             const len = (proto as { $len: number }).$len;
             const elementProto = (proto as { $base: any }).$base
@@ -438,25 +426,25 @@ namespace em {
         });
     }
 
-    export function $create(obj: any): any {
-        if (obj === null || typeof obj !== 'object') {
-            return obj
-        }
-        if (obj instanceof em.em$Scalar) {
-            return obj.$$
-        }
-        if (obj instanceof em$Array) {
-            return $create(obj.$arr)
-        }
-        if (globalThis.Array.isArray(obj)) {
-            return obj.map(e => $create(e))
-        }
-        const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
-        for (const key of Object.keys(cobj)) {
-            cobj[key] = $create(cobj[key])
-        }
-        return cobj
-    }
+    // export function $create(obj: any): any {
+    //     if (obj === null || typeof obj !== 'object') {
+    //         return obj
+    //     }
+    //     if (obj instanceof em.em$Scalar) {
+    //         return obj.$$
+    //     }
+    //     if (obj instanceof em$Array) {
+    //         return $create(obj.$arr)
+    //     }
+    //     if (globalThis.Array.isArray(obj)) {
+    //         return obj.map(e => $create(e))
+    //     }
+    //     const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
+    //     for (const key of Object.keys(cobj)) {
+    //         cobj[key] = $create(cobj[key])
+    //     }
+    //     return cobj
+    // }
 
 
     export function* range(min: number, max: number): Iterable<number> {
