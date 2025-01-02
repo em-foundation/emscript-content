@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 
-const s = em.$S`hello world\n`
+const s: em.text_t = em.$T`hello world\n`
 
 export function em$run() {
     // Common.ConsoleUart.$$.put(s.$len)

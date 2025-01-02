@@ -241,11 +241,11 @@ namespace em {
     const __TEXT__ = null
     // #region
 
-    export function $S(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
+    export function $T(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
         return text_t(sa[0])
     }
 
-    export type text_t = em$text_t
+    export type text_t = em$text_t & Indexed<u8>
 
     class em$text_t {
         private str: string
@@ -253,7 +253,7 @@ namespace em {
         private get $$() { return this.str }
         get $len() { return this.str.length }
     }
-    export function text_t(str: string): em$text_t & Indexed<u8> {
+    function text_t(str: string): text_t {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
