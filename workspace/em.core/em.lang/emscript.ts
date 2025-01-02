@@ -44,6 +44,38 @@ namespace em {
                 },
             });
         }
+        [Symbol.iterator](): Iterator<{ $$: T }> {
+            let idx = 0
+            let items = this.items
+            return {
+                next(): IteratorResult<{ $$: T }> {
+                    if (idx < items.length) {
+                        let cur = idx
+                        const boxed = {
+                            get $$() { return items[cur] },
+                            set $$(val: T) { items[cur] = val }
+                        }
+                        idx += 1
+                        return { value: boxed, done: false }
+                    }
+                    else {
+                        return { value: undefined as any, done: true }
+                    }
+                }
+            }
+        }
+        $ptr() { return new em$ArrayPtr<T>(this) }
+    }
+
+    class em$ArrayPtr<T> {
+        private idx: u16 = 0
+        constructor(private arr: em$ArrayVal<T>) { }
+        get $$() { return this.arr[this.idx] }
+        set $$(v: T) { this.arr[this.idx] = v }
+        get $cur() { return this.idx }
+        set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
+        $dec(step: u16 = 1) { this.idx -= step }
+        $inc(step: u16 = 1) { this.idx += step }
     }
 
     // #endregion
