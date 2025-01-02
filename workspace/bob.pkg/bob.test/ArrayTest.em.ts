@@ -9,6 +9,8 @@ export namespace em$meta {
 
 export function em$run() {
     var my_buf = Buf.$make()
-    my_buf[2] = 10
-    em.halt()
+    for (let i = 0; i < my_buf.$len; i++) my_buf[i] = i + 10
+
+    // my_buf[2] = em.$reg32[0xAA]
+    em.$reg32[0xBB] = my_buf[2]
 }
