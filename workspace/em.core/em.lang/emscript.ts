@@ -48,6 +48,18 @@ namespace em {
 
     // #endregion
 
+    const __CHAR__ = null
+    // #region
+    export function char_t(cs: string): u8 {
+        return cs.charCodeAt(1)
+    }
+
+    export function $C(sa: TemplateStringsArray): em.u8 {
+        return sa[0].charCodeAt(0)
+    }
+
+    // #endregion
+
     const __DEBUG__ = null
     // #region
 
@@ -228,6 +240,10 @@ namespace em {
 
     const __TEXT__ = null
     // #region
+
+    export function $S(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
+        return text_t(sa[0])
+    }
 
     export type text_t = em$text_t
 
