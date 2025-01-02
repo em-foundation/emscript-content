@@ -7,21 +7,21 @@ namespace em {
     const __ARRAY__ = null
     // #region
 
-    export function Array<T>(proto: T, len: number): ArrayProto<T> {
-        return new ArrayProto(proto, len);
+    export function Array<T>(proto: T, len: number): em$ArrayProto<T> {
+        return new em$ArrayProto(proto, len);
     }
 
-    export class ArrayProto<T> {
+    class em$ArrayProto<T> {
         readonly $base: T;
         readonly $len: number;
         constructor(proto: T, len: number) {
             this.$base = proto;
             this.$len = len;
         }
-        make() { return instantiate(this) }
+        $make() { return instantiate(this) }
 
     }
-    class ArrayVal<T> {
+    class em$ArrayVal<T> {
         $len: number;
         private items: globalThis.Array<T>;
         [index: number]: T
@@ -156,9 +156,11 @@ namespace em {
     export type u32 = number // & { __u32?: never }
 
     export class em$Scalar<T> {
-        private $val: T
         $memory: MemInfo
-        constructor(val: T, sz: number) {
+        $name: string
+        private $val: T
+        constructor(name: string, val: T, sz: number) {
+            this.$name = name
             this.$val = val
             this.$memory = { size: sz, align: sz }
         }
@@ -167,13 +169,13 @@ namespace em {
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
     }
-    export function Bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar(val, 1) }
-    export function I8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar(val, 1) }
-    export function I16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar(val, 2) }
-    export function I32(val: i32 = 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar(val, 4) }
-    export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar(val, 1) }
-    export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar(val, 2) }
-    export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar(val, 4) }
+    export function Bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar('boot_t', val, 1) }
+    export function I8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar('i8', val, 1) }
+    export function I16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar('i16', val, 2) }
+    export function I32(val: i32 = 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar('i32', val, 4) }
+    export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar('u8', val, 1) }
+    export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar('u16', val, 2) }
+    export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar('u32', val, 4) }
 
     // #endregion
 
@@ -274,6 +276,8 @@ namespace em {
         $: $Reg[]
     }
 
+    export let $reg32: Indexed<u32>
+
     type Indexed<T> = { [index: number]: T }
 
     interface Boxed<T> {
@@ -338,8 +342,8 @@ namespace em {
 
     type Unbox<T> = T extends { $$: infer U }
         ? U // For boxed scalars
-        : T extends em.ArrayProto<infer Proto>
-        ? ArrayVal<Unbox<Proto>> // Array case
+        : T extends em$ArrayProto<infer Proto>
+        ? em$ArrayVal<Unbox<Proto>> // Array case
         : T extends StructProto<infer Fields>
         ? { [K in keyof Fields]: Unbox<Fields[K]> }
         : never;
@@ -348,11 +352,11 @@ namespace em {
         if ('$$' in proto) {  // Boxed scalar case
             return (proto as { $$: any }).$$ as Unbox<T>;
         }
-        if (proto instanceof em.ArrayProto) {  // Array case
+        if (proto instanceof em$ArrayProto) {  // Array case
             const len = (proto as { $len: number }).$len;
             const elementProto = (proto as { $base: any }).$base
             const defaultVal = instantiate(elementProto);
-            return new ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
+            return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
         }
         if (proto instanceof StructProto) {
             const obj: any = {};
@@ -422,7 +426,7 @@ namespace em {
         if (obj instanceof em.em$Scalar) {
             return obj.$memory
         }
-        if (obj instanceof ArrayProto) {
+        if (obj instanceof em$ArrayProto) {
             let mi = memoryof(obj.$base)
             mi.size *= obj.$len
             return mi
