@@ -44,11 +44,11 @@ namespace em {
                 },
             });
         }
-        [Symbol.iterator](): Iterator<{ $$: T }> {
+        [Symbol.iterator](): Iterator<em$BoxedVal<T>> {
             let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<{ $$: T }> {
+                next(): IteratorResult<em$BoxedVal<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         const boxed = {
@@ -56,7 +56,7 @@ namespace em {
                             set $$(val: T) { items[cur] = val }
                         }
                         idx += 1
-                        return { value: boxed, done: false }
+                        return { value: new em$BoxedVal(items[cur]), done: false }
                     }
                     else {
                         return { value: undefined as any, done: true }
@@ -388,6 +388,11 @@ namespace em {
     const __UTILS__ = null
     // #region
 
+    class em$BoxedVal<T> {
+        $$: T
+        constructor(v: T) { this.$$ = v }
+    }
+
     type Unbox<T> = T extends { $$: infer U }
         ? U // For boxed scalars
         : T extends em$ArrayProto<infer Proto>
@@ -439,28 +444,7 @@ namespace em {
             }
         });
     }
-
-    // export function $create(obj: any): any {
-    //     if (obj === null || typeof obj !== 'object') {
-    //         return obj
-    //     }
-    //     if (obj instanceof em.em$Scalar) {
-    //         return obj.$$
-    //     }
-    //     if (obj instanceof em$Array) {
-    //         return $create(obj.$arr)
-    //     }
-    //     if (globalThis.Array.isArray(obj)) {
-    //         return obj.map(e => $create(e))
-    //     }
-    //     const cobj = Object.create(Object.getPrototypeOf(obj), Object.getOwnPropertyDescriptors(obj))
-    //     for (const key of Object.keys(cobj)) {
-    //         cobj[key] = $create(cobj[key])
-    //     }
-    //     return cobj
-    // }
-
-
+ 
     export function* range(min: number, max: number): Iterable<number> {
         for (let i = min; i < max; i++) {
             yield i
