@@ -23,6 +23,11 @@ namespace em {
         constexpr param(T v) : $$(v) {}
     };
 
+    template <typename T> struct ptr_t {
+        T& $$;
+        constexpr ptr_t(T& v) : $$ (v) {}
+    };
+
     template <typename T, u16 N> struct table_ro {
         T $$[N];
         static constexpr u16 $len = N;
