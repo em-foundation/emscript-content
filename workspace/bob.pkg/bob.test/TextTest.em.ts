@@ -3,11 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 
-const s: em.text_t = em.$T`hello world\n`
-
 export function em$run() {
-    // Common.ConsoleUart.$$.put(s.$len)
-    for (let i = 0; i < s.$len; i++) {
-        Common.ConsoleUart.$$.put(s[i])
-    }
+    const s = em.$T`hello world\n`
+    for (let c of s) Common.ConsoleUart.$$.put(c)
 }

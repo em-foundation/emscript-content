@@ -37,12 +37,20 @@ namespace em {
     };
 
     struct Text_t {
-        const char *$$;
-        u16 $len;
-        constexpr Text_t(const char *s, u16 l) : $$(s), $len(l) {}
-        constexpr const char &operator[](u16 idx) const { return $$[idx]; }
+        const char *str;
+        em::u16 $len;
+        constexpr Text_t(const char *s, em::u16 l) : str(s), $len(l) {}
+        const em::u8 operator[](em::u16 index) const { return str[index]; }
+        struct Iterator {
+            const char *current;
+            constexpr Iterator(const char *ptr) : current(ptr) {}
+            em::u8 operator*() const { return static_cast<em::u8>(*current); }
+            Iterator &operator++() { ++current; return *this; }
+            bool operator!=(const Iterator &other) const { return current != other.current; }
+        };
+        constexpr Iterator begin() const { return Iterator(str); }
+        constexpr Iterator end() const { return Iterator(str + $len); }
     };
-
     Text_t text_t(const char *str, u16 len) { return Text_t(str, len); }
 
     template <typename T> using volatile_t = volatile T;

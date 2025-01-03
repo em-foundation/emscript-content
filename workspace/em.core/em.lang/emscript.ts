@@ -284,6 +284,22 @@ namespace em {
         constructor(str: string) { this.str = str }
         private get $$() { return this.str }
         get $len() { return this.str.length }
+        [Symbol.iterator](): Iterator<u8> {
+            let idx = 0
+            let str = this.str
+            return {
+                next(): IteratorResult<u8> {
+                    if (idx < str.length) {
+                        let cur = idx
+                        idx += 1
+                        return { value: str.charCodeAt(cur), done: false }
+                    }
+                    else {
+                        return { value: undefined as any, done: true }
+                    }
+                }
+            }
+        }
     }
     function text_t(str: string): text_t {
         const handler = {
