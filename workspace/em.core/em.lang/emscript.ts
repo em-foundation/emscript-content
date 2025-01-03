@@ -274,7 +274,7 @@ namespace em {
     // #region
 
     export function $T(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
-        return text_t(sa[0])
+        return text(sa[0])
     }
 
     export type text_t = em$text_t & Indexed<u8>
@@ -301,7 +301,7 @@ namespace em {
             }
         }
     }
-    function text_t(str: string): text_t {
+    function text(str: string): text_t {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)

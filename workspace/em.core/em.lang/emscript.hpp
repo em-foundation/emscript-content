@@ -36,10 +36,10 @@ namespace em {
         inline const T &operator[](u16 index) const { return $$[index]; }
     };
 
-    struct Text_t {
+    struct text_t {
         const char *str;
         em::u16 $len;
-        constexpr Text_t(const char *s, em::u16 l) : str(s), $len(l) {}
+        constexpr text_t(const char *s, em::u16 l) : str(s), $len(l) {}
         const em::u8 operator[](em::u16 index) const { return str[index]; }
         struct Iterator {
             const char *current;
@@ -51,7 +51,7 @@ namespace em {
         constexpr Iterator begin() const { return Iterator(str); }
         constexpr Iterator end() const { return Iterator(str + $len); }
     };
-    Text_t text_t(const char *str, u16 len) { return Text_t(str, len); }
+    text_t text(const char *str, u16 len) { return text_t(str, len); }
 
     template <typename T> using volatile_t = volatile T;
 
