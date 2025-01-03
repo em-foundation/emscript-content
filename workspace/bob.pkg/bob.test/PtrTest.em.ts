@@ -16,8 +16,8 @@ var buf = Buf.$make()
 // }
 
 export function em$run() {
-    let ptr = buf.$ptr()
-    em.$reg32[0xAA] = ptr.$$
-    ptr.$inc()
+    // let ptr = buf.$ptr()
+    // em.$reg32[0xAA] = ptr.$$
+    // ptr.$inc()
 
 }
