@@ -24,8 +24,12 @@ namespace em {
     };
 
     template <typename T> struct ptr_t {
-        T& $$;
-        constexpr ptr_t(T& v) : $$ (v) {}
+        T* p_;
+        constexpr ptr_t(T* v) : p_ (v) {}
+        T& operator*() const { return *p_; }
+        u32 $cur() const { return (u32)(p_); }
+        void $dec() { p_ -= 1; }
+        void $inc() { p_ += 1; }
     };
 
     template <typename T, u16 N> struct table_ro {

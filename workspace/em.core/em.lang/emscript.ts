@@ -72,8 +72,9 @@ namespace em {
         constructor(private arr: em$ArrayVal<T>) { }
         get $$() { return this.arr[this.idx] }
         set $$(v: T) { this.arr[this.idx] = v }
-        get $cur() { return this.idx }
-        set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
+        // get $cur() { return this.idx }
+        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
+        $cur() { return this.idx }
         $dec(step: u16 = 1) { this.idx -= step }
         $inc(step: u16 = 1) { this.idx += step }
     }
