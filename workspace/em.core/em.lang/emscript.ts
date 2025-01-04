@@ -64,7 +64,7 @@ namespace em {
                 }
             }
         }
-        $ptr() { return new em$ptr<T>(this) }
+        $ptr() { return new em$ptr<T>(this.items) }
     }
 
     // #endregion
@@ -217,7 +217,7 @@ namespace em {
 
     class em$ptr<T> implements ptr_t<T> {
         private idx: u16 = 0
-        constructor(private arr: em$ArrayVal<T>) { }
+        constructor(private arr: T[]) { }
         get $$() { return this.arr[this.idx] }
         set $$(v: T) { this.arr[this.idx] = v }
         // get $cur() { return this.idx }
@@ -225,8 +225,9 @@ namespace em {
         $cur() { return this.idx }
         $dec(step: u16 = 1) { this.idx -= step }
         $inc(step: u16 = 1) { this.idx += step }
-}
+    }
 
+    class em$slice<T> {}
 
     // #endregion
 
