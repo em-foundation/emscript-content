@@ -64,19 +64,7 @@ namespace em {
                 }
             }
         }
-        $ptr() { return new em$ArrayPtr<T>(this) }
-    }
-
-    class em$ArrayPtr<T> {
-        private idx: u16 = 0
-        constructor(private arr: em$ArrayVal<T>) { }
-        get $$() { return this.arr[this.idx] }
-        set $$(v: T) { this.arr[this.idx] = v }
-        // get $cur() { return this.idx }
-        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
-        $cur() { return this.idx }
-        $dec(step: u16 = 1) { this.idx -= step }
-        $inc(step: u16 = 1) { this.idx += step }
+        $ptr() { return new em$ptr<T>(this) }
     }
 
     // #endregion
@@ -224,6 +212,24 @@ namespace em {
 
     // #endregion
 
+    const __SLICE__ = null
+    // #region
+
+    class em$ptr<T> implements ptr_t<T> {
+        private idx: u16 = 0
+        constructor(private arr: em$ArrayVal<T>) { }
+        get $$() { return this.arr[this.idx] }
+        set $$(v: T) { this.arr[this.idx] = v }
+        // get $cur() { return this.idx }
+        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
+        $cur() { return this.idx }
+        $dec(step: u16 = 1) { this.idx -= step }
+        $inc(step: u16 = 1) { this.idx += step }
+}
+
+
+    // #endregion
+
     const __STRUCT__ = null
     // #region
 
@@ -320,8 +326,11 @@ namespace em {
     const __TRAITS__ = null
     // #region
 
-    export class ptr<T> {
-        $: T | null = null
+    export interface ptr_t<T> {
+        $$: T
+        $cur(): u32
+        $dec(step: u16): void
+        $inc(step: u16): void
     }
 
     export function $Ref<T>(): _Ref<T> {
