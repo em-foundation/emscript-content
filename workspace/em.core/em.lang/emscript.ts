@@ -64,6 +64,7 @@ namespace em {
                 }
             }
         }
+        $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.items, 0, beg, len) }
         $ptr() { return new em$ptr<T>(this.items) }
     }
 
@@ -105,6 +106,77 @@ namespace em {
         '%%d+': null as null,
         '%%d-': null as null,
         '%%d:': (val: u8) => null as null,
+    }
+
+    // #endregion
+
+    const __FRAME__ = null
+    // #region
+
+    class em$ptr<T> implements ptr_t<T> {
+        constructor(private arr: T[], private idx: u16 = 0) { }
+        get $$() { return this.arr[this.idx] }
+        set $$(v: T) { this.arr[this.idx] = v }
+        // get $cur() { return this.idx }
+        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
+        $cur() { return this.idx }
+        $dec(step: u16 = 1) { this.idx -= step }
+        $inc(step: u16 = 1) { this.idx += step }
+    }
+
+    class em$frame<T> {
+        private items: T[]
+        $start: u16
+        $len: number
+        [index: number]: T
+        constructor(arr: T[], start: u16, len: u16 = 0) {
+            this.items = arr
+            this.$start = start
+            this.$len = len
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        return target.items[start + Number(prop)];
+                    }
+                    return (target as any)[prop];
+                },
+                set(target, prop, value) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        target.items[start + Number(prop)] = value;
+                        return true;
+                    }
+                    return false;
+                },
+            })
+        }
+        [Symbol.iterator](): Iterator<em$BoxedVal<T>> {
+            let idx = this.$start
+            let end = idx + this.$len
+            let items = this.items
+            return {
+                next(): IteratorResult<em$BoxedVal<T>> {
+                    if (idx < end) {
+                        let cur = idx
+                        const boxed = {
+                            get $$() { return items[cur] },
+                            set $$(val: T) { items[cur] = val }
+                        }
+                        idx += 1
+                        return { value: new em$BoxedVal(items[cur]), done: false }
+                    }
+                    else {
+                        return { value: undefined as any, done: true }
+                    }
+                }
+            }
+        }
+        $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.items, this.$start, beg, len) }
+    }
+
+    function frame$create<T>(arr: T[], start: u16, beg: i16, len: u16): em$frame<T> {
+        start = (beg < 0) ? arr.length + beg : start + beg
+        len = (len == 0) ? arr.length - start : len
+        return new em$frame<T>(arr, start, len)
     }
 
     // #endregion
@@ -209,25 +281,6 @@ namespace em {
     export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar('u8', val, 1) }
     export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar('u16', val, 2) }
     export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar('u32', val, 4) }
-
-    // #endregion
-
-    const __SLICE__ = null
-    // #region
-
-    class em$ptr<T> implements ptr_t<T> {
-        private idx: u16 = 0
-        constructor(private arr: T[]) { }
-        get $$() { return this.arr[this.idx] }
-        set $$(v: T) { this.arr[this.idx] = v }
-        // get $cur() { return this.idx }
-        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
-        $cur() { return this.idx }
-        $dec(step: u16 = 1) { this.idx -= step }
-        $inc(step: u16 = 1) { this.idx += step }
-    }
-
-    class em$slice<T> {}
 
     // #endregion
 
@@ -471,7 +524,7 @@ namespace em {
             }
         });
     }
- 
+
     export function* range(min: number, max: number): Iterable<number> {
         for (let i = min; i < max; i++) {
             yield i
