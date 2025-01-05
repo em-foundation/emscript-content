@@ -44,7 +44,7 @@ namespace em {
                 },
             });
         }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
+        [Symbol.iterator](): Iterator<ref_t<T>> {   // TODO combine with FRAME
             let idx = 0
             let items = this.items
             return {
@@ -143,7 +143,7 @@ namespace em {
                 },
             })
         }
-        [Symbol.iterator](): Iterator<em$ptr<T>> {
+        [Symbol.iterator](): Iterator<em$ptr<T>> {  // TODO combine with ARRAY
             let idx = this.$start
             let items = this.items
             return {
