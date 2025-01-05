@@ -44,11 +44,11 @@ namespace em {
                 },
             });
         }
-        [Symbol.iterator](): Iterator<em$BoxedVal<T>> {
+        [Symbol.iterator](): Iterator<em$ptr<T>> {
             let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<em$BoxedVal<T>> {
+                next(): IteratorResult<em$ptr<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         const boxed = {
@@ -56,7 +56,7 @@ namespace em {
                             set $$(val: T) { items[cur] = val }
                         }
                         idx += 1
-                        return { value: new em$BoxedVal(items[cur]), done: false }
+                        return { value: new em$ptr<T>(items, cur), done: false }
                     }
                     else {
                         return { value: undefined as any, done: true }
