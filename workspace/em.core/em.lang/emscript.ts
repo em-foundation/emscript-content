@@ -144,7 +144,7 @@ namespace em {
             })
         }
         [Symbol.iterator](): Iterator<em$ptr<T>> {
-            let idx = 0
+            let idx = this.$start
             let items = this.items
             return {
                 next(): IteratorResult<em$ptr<T>> {
