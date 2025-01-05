@@ -18,6 +18,19 @@ namespace em {
 
     using bool_t = bool;
 
+    template <typename T> struct frame_t {
+        static frame_t<T> create(T arr[], u16 dim, i16 beg, u16 len) {
+            auto idx = (u16)((beg < 0) ? dim + beg : beg);
+            len = (len == 0) ? dim - idx : len;
+            return frame_t(&arr[idx], len);
+        }
+        T* $start;
+        u16 $len;
+        constexpr frame_t(T* start, u16 len) : $start (start), $len (len) {}
+        T &operator[](u16 index) { return *($start + index); }
+        const T &operator[](u16 index) const { return *($start + index); }
+    };
+
     template <typename T> struct param {
         T $$;
         constexpr param(T v) : $$(v) {}
