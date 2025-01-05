@@ -44,17 +44,13 @@ namespace em {
                 },
             });
         }
-        [Symbol.iterator](): Iterator<em$ptr<T>> {
+        [Symbol.iterator](): Iterator<ref_t<T>> {
             let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<em$ptr<T>> {
+                next(): IteratorResult<ref_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
-                        const boxed = {
-                            get $$() { return items[cur] },
-                            set $$(val: T) { items[cur] = val }
-                        }
                         idx += 1
                         return { value: new em$ptr<T>(items, cur), done: false }
                     }
@@ -117,8 +113,6 @@ namespace em {
         constructor(private arr: T[], private idx: u16 = 0) { }
         get $$() { return this.arr[this.idx] }
         set $$(v: T) { this.arr[this.idx] = v }
-        // get $cur() { return this.idx }
-        // set $cur(pos: i16) { this.idx = (pos < 0) ? this.arr.$len + pos : pos }
         $cur() { return this.idx }
         $dec(step: u16 = 1) { this.idx -= step }
         $inc(step: u16 = 1) { this.idx += step }
@@ -149,20 +143,15 @@ namespace em {
                 },
             })
         }
-        [Symbol.iterator](): Iterator<em$BoxedVal<T>> {
-            let idx = this.$start
-            let end = idx + this.$len
+        [Symbol.iterator](): Iterator<em$ptr<T>> {
+            let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<em$BoxedVal<T>> {
-                    if (idx < end) {
+                next(): IteratorResult<em$ptr<T>> {
+                    if (idx < items.length) {
                         let cur = idx
-                        const boxed = {
-                            get $$() { return items[cur] },
-                            set $$(val: T) { items[cur] = val }
-                        }
                         idx += 1
-                        return { value: new em$BoxedVal(items[cur]), done: false }
+                        return { value: new em$ptr<T>(items, cur), done: false }
                     }
                     else {
                         return { value: undefined as any, done: true }
@@ -380,8 +369,11 @@ namespace em {
     const __TRAITS__ = null
     // #region
 
-    export interface ptr_t<T> {
+    export interface ref_t<T> {
         $$: T
+    }
+
+    export interface ptr_t<T> extends ref_t<T> {
         $cur(): u32
         $dec(step: u16): void
         $inc(step: u16): void
