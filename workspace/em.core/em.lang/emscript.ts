@@ -21,7 +21,7 @@ namespace em {
         $make() { return instantiate(this) }
 
     }
-    class em$ArrayVal<T> {
+    class em$ArrayVal<T> implements frame_t<T>{
         $len: number;
         private items: globalThis.Array<T>;
         [index: number]: T
@@ -118,7 +118,7 @@ namespace em {
         $inc(step: u16 = 1) { this.idx += step }
     }
 
-    class em$frame<T> {
+    class em$frame<T> implements frame_t<T> {
         private items: T[]
         $start: u16
         $len: number
@@ -143,11 +143,11 @@ namespace em {
                 },
             })
         }
-        [Symbol.iterator](): Iterator<em$ptr<T>> {  // TODO combine with ARRAY
+        [Symbol.iterator](): Iterator<ref_t<T>> {  // TODO combine with ARRAY
             let idx = this.$start
             let items = this.items
             return {
-                next(): IteratorResult<em$ptr<T>> {
+                next(): IteratorResult<ref_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         idx += 1
@@ -159,10 +159,10 @@ namespace em {
                 }
             }
         }
-        $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.items, this.$start, beg, len) }
+        $frame(beg: i16, len: u16 = 0): frame_t<T> { return frame$create<T>(this.items, this.$start, beg, len) }
     }
 
-    function frame$create<T>(arr: T[], start: u16, beg: i16, len: u16): em$frame<T> {
+    function frame$create<T>(arr: T[], start: u16, beg: i16, len: u16): frame_t<T> {
         start = (beg < 0) ? arr.length + beg : start + beg
         len = (len == 0) ? arr.length - start : len
         return new em$frame<T>(arr, start, len)
@@ -368,6 +368,12 @@ namespace em {
 
     const __TRAITS__ = null
     // #region
+
+    export interface frame_t<T> extends Indexed<T> {
+        $len: u16
+        $frame(beg: i16, len: u16): frame_t<T>
+        [Symbol.iterator](): Iterator<ref_t<T>>
+    }
 
     export interface ref_t<T> {
         $$: T
