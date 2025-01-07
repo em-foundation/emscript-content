@@ -9,14 +9,14 @@ export namespace em$meta {
     let num_buf = NumBuf.$make()
     let OUT = new Array<number>
 
-    function addOut(buf: em.ArrayLike<em.u8>) {
+    function addOut(buf: em.ArrayLike<u8>) {
         for (let i = 0; i < buf.$len; i++) OUT.push(buf[i])
     }
 
-    function c2d(ch: em.u8): em.u8 { return ch - em.$C`0` }
+    function c2d(ch: u8): u8 { return ch - c$`0` }
 
-    function formatNum(buf: em.frame_t<em.u8>, num: em.u32, base: em.u8, width: em.i8, pad: em.u8): em.frame_t<em.u8> {
-        let HEXDIGS = em.$T`0123456789ABCDEF`
+    function formatNum(buf: em.frame_t<u8>, num: u32, base: u8, width: i8, pad: u8): em.frame_t<u8> {
+        let HEXDIGS = t$`0123456789ABCDEF`
         let idx = buf.$len
         for (; ;) {
             width -= 1
@@ -33,8 +33,8 @@ export namespace em$meta {
         return buf.$frame(idx, 0)
     }
 
-    function isDigit(ch: em.u8): em.bool_t {
-        return ch >= em.$C`0` && ch <= em.$C`9`
+    function isDigit(ch: u8): bool_t {
+        return ch >= c$`0` && ch <= c$`9`
     }
 
     function print(fmt: em.text_t, a1: any = 0, a2: any = 0) {
@@ -45,14 +45,14 @@ export namespace em$meta {
         let idx = 0
         while (idx < fmt.$len) {
             let width = 0
-            let pad = em.$C` `
+            let pad = c$` `
             let ch = fmt[idx++]
-            if (ch != em.$C`%`) {
+            if (ch != c$`%`) {
                 OUT.push(ch)
                 continue
             }
             ch = fmt[idx++]
-            if (ch == em.$C`0`) {
+            if (ch == c$`0`) {
                 pad = ch
                 ch = fmt[idx++]
             }
@@ -60,27 +60,27 @@ export namespace em$meta {
                 width = width * 10 + c2d(ch)
                 ch = fmt[idx++]
             }
-            if (ch == em.$C`d`) {
-                let dn = argp.$$ as em.i32
+            if (ch == c$`d`) {
+                let dn = argp.$$ as i32
                 argp.$inc()
                 if (dn < 0) {
-                    OUT.push(em.$C`-`)
+                    OUT.push(c$`-`)
                     dn = -dn
                 }
-                let nb = formatNum(num_buf, dn as em.u32, 10, width, pad)
+                let nb = formatNum(num_buf, dn as u32, 10, width, pad)
                 addOut(nb)
             }
-            else if (ch == em.$C`x`) {
+            else if (ch == c$`x`) {
                 let xn = argp.$$ as em.u32
                 argp.$inc()
                 let nb = formatNum(num_buf, xn, 16, width, pad)
                 addOut(nb)
             }
-            else if (ch == em.$C`c`) {
+            else if (ch == c$`c`) {
                 let cn = argp.$$
                 OUT.push(cn)
             }
-            else if (ch == em.$C`s`) {
+            else if (ch == c$`s`) {
                 let sb = argp.$$ as unknown as em.text_t
                 argp.$inc()
                 addOut(sb)
@@ -90,69 +90,10 @@ export namespace em$meta {
             }
         }
     }
-
-
-    // function toStr(buf: em.frame_t<em.u8>): string {
-    //     let res = ''
-    //     for (let c of nb) res += String.fromCodePoint(c.$$)
-    //     return res
-    // }
-
     // print(em.$T`hello world\n`)
     //print(em.$T`x = 0x%x;`, 10)
     //print(em.$T`c = '%c'`, em.$C`X`)
-    print(em.$T`hello %s!!\n`, em.$T`esther`)
+    print(t$`hello %s!!\n`, t$`esther`)
 
     console.log(String.fromCharCode(...OUT))
 }
-
-/*
-def print(fmt, a1, a2, a3, a4, a5, a6)
-    var ch: char
-    var buf: char[OUTMAX]
-    var args: iarg_t[6]
-    var argp: iarg_t* = &args[0]
-    args[0] = a1
-    args[1] = a2
-    args[2] = a3
-    args[3] = a4
-    args[4] = a5
-    args[5] = a6
-    while (ch = *fmt++) != 0
-        auto pad = ' '
-        auto len = 
-        if (ch != '%') 
-            Console.wrC(ch)
-            continue
-        end
-        ch = *fmt++
-        if ch == '0'
-            pad = '0'
-            ch = *fmt++
-            end
-        while isDigit(ch)
-            len = (len * 10) + c2d(ch)
-            ch = *fmt++
-            end
-        var out: char*
-        if ch == 'd'
-            var dn: int32 = <int32> *argp++
-            if dn < 0
-                Console.wrC('-')
-                dn = -dn
-            end
-            out = formatNum(&buf[OUTMAX], <uint32> dn, 10, pad, len)
-        elif ch == 'x' 
-            var xn: uint32 = <uint32> *argp++
-            out = formatNum(&buf[OUTMAX], xn, 16, pad, len)
-        elif ch == 's'
-            out = <char*> *argp++
-        else
-            Console.wrC(ch == 'c' ? <char> *argp++ : ch)
-            continue
-        end
-        puts(<string>out)
-    end
-end
-
-*/

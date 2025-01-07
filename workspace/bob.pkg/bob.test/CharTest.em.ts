@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-const c = em.$C`a`
+const c = c$`a`
 
 export namespace em$meta {
     console.log(c)

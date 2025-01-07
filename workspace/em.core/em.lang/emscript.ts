@@ -72,7 +72,7 @@ namespace em {
         return cs.charCodeAt(1)
     }
 
-    export function $C(sa: TemplateStringsArray): em.u8 {
+    export function c$(sa: TemplateStringsArray): em.u8 {
         return sa[0].charCodeAt(0)
     }
 
@@ -323,7 +323,7 @@ namespace em {
     const __TEXT__ = null
     // #region
 
-    export function $T(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
+    export function t$(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
         return text(sa[0])
     }
 
@@ -662,5 +662,22 @@ namespace em {
 
     // #endregion
 }
+
+declare global {
+    type bool_t = em.bool_t
+    type i8 = em.i8
+    type i16 = em.i16
+    type i32 = em.i32
+    type u8 = em.u8
+    type u16 = em.u8
+    type u32 = em.u32
+    const c$: typeof em.c$
+    const t$: typeof em.t$
+}
+
+Object.assign(globalThis, {
+    c$: em.c$,
+    t$: em.t$,
+})
 
 export default em
