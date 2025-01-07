@@ -9,8 +9,8 @@ export namespace em$meta {
     let num_buf = NumBuf.$make()
     let OUT = new Array<number>
 
-    function addOut(buf: em.frame_t<em.u8>) {
-        for (let c of buf) OUT.push(c.$$)
+    function addOut(buf: em.ArrayLike<em.u8>) {
+        for (let i = 0; i < buf.$len; i++) OUT.push(buf[i])
     }
 
     function c2d(ch: em.u8): em.u8 { return ch - em.$C`0` }
@@ -76,6 +76,15 @@ export namespace em$meta {
                 let nb = formatNum(num_buf, xn, 16, width, pad)
                 addOut(nb)
             }
+            else if (ch == em.$C`c`) {
+                let cn = argp.$$
+                OUT.push(cn)
+            }
+            else if (ch == em.$C`s`) {
+                let sb = argp.$$ as unknown as em.text_t
+                argp.$inc()
+                addOut(sb)
+            }
             else {
                 OUT.push(ch)
             }
@@ -90,7 +99,10 @@ export namespace em$meta {
     // }
 
     // print(em.$T`hello world\n`)
-    print(em.$T`x = 0x%x;`, 10)
+    //print(em.$T`x = 0x%x;`, 10)
+    //print(em.$T`c = '%c'`, em.$C`X`)
+    print(em.$T`hello %s!!\n`, em.$T`esther`)
+
     console.log(String.fromCharCode(...OUT))
 }
 
@@ -108,7 +120,7 @@ def print(fmt, a1, a2, a3, a4, a5, a6)
     args[5] = a6
     while (ch = *fmt++) != 0
         auto pad = ' '
-        auto len = 0
+        auto len = 
         if (ch != '%') 
             Console.wrC(ch)
             continue

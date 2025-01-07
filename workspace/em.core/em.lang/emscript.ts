@@ -404,7 +404,9 @@ namespace em {
 
     export let $reg32: Indexed<u32>
 
-    type Indexed<T> = { [index: number]: T }
+    export type ArrayLike<T> = Indexed<T> & { $len: u16 }
+    
+    export type Indexed<T> = { [index: number]: T }
 
     interface Boxed<T> {
         $$: T
