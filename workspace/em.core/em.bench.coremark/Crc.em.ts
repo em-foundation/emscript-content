@@ -46,7 +46,7 @@ end
 
 */
 
-function update(data: em.u8, crc: sum_t): sum_t {
+function update(data: u8, crc: sum_t): sum_t {
     let x16 = 0
     let carry = 0
     for (let i = 0; i < 8; i++) {

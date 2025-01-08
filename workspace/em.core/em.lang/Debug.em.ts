@@ -13,7 +13,7 @@ function delay() {
     Common.BusyWait.$$.wait(1)
 }
 
-export function mark(id: em.u8, val: em.u8) {
+export function mark(id: u8, val: u8) {
     for (; ;) {
         pulse(id)
         if (val == 0) break
@@ -21,7 +21,7 @@ export function mark(id: em.u8, val: em.u8) {
     }
 }
 
-export function minus(id: em.u8) {
+export function minus(id: u8) {
     switch (id) {
         case 0:
             DbgA.$$.set()
@@ -38,7 +38,7 @@ export function minus(id: em.u8) {
     }
 }
 
-export function plus(id: em.u8) {
+export function plus(id: u8) {
     switch (id) {
         case 0:
             DbgA.$$.clear()
@@ -55,7 +55,7 @@ export function plus(id: em.u8) {
     }
 }
 
-export function pulse(id: em.u8) {
+export function pulse(id: u8) {
     plus(id)
     delay()
     minus(id)

@@ -30,7 +30,7 @@ namespace em$targ {
     export function flush(): void {
     }
 
-    export function put(data: em.u8): void {
+    export function put(data: u8): void {
         const bit_cnt = 10
         const bit_time = 8
         var tx_byte: em.u16 = (data << 1) | 0x600

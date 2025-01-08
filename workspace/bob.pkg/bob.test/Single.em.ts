@@ -5,7 +5,7 @@ namespace em$meta {
     export function em$init() {
         console.log('initM', foo(10))
     }
-    function foo(x: Readonly<em.u8>): em.u8 {
+    function foo(x: Readonly<u8>): u8 {
         x += 10
         return x
     }

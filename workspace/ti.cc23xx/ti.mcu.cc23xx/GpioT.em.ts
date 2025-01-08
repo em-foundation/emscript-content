@@ -17,7 +17,7 @@ export namespace em$template {
         em$_R.GPIO.DOUTCLR31_0.$$ = mask
     }
 
-    export function functionSelect(select: em.u8): void {
+    export function functionSelect(select: u8): void {
         em$_R.IOC.IOC0.$[pn].$$ = select
     }
 
