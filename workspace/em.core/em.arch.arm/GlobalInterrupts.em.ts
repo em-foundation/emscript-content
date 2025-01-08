@@ -11,7 +11,7 @@ export function enable() {
     return
 }
 
-export function isEnabled(): em.bool_t {
+export function isEnabled(): bool_t {
     return false
 }
 

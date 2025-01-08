@@ -6,6 +6,6 @@ export type Key = u32
 export interface em$_I {
     disable(): Key
     enable(): void
-    isEnabled(): em.bool_t
+    isEnabled(): bool_t
     restore(key: Key): void
 }
