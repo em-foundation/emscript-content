@@ -34,7 +34,7 @@ export function em$run() {
         ptr.$inc()
     }
 
-    // let a = 0 as em.u32
+    // let a = 0 as u32
     // 'a = (em::u32)&buf[0]'
     // em.$['%%a']
     // Console.wrU32(a)

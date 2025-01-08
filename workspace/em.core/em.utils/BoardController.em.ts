@@ -39,7 +39,7 @@ export function em$halt(): void {
     Led.$$.on()
 }
 
-function blink(times: em.u8, usecs: em.u32): void {
+function blink(times: em.u8, usecs: u32): void {
     for (let i = 0; i < times * 2; i++) {
         Led.$$.toggle()
         Common.BusyWait.$$.wait(usecs)

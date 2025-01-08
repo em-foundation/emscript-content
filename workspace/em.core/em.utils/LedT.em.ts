@@ -30,7 +30,7 @@ export namespace em$template {
         Pin.$$.toggle()
     }
 
-    export function wink(msecs: em.u32): void {
+    export function wink(msecs: u32): void {
         on()
         Poller.pause(msecs)
         off()

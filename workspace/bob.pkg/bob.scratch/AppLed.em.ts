@@ -24,7 +24,7 @@ export function toggle(): void {
     Pin.$$.toggle()
 }
 
-export function wink(msecs: em.u32): void {
+export function wink(msecs: u32): void {
     on()
     BusyWait.wait(msecs * 1000)
     off()

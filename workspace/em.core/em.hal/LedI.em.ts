@@ -5,5 +5,5 @@ export interface em$_I {
     off(): void
     on(): void
     toggle(): void
-    wink(msecs: em.u32): void
+    wink(msecs: u32): void
 }

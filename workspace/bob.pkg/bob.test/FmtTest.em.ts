@@ -71,7 +71,7 @@ export namespace em$meta {
                 addOut(nb)
             }
             else if (ch == c$`x`) {
-                let xn = argp.$$ as em.u32
+                let xn = argp.$$ as u32
                 argp.$inc()
                 let nb = formatNum(num_buf, xn, 16, width, pad)
                 addOut(nb)

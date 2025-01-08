@@ -20,7 +20,7 @@ export function wrU8(data: em.u8) {
     putb(data)
 }
 
-export function wrU32(data: em.u32) {
+export function wrU32(data: u32) {
     putb(0x84)
     let b = ((data >> 24) & 0xFF) as em.u8
     putb(b)
