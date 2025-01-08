@@ -5,7 +5,7 @@ import * as Utils from '@em.bench.coremark/Utils.em'
 
 export type sum_t = Utils.sum_t
 
-export function add16(val: em.i16, crc: sum_t): sum_t {
+export function add16(val: i16, crc: sum_t): sum_t {
     const v = val
     crc = update(v, crc)
     crc = update((v >> 8), crc)

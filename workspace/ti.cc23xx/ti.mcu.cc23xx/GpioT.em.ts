@@ -8,7 +8,7 @@ export namespace em$template {
 
     export const em$_U = em.declare('MODULE')
 
-    export const pin_num = em.param<em.i16>(-1)
+    export const pin_num = em.param<i16>(-1)
 
     const pn = pin_num.$$
     const mask = 1 << pn
