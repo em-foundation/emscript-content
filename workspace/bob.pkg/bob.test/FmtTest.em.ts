@@ -37,7 +37,7 @@ export namespace em$meta {
         return ch >= c$`0` && ch <= c$`9`
     }
 
-    function print(fmt: em.text_t, a1: any = 0, a2: any = 0) {
+    function print(fmt: text_t, a1: any = 0, a2: any = 0) {
         let args = Args.$make()
         args[0] = a1
         args[1] = a2
@@ -81,7 +81,7 @@ export namespace em$meta {
                 OUT.push(cn)
             }
             else if (ch == c$`s`) {
-                let sb = argp.$$ as unknown as em.text_t
+                let sb = argp.$$ as unknown as text_t
                 argp.$inc()
                 addOut(sb)
             }

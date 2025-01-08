@@ -7,7 +7,7 @@ export function putb(b: u8) {
     Common.ConsoleUart.$$.put(b)
 }
 
-export function puts(s: em.text_t) {
+export function puts(s: text_t) {
     for (let c of s) putb(c)
 }
 

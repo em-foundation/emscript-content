@@ -672,6 +672,7 @@ declare global {
     type u8 = em.u8
     type u16 = em.u8
     type u32 = em.u32
+    type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
     const c$: typeof em.c$
     const t$: typeof em.t$
