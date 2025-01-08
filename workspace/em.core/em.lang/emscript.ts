@@ -61,7 +61,7 @@ namespace em {
             }
         }
         $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.items, 0, beg, len) }
-        $ptr() { return new em$ptr<T>(this.items) }
+        $ptr(): ptr_t<T> { return new em$ptr<T>(this.items) }
     }
 
     // #endregion
@@ -114,8 +114,8 @@ namespace em {
         get $$() { return this.arr[this.idx] }
         set $$(v: T) { this.arr[this.idx] = v }
         $cur() { return this.idx }
-        $dec(step: u16 = 1) { this.idx -= step }
-        $inc(step: u16 = 1) { this.idx += step }
+        $dec() { this.idx -= 1 }
+        $inc() { this.idx += 1 }
     }
 
     class em$frame<T> implements frame_t<T> {
@@ -381,8 +381,8 @@ namespace em {
 
     export interface ptr_t<T> extends ref_t<T> {
         $cur(): u32
-        $dec(step: u16): void
-        $inc(step: u16): void
+        $dec(): void
+        $inc(): void
     }
 
     export function $Ref<T>(): _Ref<T> {
@@ -668,6 +668,7 @@ declare global {
     type i8 = em.i8
     type i16 = em.i16
     type i32 = em.i32
+    type ptr_t<T> = em.ptr_t<T>
     type u8 = em.u8
     type u16 = em.u8
     type u32 = em.u32
