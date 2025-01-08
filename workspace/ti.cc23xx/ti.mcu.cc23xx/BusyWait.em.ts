@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 export const scalar = em.param<em.u8>(3)
 
-export function wait(usecs: em.u32): void {
+export function wait(usecs: u32): void {
     if (usecs == 0) return
     var cnt = usecs * scalar.$$
     var dummy: volatile_t<u32>
