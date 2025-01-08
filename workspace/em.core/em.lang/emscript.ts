@@ -665,6 +665,7 @@ namespace em {
 
 declare global {
     type bool_t = em.bool_t
+    type frame_t<T> = em.frame_t<T>
     type i8 = em.i8
     type i16 = em.i16
     type i32 = em.i32

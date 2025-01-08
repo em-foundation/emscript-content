@@ -15,7 +15,7 @@ export namespace em$meta {
 
     function c2d(ch: u8): u8 { return ch - c$`0` }
 
-    function formatNum(buf: em.frame_t<u8>, num: u32, base: u8, width: i8, pad: u8): em.frame_t<u8> {
+    function formatNum(buf: frame_t<u8>, num: u32, base: u8, width: i8, pad: u8): frame_t<u8> {
         let HEXDIGS = t$`0123456789ABCDEF`
         let idx = buf.$len
         for (; ;) {
