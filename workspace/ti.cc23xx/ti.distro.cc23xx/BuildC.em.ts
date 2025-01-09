@@ -26,6 +26,7 @@ export function em$generate() {
         |-> 
         |-> CC=clang
         |-> LD=ld.lld
+        |-> LIBC=/c/Users/biosb/emscript/libc_v6m_t_le_eabi_small.a
         |-> OBJCOPY=llvm-objcopy
         |-> OBJDUMP=llvm-objdump
         |-> 
@@ -76,7 +77,7 @@ export function em$generate() {
         |-> "
         |-> 
         |-> $CC -c $CFLAGS $COPTS $CINCS main.cpp -o $OUT/main.obj
-        |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj
+        |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj $LIBC
         |-> $OBJCOPY -O ihex $OUT/main.out $OUT/main.out.hex
         |-> $OBJDUMP -h -d --demangle $OUT/main.out >$OUT/main.out.dis
         |-> $OBJDUMP -t $OUT/main.out | tail -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
