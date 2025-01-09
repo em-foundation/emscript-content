@@ -29,6 +29,17 @@ namespace em {
         constexpr frame_t(T* start, u16 len) : $start (start), $len (len) {}
         T &operator[](u16 index) { return *($start + index); }
         const T &operator[](u16 index) const { return *($start + index); }
+        frame_t<T> $frame(i16 beg, u16 len = 0) { return create($start, $len, beg, len); }
+        struct Iterator {
+            T*current;
+            constexpr Iterator(T* ptr) : current(ptr) {}
+            T operator*() const { return (T)(*current); }
+            Iterator &operator++() { ++current; return *this; }
+            bool operator!=(const Iterator &other) const { return current != other.current; }
+        };
+        constexpr Iterator begin() { return Iterator($start); }
+        constexpr Iterator end() { return Iterator($start + $len); }
+
     };
 
     template <typename T> struct param {
