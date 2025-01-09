@@ -3,6 +3,7 @@ export const em$_U = em.declare('COMPOSITE')
 
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
+import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
 import * as Debug from '@em.lang/Debug.em'
@@ -27,6 +28,7 @@ export function em$configure(): void {
     AppOutPin.pin_num.$$ = 20
     BoardController.Led.$$ = SysLed
     BoardController.em$_U.used()
+    Console.em$_U.used()
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart0
     Common.GlobalInterrupts.$$ = GlobalInterrupts

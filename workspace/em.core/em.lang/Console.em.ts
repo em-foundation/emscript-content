@@ -38,7 +38,7 @@ export function wrU32(data: u32) {
 
 // private
 
-export const Args = em.Array(em.U32(), 2)
+export const Args = em.Array(em.U32(), 4)
 export const NumBuf = em.Array(em.U8(), 10)
 
 function c2d(ch: u8): u8 { return ch - c$`0` }
@@ -65,11 +65,13 @@ function isDigit(ch: u8): bool_t {
     return ch >= c$`0` && ch <= c$`9`
 }
 
-export function print(fmt: text_t, a1: u32 = 0, a2: u32 = 0) {
+export function print(fmt: text_t, a1: u32 = 0, a2: u32 = 0, a3: u32 = 0, a4: u32 = 0) {
     let args = Args.$make()
     let num_buf = NumBuf.$make()
     args[0] = a1
     args[1] = a2
+    args[2] = a3
+    args[3] = a4
     let argp = args.$ptr()
     let idx = 0
     while (idx < fmt.$len) {

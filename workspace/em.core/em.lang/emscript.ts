@@ -1,5 +1,6 @@
 import * as Fs from 'fs'
 import * as Path from 'path'
+import {sprintf} from 'sprintf-js'
 import * as Ts from 'typescript'
 
 namespace em {
@@ -525,6 +526,13 @@ namespace em {
         });
     }
 
+    export function printf(sa: TemplateStringsArray): (a1?: any, a2?: any, a3?: any, a4?: any) => void {
+        function fn(a1?: any, a2?: any, a3?: any, a4?: any) {
+            console.log(sprintf(sa[0], a1, a2, a3, a4))
+        }
+        return fn
+    }
+
     export function* range(min: number, max: number): Iterable<number> {
         for (let i = min; i < max; i++) {
             yield i
@@ -661,6 +669,7 @@ namespace em {
     }
 
     // #endregion
+
 }
 
 declare global {
@@ -675,11 +684,13 @@ declare global {
     type u32 = em.u32
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
+    const printf: typeof em.printf
     const c$: typeof em.c$
     const t$: typeof em.t$
 }
 
 Object.assign(globalThis, {
+    printf: em.printf,
     c$: em.c$,
     t$: em.t$,
 })
