@@ -1,7 +1,9 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export const Buf = em.Array(em.U8(), 5)
+import * as Console from '@em.lang/Console.em'
+
+const Buf = em.Array(em.U8(), 5)
 var my_buf = Buf.$make()
 
 export namespace em$meta {
@@ -10,10 +12,11 @@ export namespace em$meta {
 
 export function em$run() {
     for (let i = 0; i < my_buf.$len; i++) my_buf[i] = i + 10
-    em.$reg32[0xAA] = my_buf[2]
-    for (let e of my_buf) e.$$ *= 2
-    em.$reg32[0xBB] = my_buf[4]
-    for (let e of my_buf) em.$reg32[0xCC] = e.$$
+    for (let e of my_buf) Console.wrU8(e.$$)
+    // em.$reg32[0xAA] = my_buf[2]
+    // for (let e of my_buf) e.$$ *= 2
+    // em.$reg32[0xBB] = my_buf[4]
+    // for (let e of my_buf) em.$reg32[0xCC] = e.$$
     // my_buf[2] = em.$reg32[0xAA]
     // em.$reg32[0xBB] = my_buf.$len
 }
