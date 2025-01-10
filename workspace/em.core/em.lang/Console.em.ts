@@ -46,8 +46,8 @@ export function wrU32(data: u32) {
 
 // private
 
-export const Args = em.Array(em.U32(), 4)
-export const NumBuf = em.Array(em.U8(), 10)
+const Args = em.Array(em.U32(), 4)
+const NumBuf = em.Array(em.U8(), 10)
 
 function c2d(ch: u8): u8 { return ch - c$`0` }
 
