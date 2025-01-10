@@ -252,10 +252,10 @@ namespace em {
 
     export class em$Scalar<T> {
         $memory: MemInfo
-        $name: string
+        $cname: string
         private $val: T
         constructor(name: string, val: T, sz: number) {
-            this.$name = name
+            this.$cname = `em::${name}`
             this.$val = val
             this.$memory = { size: sz, align: sz }
         }
