@@ -24,6 +24,14 @@ export function wrU8(data: u8) {
     putch(data)
 }
 
+export function wrU16(data: u16) {
+    putch(0x82)
+    let b = ((data >> 8) & 0xFF) as u8
+    putch(b)
+    b = ((data >> 0) & 0xFF) as u8
+    putch(b)
+}
+
 export function wrU32(data: u32) {
     putch(0x84)
     let b = ((data >> 24) & 0xFF) as u8
