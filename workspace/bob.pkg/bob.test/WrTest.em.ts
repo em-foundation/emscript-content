@@ -1,9 +1,8 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-import * as Debug from '@em.lang/Debug.em'
-
 export function em$run() {
+    const x = -2000 as i16
     em.$['%%a']
-    em.$['%%c:'](5)
+    em.$['%%>'](0xAB)
 }
