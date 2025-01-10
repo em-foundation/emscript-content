@@ -10,57 +10,26 @@ export function add16(val: i16, crc: sum_t): sum_t {
     crc = update(v, crc)
     crc = update((v >> 8), crc)
     return crc
-    /*
-        auto v = <uint16>val
-        crc = update(<uint8>v, crc)
-        crc = update(<uint8>(v >> 8), crc)
-        return crc
-    
-    */
 }
 
-/*
-
-def update(data, crc)
-    auto i = <uint8>0
-    auto x16 = <uint8>0
-    auto carry = <uint8>0
-    for auto i = 0; i < 8; i++
-        x16 = <uint8>((data & 1) ^ (<uint8>crc & 1))
-        data >>= 1
-        if x16 == 1
-            crc ^= 0x4002
-            carry = 1
-        else
-            carry = 0
-        end
-        crc >>= 1
-        if carry
-            crc |= 0x8000
-        else
-            crc &= 0x7fff
-        end
-    end
-    return crc
-end
-
-*/
-
 function update(data: u8, crc: sum_t): sum_t {
-    let x16 = 0
-    let carry = 0
+    let x16 = 0 as u8
+    let carry = 0 as u8
     for (let i = 0; i < 8; i++) {
-        x16 = (data & 1) ^ (crc & 1)
+        x16 = ((data & 1) ^ ((crc as u8) & 1)) as u8
         data >>= 1
         if (x16 == 1) {
             crc ^= 0x4002
             carry = 1
-        } else {
+        }
+        else {
             carry = 0
         }
+        crc >>= 1
         if (carry) {
             crc |= 0x8000
-        } else {
+        }
+        else {
             crc &= 0x7fff
         }
     }
