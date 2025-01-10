@@ -1,12 +1,17 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
+import * as MatrixBench from '@em.bench.coremark/MatrixBench.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
+
+const TOTAL_DATA_SIZE = em.param<u16>(2000)
+const NUM_ALGS = em.param<u8>(3)
 
 export namespace em$meta {
 
     export function em$configure() {
-
+        let memsize = Math.floor(TOTAL_DATA_SIZE.$$ / NUM_ALGS.$$)
+        MatrixBench.memsize.$$ = memsize
     }
 
     export function em$construct() {
@@ -14,4 +19,7 @@ export namespace em$meta {
         Utils.em$meta.bindSeed(2, 0x0)
         Utils.em$meta.bindSeed(3, 0x66)
     }
+}
+
+export function em$run() {
 }

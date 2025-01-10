@@ -297,10 +297,13 @@ namespace em {
         private $$em$config: string = 'table'
         private elems: T[] = []
         constructor(readonly access: TableAccess) { }
-        $add(e: T) { this.elems.push(e) }
         get $len(): u16 { return this.elems.length }
+        $add(e: T) { this.elems.push(e) }
+        $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
+        $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
+
     }
-    export function Table<T>(access: TableAccess = 'rw'): em$table_t<T> & Indexed<T> {
+    export function Table<T>(access: TableAccess = 'rw'): table_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -386,15 +389,7 @@ namespace em {
         $inc(): void
     }
 
-    export function $Ref<T>(): _Ref<T> {
-        return new _Ref<T>()
-    }
-
-    class _Ref<T> {
-        private _v: T
-        public get val(): T { return this._v }
-        public set val(v: T) { this._v = v }
-    }
+    export type table_t<T> = em$table_t<T> & Indexed<T>
 
     export type volatile_t<T> = T
 
