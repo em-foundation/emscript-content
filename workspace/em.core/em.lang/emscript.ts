@@ -374,6 +374,8 @@ namespace em {
     const __TRAITS__ = null
     // #region
 
+    export type arg_t = bool_t|i8|i16|i32|u8|u16|u32|ptr_t<any>|text_t
+
     export interface frame_t<T> extends Indexed<T> {
         $len: u16
         $frame(beg: i16, len: u16): frame_t<T>
@@ -669,6 +671,7 @@ namespace em {
 }
 
 declare global {
+    type arg_t = em.arg_t
     type bool_t = em.bool_t
     type frame_t<T> = em.frame_t<T>
     type i8 = em.i8

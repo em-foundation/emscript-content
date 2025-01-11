@@ -18,6 +18,5 @@ export function em$run() {
     // em.$['%%>'](s[2])
     // em.$['%%>'](s[3])
     // for (let c of s) Common.ConsoleUart.$$.put(c)
-    let name = t$`esther`
-    printf`hello %s\n`(name.$ptr())
+    printf`hello %s\n`(t$`esther`)
 }

@@ -16,6 +16,8 @@ namespace em {
     using u16 = uint16_t;
     using u32 = uint32_t;
 
+    using arg_t = uint32_t;
+
     using bool_t = bool;
 
     template <typename T> struct frame_t {
@@ -52,8 +54,8 @@ namespace em {
         constexpr ptr_t(T* v) : p_ (v) {}
         constexpr ptr_t(u32 a) : p_((T*)a) {}
         T& operator*() const { return *p_; }
-        operator u32() const { return (u32)(p_); }
-        u32 $cur() const { return (u32)(p_); }
+        operator arg_t() const { return (arg_t)(p_); }
+        arg_t $cur() const { return (arg_t)(p_); }
         void $dec() { p_ -= 1; }
         void $inc() { p_ += 1; }
     };
@@ -79,6 +81,7 @@ namespace em {
         em::u16 $len;
         constexpr text_t(const char *s, em::u16 l) : str(s), $len(l) {}
         const em::u8 operator[](em::u16 index) const { return str[index]; }
+        operator arg_t() const { return (arg_t)(str); }
         struct Iterator {
             const char *current;
             constexpr Iterator(const char *ptr) : current(ptr) {}
