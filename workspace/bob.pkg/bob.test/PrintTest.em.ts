@@ -9,5 +9,6 @@ export namespace em$meta {
 
 export function em$run() {
     printf`hello world\n`()
-    // Console.print(t$`hello world\n`)
+    let cnt = 88
+    printf`\n%c, count = %d\n`(c$`"`, cnt)
 }

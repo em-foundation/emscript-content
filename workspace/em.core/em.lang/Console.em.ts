@@ -127,6 +127,7 @@ export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, 
         }
         else if (ch == c$`c`) {
             let cn = argp.$$
+            argp.$inc()
             putch(cn)
         }
         else if (ch == c$`s`) {
