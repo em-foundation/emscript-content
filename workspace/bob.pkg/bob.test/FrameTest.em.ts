@@ -28,7 +28,7 @@ export function em$run() {
     // for (let i = 0; i < buf.$len; i++) buf[i] = 10 + i
     let frm = buf.$frame(2)
     foo(frm)
-    // em.$reg32[0xAA] = frm.$start as u32
+    // em.$reg32[0xAA] = <u32>frm.$start
     // em.$reg32[0xBB] = frm.$len
 }
 

@@ -13,10 +13,10 @@ export function add16(val: i16, crc: sum_t): sum_t {
 }
 
 function update(data: u8, crc: sum_t): sum_t {
-    let x16 = 0 as u8
-    let carry = 0 as u8
+    let x16 = <u8>0
+    let carry = <u8>0
     for (let i = 0; i < 8; i++) {
-        x16 = ((data & 1) ^ ((crc as u8) & 1)) as u8
+        x16 = <u8>((data & 1) ^ (<u8>crc & 1))
         data >>= 1
         if (x16 == 1) {
             crc ^= 0x4002

@@ -61,17 +61,17 @@ export namespace em$meta {
                 ch = fmt[idx++]
             }
             if (ch == c$`d`) {
-                let dn = argp.$$ as i32
+                let dn = <i32>argp.$$
                 argp.$inc()
                 if (dn < 0) {
                     OUT.push(c$`-`)
                     dn = -dn
                 }
-                let nb = formatNum(num_buf, dn as u32, 10, width, pad)
+                let nb = formatNum(num_buf, <u32>dn, 10, width, pad)
                 addOut(nb)
             }
             else if (ch == c$`x`) {
-                let xn = argp.$$ as u32
+                let xn = <u32>argp.$$
                 argp.$inc()
                 let nb = formatNum(num_buf, xn, 16, width, pad)
                 addOut(nb)
@@ -81,7 +81,7 @@ export namespace em$meta {
                 OUT.push(cn)
             }
             else if (ch == c$`s`) {
-                let sb = argp.$$ as unknown as text_t
+                let sb = <text_t><unknown>argp.$$
                 argp.$inc()
                 addOut(sb)
             }

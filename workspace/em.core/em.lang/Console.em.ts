@@ -29,21 +29,21 @@ export function wrU8(data: u8) {
 
 export function wrU16(data: u16) {
     putch(0x82)
-    let b = ((data >> 8) & 0xFF) as u8
+    let b = <u8>((data >> 8) & 0xFF)
     putch(b)
-    b = ((data >> 0) & 0xFF) as u8
+    b = <u8>((data >> 0) & 0xFF)
     putch(b)
 }
 
 export function wrU32(data: u32) {
     putch(0x84)
-    let b = ((data >> 24) & 0xFF) as u8
+    let b = <u8>((data >> 24) & 0xFF)
     putch(b)
-    b = ((data >> 16) & 0xFF) as u8
+    b = <u8>((data >> 16) & 0xFF)
     putch(b)
-    b = ((data >> 8) & 0xFF) as u8
+    b = <u8>((data >> 8) & 0xFF)
     putch(b)
-    b = ((data >> 0) & 0xFF) as u8
+    b = <u8>((data >> 0) & 0xFF)
     putch(b)
 }
 
@@ -86,10 +86,10 @@ function isDigit(ch: u8): bool_t {
 export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, a4: arg_t = 0) {
     let args = Args.$make()
     let num_buf = NumBuf.$make()
-    args[0] = a1 as u32
-    args[1] = a2 as u32
-    args[2] = a3 as u32
-    args[3] = a4 as u32
+    args[0] = <u32>a1
+    args[1] = <u32>a2
+    args[2] = <u32>a3
+    args[3] = <u32>a4
     let argp = args.$ptr()
     let idx = 0
     while (idx < fmt.$len) {
@@ -110,17 +110,17 @@ export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, 
             ch = fmt[idx++]
         }
         if (ch == c$`d`) {
-            let dn = argp.$$ as i32
+            let dn = <i32>argp.$$
             argp.$inc()
             if (dn < 0) {
                 putch(c$`-`)
                 dn = -dn
             }
-            let nb = formatNum(num_buf, dn as u32, 10, width, pad)
+            let nb = formatNum(num_buf, <u32>dn, 10, width, pad)
             putbuf(nb)
         }
         else if (ch == c$`x`) {
-            let xn = argp.$$ as u32
+            let xn = <u32>argp.$$
             argp.$inc()
             let nb = formatNum(num_buf, xn, 16, width, pad)
             putbuf(nb)
@@ -130,7 +130,7 @@ export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, 
             putch(cn)
         }
         else if (ch == c$`s`) {
-            let sp = argp.$$ as unknown as ptr_t<u8>
+            let sp = <ptr_t<u8>><unknown>argp.$$
             argp.$inc()
             puts(sp)
         }

@@ -37,15 +37,20 @@ export function print() {
     prDat(t$`B`, matB.$frame(0))
 }
 
+export function run(arg: arg_t): Utils.sum_t {
+
+    return 0
+}
+
 export function setup() {
-    let s32 = (Utils.getSeed(1) as u32) | ((Utils.getSeed(2) as u32) << 16)
-    let sd = s32 as matdat_t
+    let s32 = <u32>Utils.getSeed(1) | (<u32>Utils.getSeed(2) << 16)
+    let sd = <matdat_t>s32
     if (sd == 0) sd = 1
-    let order = 1 as matdat_t
+    let order = <matdat_t>1
     for (let i = 0; i < dimN.$$; i++) {
         for (let j = 0; j < dimN.$$; j++) {
-            sd = ((order * sd) % 65536) as matdat_t
-            let val = (sd + order) as matdat_t
+            sd = <matdat_t>((order * sd) % 65536)
+            let val = <matdat_t>(sd + order)
             val = clip(val, false)
             matB[i * dimN.$$ + j] = val
             val += order
@@ -56,7 +61,242 @@ export function setup() {
     }
 }
 
+// private
+
+function addVal(val: matdat_t) {
+    for (let i = 0; i < dimN.$$; i++) {
+        for (let j = 0; j < dimN.$$; j++) {
+            matA[i * dimN.$$ + j] += val
+        }
+    }
+}
+
+function bix(res: matres_t, lower: u8, upper: u8): matres_t {
+    let r = <u32>res
+    let l = <u32>lower
+    let u = <u32>upper
+    return <matres_t>((r >> l) & (~(0xffffffff << u)))
+}
+
+function clip(d: matdat_t, b: bool_t): matdat_t {
+    let x = <u16>d
+    return <matdat_t>(x & (b ? 0x0ff : 0x0ffff))
+}
+
+function enlarge(val: matdat_t): matdat_t {
+    let v = <u16>val
+    return <matdat_t>(0xf000 | v)
+}
+
+function mulVal(val: matdat_t) {
+    for (let i = 0; i < dimN.$$; i++) {
+        for (let j = 0; j < dimN.$$; j++) {
+            matC[i * dimN.$$ + j] = <matres_t>(matA[i * dimN.$$ + j]) * <matres_t>val
+        }
+    }
+}
+
+function mulMat() {
+
+}
+
+function mulMatBix() {
+
+}
+
+function mulVec() {
+
+}
+
+function prDat(lab: text_t, mat: frame_t<matdat_t>) {
+    printf`\n%s:\n    `(lab)
+    for (let i = 0; i < dimN.$$; i++) {
+        let sep = t$``
+        for (let j = 0; j < dimN.$$; j++) {
+            printf`%s%d`(sep, mat[i * dimN.$$ + j])
+            sep = t$`,`
+        }
+        printf`\n    `()
+    }
+}
+
+function sumDat(clipval: matdat_t): matdat_t {
+    return 0
+}
+
+
 /*
+package em.coremark
+
+import BenchAlgI
+import Crc
+import Utils
+
+# patterned after core_matrix.c
+
+module MatrixBench: BenchAlgI
+
+private:
+
+    type matdat_t: int16
+    type matres_t: int32
+
+    config dimN: uint8
+
+    var matA: matdat_t[]
+    var matB: matdat_t[]
+    var matC: matres_t[]
+
+    function addVal(val: matdat_t)
+    function mulVal(val: matdat_t)
+    function mulMat()
+    function mulMatBix()
+    function mulVec()
+    function sumDat(clipval: matdat_t): matdat_t
+
+    function bix(res: matres_t, lower: uint8, upper: uint8): matres_t
+    function clip(d: matdat_t, b: bool): matdat_t
+    function enlarge(val: matdat_t): matdat_t
+
+    function prDat(lab: string, mat: matdat_t[])
+    function prRes(lab: string)
+
+end
+
+def em$construct()
+    auto i = 0
+    auto j = 0
+    while j < memSize
+        i += 1
+        j = i * i * 2 * 4
+    end
+    dimN = i - 1
+    matA.length = matB.length = matC.length = dimN * dimN
+end
+
+def addVal(val)
+    for auto i = 0; i < dimN; i++
+        for auto j = 0; j < dimN; j++
+            matA[i * dimN + j] += val
+        end
+    end
+end
+
+def bix(res, lower, upper)
+    auto r = <uint32>res
+    auto l = <uint32>lower
+    auto u = <uint32>upper
+    return <matres_t>((r >> l) & (~(0xffffffff << u)))
+end
+
+def clip(d, b)
+    auto x = <uint16>d
+    return <matdat_t>(x & (b ? 0x0ff : 0x0ffff))
+end
+
+def dump()
+    ## TODO -- implement
+end
+
+def enlarge(val)
+    auto v = <uint16>val
+    return <matdat_t>(0xf000 | v)
+end
+
+def kind()
+    return Utils.Kind.MATRIX
+end
+
+def mulVal(val)
+    for auto i = 0; i < dimN; i++
+        for auto j = 0; j < dimN; j++
+            matC[i * dimN + j] = <matres_t>matA[i * dimN + j] * <matres_t>val
+        end
+    end
+end
+
+def mulMat()
+    for auto i = 0; i < dimN; i++
+        for auto j = 0; j < dimN; j++
+            matC[i * dimN + j] = 0
+            for auto k = 0; k < dimN; k++
+                matC[i * dimN + j] += <matres_t>matA[i * dimN + k] * <matres_t>matB[k * dimN + j]
+            end
+        end
+    end
+end
+
+def mulMatBix()
+    for auto i = 0; i < dimN; i++
+        for auto j = 0; j < dimN; j++
+            matC[i * dimN + j] = 0
+            for auto k = 0; k < dimN; k++
+                auto tmp = <matres_t>matA[i * dimN + k] * <matres_t>matB[k * dimN + j]
+                matC[i * dimN + j] += bix(tmp, 2, 4) * bix(tmp, 5, 7)
+            end
+        end
+    end
+end
+
+def mulVec()
+    for auto i = 0; i < dimN; i++
+        matC[i] = 0
+        for auto j = 0; j < dimN; j++
+            matC[i] += <matres_t>matA[i * dimN + j] * <matres_t>matB[j]
+        end
+    end
+end
+
+def print()
+    prDat("A", matA)
+    prDat("B", matB)
+end
+
+def prDat(lab, mat)
+    printf "\n%s:\n    ", lab
+    for auto i = 0; i < dimN; i++
+        auto sep = ""
+        for auto j = 0; j < dimN; j++
+            printf "%s%d", sep, mat[i * dimN + j]
+            sep = ","
+        end
+        printf "\n    "
+    end
+end
+
+def prRes(lab)
+    printf "\n%s:\n    ", lab
+    for auto i = 0; i < dimN; i++
+        auto sep = ""
+        for auto j = 0; j < dimN; j++
+            printf "%s%d", sep, matC[i * dimN + j]
+            sep = ","
+        end
+        printf "\n    "
+    end
+end
+
+def run(arg)
+    auto crc = <Crc.sum_t>0
+    auto val = <matdat_t>arg
+    auto clipval = enlarge(val)
+    #
+    addVal(val)
+    mulVal(val)
+    crc = Crc.add16(sumDat(clipval), crc)
+    #
+    mulVec()
+    crc = Crc.add16(sumDat(clipval), crc)
+    #
+    mulMat()
+    crc = Crc.add16(sumDat(clipval), crc)
+    #
+    mulMatBix()
+    crc = Crc.add16(sumDat(clipval), crc)
+    #
+    addVal(-val)
+    return Crc.add16(<int16>crc, Utils.getCrc(Utils.Kind.FINAL))
+end
 
 def setup()
     auto s32 = <uint32>Utils.getSeed(1) | (<uint32>Utils.getSeed(2) << 16)
@@ -77,35 +317,25 @@ def setup()
     end
 end
 
-*/
-
-// private
-
-function clip(d: matdat_t, b: bool_t): matdat_t {
-    let x = d as u16
-    return (x & (b ? 0x0ff : 0x0ffff)) as matdat_t
-}
-
-function prDat(lab: text_t, mat: frame_t<matdat_t>) {
-    printf`\n%s:\n    `(lab)
-    for (let i = 0; i < dimN.$$; i++) {
-        let sep = t$``
-        for (let j = 0; j < dimN.$$; j++) {
-            printf`%s%d`(sep, mat[i * dimN.$$ + j])
-            sep = t$`,`
-        }
-        printf`\n    `()
-    }
-}
-
-/*
+def sumDat(clipval)
+    auto cur = <matres_t>0
+    auto prev = <matres_t>0
+    auto tmp = <matres_t>0
+    auto ret = <matdat_t>0
     for auto i = 0; i < dimN; i++
-        auto sep = ""
         for auto j = 0; j < dimN; j++
-            printf "%s%d", sep, mat[i * dimN + j]
-            sep = ","
+            cur = matC[i * dimN + j]
+            tmp += cur
+            if tmp > clipval
+                ret += 10
+                tmp = 0
+            else
+                ret += (cur > prev) ? 1 : 0
+            end
+            prev = cur
         end
-        printf "\n    "
     end
+    return ret
+end
 
 */
