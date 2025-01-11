@@ -4,5 +4,6 @@ export const em$_U = em.declare('MODULE')
 import * as Console from '@em.lang/Console.em'
 
 export function em$run() {
-    Console.puts(em.t$`hello world\n`)
+    const s = t$`hello world\n`
+    Console.puts(s.$ptr())
 }

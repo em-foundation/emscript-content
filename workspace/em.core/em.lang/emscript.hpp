@@ -50,7 +50,9 @@ namespace em {
     template <typename T> struct ptr_t {
         T* p_;
         constexpr ptr_t(T* v) : p_ (v) {}
+        constexpr ptr_t(u32 a) : p_((T*)a) {}
         T& operator*() const { return *p_; }
+        operator u32() const { return (u32)(p_); }
         u32 $cur() const { return (u32)(p_); }
         void $dec() { p_ -= 1; }
         void $inc() { p_ += 1; }
@@ -86,6 +88,8 @@ namespace em {
         };
         constexpr Iterator begin() const { return Iterator(str); }
         constexpr Iterator end() const { return Iterator(str + $len); }
+        ptr_t<u8> $ptr() const { return ptr_t<u8>((u8*)str); }
+
     };
     text_t text(const char *str, u16 len) { return text_t(str, len); }
 

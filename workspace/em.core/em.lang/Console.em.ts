@@ -11,8 +11,11 @@ export function putch(ch: u8) {
     Common.ConsoleUart.$$.put(ch)
 }
 
-export function puts(s: text_t) {
-    for (let c of s) putch(c)
+export function puts(sp: ptr_t<u8>) {
+    while (sp.$$) {
+        putch(sp.$$)
+        sp.$inc()
+    }
 }
 
 export function wrC(data: u8) {
@@ -126,11 +129,11 @@ export function print(fmt: text_t, a1: u32 = 0, a2: u32 = 0, a3: u32 = 0, a4: u3
             let cn = argp.$$
             putch(cn)
         }
-        // else if (ch == c$`s`) {
-        //     let sb = argp.$$ as unknown as text_t
-        //     argp.$inc()
-        //     puts(sb)
-        // }
+        else if (ch == c$`s`) {
+            let sp = argp.$$ as unknown as ptr_t<u8>
+            argp.$inc()
+            puts(sp)
+        }
         else {
             putch(ch)
         }

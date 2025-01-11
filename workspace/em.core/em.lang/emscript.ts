@@ -338,6 +338,7 @@ namespace em {
         constructor(str: string) { this.str = str }
         private get $$() { return this.str }
         get $len() { return this.str.length }
+        $ptr(): ptr_t<u8> { return new em$ptr<u8>(globalThis.Array.from(this.str + '\0', ch => ch.charCodeAt(0))) }
         [Symbol.iterator](): Iterator<u8> {
             let idx = 0
             let str = this.str
