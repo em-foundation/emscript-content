@@ -3,12 +3,12 @@ export const em$_U = em.declare('MODULE')
 
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const memsize = em.param<u16>()
+export const memsize = em.param<u16>(0)
 
 type matdat_t = i16
 type matres_t = i32
 
-const dimN = em.param<u8>()
+const dimN = em.param<u8>(0)
 
 var matA = em.Table<matdat_t>('rw')
 var matB = em.Table<matdat_t>('rw')
@@ -30,6 +30,11 @@ export namespace em$meta {
             matC.$add(0)
         }
     }
+}
+
+export function print() {
+    prDat(t$`A`, matA.$frame(0))
+    prDat(t$`B`, matB.$frame(0))
 }
 
 export function setup() {
@@ -82,17 +87,25 @@ function clip(d: matdat_t, b: bool_t): matdat_t {
 }
 
 function prDat(lab: text_t, mat: frame_t<matdat_t>) {
-
+    printf`\n%s:\n    `(lab)
+    for (let i = 0; i < dimN.$$; i++) {
+        let sep = t$``
+        for (let j = 0; j < dimN.$$; j++) {
+            printf`%s%d`(sep, mat[i * dimN.$$ + j])
+            sep = t$`,`
+        }
+        printf`\n    `()
+    }
 }
 
-// def prDat(lab, mat)
-//     printf "\n%s:\n    ", lab
-//     for auto i = 0; i < dimN; i++
-//         auto sep = ""
-//         for auto j = 0; j < dimN; j++
-//             printf "%s%d", sep, mat[i * dimN + j]
-//             sep = ","
-//         end
-//         printf "\n    "
-//     end
-// end
+/*
+    for auto i = 0; i < dimN; i++
+        auto sep = ""
+        for auto j = 0; j < dimN; j++
+            printf "%s%d", sep, mat[i * dimN + j]
+            sep = ","
+        end
+        printf "\n    "
+    end
+
+*/

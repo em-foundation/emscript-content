@@ -21,5 +21,11 @@ export namespace em$meta {
     }
 }
 
+export function print() {
+    MatrixBench.print()
+}
+
 export function em$run() {
+    MatrixBench.setup()
+    MatrixBench.print()
 }
