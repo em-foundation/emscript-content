@@ -1,6 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
+import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
 export const memsize = em.param<u16>(0)
@@ -35,11 +36,29 @@ export namespace em$meta {
 export function print() {
     prDat(t$`A`, matA.$frame(0))
     prDat(t$`B`, matB.$frame(0))
+    prRes(t$`C`)
 }
 
 export function run(arg: arg_t): Utils.sum_t {
-
-    return 0
+    let crc = <Crc.sum_t>0
+    let val = <matdat_t>arg
+    let clipval = enlarge(val)
+    //
+    addVal(val)
+    mulVal(val)
+    crc = Crc.add16(sumDat(clipval), crc)
+    //
+    mulVec()
+    crc = Crc.add16(sumDat(clipval), crc)
+    //
+    mulMat()
+    crc = Crc.add16(sumDat(clipval), crc)
+    //
+    mulMatBix()
+    crc = Crc.add16(sumDat(clipval), crc)
+    //
+    addVal(-val)
+    return Crc.add16(<i16>crc, Utils.getCrc(Utils.Kind.FINAL))
 }
 
 export function setup() {
@@ -97,15 +116,35 @@ function mulVal(val: matdat_t) {
 }
 
 function mulMat() {
-
+    for (let i = 0; i < dimN.$$; i++) {
+        for (let j = 0; j < dimN.$$; j++) {
+            matC[i * dimN.$$ + j] = 0
+            for (let k = 0; k < dimN.$$; k++) {
+                matC[i * dimN.$$ + j] += <matres_t>matA[i * dimN.$$ + k] * <matres_t>matB[k * dimN.$$ + j]
+            }
+        }
+    }
 }
 
 function mulMatBix() {
-
+    for (let i = 0; i < dimN.$$; i++) {
+        for (let j = 0; j < dimN.$$; j++) {
+            matC[i * dimN.$$ + j] = 0
+            for (let k = 0; k < dimN.$$; k++) {
+                let tmp = <matres_t>matA[i * dimN.$$ + k] * <matres_t>matB[k * dimN.$$ + j]
+                matC[i * dimN.$$ + j] += bix(tmp, 2, 4) * bix(tmp, 5, 7)
+            }
+        }
+    }
 }
 
 function mulVec() {
-
+    for (let i = 0; i < dimN.$$; i++) {
+        matC[i] = 0
+        for (let j = 0; j < dimN.$$; j++) {
+            matC[i] += <matres_t>matA[i * dimN.$$ + j] * <matres_t>matB[j]
+        }
+    }
 }
 
 function prDat(lab: text_t, mat: frame_t<matdat_t>) {
@@ -120,8 +159,39 @@ function prDat(lab: text_t, mat: frame_t<matdat_t>) {
     }
 }
 
+function prRes(lab: text_t) {
+    printf`\n%s:\n    `(lab)
+    for (let i = 0; i < dimN.$$; i++) {
+        let sep = t$``
+        for (let j = 0; j < dimN.$$; j++) {
+            printf`%s%d`(sep, matC[i * dimN.$$ + j])
+            sep = t$`,`
+        }
+        printf`\n    `()
+    }
+}
+
+
 function sumDat(clipval: matdat_t): matdat_t {
-    return 0
+    let cur = <matres_t>0
+    let prev = <matres_t>0
+    let tmp = <matres_t>0
+    let ret = <matdat_t>0
+    for (let i = 0; i < dimN.$$; i++) {
+        for (let j = 0; j < dimN.$$; j++) {
+            cur = matC[i * dimN.$$ + j]
+            tmp += cur
+            if (tmp > clipval) {
+                ret += 10
+                tmp = 0
+            }
+            else {
+                ret += (cur > prev) ? 1 : 0
+            }
+            prev = cur
+        }
+    }
+    return ret
 }
 
 

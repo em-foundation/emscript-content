@@ -27,5 +27,9 @@ export function print() {
 
 export function em$run() {
     MatrixBench.setup()
+    em.$['%%a+']
+    let crc = MatrixBench.run(0)
+    em.$['%%a-']
     MatrixBench.print()
+    printf`\ncrc = %04x\n`(crc)
 }
