@@ -31,15 +31,15 @@ export namespace em$meta {
     }
 
     const PairP = {
-        x: em.U8(),
-        y: em.U8(),
+        x: $u8(),
+        y: $u8(),
     }
 
     const NestedPairP = {
-        a: em.U8(),
+        a: $u8(),
         b: {
-            c: em.I16(),
-            d: em.Bool(),
+            c: $i16(),
+            d: em.$bool(),
         },
     }
 

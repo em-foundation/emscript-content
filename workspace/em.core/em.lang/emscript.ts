@@ -272,13 +272,13 @@ namespace em {
         get $$(): T { return this.$val }
         set $$(val: T) { this.$val = val }
     }
-    export function Bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar('boot_t', val, 1) }
-    export function I8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar('i8', val, 1) }
-    export function I16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar('i16', val, 2) }
-    export function I32(val: i32 = 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar('i32', val, 4) }
-    export function U8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar('u8', val, 1) }
-    export function U16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar('u16', val, 2) }
-    export function U32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar('u32', val, 4) }
+    export function $bool(val: bool_t = false): Contained<bool_t> & em$Scalar<bool_t> { return new em$Scalar('boot_t', val, 1) }
+    export function $i8(val: i8 = 0): Contained<i8> & em$Scalar<i8> { return new em$Scalar('i8', val, 1) }
+    export function $i16(val: i16 = 0): Contained<i16> & em$Scalar<i16> { return new em$Scalar('i16', val, 2) }
+    export function $i32(val: i32 = 0): Contained<i32> & em$Scalar<i32> { return new em$Scalar('i32', val, 4) }
+    export function $u8(val: u8 = 0): Contained<u8> & em$Scalar<u8> { return new em$Scalar('u8', val, 1) }
+    export function $u16(val: u16 = 0): Contained<u16> & em$Scalar<u16> { return new em$Scalar('u16', val, 2) }
+    export function $u32(val: u32 = 0): Contained<u32> & em$Scalar<u32> { return new em$Scalar('u32', val, 4) }
 
     // #endregion
 
@@ -721,8 +721,15 @@ declare global {
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
+    const $bool: typeof em.$bool
+    const $i8: typeof em.$i8
+    const $i16: typeof em.$i16
+    const $i32: typeof em.$i32
     const $param: typeof em.$param
     const $table: typeof em.$table
+    const $u8: typeof em.$u8
+    const $u16: typeof em.$u16
+    const $u32: typeof em.$u32
     const printf: typeof em.printf
     const c$: typeof em.c$
     const t$: typeof em.t$
@@ -730,8 +737,15 @@ declare global {
 
 Object.assign(globalThis, {
     $array: em.$array,
+    $bool: em.$bool,
+    $i8: em.$i8,
+    $i16: em.$i16,
+    $i32: em.$i32,
     $param: em.$param,
     $table: em.$table,
+    $u8: em.$u8,
+    $u16: em.$u16,
+    $u32: em.$u32,
     printf: em.printf,
     c$: em.c$,
     t$: em.t$,

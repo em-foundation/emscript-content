@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 export namespace em$meta {
 
-    const Vec = $array(em.U8(), 4)
+    const Vec = $array($u8(), 4)
     const vec = Vec.$make()
     const Mat = $array(Vec, 3)
     const mat = Mat.$make()

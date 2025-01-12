@@ -56,8 +56,8 @@ export function wrU32(data: u32) {
 'static inline void wr(em::u32 data) { wrU32(data); }'
 'static inline void wr(em::i32 data) { wrU32((em::u32)data); }'
 
-const Args = $array(em.U32(), 4)
-const NumBuf = $array(em.U8(), 10)
+const Args = $array($u32(), 4)
+const NumBuf = $array($u8(), 10)
 
 function c2d(ch: u8): u8 { return ch - c$`0` }
 

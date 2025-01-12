@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export const Buf = $array(em.U8(), 5)
+export const Buf = $array($u8(), 5)
 
 export namespace em$meta {
     //     let buf = Buf.$make()

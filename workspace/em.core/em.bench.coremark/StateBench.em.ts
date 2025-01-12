@@ -22,7 +22,7 @@ const fltPatLen = $param<u16>(0)
 const sciPatLen = $param<u16>(0)
 const errPatLen = $param<u16>(0)
 
-const StateCnt = $array(em.U32(), NUM_STATES)
+const StateCnt = $array($u32(), NUM_STATES)
 
 var membuf = $table<u8>('rw')
 

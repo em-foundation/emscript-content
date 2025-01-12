@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as Console from '@em.lang/Console.em'
 
-const Buf = $array(em.U8(), 5)
+const Buf = $array($u8(), 5)
 var my_buf = Buf.$make()
 
 export namespace em$meta {

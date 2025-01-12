@@ -4,8 +4,8 @@ export const em$_U = em.declare('MODULE')
 export namespace em$meta {
 
     const Pair = em.Struct({
-        x: em.I16(),
-        y: em.I16()
+        x: $i16(),
+        y: $i16()
     })
     // console.log(Pair)
     // console.log(Pair.$sizeof)
