@@ -285,7 +285,7 @@ namespace em {
     const __STRUCT__ = null
     // #region
 
-    export function Struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
+    export function $struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
         return new em$StructProto(fields)
     }
 
@@ -726,6 +726,7 @@ declare global {
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
     const $param: typeof em.$param
+    const $struct: typeof em.$struct
     const $table: typeof em.$table
     const $u8: typeof em.$u8
     const $u16: typeof em.$u16
@@ -742,6 +743,7 @@ Object.assign(globalThis, {
     $i16: em.$i16,
     $i32: em.$i32,
     $param: em.$param,
+    $struct: em.$struct,
     $table: em.$table,
     $u8: em.$u8,
     $u16: em.$u16,

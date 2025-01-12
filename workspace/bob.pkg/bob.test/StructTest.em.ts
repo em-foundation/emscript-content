@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 export namespace em$meta {
 
-    const Pair = em.Struct({
+    const Pair = $struct({
         x: $i16(),
         y: $i16()
     })
