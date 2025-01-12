@@ -4,7 +4,7 @@ export const em$_U = em.declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const memsize = em.param<u16>(0)
+export const memsize = $param<u16>(0)
 
 const NUM_STATES = 8
 
@@ -12,19 +12,19 @@ enum State {
     START, INVALID, S1, S2, INT, FLOAT, EXPONENT, SCIENTIFIC
 }
 
-const intPat = em.Table<text_t>('ro')
-const fltPat = em.Table<text_t>('ro')
-const sciPat = em.Table<text_t>('ro')
-const errPat = em.Table<text_t>('ro')
+const intPat = $table<text_t>('ro')
+const fltPat = $table<text_t>('ro')
+const sciPat = $table<text_t>('ro')
+const errPat = $table<text_t>('ro')
 
-const intPatLen = em.param<u16>(0)
-const fltPatLen = em.param<u16>(0)
-const sciPatLen = em.param<u16>(0)
-const errPatLen = em.param<u16>(0)
+const intPatLen = $param<u16>(0)
+const fltPatLen = $param<u16>(0)
+const sciPatLen = $param<u16>(0)
+const errPatLen = $param<u16>(0)
 
 const StateCnt = $array(em.U32(), NUM_STATES)
 
-var membuf = em.Table<u8>('rw')
+var membuf = $table<u8>('rw')
 
 export namespace em$meta {
 

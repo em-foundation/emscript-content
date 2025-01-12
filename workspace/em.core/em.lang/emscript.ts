@@ -189,7 +189,7 @@ namespace em {
         get $$(): T { return this.val! }
         set $$(v: T) { this.val = v }
     }
-    export function param<T>(val?: T): em$param_t<T> & Boxed<T> {
+    export function $param<T>(val?: T): em$param_t<T> & Boxed<T> {
         return new em$param_t<T>(val)
     }
 
@@ -339,7 +339,7 @@ namespace em {
         $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
 
     }
-    export function Table<T>(access: TableAccess = 'rw'): table_t<T> {
+    export function $table<T>(access: TableAccess = 'rw'): table_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -721,6 +721,8 @@ declare global {
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
+    const $param: typeof em.$param
+    const $table: typeof em.$table
     const printf: typeof em.printf
     const c$: typeof em.c$
     const t$: typeof em.t$
@@ -728,6 +730,8 @@ declare global {
 
 Object.assign(globalThis, {
     $array: em.$array,
+    $param: em.$param,
+    $table: em.$table,
     printf: em.printf,
     c$: em.c$,
     t$: em.t$,

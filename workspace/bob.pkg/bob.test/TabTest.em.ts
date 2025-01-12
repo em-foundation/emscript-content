@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 
-export let my_tab = em.Table<u32>('rw')
+export let my_tab = $table<u32>('rw')
 
 export namespace em$meta {
     export function em$construct() {

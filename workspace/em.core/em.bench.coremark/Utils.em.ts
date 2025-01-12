@@ -10,8 +10,8 @@ export enum Kind {
 export type seed_t = em.u16
 export type sum_t = em.u16
 
-var crc_tab = em.Table<sum_t>('rw')
-var seed_tab = em.Table<seed_t>('ro')
+var crc_tab = $table<sum_t>('rw')
+var seed_tab = $table<seed_t>('ro')
 
 export namespace em$meta {
 

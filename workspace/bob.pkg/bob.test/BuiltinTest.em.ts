@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export const c = em.param<u8>(3)
+export const c = $param<u8>(3)
 
 /*
 
