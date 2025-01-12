@@ -7,13 +7,15 @@ export namespace em$meta {
         x: em.I16(),
         y: em.I16()
     })
-    console.log(em.sizeof(Pair))
+    // console.log(Pair)
+    // console.log(Pair.$sizeof)
 
-    const p = Pair.make()
+    const p = Pair.$make()
     p.x = 10
     p.y = 20
     console.log(p)
-    console.log(em.sizeof(p))
+    console.log(p.x)
+    console.log(p.$sizeof)
 
     // console.log(Pair)
 

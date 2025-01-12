@@ -286,13 +286,57 @@ namespace em {
     const __STRUCT__ = null
     // #region
 
-    export function Struct<T extends Record<string, any>>(fields: T): StructProto<T> {
-        return new StructProto(fields);
+    export function Struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
+        return new em$StructProto(fields);
     }
 
-    class StructProto<T extends Record<string, any>> {
+    type StructWithSized<T> = Unbox<T> & Sized;
+
+    class em$StructProto<T extends Record<string, any>> implements Sized {
         constructor(public $fields: T) { }
-        make() { return instantiate(this) }
+    
+        $make(): StructWithSized<T> {
+            const fields = instantiate(this as em$StructProto<T>);
+            const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>);
+            return structVal as unknown as StructWithSized<T>;
+        }
+        get $alignof() { return memoryof(this).align }
+        get $sizeof() { return memoryof(this).size }
+    }
+
+    // class em$StructProto<T extends Record<string, any>> implements Sized {
+    //     constructor(public $fields: T) { }
+    //     $make(): Unbox<T> & Sized {  // Adjusted return type to include Sized
+    //         const fields = instantiate(this as em$StructProto<T>);
+    //         const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>);
+    //         return structVal as unknown as (Unbox<T> & Sized);  // Ensure return type includes Sized
+    //     }
+    // 
+    //     // $make(): { [K in keyof T]: Unbox<T[K]> } {
+    //     //     const fields = instantiate(this as em$StructProto<T>);
+    //     //     return new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>) as any;
+    //     // }
+    //     get $alignof() { return memoryof(this).align }
+    //     get $sizeof() { return memoryof(this).size }
+    // }
+
+    class em$StructVal<T extends Record<string, any>> implements Sized {
+        $alignof: u16
+        $sizeof: u16
+        constructor(public $fields: Unbox<T>, public $proto: em$StructProto<T>) {
+            this.$alignof = $proto.$alignof
+            this.$sizeof = $proto.$sizeof
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (String(prop).match(/^\$(alignof|sizeof)$/)) return (target as any)[prop]
+                    return (target.$fields as any)[prop];
+                },
+                set(target, prop, value) {
+                    (target.$fields as any)[prop] = value
+                    return true;
+                },
+            }) as any
+        }
     }
 
     // #endregion
@@ -481,13 +525,39 @@ namespace em {
         constructor(v: T) { this.$$ = v }
     }
 
-    type Unbox<T> = T extends { $$: infer U }
-        ? U // For boxed scalars
-        : T extends em$ArrayProto<infer Proto>
-        ? em$ArrayVal<Unbox<Proto>> // Array case
-        : T extends StructProto<infer Fields>
-        ? { [K in keyof Fields]: Unbox<Fields[K]> }
-        : never;
+    type Unbox<T> = T extends em$StructProto<infer Fields>
+    ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
+    : T extends { $$: infer U }
+    ? U // For boxed scalars
+    : T extends em$ArrayProto<infer Proto>
+    ? em$ArrayVal<Unbox<Proto>> // Array case
+    : T;
+
+    // type Unbox<T> = T extends { $$: infer U }
+    // ? U // For boxed scalars
+    // : T extends em$ArrayProto<infer Proto>
+    // ? em$ArrayVal<Unbox<Proto>> // Array case
+    // : T extends em$StructProto<infer Fields>
+    // ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
+    // : never;
+
+
+    // type Unbox<T> = T extends { $$: infer U }
+    // ? U // For boxed scalars
+    // : T extends em$ArrayProto<infer Proto>
+    // ? em$ArrayVal<Unbox<Proto>> // Array case
+    // : T extends Record<string, any>
+    // ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
+    // : never;
+
+
+    // type Unbox<T> = T extends { $$: infer U }
+    //     ? U // For boxed scalars
+    //     : T extends em$ArrayProto<infer Proto>
+    //     ? em$ArrayVal<Unbox<Proto>> // Array case
+    //     : T extends em$StructProto<infer Fields>
+    //     ? { [K in keyof Fields]: Unbox<Fields[K]> }
+    //     : never;
 
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
         if ('$$' in proto) {  // Boxed scalar case
@@ -495,19 +565,40 @@ namespace em {
         }
         if (proto instanceof em$ArrayProto) {  // Array case
             const len = (proto as { $len: number }).$len;
-            const elementProto = (proto as { $base: any }).$base
+            const elementProto = (proto as { $base: any }).$base;
             const defaultVal = instantiate(elementProto);
             return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
         }
-        if (proto instanceof StructProto) {
+        if (proto instanceof em$StructProto) {  // Struct case
             const obj: any = {};
             for (const key in proto.$fields) {
                 obj[key] = instantiate(proto.$fields[key]);
             }
-            return obj as Unbox<T>;
+            return new em$StructVal(obj as Unbox<T>, proto) as unknown as (Unbox<T> & Sized)
         }
         throw new Error('Unsupported proto type.');
     }
+    
+
+    // export function instantiate<T extends Object>(proto: T): Unbox<T> {
+    //     if ('$$' in proto) {  // Boxed scalar case
+    //         return (proto as { $$: any }).$$ as Unbox<T>;
+    //     }
+    //     if (proto instanceof em$ArrayProto) {  // Array case
+    //         const len = (proto as { $len: number }).$len;
+    //         const elementProto = (proto as { $base: any }).$base
+    //         const defaultVal = instantiate(elementProto);
+    //         return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
+    //     }
+    //     if (proto instanceof em$StructProto) {
+    //         const obj: any = {};
+    //         for (const key in proto.$fields) {
+    //             obj[key] = instantiate(proto.$fields[key]);
+    //         }
+    //         return obj as Unbox<T>;
+    //     }
+    //     throw new Error('Unsupported proto type.');
+    // }
 
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
@@ -558,7 +649,7 @@ namespace em {
             mi.size *= obj.$len
             return mi
         }
-        if (obj instanceof StructProto) {
+        if (obj instanceof em$StructProto) {
             return memoryof(obj.$fields)
         }
         let res = { size: 0, align: 0 }
@@ -593,7 +684,7 @@ namespace em {
     }
 
     export function alignof(proto: Object): number {
-        return memoryof(proto).size
+        return memoryof(proto).align
     }
 
     export function sizeof(proto: Object): number {
