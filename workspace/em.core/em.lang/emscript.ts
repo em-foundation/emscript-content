@@ -1,7 +1,6 @@
 import * as Fs from 'fs'
 import * as Path from 'path'
 import {sprintf} from 'sprintf-js'
-import * as Ts from 'typescript'
 
 namespace em {
 
@@ -9,41 +8,41 @@ namespace em {
     // #region
 
     export function Array<T>(proto: T, len: number): em$ArrayProto<T> {
-        return new em$ArrayProto(proto, len);
+        return new em$ArrayProto(proto, len)
     }
 
     class em$ArrayProto<T> {
-        readonly $base: T;
-        readonly $len: number;
+        readonly $base: T
+        readonly $len: number
         constructor(proto: T, len: number) {
-            this.$base = proto;
-            this.$len = len;
+            this.$base = proto
+            this.$len = len
         }
         $make() { return instantiate(this) }
 
     }
     class em$ArrayVal<T> implements frame_t<T>{
-        $len: number;
-        private items: globalThis.Array<T>;
+        $len: number
+        private items: globalThis.Array<T>
         [index: number]: T
         constructor(len: number, defaultVal: T) {
-            this.$len = len;
-            this.items = new globalThis.Array(len).fill(defaultVal);
+            this.$len = len
+            this.items = new globalThis.Array(len).fill(defaultVal)
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
-                        return target.items[Number(prop)];
+                        return target.items[Number(prop)]
                     }
-                    return (target as any)[prop];
+                    return (target as any)[prop]
                 },
                 set(target, prop, value) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
-                        target.items[Number(prop)] = value;
-                        return true;
+                        target.items[Number(prop)] = value
+                        return true
                     }
-                    return false;
+                    return false
                 },
-            });
+            })
         }
         [Symbol.iterator](): Iterator<ref_t<T>> {   // TODO combine with FRAME
             let idx = 0
@@ -140,16 +139,16 @@ namespace em {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
-                        return target.items[start + Number(prop)];
+                        return target.items[start + Number(prop)]
                     }
-                    return (target as any)[prop];
+                    return (target as any)[prop]
                 },
                 set(target, prop, value) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
-                        target.items[start + Number(prop)] = value;
-                        return true;
+                        target.items[start + Number(prop)] = value
+                        return true
                     }
-                    return false;
+                    return false
                 },
             })
         }
@@ -287,38 +286,22 @@ namespace em {
     // #region
 
     export function Struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
-        return new em$StructProto(fields);
+        return new em$StructProto(fields)
     }
 
-    type StructWithSized<T> = Unbox<T> & Sized;
+    type StructWithSized<T> = Unbox<T> & Sized
 
     class em$StructProto<T extends Record<string, any>> implements Sized {
         constructor(public $fields: T) { }
     
         $make(): StructWithSized<T> {
-            const fields = instantiate(this as em$StructProto<T>);
-            const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>);
-            return structVal as unknown as StructWithSized<T>;
+            const fields = instantiate(this as em$StructProto<T>)
+            const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>)
+            return structVal as unknown as StructWithSized<T>
         }
         get $alignof() { return memoryof(this).align }
         get $sizeof() { return memoryof(this).size }
     }
-
-    // class em$StructProto<T extends Record<string, any>> implements Sized {
-    //     constructor(public $fields: T) { }
-    //     $make(): Unbox<T> & Sized {  // Adjusted return type to include Sized
-    //         const fields = instantiate(this as em$StructProto<T>);
-    //         const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>);
-    //         return structVal as unknown as (Unbox<T> & Sized);  // Ensure return type includes Sized
-    //     }
-    // 
-    //     // $make(): { [K in keyof T]: Unbox<T[K]> } {
-    //     //     const fields = instantiate(this as em$StructProto<T>);
-    //     //     return new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>) as any;
-    //     // }
-    //     get $alignof() { return memoryof(this).align }
-    //     get $sizeof() { return memoryof(this).size }
-    // }
 
     class em$StructVal<T extends Record<string, any>> implements Sized {
         $alignof: u16
@@ -329,11 +312,11 @@ namespace em {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (String(prop).match(/^\$(alignof|sizeof)$/)) return (target as any)[prop]
-                    return (target.$fields as any)[prop];
+                    return (target.$fields as any)[prop]
                 },
                 set(target, prop, value) {
                     (target.$fields as any)[prop] = value
-                    return true;
+                    return true
                 },
             }) as any
         }
@@ -525,80 +508,34 @@ namespace em {
         constructor(v: T) { this.$$ = v }
     }
 
-    type Unbox<T> = T extends em$StructProto<infer Fields>
-    ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
-    : T extends { $$: infer U }
+    type Unbox<T> = T extends { $$: infer U }
     ? U // For boxed scalars
     : T extends em$ArrayProto<infer Proto>
     ? em$ArrayVal<Unbox<Proto>> // Array case
-    : T;
-
-    // type Unbox<T> = T extends { $$: infer U }
-    // ? U // For boxed scalars
-    // : T extends em$ArrayProto<infer Proto>
-    // ? em$ArrayVal<Unbox<Proto>> // Array case
-    // : T extends em$StructProto<infer Fields>
-    // ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
-    // : never;
-
-
-    // type Unbox<T> = T extends { $$: infer U }
-    // ? U // For boxed scalars
-    // : T extends em$ArrayProto<infer Proto>
-    // ? em$ArrayVal<Unbox<Proto>> // Array case
-    // : T extends Record<string, any>
-    // ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
-    // : never;
-
-
-    // type Unbox<T> = T extends { $$: infer U }
-    //     ? U // For boxed scalars
-    //     : T extends em$ArrayProto<infer Proto>
-    //     ? em$ArrayVal<Unbox<Proto>> // Array case
-    //     : T extends em$StructProto<infer Fields>
-    //     ? { [K in keyof Fields]: Unbox<Fields[K]> }
-    //     : never;
+    : T extends Record<string, any>
+    ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
+    : T
 
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
         if ('$$' in proto) {  // Boxed scalar case
-            return (proto as { $$: any }).$$ as Unbox<T>;
+            return (proto as { $$: any }).$$ as Unbox<T>
         }
         if (proto instanceof em$ArrayProto) {  // Array case
-            const len = (proto as { $len: number }).$len;
-            const elementProto = (proto as { $base: any }).$base;
-            const defaultVal = instantiate(elementProto);
-            return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
+            const len = (proto as { $len: number }).$len
+            const elementProto = (proto as { $base: any }).$base
+            const defaultVal = instantiate(elementProto)
+            return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>
         }
         if (proto instanceof em$StructProto) {  // Struct case
-            const obj: any = {};
+            const obj: any = {}
             for (const key in proto.$fields) {
-                obj[key] = instantiate(proto.$fields[key]);
+                obj[key] = instantiate(proto.$fields[key])
             }
             return new em$StructVal(obj as Unbox<T>, proto) as unknown as (Unbox<T> & Sized)
         }
-        throw new Error('Unsupported proto type.');
+        throw new Error('Unsupported proto type.')
     }
     
-
-    // export function instantiate<T extends Object>(proto: T): Unbox<T> {
-    //     if ('$$' in proto) {  // Boxed scalar case
-    //         return (proto as { $$: any }).$$ as Unbox<T>;
-    //     }
-    //     if (proto instanceof em$ArrayProto) {  // Array case
-    //         const len = (proto as { $len: number }).$len;
-    //         const elementProto = (proto as { $base: any }).$base
-    //         const defaultVal = instantiate(elementProto);
-    //         return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>;
-    //     }
-    //     if (proto instanceof em$StructProto) {
-    //         const obj: any = {};
-    //         for (const key in proto.$fields) {
-    //             obj[key] = instantiate(proto.$fields[key]);
-    //         }
-    //         return obj as Unbox<T>;
-    //     }
-    //     throw new Error('Unsupported proto type.');
-    // }
 
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
@@ -618,10 +555,10 @@ namespace em {
         return new globalThis.Proxy({} as T, {
             get(_, prop: string) {
                 return (...args: any[]) => {
-                    return undefined; // Adjust this for specific return types if necessary
-                };
+                    return undefined // Adjust this for specific return types if necessary
+                }
             }
-        });
+        })
     }
 
     export function printf(sa: TemplateStringsArray): (a1?: any, a2?: any, a3?: any, a4?: any) => void {
