@@ -1,8 +1,8 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-export const Args = em.Array(em.U32(), 2)
-export const NumBuf = em.Array(em.U8(), 10)
+export const Args = $array(em.U32(), 2)
+export const NumBuf = $array(em.U8(), 10)
 
 export namespace em$meta {
 

@@ -7,7 +7,7 @@ namespace em {
     const __ARRAY__ = null
     // #region
 
-    export function Array<T>(proto: T, len: number): em$ArrayProto<T> {
+    export function $array<T>(proto: T, len: number): em$ArrayProto<T> {
         return new em$ArrayProto(proto, len)
     }
 
@@ -720,12 +720,14 @@ declare global {
     type u32 = em.u32
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
+    const $array: typeof em.$array
     const printf: typeof em.printf
     const c$: typeof em.c$
     const t$: typeof em.t$
 }
 
 Object.assign(globalThis, {
+    $array: em.$array,
     printf: em.printf,
     c$: em.c$,
     t$: em.t$,
