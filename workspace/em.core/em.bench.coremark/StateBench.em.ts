@@ -22,6 +22,8 @@ const fltPatLen = em.param<u16>(0)
 const sciPatLen = em.param<u16>(0)
 const errPatLen = em.param<u16>(0)
 
+const StateCnt = em.Array(em.U32(), NUM_STATES)
+
 var membuf = em.Table<u8>('rw')
 
 export namespace em$meta {
@@ -47,14 +49,115 @@ export namespace em$meta {
         //
         errPat.$add(t$`T0.3e-1F`)
         errPat.$add(t$`-T.T++Tq`)
-        errPat.$add(t$`1T3.434z`)
-        errPat.$add(t$`34.0e-T`)
+        errPat.$add(t$`1T3.4e4z`)
+        errPat.$add(t$`34.0e-T^`)
         errPatLen.$$ = errPat[0].$len
     }
 
     export function em$construct() {
         for (let i = 0; i < memsize.$$; i++) membuf.$add(0)
     }
+}
+
+function isDigit(ch: u8): bool_t {
+    return ch >= c$`0` && ch <= c$`9`
+}
+
+function nextState(pStr: em.ref_t<ptr_t<u8>>, transCnt: frame_t<u32>): State {
+    let str = pStr.$$
+    let state = <State>State.START
+    for (; str.$$ && state != State.INVALID; str.$inc()) {
+        let ch = str.$$
+        if (ch == c$`,`) {
+            str.$inc()
+            break
+        }
+        switch (state) {
+            case State.START:
+                if (isDigit(ch)) {
+                    state = State.INT
+                }
+                else if (ch == c$`+` || ch == c$`-`) {
+                    state = State.S1
+                }
+                else if (ch == c$`.`) {
+                    state = State.FLOAT
+                }
+                else {
+                    state = State.INVALID
+                    transCnt[ord(State.INVALID)] += 1
+                }
+                transCnt[ord(State.START)] += 1
+                break
+            case State.S1:
+                if (isDigit(ch)) {
+                    state = State.INT
+                    transCnt[ord(State.S1)] += 1
+                }
+                else if (ch == c$`.`) {
+                    state = State.FLOAT
+                    transCnt[ord(State.S1)] += 1
+                }
+                else {
+                    state = State.INVALID
+                    transCnt[ord(State.S1)] += 1
+                }
+                break
+            case State.INT:
+                if (ch == c$`.`) {
+                    state = State.FLOAT
+                    transCnt[ord(State.INT)] += 1
+                }
+                else if (!isDigit(ch)) {
+                    state = State.INVALID
+                    transCnt[ord(State.INT)] += 1
+                }
+                break
+            case State.FLOAT:
+                if (ch == c$`E` || ch == c$`e`) {
+                    state = State.S2
+                    transCnt[ord(State.FLOAT)] += 1
+                }
+                else if (!isDigit(ch)) {
+                    state = State.INVALID
+                    transCnt[ord(State.FLOAT)] += 1
+                }
+                break
+            case State.S2:
+                if (ch == c$`+` || ch == c$`-`) {
+                    state = State.EXPONENT
+                    transCnt[ord(State.S2)] += 1
+                }
+                else {
+                    state = State.INVALID
+                    transCnt[ord(State.S2)] += 1
+                }
+                break
+            case State.EXPONENT:
+                if (isDigit(ch)) {
+                    state = State.SCIENTIFIC
+                    transCnt[ord(State.EXPONENT)] += 1
+                }
+                else {
+                    state = State.INVALID
+                    transCnt[ord(State.EXPONENT)] += 1
+                }
+                break
+            case State.SCIENTIFIC:
+                if (!isDigit(ch)) {
+                    state = State.INVALID
+                    transCnt[ord(State.INVALID)] += 1
+                }
+                break
+        }
+    }
+    pStr.$$ = str
+    return state
+}
+
+
+function ord(state: State): u8 {
+    return <u8>state
 }
 
 export function print() {
@@ -74,6 +177,39 @@ export function print() {
         printf`, `()
     }
     printf`\n%c, count = %d\n`(c$`"`, cnt)
+}
+
+export function run(arg: i16): Utils.sum_t {
+    if (arg < 0x22) arg = 0x22
+    let finalCnt = StateCnt.$make()
+    let transCnt = StateCnt.$make()
+    for (let i = 0; i < NUM_STATES; i++) finalCnt[i] = transCnt[i] = 0
+    scan(finalCnt, transCnt)
+    scramble(Utils.getSeed(1), arg)
+    scan(finalCnt, transCnt)
+    scramble(Utils.getSeed(2), arg)
+    let crc = Utils.getCrc(Utils.Kind.FINAL)
+    for (let i = 0; i < NUM_STATES; i++) {
+        crc = Crc.addU32(finalCnt[i], crc)
+        crc = Crc.addU32(transCnt[i], crc)
+    }
+    return crc
+}
+
+function scan(finalCnt: frame_t<u32>, transCnt: frame_t<u32>) {
+    let str = membuf.$ptr()
+    let cnt = <u32>0
+    while (str.$$) {
+        let state = nextState(em.$ref(str), transCnt)
+        cnt += 1
+        finalCnt[ord(state)] += 1
+    }
+}
+
+function scramble(seed: Utils.seed_t, step: u32) {
+    for (let idx = 0; idx < memsize.$$; idx += step) {
+        if (membuf[idx] != c$`,`) membuf[idx] ^= <u8>seed
+    }
 }
 
 export function setup() {

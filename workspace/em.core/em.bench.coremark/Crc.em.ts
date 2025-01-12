@@ -12,6 +12,12 @@ export function add16(val: i16, crc: sum_t): sum_t {
     return crc
 }
 
+export function addU32(val: u32, crc: sum_t): sum_t {
+    crc = add16(<i16>val, crc)
+    crc = add16(<i16>(val >> 16), crc)
+    return crc
+}
+
 function update(data: u8, crc: sum_t): sum_t {
     let x16 = <u8>0
     let carry = <u8>0

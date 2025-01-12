@@ -119,6 +119,15 @@ namespace em {
         $inc() { this.idx += 1 }
     }
 
+    class em$ref<T> implements ref_t<T> {
+        $$: T
+        constructor(lval: T) { this.$$ = lval }
+    }
+
+    export function $ref<T>(lval: T): ref_t<T> {
+        return new em$ref<T>(lval)
+    }
+
     class em$frame<T> implements frame_t<T> {
         private items: T[]
         $start: u16

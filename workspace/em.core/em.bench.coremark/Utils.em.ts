@@ -34,7 +34,7 @@ export function getCrc(kind: Kind): sum_t {
 }
 
 export function getSeed(idx: u8): seed_t {
-    let seed: volatile_t<seed_t> = seed_tab[idx]
+    let seed: volatile_t<seed_t> = seed_tab[idx - 1]
     return seed
 }
 

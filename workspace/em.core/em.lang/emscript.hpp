@@ -60,6 +60,18 @@ namespace em {
         void $inc() { p_ += 1; }
     };
 
+    template <typename T> struct ref_t {
+        T* $$;
+        constexpr ref_t(T* lval) : $$ (lval) {}
+        T& operator*() const { return *$$; }
+        operator arg_t() const { return (arg_t)($$); }
+    };
+
+    template <typename T>
+    constexpr ref_t<T> $ref(T& lval) { // Template the factory function and pass by reference
+        return ref_t<T>(&lval);
+    }    
+
     template <typename T, u16 N> struct table_ro {
         T $$[N];
         static constexpr u16 $len = N;

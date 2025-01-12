@@ -7,6 +7,6 @@ export interface em$_I {
     dump(): void
     kind(): Utils.Kind
     print(): void
-    run(arg: arg_t): Utils.sum_t
+    run(arg: i16): Utils.sum_t
     setup(): void
 }
