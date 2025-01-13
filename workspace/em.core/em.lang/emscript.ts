@@ -247,7 +247,28 @@ namespace em {
 
     // #endregion
 
-    const __SCALAR__ = null
+const __REF__ = null
+    // #region
+
+    export function ref<T>(): em$RefProto<T> {
+        return new em$RefProto<T>();
+    }
+
+    export class em$RefProto<T> implements Sized {
+        readonly $alignof: u16 = 4;
+        readonly $sizeof: u16 = 4;
+        constructor(public target: em$RefVal<T> | null = null) {}
+    }
+    
+    export class em$RefVal<T> implements Sized {
+        readonly $alignof: u16 = 4;
+        readonly $sizeof: u16 = 4;
+        constructor(public target: T | null) {}
+    }
+    
+    // #endregion
+
+const __SCALAR__ = null
     // #region
 
     export type bool_t = boolean & { __bool?: never }
@@ -289,9 +310,9 @@ namespace em {
         return new em$StructProto(fields)
     }
 
-    type StructWithSized<T> = Unbox<T> & Sized
+    export type StructWithSized<T> = Unbox<T> & Sized
 
-    class em$StructProto<T extends Record<string, any>> implements Sized {
+    export class em$StructProto<T extends Record<string, any>> implements Sized {
         constructor(public $fields: T) { }
     
         $make(): StructWithSized<T> {
@@ -443,7 +464,7 @@ namespace em {
     
     export type Indexed<T> = { [index: number]: T }
 
-    interface Boxed<T> {
+    export interface Boxed<T> {
         $$: T
     }
 
@@ -459,7 +480,7 @@ namespace em {
         sizeof: number
     }
 
-    type Sized = {
+    export type Sized = {
         $alignof: number
         $sizeof: number
     }
@@ -508,15 +529,33 @@ namespace em {
         constructor(v: T) { this.$$ = v }
     }
 
-    type Unbox<T> = T extends { $$: infer U }
-    ? U // For boxed scalars
+    export type Unbox<T> = T extends em$RefProto<infer RefType>
+    ? em$RefVal<Unbox<RefType>> // Force correct wrapping in `em$RefVal`
+    : T extends { $$: infer U }
+    ? U // Boxed scalar case
     : T extends em$ArrayProto<infer Proto>
     ? em$ArrayVal<Unbox<Proto>> // Array case
     : T extends Record<string, any>
     ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
-    : T
+    : T;
+
+    /*
+type Unbox<T> = T extends { $$: infer U }
+    ? U // Boxed scalar
+    : T extends em$ArrayProto<infer Proto>
+    ? em$ArrayVal<Unbox<Proto>> // Array case
+    : T extends em$StructProto<infer Fields>
+    ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
+    : T extends em$RefProto<infer RefType>
+    ? RefType | null // Reference case
+    : never;
+
+    */
 
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
+        if (proto instanceof em$RefProto) {
+            return new em$RefVal(null as any) as Unbox<T>; // Explicit type cast
+        }
         if ('$$' in proto) {  // Boxed scalar case
             return (proto as { $$: any }).$$ as Unbox<T>
         }
@@ -532,6 +571,9 @@ namespace em {
                 obj[key] = instantiate(proto.$fields[key])
             }
             return new em$StructVal(obj as Unbox<T>, proto) as unknown as (Unbox<T> & Sized)
+        }
+        if (proto instanceof em$RefProto) {
+            return new em$RefVal<T>(null) as unknown as Unbox<T>            
         }
         throw new Error('Unsupported proto type.')
     }
