@@ -195,31 +195,6 @@ namespace em {
 
     // #endregion
 
-    const __PROTO__ = null
-    // #region
-
-    class Proto_t<T extends Object> {
-        readonly $memory: MemInfo
-        constructor(readonly $obj: T) {
-            this.$memory = $memory($obj)
-        }
-        get<K extends keyof T>(key: K): T[K] { return this.$obj[key] }
-    }
-    export function proto<T extends Object>(obj: T): T & Sized {
-        const handler = {
-            get(targ: any, prop: string | symbol) {
-                switch (prop) {
-                    case '$alignof': return targ.$memory.align
-                    case '$sizeof': return targ.$memory.size
-                    default: return targ.get(prop)
-                }
-            }
-        }
-        return new globalThis.Proxy(new Proto_t(obj), handler)
-    }
-
-    // #endregion
-
     const __PROXY__ = null
     // #region
 
@@ -305,6 +280,8 @@ const __SCALAR__ = null
 
     const __STRUCT__ = null
     // #region
+
+    export type struct_t<T extends { [key: string]: any }> = T
 
     export function $struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
         return new em$StructProto(fields)
@@ -524,6 +501,8 @@ const __SCALAR__ = null
     const __UTILS__ = null
     // #region
 
+    export function $sizeof<T>() { return 0 }
+
     class em$BoxedVal<T> {
         $$: T
         constructor(v: T) { this.$$ = v }
@@ -645,23 +624,6 @@ type Unbox<T> = T extends { $$: infer U }
         return res
     }
 
-    export function $memory(obj: Object): MemInfo {
-        const mi = (obj as any).$memory
-        if (mi) return mi
-        const align = (sz: number, al: number): number => {
-            return (sz + al - 1) & ~(al - 1)
-        }
-        let res = { size: 0, align: 0 }
-        for (const [key, val] of Object.entries(obj)) {
-            if (!val.$memory) throw new Error(`*** $memory: no information available for field '${key}' `)
-            const sz = val.$memory.size
-            if (sz > res.align) res.align = sz
-            res.size = align(res.size, sz) + sz
-        }
-        res.size = align(res.size, res.align)
-        return res
-    }
-
     export function alignof(proto: Object): number {
         return memoryof(proto).align
     }
@@ -757,6 +719,7 @@ declare global {
     type i16 = em.i16
     type i32 = em.i32
     type ptr_t<T> = em.ptr_t<T>
+    type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
     type u32 = em.u32
@@ -768,6 +731,7 @@ declare global {
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
     const $param: typeof em.$param
+    const $sizeof: typeof em.$sizeof
     const $struct: typeof em.$struct
     const $table: typeof em.$table
     const $u8: typeof em.$u8
@@ -785,6 +749,7 @@ Object.assign(globalThis, {
     $i16: em.$i16,
     $i32: em.$i32,
     $param: em.$param,
+    $sizeof: em.$sizeof,
     $struct: em.$struct,
     $table: em.$table,
     $u8: em.$u8,
