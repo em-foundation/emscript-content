@@ -283,16 +283,10 @@ namespace em {
 
     export type struct_t<T extends { [key: string]: any }> = T
 
- // Define an abstract base class
-
-    export type factory_t {
-        static $make<T extends $struct>(this: { new (): T }): T
-    }
-
- export abstract class $struct {
-    static $make<T extends $struct>(this: { new (): T }): T { 
-        console.log("*** bad call to $make()")
-        return new this()
+    export abstract class $struct {
+        static $make<T extends $struct>(this: { new (): T }): T { 
+            console.log("*** bad call to $make()")
+            return new this()
     }
 }
 

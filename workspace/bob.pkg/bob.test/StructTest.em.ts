@@ -59,5 +59,6 @@ export namespace em$meta {
 
 
 export function em$run() {
-    printf`x = %d\n`(p.x)
+    p.x += 10
+    printf`x = %d, sz = %d\n`(p.x, $sizeof<Pair>)
 }
