@@ -63,7 +63,7 @@ function isDigit(ch: u8): bool_t {
     return ch >= c$`0` && ch <= c$`9`
 }
 
-function nextState(pStr: em.ref_t<ptr_t<u8>>, transCnt: frame_t<u32>): State {
+function nextState(pStr: ref_t<ptr_t<u8>>, transCnt: frame_t<u32>): State {
     let str = pStr.$$
     let state = <State>State.START
     for (; str.$$ && state != State.INVALID; str.$inc()) {
@@ -200,7 +200,7 @@ function scan(finalCnt: frame_t<u32>, transCnt: frame_t<u32>) {
     let str = membuf.$ptr()
     let cnt = <u32>0
     while (str.$$) {
-        let state = nextState(em.$ref(str), transCnt)
+        let state = nextState($ref(str), transCnt)
         cnt += 1
         finalCnt[ord(state)] += 1
     }

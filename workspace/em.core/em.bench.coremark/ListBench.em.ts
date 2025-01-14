@@ -4,17 +4,20 @@ export const em$_U = em.declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const Data = $struct({
-    val: $i16(),
-    idx: $i16()
-})
+export class Data extends $struct {
+    val: i16
+    idx: i16
+}
 
-const Elem = $struct({
-    next: em.$ref<any>({}),
-    data: em.$ref<any>({})
-})
+class Elem extends $struct {
+    next: ref_t<Data>
+    data: ref_t<Elem>
+}
 
-export namespace em$meta {}
+export namespace em$meta {
+
+    console.log($sizeof<Elem>)
+}
 
 
 /*

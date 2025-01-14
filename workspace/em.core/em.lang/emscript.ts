@@ -744,6 +744,7 @@ declare global {
     type i16 = em.i16
     type i32 = em.i32
     type ptr_t<T> = em.ptr_t<T>
+    type ref_t<T> = em.ref_t<T>
     type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
@@ -756,6 +757,7 @@ declare global {
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
     const $param: typeof em.$param
+    const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
     const $struct: typeof em.$struct
     const $table: typeof em.$table
@@ -774,6 +776,7 @@ Object.assign(globalThis, {
     $i16: em.$i16,
     $i32: em.$i32,
     $param: em.$param,
+    $ref: em.$ref,
     $sizeof: em.$sizeof,
     $struct: em.$struct,
     $table: em.$table,
