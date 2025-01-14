@@ -3,13 +3,18 @@ export const em$_U = em.declare('MODULE')
 
 export namespace em$meta {
 
+    type MyInt = i16
+
     class Pair extends $struct {
-        x: i16 = 10
-        y: i8 = -5
+        x: i16
+        y: i8
     }
+    type MyPair = Pair
     class Info extends $struct {
-        p: Pair = Pair.$make()
-        b: bool_t = true
+        // p: Pair = Pair.$make()
+        p: Pair
+        m: MyPair
+        b: bool_t
     }
     const info = Info.$make()
     console.log($sizeof<Info>)
