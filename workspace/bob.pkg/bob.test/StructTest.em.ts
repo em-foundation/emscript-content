@@ -1,6 +1,13 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
+class Pair extends $struct {
+    x: i16 = 10
+    y: i16 = 20
+}
+
+var p = Pair.$make()
+
 export namespace em$meta {
 
     // class S {
@@ -10,14 +17,7 @@ export namespace em$meta {
     // const s = S.$make()
     // console.log(s)
 
-    class Pair extends $struct {
-        x: i16 = 10
-        y: i16 = 20
-    }
-    const p = Pair.$make()
-    console.log(p)
-    console.log($sizeof<Pair>)
-
+    // console.log($sizeof<Pair>)
 
 
     //    const Pair = $struct({
@@ -59,4 +59,5 @@ export namespace em$meta {
 
 
 export function em$run() {
+    printf`x = %d\n`(p.x)
 }
