@@ -3,19 +3,36 @@ export const em$_U = em.declare('MODULE')
 
 export namespace em$meta {
 
-    const Pair = $struct({
-        x: $i16(),
-        y: $i16()
-    })
-    // console.log(Pair)
-    // console.log(Pair.$sizeof)
+    // class S {
+    //     static $make(): S { return new this }
+    //     x: i16
+    // }
+    // const s = S.$make()
+    // console.log(s)
 
+    class Pair extends $struct {
+        x: i16
+        y: i16
+    }
     const p = Pair.$make()
-    p.x = 10
-    p.y = 20
     console.log(p)
-    console.log(p.x)
-    console.log(p.$sizeof)
+    console.log($sizeof<Pair>)
+
+
+
+    //    const Pair = $struct({
+    //        x: $i16(),
+    //        y: $i16()
+    //    })
+    //    // console.log(Pair)
+    //    // console.log(Pair.$sizeof)
+    //
+    //    const p = Pair.$make()
+    //    p.x = 10
+    //    p.y = 20
+    //    console.log(p)
+    //    console.log(p.x)
+    //    console.log(p.$sizeof)
 
     // console.log(Pair)
 

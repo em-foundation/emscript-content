@@ -1,6 +1,6 @@
 import * as Fs from 'fs'
 import * as Path from 'path'
-import {sprintf} from 'sprintf-js'
+import { sprintf } from 'sprintf-js'
 
 namespace em {
 
@@ -21,7 +21,7 @@ namespace em {
         $make() { return instantiate(this) }
 
     }
-    class em$ArrayVal<T> implements frame_t<T>{
+    class em$ArrayVal<T> implements frame_t<T> {
         $len: number
         private items: globalThis.Array<T>
         [index: number]: T
@@ -222,7 +222,7 @@ namespace em {
 
     // #endregion
 
-const __REF__ = null
+    const __REF__ = null
     // #region
 
     export function ref<T>(): em$RefProto<T> {
@@ -232,18 +232,18 @@ const __REF__ = null
     export class em$RefProto<T> implements Sized {
         readonly $alignof: u16 = 4;
         readonly $sizeof: u16 = 4;
-        constructor(public target: em$RefVal<T> | null = null) {}
+        constructor(public target: em$RefVal<T> | null = null) { }
     }
-    
+
     export class em$RefVal<T> implements Sized {
         readonly $alignof: u16 = 4;
         readonly $sizeof: u16 = 4;
-        constructor(public target: T | null) {}
+        constructor(public target: T | null) { }
     }
-    
+
     // #endregion
 
-const __SCALAR__ = null
+    const __SCALAR__ = null
     // #region
 
     export type bool_t = boolean & { __bool?: never }
@@ -283,15 +283,41 @@ const __SCALAR__ = null
 
     export type struct_t<T extends { [key: string]: any }> = T
 
-    export function $struct<T extends Record<string, any>>(fields: T): em$StructProto<T> {
-        return new em$StructProto(fields)
+ // Define an abstract base class
+export abstract class $struct {
+    static $make<T extends $struct>(this: { new (): T }): T { 
+        console.log("*** bad call to $make()")
+        return new this()
     }
+}
+
+//    export abstract class $struct {
+//        static $make<T extends $struct>(this: new () => T): T {
+//            const instance = new this() // Create a new instance of the derived class
+//    
+//            // Initialize fields with type-specific default values
+//            for (const key of Object.keys(instance)) {
+//                const value = (instance as any)[key]
+//                if (typeof value === 'undefined') {
+//                    (instance as any)[key] = 0 // Default for numbers
+//                } else if (typeof value === 'boolean') {
+//                    (instance as any)[key] = false // Default for booleans
+//                }
+//                // } else if (value instanceof $struct) {
+//                //     (instance as any)[key] = (value.constructor as typeof $struct).$make() // Recursive initialization for nested structs
+//                // }
+//            }
+//    
+//            return instance
+//        }
+//    }
+    
 
     export type StructWithSized<T> = Unbox<T> & Sized
 
     export class em$StructProto<T extends Record<string, any>> implements Sized {
         constructor(public $fields: T) { }
-    
+
         $make(): StructWithSized<T> {
             const fields = instantiate(this as em$StructProto<T>)
             const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>)
@@ -408,7 +434,7 @@ const __SCALAR__ = null
     const __TRAITS__ = null
     // #region
 
-    export type arg_t = bool_t|i8|i16|i32|u8|u16|u32|ptr_t<any>|text_t
+    export type arg_t = bool_t | i8 | i16 | i32 | u8 | u16 | u32 | ptr_t<any> | text_t
 
     export interface frame_t<T> extends Indexed<T> {
         $len: u16
@@ -438,7 +464,7 @@ const __SCALAR__ = null
     export let $reg32: Indexed<u32>
 
     export type ArrayLike<T> = Indexed<T> & { $len: u16 }
-    
+
     export type Indexed<T> = { [index: number]: T }
 
     export interface Boxed<T> {
@@ -509,14 +535,14 @@ const __SCALAR__ = null
     }
 
     export type Unbox<T> = T extends em$RefProto<infer RefType>
-    ? em$RefVal<Unbox<RefType>> // Force correct wrapping in `em$RefVal`
-    : T extends { $$: infer U }
-    ? U // Boxed scalar case
-    : T extends em$ArrayProto<infer Proto>
-    ? em$ArrayVal<Unbox<Proto>> // Array case
-    : T extends Record<string, any>
-    ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
-    : T;
+        ? em$RefVal<Unbox<RefType>> // Force correct wrapping in `em$RefVal`
+        : T extends { $$: infer U }
+        ? U // Boxed scalar case
+        : T extends em$ArrayProto<infer Proto>
+        ? em$ArrayVal<Unbox<Proto>> // Array case
+        : T extends Record<string, any>
+        ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
+        : T;
 
     /*
 type Unbox<T> = T extends { $$: infer U }
@@ -552,11 +578,11 @@ type Unbox<T> = T extends { $$: infer U }
             return new em$StructVal(obj as Unbox<T>, proto) as unknown as (Unbox<T> & Sized)
         }
         if (proto instanceof em$RefProto) {
-            return new em$RefVal<T>(null) as unknown as Unbox<T>            
+            return new em$RefVal<T>(null) as unknown as Unbox<T>
         }
         throw new Error('Unsupported proto type.')
     }
-    
+
 
     export function clone<T extends Object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
