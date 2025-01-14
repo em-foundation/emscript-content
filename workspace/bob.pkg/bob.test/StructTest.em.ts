@@ -11,8 +11,8 @@ export namespace em$meta {
     // console.log(s)
 
     class Pair extends $struct {
-        x: i16
-        y: i16
+        x: i16 = 10
+        y: i16 = 20
     }
     const p = Pair.$make()
     console.log(p)
