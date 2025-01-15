@@ -106,6 +106,83 @@ namespace em {
 
     // #endregion
 
+    const __FACTORY__ = null
+    // #region
+
+    class em$oref<T> implements ref_t<T> {
+        constructor(private arr: T[], private idx: u16) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        return target.arr[idx + Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+                set(target, prop, value) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        target.arr[idx + Number(prop)] = value
+                        return true
+                    }
+                    return false
+                },
+            })
+        }
+        get $$() { return this.arr[this.idx] }
+        set $$(v: T) { this.arr[this.idx] = v }
+    }
+
+
+
+    class em$factory<T extends $struct> {
+        [index: number]: T
+        private $$em$config: string = 'factory'
+        private elems: T[] = []
+        constructor(private proto: T) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        return target.elems[Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+            })
+        }
+        get $len(): u16 { return this.elems.length }
+        $add(e: T) { this.elems.push(e) }
+        $create(): ref_t<T> {
+            this.$add(clone(this.proto))
+            return new em$oref<T>(this.elems, this.elems.length - 1)
+        }
+        $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
+        $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
+
+    }
+
+    export type factory_t<T extends $struct> = em$factory<T>
+
+    export function $factory<T extends $struct>(proto: T): factory_t<T> {
+        const handler = {
+            get(targ: any, prop: string | symbol) {
+                const idx = Number(prop)
+                if (!isNaN(idx)) return targ.elems[idx]
+                switch (prop) {
+                    default: return targ[prop]
+                }
+            },
+            set(targ: any, prop: string | symbol, val: any) {
+                const idx = Number(prop)
+                if (isNaN(idx)) return false
+                targ.elems[idx] = val
+                return true
+            }
+        }
+        return new globalThis.Proxy(new em$factory(proto), handler)
+    }
+
+    // #endregion
+
+
+
     const __FRAME__ = null
     // #region
 
@@ -692,6 +769,7 @@ declare global {
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
     const $bool: typeof em.$bool
+    const $factory: typeof em.$factory
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
@@ -711,6 +789,7 @@ declare global {
 Object.assign(globalThis, {
     $array: em.$array,
     $bool: em.$bool,
+    $factory: em.$factory,
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
