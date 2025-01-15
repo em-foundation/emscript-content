@@ -29,6 +29,8 @@ export function print() {
 }
 
 export function em$run() {
+
+    em.$['%%a']
     StateBench.setup()
     em.$['%%a+']
     let crc = StateBench.run(0)
@@ -36,8 +38,7 @@ export function em$run() {
     StateBench.print()
     printf`\ncrc = %04x\n`(crc)
 
-
-
+    // em.$['%%a']
     // MatrixBench.setup()
     // em.$['%%a+']
     // let crc = MatrixBench.run(0)
