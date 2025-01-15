@@ -44,6 +44,15 @@ namespace em {
 
     };
 
+    template <typename T> struct index_t {
+        T* p_;
+        constexpr index_t(T* v = nullptr) : p_ (v) {}
+        constexpr index_t(u32 a) : p_((T*)a) {}
+        T &operator[](u16 index) { return *(p_ + index); }
+        const T &operator[](u16 index) const { return *(p_ + index); }
+        operator arg_t() const { return (arg_t)(p_); }
+    };
+
     template <typename T> struct param {
         T $$;
         constexpr param(T v) : $$(v) {}

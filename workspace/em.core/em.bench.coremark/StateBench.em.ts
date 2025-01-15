@@ -63,7 +63,7 @@ function isDigit(ch: u8): bool_t {
     return ch >= c$`0` && ch <= c$`9`
 }
 
-function nextState(pStr: ref_t<ptr_t<u8>>, transCnt: ptr_t<u32>): State {
+function nextState(pStr: ref_t<ptr_t<u8>>, transCnt: index_t<u32>): State {
     let str = pStr.$$
     let state = <State>State.START
     for (; str.$$ && state != State.INVALID; str.$inc()) {
@@ -184,9 +184,9 @@ export function run(arg: i16): Utils.sum_t {
     let finalCnt = StateCnt.$make()
     let transCnt = StateCnt.$make()
     for (let i = 0; i < NUM_STATES; i++) finalCnt[i] = transCnt[i] = 0
-    scan(finalCnt.$ptr(), transCnt.$ptr())
+    scan(finalCnt, transCnt)
     scramble(Utils.getSeed(1), arg)
-    scan(finalCnt.$ptr(), transCnt.$ptr())
+    scan(finalCnt, transCnt)
     scramble(Utils.getSeed(2), arg)
     let crc = Utils.getCrc(Utils.Kind.FINAL)
     for (let i = 0; i < NUM_STATES; i++) {
@@ -196,7 +196,7 @@ export function run(arg: i16): Utils.sum_t {
     return crc
 }
 
-function scan(finalCnt: ptr_t<u32>, transCnt: ptr_t<u32>) {
+function scan(finalCnt: index_t<u32>, transCnt: index_t<u32>) {
     let str = membuf.$ptr()
     let cnt = <u32>0
     while (str.$$) {

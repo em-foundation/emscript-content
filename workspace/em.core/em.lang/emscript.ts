@@ -403,11 +403,11 @@ namespace em {
     const __TEXT__ = null
     // #region
 
-    export function t$(sa: TemplateStringsArray): em$text_t & Indexed<u8> {
+    export function t$(sa: TemplateStringsArray): em$text_t & index_t<u8> {
         return text(sa[0])
     }
 
-    export type text_t = em$text_t & Indexed<u8>
+    export type text_t = em$text_t & index_t<u8>
 
     class em$text_t {
         private str: string
@@ -452,7 +452,7 @@ namespace em {
 
     export type arg_t = bool_t | i8 | i16 | i32 | u8 | u16 | u32 | ptr_t<any> | text_t
 
-    export interface frame_t<T> extends Indexed<T> {
+    export interface frame_t<T> extends index_t<T> {
         $len: u16
         $frame(beg: i16, len: u16): frame_t<T>
         [Symbol.iterator](): Iterator<ref_t<T>>
@@ -462,13 +462,13 @@ namespace em {
         $$: T
     }
 
-    export interface ptr_t<T> extends ref_t<T>, Indexed<T> {
+    export interface ptr_t<T> extends ref_t<T>, index_t<T> {
         $cur(): u32
         $dec(): void
         $inc(): void
     }
 
-    export type table_t<T> = em$table_t<T> & Indexed<T>
+    export type table_t<T> = em$table_t<T> & index_t<T>
 
     export type volatile_t<T> = T
 
@@ -477,11 +477,11 @@ namespace em {
         $: $Reg[]
     }
 
-    export let $reg32: Indexed<u32>
+    export let $reg32: index_t<u32>
 
-    export type ArrayLike<T> = Indexed<T> & { $len: u16 }
+    export type ArrayLike<T> = index_t<T> & { $len: u16 }
 
-    export type Indexed<T> = { [index: number]: T }
+    export type index_t<T> = { [index: number]: T }
 
     export interface Boxed<T> {
         $$: T
@@ -757,6 +757,7 @@ declare global {
     type arg_t = em.arg_t
     type bool_t = em.bool_t
     type frame_t<T> = em.frame_t<T>
+    type index_t<T> = em.index_t<T>
     type i8 = em.i8
     type i16 = em.i16
     type i32 = em.i32
