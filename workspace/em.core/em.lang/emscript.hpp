@@ -54,6 +54,8 @@ namespace em {
         constexpr ptr_t(T* v = nullptr) : p_ (v) {}
         constexpr ptr_t(u32 a) : p_((T*)a) {}
         T& operator*() const { return *p_; }
+        T &operator[](u16 index) { return *(p_ + index); }
+        const T &operator[](u16 index) const { return *(p_ + index); }
         operator arg_t() const { return (arg_t)(p_); }
         arg_t $cur() const { return (arg_t)(p_); }
         void $dec() { p_ -= 1; }

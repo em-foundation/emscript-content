@@ -110,7 +110,24 @@ namespace em {
     // #region
 
     class em$ptr<T> implements ptr_t<T> {
-        constructor(private arr: T[], private idx: u16 = 0) { }
+        [index: number]: T
+        constructor(private arr: T[], private idx: u16 = 0) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        return target.arr[idx + Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+                set(target, prop, value) {
+                    if (typeof prop === "string" && !isNaN(Number(prop))) {
+                        target.arr[idx + Number(prop)] = value
+                        return true
+                    }
+                    return false
+                },
+            })
+        }
         get $$() { return this.arr[this.idx] }
         set $$(v: T) { this.arr[this.idx] = v }
         $cur() { return this.idx }
@@ -445,7 +462,7 @@ namespace em {
         $$: T
     }
 
-    export interface ptr_t<T> extends ref_t<T> {
+    export interface ptr_t<T> extends ref_t<T>, Indexed<T> {
         $cur(): u32
         $dec(): void
         $inc(): void
