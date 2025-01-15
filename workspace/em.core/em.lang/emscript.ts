@@ -306,62 +306,6 @@ namespace em {
             return new this()
     }
 }
-
-//    export abstract class $struct {
-//        static $make<T extends $struct>(this: new () => T): T {
-//            const instance = new this() // Create a new instance of the derived class
-//    
-//            // Initialize fields with type-specific default values
-//            for (const key of Object.keys(instance)) {
-//                const value = (instance as any)[key]
-//                if (typeof value === 'undefined') {
-//                    (instance as any)[key] = 0 // Default for numbers
-//                } else if (typeof value === 'boolean') {
-//                    (instance as any)[key] = false // Default for booleans
-//                }
-//                // } else if (value instanceof $struct) {
-//                //     (instance as any)[key] = (value.constructor as typeof $struct).$make() // Recursive initialization for nested structs
-//                // }
-//            }
-//    
-//            return instance
-//        }
-//    }
-    
-
-    export type StructWithSized<T> = Unbox<T> & Sized
-
-    export class em$StructProto<T extends Record<string, any>> implements Sized {
-        constructor(public $fields: T) { }
-
-        $make(): StructWithSized<T> {
-            const fields = instantiate(this as em$StructProto<T>)
-            const structVal = new em$StructVal(fields as Unbox<T>, this as em$StructProto<T>)
-            return structVal as unknown as StructWithSized<T>
-        }
-        get $alignof() { return memoryof(this).align }
-        get $sizeof() { return memoryof(this).size }
-    }
-
-    class em$StructVal<T extends Record<string, any>> implements Sized {
-        $alignof: u16
-        $sizeof: u16
-        constructor(public $fields: Unbox<T>, public $proto: em$StructProto<T>) {
-            this.$alignof = $proto.$alignof
-            this.$sizeof = $proto.$sizeof
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (String(prop).match(/^\$(alignof|sizeof)$/)) return (target as any)[prop]
-                    return (target.$fields as any)[prop]
-                },
-                set(target, prop, value) {
-                    (target.$fields as any)[prop] = value
-                    return true
-                },
-            }) as any
-        }
-    }
-
     // #endregion
 
     const __TABLE__ = null
@@ -560,19 +504,6 @@ namespace em {
         ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
         : T;
 
-    /*
-type Unbox<T> = T extends { $$: infer U }
-    ? U // Boxed scalar
-    : T extends em$ArrayProto<infer Proto>
-    ? em$ArrayVal<Unbox<Proto>> // Array case
-    : T extends em$StructProto<infer Fields>
-    ? { [K in keyof Fields]: Unbox<Fields[K]> } & Sized // Struct case
-    : T extends em$RefProto<infer RefType>
-    ? RefType | null // Reference case
-    : never;
-
-    */
-
     export function instantiate<T extends Object>(proto: T): Unbox<T> {
         if (proto instanceof em$RefProto) {
             return new em$RefVal(null as any) as Unbox<T>; // Explicit type cast
@@ -585,13 +516,6 @@ type Unbox<T> = T extends { $$: infer U }
             const elementProto = (proto as { $base: any }).$base
             const defaultVal = instantiate(elementProto)
             return new em$ArrayVal<Unbox<typeof elementProto>>(len, defaultVal) as Unbox<T>
-        }
-        if (proto instanceof em$StructProto) {  // Struct case
-            const obj: any = {}
-            for (const key in proto.$fields) {
-                obj[key] = instantiate(proto.$fields[key])
-            }
-            return new em$StructVal(obj as Unbox<T>, proto) as unknown as (Unbox<T> & Sized)
         }
         if (proto instanceof em$RefProto) {
             return new em$RefVal<T>(null) as unknown as Unbox<T>
@@ -648,9 +572,6 @@ type Unbox<T> = T extends { $$: infer U }
             let mi = memoryof(obj.$base)
             mi.size *= obj.$len
             return mi
-        }
-        if (obj instanceof em$StructProto) {
-            return memoryof(obj.$fields)
         }
         let res = { size: 0, align: 0 }
         const align = (sz: number, al: number): number => {
