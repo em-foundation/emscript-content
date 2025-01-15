@@ -51,7 +51,7 @@ namespace em {
 
     template <typename T> struct ptr_t {
         T* p_;
-        constexpr ptr_t(T* v) : p_ (v) {}
+        constexpr ptr_t(T* v = nullptr) : p_ (v) {}
         constexpr ptr_t(u32 a) : p_((T*)a) {}
         T& operator*() const { return *p_; }
         operator arg_t() const { return (arg_t)(p_); }
@@ -62,7 +62,7 @@ namespace em {
 
     template <typename T> struct ref_t {
         T* $$;
-        constexpr ref_t(T* lval) : $$ (lval) {}
+        constexpr ref_t(T* lval = nullptr) : $$ (lval) {}
         T& operator*() const { return *$$; }
         operator arg_t() const { return (arg_t)($$); }
     };
