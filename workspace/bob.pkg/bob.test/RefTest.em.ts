@@ -1,6 +1,16 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
+let x = <i16>1234
+let p = $ref(x)
+
+export function em$run() {
+    printf`p = %x\n`(p)
+    printf`x = %d\n`(p.$$)
+    p.$$ = 5678
+    printf`x = %d\n`(x)
+}
+
 /*
 type ElemType = {
     data: ReturnType<typeof $i16>
@@ -18,7 +28,7 @@ e.elem = new em.em$RefVal(e) // Assign directly, no errors
 e.elem.target!.data = 20
 */
 
-
+/*
 export namespace em$meta {
 
     type Proto<T> = {
@@ -51,3 +61,4 @@ export namespace em$meta {
     e.elem.target!.data = 20
 
 }
+*/
