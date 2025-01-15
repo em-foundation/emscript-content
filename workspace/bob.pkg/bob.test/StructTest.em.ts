@@ -1,14 +1,36 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
-class Pair extends $struct {
-    x: i16 = 10
-    y: i16 = 20
-}
+import * as Types from '@bob.test/Types.em'
 
-var p = Pair.$make()
+// class Pair extends $struct {
+//     x: i16 = 10
+//     y: i16 = 20
+// }
+
+let pair_tab = $table<Types.Pair>('rw')
 
 export namespace em$meta {
+
+    var p = Types.Pair.$make()
+    pair_tab.$add(p)
+
+    // interface factory_t<T> {
+    //     $make(): T
+    // }
+    // 
+    // function $structD<T>(obj: T): factory_t<T> {
+    //     return { $make: () => { return <T>{} } }
+    // }
+    // 
+    // const Pair_t = $structD({
+    //     x: <i16>10,
+    //     y: <i16>20
+    // })
+    // 
+    // const p = Pair_t.$make()
+    // console.log(p)
+
 
     // class S {
     //     static $make(): S { return new this }
@@ -59,6 +81,7 @@ export namespace em$meta {
 
 
 export function em$run() {
-    p.x += 10
-    printf`x = %d, sz = %d\n`(p.x, $sizeof<Pair>)
+    printf`x = %d\n`(pair_tab[0].x)
+    // p.x += 10
+    // printf`x = %d, sz = %d\n`(p.x, $sizeof<Pair>)
 }
