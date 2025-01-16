@@ -4,19 +4,43 @@ export const em$_U = em.declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
+export const memsize = $param<u16>(666)
+
 export class Data extends $struct {
     val: i16
     idx: i16
 }
 
 class Elem extends $struct {
-    next: ref_t<Data>
-    data: ref_t<Elem>
+    next: ref_t<Elem>
+    data: ref_t<Data>
 }
+
+let DataFac = $factory(Data.$make())
+let ElemFac = $factory(Elem.$make())
+
+const maxElems = $param<u16>(0)
+
+var curHead: ref_t<Elem>
 
 export namespace em$meta {
 
-    console.log($sizeof<Elem>)
+    export function em$construct() {
+        let itemSize = 16 + $sizeof<Data>()
+        maxElems.$$ = Math.round(memsize.$$ / itemSize)
+        curHead = ElemFac.$create()
+        curHead.$$.data = DataFac.$create()
+        let p = curHead
+        for (let i = 0; i < 3; i++) {
+            let q = p.$$.next = ElemFac.$create()
+            q.$$.data = DataFac.$create()
+            p = q
+        }
+        p.$$.data = DataFac.$create()
+        p.$$.next = ElemFac.$null()
+        // console.dir(ElemFac, { depth: null })
+    }
+
 }
 
 

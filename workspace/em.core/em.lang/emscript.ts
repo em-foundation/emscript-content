@@ -154,6 +154,7 @@ namespace em {
             return new em$oref<T>(this.elems, this.elems.length - 1)
         }
         $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
+        $null(): ref_t<T> { return $ref(null as unknown as T)}
         $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
 
     }
@@ -564,7 +565,7 @@ namespace em {
     const __UTILS__ = null
     // #region
 
-    export function $sizeof<T>() { return 0 }
+    export function $sizeof<T>(required?: undefined) { return 0 }
 
     class em$BoxedVal<T> {
         $$: T
