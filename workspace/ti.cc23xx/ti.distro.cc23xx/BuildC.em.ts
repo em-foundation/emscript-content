@@ -59,6 +59,7 @@ export function em$generate() {
         |->     -Wno-switch \\
         |->     -Wno-c99-designator \\
         |->     -Wno-c++20-designator \\
+        |->     -Wno-uninitialized \\
         |->     -Wpointer-to-int-cast \\
         |-> "
         |-> 

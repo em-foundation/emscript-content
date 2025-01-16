@@ -38,8 +38,12 @@ export namespace em$meta {
         }
         p.$$.data = DataFac.$create()
         p.$$.next = ElemFac.$null()
-        // console.dir(ElemFac, { depth: null })
+        // console.dir(DataFac, { depth: null })
     }
+
+}
+
+export function em$run() {
 
 }
 

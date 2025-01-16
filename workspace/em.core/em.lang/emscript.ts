@@ -110,7 +110,8 @@ namespace em {
     // #region
 
     class em$oref<T> implements ref_t<T> {
-        constructor(private arr: T[], private idx: u16) {
+        __em$class = 'em$oref'
+        constructor(private arr: T[], private idx: u16, private cname: string) {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
@@ -131,13 +132,11 @@ namespace em {
         set $$(v: T) { this.arr[this.idx] = v }
     }
 
-
-
     class em$factory<T extends $struct> {
         [index: number]: T
         private $$em$config: string = 'factory'
         private elems: T[] = []
-        constructor(private proto: T) {
+        constructor(private proto: T, private cname: string) {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === "string" && !isNaN(Number(prop))) {
@@ -151,17 +150,17 @@ namespace em {
         $add(e: T) { this.elems.push(e) }
         $create(): ref_t<T> {
             this.$add(clone(this.proto))
-            return new em$oref<T>(this.elems, this.elems.length - 1)
+            return new em$oref<T>(this.elems, this.elems.length - 1, this.cname)
         }
         $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
-        $null(): ref_t<T> { return $ref(null as unknown as T)}
+        $null(): ref_t<T> { return new em$oref<T>(this.elems, -1, this.cname) }
         $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
 
     }
 
     export type factory_t<T extends $struct> = em$factory<T>
 
-    export function $factory<T extends $struct>(proto: T): factory_t<T> {
+    export function $factory<T extends $struct>(proto: T, __cname?: string): factory_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 const idx = Number(prop)
@@ -177,7 +176,7 @@ namespace em {
                 return true
             }
         }
-        return new globalThis.Proxy(new em$factory(proto), handler)
+        return new globalThis.Proxy(new em$factory(proto, __cname!), handler)
     }
 
     // #endregion
@@ -189,6 +188,7 @@ namespace em {
 
     class em$ptr<T> implements ptr_t<T> {
         [index: number]: T
+        __em$class = 'em$ptr'
         constructor(private arr: T[], private idx: u16 = 0) {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
@@ -215,6 +215,7 @@ namespace em {
 
     class em$ref<T> implements ref_t<T> {
         $$: T
+        __em$class = 'em$ref'
         constructor(lval: T) { this.$$ = lval }
     }
 
@@ -482,6 +483,7 @@ namespace em {
 
     export interface ref_t<T> {
         $$: T
+        __em$class: string
     }
 
     export interface ptr_t<T> extends ref_t<T>, index_t<T> {
