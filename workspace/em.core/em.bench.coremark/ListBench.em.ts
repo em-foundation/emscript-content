@@ -21,17 +21,18 @@ let ElemFac = $factory(Elem.$make())
 
 const maxElems = $param<u16>(0)
 
+let curHead_c = $param<ref_t<Elem>>()
 var curHead: ref_t<Elem>
 
 export namespace em$meta {
 
     export function em$construct() {
         let itemSize = 16 + $sizeof<Data>()
-        maxElems.$$ = Math.round(memsize.$$ / itemSize)
+        maxElems.$$ = Math.round(memsize.$$ / itemSize) - 3
         curHead = ElemFac.$create()
         curHead.$$.data = DataFac.$create()
         let p = curHead
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < maxElems.$$; i++) {
             let q = p.$$.next = ElemFac.$create()
             q.$$.data = DataFac.$create()
             p = q
@@ -39,12 +40,49 @@ export namespace em$meta {
         p.$$.data = DataFac.$create()
         p.$$.next = ElemFac.$null()
         // console.dir(DataFac, { depth: null })
+        curHead_c.$$ = curHead
     }
 
 }
 
-export function em$run() {
 
+function pr(list: ref_t<Elem>, name: text_t) {
+    let sz = 0
+    printf`%s\n[`(name)
+    for (let e = list; e != null; e = e.$$.next) {
+        let pre = (sz++ % 8) == 0 ? t$`\n    ` : t$``
+        printf`%s(%04x,%04x)`(pre, e.$$.data.$$.idx, <u16>e.$$.data.$$.val)
+    }
+    printf`\n], size = %d\n`(sz)
+}
+
+export function print() {
+    pr(curHead, t$`current`)
+}
+
+export function setup() {
+    curHead = curHead_c.$$
+    let seed = Utils.getSeed(1)
+    let ki = 1
+    let kd = maxElems.$$ - 3
+    let e = curHead
+    e.$$.data.$$.idx = 0
+    e.$$.data.$$.val = 0x8080
+    for (e = e.$$.next; e.$$.next != null; e = e.$$.next) {
+        let pat = <u16>(seed ^ kd) & 0xf
+        let dat = (pat << 3) | (kd & 0x7)
+        e.$$.data.$$.val = <i16>((dat << 8) | dat)
+        kd -= 1
+        if (ki < (maxElems.$$ / 5)) {
+            e.$$.data.$$.idx = ki++
+        }
+        else {
+            pat = <u16>(seed ^ ki++)
+            e.$$.data.$$.idx = <i16>(0x3fff & (((ki & 0x7) << 8) | pat))
+        }
+    }
+    e.$$.data.$$.idx = 0x7fff
+    e.$$.data.$$.val = 0xffff
 }
 
 

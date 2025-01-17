@@ -1,7 +1,13 @@
 #ifndef emscript__M
 #define emscript__M
 
+#include <stddef.h>
 #include <stdint.h>
+
+namespace std {
+    typedef decltype(nullptr) nullptr_t;
+}
+using ::std::nullptr_t;
 
 static void em__fail();
 static void em__halt();
@@ -19,6 +25,9 @@ namespace em {
     using arg_t = uint32_t;
 
     using bool_t = bool;
+
+    auto null = nullptr;
+    typedef decltype(nullptr) null_t;
 
     template <typename T> struct frame_t {
         static frame_t<T> create(T arr[], u16 dim, i16 beg, u16 len) {
@@ -46,7 +55,7 @@ namespace em {
 
     template <typename T> struct index_t {
         T* p_;
-        constexpr index_t(T* v = nullptr) : p_ (v) {}
+        constexpr index_t(T* v = null) : p_ (v) {}
         constexpr index_t(u32 a) : p_((T*)a) {}
         T &operator[](u16 index) { return *(p_ + index); }
         const T &operator[](u16 index) const { return *(p_ + index); }
@@ -60,7 +69,7 @@ namespace em {
 
     template <typename T> struct ptr_t {
         T* p_;
-        constexpr ptr_t(T* v = nullptr) : p_ (v) {}
+        constexpr ptr_t(T* v = null) : p_ (v) {}
         constexpr ptr_t(u32 a) : p_((T*)a) {}
         T& operator*() const { return *p_; }
         T &operator[](u16 index) { return *(p_ + index); }
@@ -73,9 +82,13 @@ namespace em {
 
     template <typename T> struct ref_t {
         T* $$;
-        constexpr ref_t(T* lval = nullptr) : $$ (lval) {}
+        constexpr ref_t(T* lval = null) : $$ (lval) {}
         T& operator*() const { return *$$; }
+        T* operator->() const { return $$; }
         operator arg_t() const { return (arg_t)($$); }
+        explicit operator bool() const { return $$ != null; }
+        bool operator==(null_t) const { return $$ == null; }
+        bool operator!=(null_t) const { return $$ != null; }
     };
 
     template <typename T>

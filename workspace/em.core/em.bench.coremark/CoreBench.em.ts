@@ -1,6 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.declare('MODULE')
 
+import * as ListBench from '@em.bench.coremark/ListBench.em'
 import * as MatrixBench from '@em.bench.coremark/MatrixBench.em'
 import * as StateBench from '@em.bench.coremark/StateBench.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
@@ -12,6 +13,7 @@ export namespace em$meta {
 
     export function em$configure() {
         let memsize = Math.floor(TOTAL_DATA_SIZE.$$ / NUM_ALGS.$$)
+        ListBench.memsize.$$ = memsize
         MatrixBench.memsize.$$ = memsize
         StateBench.memsize.$$ = memsize
     }
@@ -24,19 +26,23 @@ export namespace em$meta {
 }
 
 export function print() {
+    ListBench.print()
     MatrixBench.print()
     StateBench.print()
 }
 
 export function em$run() {
 
-    em.$['%%a']
-    StateBench.setup()
-    em.$['%%a+']
-    let crc = StateBench.run(0)
-    em.$['%%a-']
-    StateBench.print()
-    printf`\ncrc = %04x\n`(crc)
+    ListBench.setup()
+    ListBench.print()
+
+    // em.$['%%a']
+    // StateBench.setup()
+    // em.$['%%a+']
+    // let crc = StateBench.run(0)
+    // em.$['%%a-']
+    // StateBench.print()
+    // printf`\ncrc = %04x\n`(crc)
 
     // em.$['%%a']
     // MatrixBench.setup()
