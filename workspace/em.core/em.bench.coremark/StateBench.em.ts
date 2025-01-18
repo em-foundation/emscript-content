@@ -63,6 +63,10 @@ function isDigit(ch: u8): bool_t {
     return ch >= c$`0` && ch <= c$`9`
 }
 
+export function kind(): Utils.Kind {
+    return Utils.Kind.STATE
+}
+
 function nextState(pStr: ref_t<ptr_t<u8>>, transCnt: index_t<u32>): State {
     let str = pStr.$$
     let state = <State>State.START

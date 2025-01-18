@@ -33,6 +33,10 @@ export namespace em$meta {
     }
 }
 
+export function kind(): Utils.Kind {
+    return Utils.Kind.MATRIX
+}
+
 export function print() {
     prDat(t$`A`, matA.$frame(0))
     prDat(t$`B`, matB.$frame(0))

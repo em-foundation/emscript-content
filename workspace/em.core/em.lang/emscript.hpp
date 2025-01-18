@@ -119,6 +119,7 @@ namespace em {
         inline T &operator[](u16 index) { return $$[index]; }
         frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
         operator frame_t<T>() { return $frame(0, 0); }
+        ref_t<T> $null() { return ref_t<T>(); }
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
     };
 

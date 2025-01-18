@@ -33,8 +33,13 @@ export function print() {
 
 export function em$run() {
 
+    em.$['%%a']
     ListBench.setup()
+    em.$['%%a+']
+    let crc = ListBench.run(1)
+    em.$['%%a-']
     ListBench.print()
+    printf`\ncrc = %04x\n`(crc)
 
     // em.$['%%a']
     // StateBench.setup()
