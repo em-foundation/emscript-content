@@ -6,7 +6,7 @@ import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
 import * as McuI from '@em.hal/McuI.em'
 
-export const BusyWait = em.Proxy<BusyWaitI.em$_I>()
-export const ConsoleUart = em.Proxy<ConsoleUartI.em$_I>()
-export const GlobalInterrupts = em.Proxy<GlobalInterruptsI.em$_I>()
-export const Mcu = em.Proxy<McuI.em$_I>()
+export const BusyWait = $proxy<BusyWaitI.em$_I>()
+export const ConsoleUart = $proxy<ConsoleUartI.em$_I>()
+export const GlobalInterrupts = $proxy<GlobalInterruptsI.em$_I>()
+export const Mcu = $proxy<McuI.em$_I>()

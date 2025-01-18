@@ -4,8 +4,8 @@ export const em$_U = em.declare('MODULE')
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
 
-export const AppLedPin = em.Delegate(BoardC.AppLedPin)
-export const SysLedPin = em.Delegate(BoardC.SysLedPin)
+export const AppLedPin = em.$delegate(BoardC.AppLedPin)
+export const SysLedPin = em.$delegate(BoardC.SysLedPin)
 
 export function em$startup() {
     AppLedPin.$$.makeOutput()

@@ -3,7 +3,7 @@ export const em$_U = em.declare('MODULE')
 
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 
-export const Pin = em.Delegate(BoardC.AppLedPin)
+export const Pin = em.$delegate(BoardC.AppLedPin)
 
 export namespace em$meta {
     export function em$construct() {

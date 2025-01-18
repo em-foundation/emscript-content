@@ -306,11 +306,11 @@ namespace em {
             if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
         }
     }
-    export function Proxy<I extends Object>(): em$proxy_t<I> & Boxed<I> {
+    export function $proxy<I extends Object>(): em$proxy_t<I> & Boxed<I> {
         return new em$proxy_t<I>()
     }
 
-    export function Delegate<U extends Object>(unit: U): em$proxy_t<U> {
+    export function $delegate<U extends Object>(unit: U): em$proxy_t<U> {
         const prx = new em$proxy_t<U>()
         prx.$$ = unit
         return prx
@@ -772,11 +772,13 @@ declare global {
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
     const $bool: typeof em.$bool
+    const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
     const $param: typeof em.$param
+    const $proxy: typeof em.$proxy
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
     const $struct: typeof em.$struct
@@ -792,11 +794,13 @@ declare global {
 Object.assign(globalThis, {
     $array: em.$array,
     $bool: em.$bool,
+    $delegate: em.$delegate,
     $factory: em.$factory,
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
     $param: em.$param,
+    $proxy: em.$proxy,
     $ref: em.$ref,
     $sizeof: em.$sizeof,
     $struct: em.$struct,
