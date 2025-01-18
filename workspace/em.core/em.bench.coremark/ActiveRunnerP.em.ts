@@ -6,7 +6,7 @@ import * as Common from '@em.mcu/Common.em'
 import * as CoreBench from '@em.bench.coremark/CoreBench.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const AppLed = $delegate(BoardC.AppLed)
+const AppLed = $delegate(BoardC.AppLed)
 
 let ITERATIONS = $param<u16>(10)
 
