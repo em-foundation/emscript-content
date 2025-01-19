@@ -12,5 +12,5 @@ export namespace em$meta {
     function cb1(x: u8) { console.log(`cb1(${x})`) }
 
     let cb = $cb<CallB>(cb1)
-    cb.$call(10)
+    cb.$$(10)
 }

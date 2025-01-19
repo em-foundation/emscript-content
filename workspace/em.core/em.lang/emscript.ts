@@ -70,8 +70,8 @@ namespace em {
     // #region
 
     class em$cb<A extends any[]> {
-        constructor(private fxn: (...args: A) => void) { }
-        $call(...args: A): void { this.fxn(...args); }
+        constructor(readonly $$: (...args: A) => void) { }
+        // $call(...args: A): void { this.fxn(...args); }
     }
 
     export function $cb<F extends cb_t<any[]>>(fxn: F): em$cb<Parameters<F>> {
