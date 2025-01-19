@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'

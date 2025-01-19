@@ -533,7 +533,7 @@ namespace em {
     const __UNIT__ = null
     // #region
 
-    export function declare(kind: UnitKind, path?: string): Unit {
+    export function $declare(kind: UnitKind, path?: string): Unit {
         const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const unit = new Unit(uid, kind)
         unit_map.set(uid, unit)
@@ -772,6 +772,7 @@ declare global {
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
     const $bool: typeof em.$bool
+    const declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
     const $i8: typeof em.$i8
@@ -794,6 +795,7 @@ declare global {
 Object.assign(globalThis, {
     $array: em.$array,
     $bool: em.$bool,
+    declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
     $i8: em.$i8,

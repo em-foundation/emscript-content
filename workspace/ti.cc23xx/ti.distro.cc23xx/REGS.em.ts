@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.declare('COMPOSITE')
+export const em$_U = em.$declare('COMPOSITE')
 
 export function em$generate() {
     let out = new em.OutFile('ti.distro.cc23xx/REGS.hpp')
@@ -13583,7 +13583,7 @@ For received words:
   - if the FIFOs are not enabled (LCRH.FEN = 0), the data byte and status are stored in the receiving holding register (the bottom word of the receive FIFO).
 The received data byte is read by performing reads from this register along with the corresponding status information. The status information can also be read by a read of the RSR_ECR register.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_DR_RESERVED12: any = '20'
 
 /**
@@ -13630,7 +13630,7 @@ Status
 This register is mapped to the same address as ECR register.  Reads from this address are associated with RSR_ECR register and return the receive status. Writes to this address are associated with ECR register and clear the receive status flags (framing, parity, break, and overrun errors).
 If the status is read from this register, then the status information for break, framing and parity corresponds to the data character read from the Data Register DR, prior to reading the RSR_ECR. The status information for overrun is set immediately when an overrun condition occurs.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RSR_ECR_RESERVED4: any = '28'
 
 /**
@@ -13697,7 +13697,7 @@ export const UART_RSR_ECR_FE_ERROR_NOTSET: any = '0'
 /**
 UART Reserved Area*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RESERVED0_RESERVED: any = '32'
 
 
@@ -13708,7 +13708,7 @@ Flag
 
 Reads from this register return the UART flags.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_FR_RESERVED8: any = '24'
 
 /**
@@ -13768,7 +13768,7 @@ export const UART_FR_CTS: any = '1'
 /**
 UART Reserved Area*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RESERVED2_RESERVED: any = '32'
 
 
@@ -13780,7 +13780,7 @@ IrDA Low-Power Counter Register.
 
 This is an 8-bit register that stores the low-power counter divisor value used to generate the IrLPBaud16 signal by dividing down of UARTCLK.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_UARTILPR_RESERVED8: any = '24'
 
 /**
@@ -13797,7 +13797,7 @@ Integer Baud-Rate Divisor
 
 If this register is modified while trasmission or reception is on-going, the baudrate will not be updated until transmission or reception of the current character is complete.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_IBRD_RESERVED16: any = '16'
 
 /**
@@ -13821,7 +13821,7 @@ Fractional Baud-Rate Divisor
 
 If this register is modified while trasmission or reception is on-going, the baudrate will not be updated until transmission or reception of the current character is complete.*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_FBRD_RESERVED6: any = '26'
 
 /**
@@ -13843,7 +13843,7 @@ export const UART_FBRD_DIVFRAC: any = '6'
 /**
 Line Control*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_LCRH_RESERVED8: any = '24'
 
 /**
@@ -13936,7 +13936,7 @@ export const UART_LCRH_BRK: any = '1'
 /**
 Control*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_CTL_RESERVED16: any = '16'
 
 /**
@@ -13964,7 +13964,7 @@ RTS hardware flow control disabled*/
 export const UART_CTL_RTSEN_DIS: any = '0'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_CTL_RESERVED12: any = '2'
 
 /**
@@ -13974,7 +13974,7 @@ This bit is the complement of the active-low UART RTS output. That is, when the 
 export const UART_CTL_RTS: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_CTL_RESERVED10: any = '1'
 
 /**
@@ -14034,7 +14034,7 @@ UART FIFO Concatenation  disabled*/
 export const UART_CTL_FCEN_DIS: any = '0'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_CTL_RESERVED1: any = '3'
 
 /**
@@ -14086,7 +14086,7 @@ export const UART_CTL_UARTEN_DIS: any = '0'
 /**
 Interrupt FIFO Level Select*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_IFLS_RESERVED6: any = '26'
 
 /**
@@ -14131,7 +14131,7 @@ export const UART_IFLS_TXSEL_QUARTER: any = '1'
 /**
 Interrupt Mask Set/Clear*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_IMSC_RESERVED14: any = '18'
 
 /**
@@ -14177,7 +14177,7 @@ Receive interrupt mask. A read returns the current mask for UART's receive inter
 export const UART_IMSC_RX: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_IMSC_RESERVED2: any = '2'
 
 /**
@@ -14185,7 +14185,7 @@ Clear to Send (CTS) modem interrupt mask. A read returns the current mask for UA
 export const UART_IMSC_CTSM: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_IMSC_RESERVED0: any = '1'
 
 
@@ -14194,7 +14194,7 @@ export const UART_IMSC_RESERVED0: any = '1'
 /**
 Raw Interrupt Status*/
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RIS_RESERVED14: any = '18'
 
 /**
@@ -14265,7 +14265,7 @@ thereby filling the location. The receive interrupt is cleared by performing a s
 export const UART_RIS_RX: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RIS_RESERVED2: any = '2'
 
 /**
@@ -14275,7 +14275,7 @@ This field returns the raw interrupt state of UART's clear to send interrupt.*/
 export const UART_RIS_CTSM: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_RIS_RESERVED0: any = '1'
 
 
@@ -14284,7 +14284,7 @@ export const UART_RIS_RESERVED0: any = '1'
 /**
 Masked Interrupt Status*/
 /**
-	Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify*/
+    Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify*/
 export const UART_MIS_RESERVED14: any = '18'
 
 /**
@@ -14347,7 +14347,7 @@ This field returns the masked interrupt state of the receive interrupt  which is
 export const UART_MIS_RX: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored.*/
+    Reads to this field return zero, writes to this field are ignored.*/
 export const UART_MIS_RESERVED2: any = '2'
 
 /**
@@ -14357,7 +14357,7 @@ This field returns the masked interrupt state of the clear to send interrupt whi
 export const UART_MIS_CTSM: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored. Write 0.*/
+    Reads to this field return zero, writes to this field are ignored. Write 0.*/
 export const UART_MIS_RESERVED0: any = '1'
 
 
@@ -14368,7 +14368,7 @@ Interrupt Clear
 
 On a write of 1, the corresponding interrupt is cleared. A write of 0 has no effect.*/
 /**
-	Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify*/
+    Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify*/
 export const UART_ICR_RESERVED16: any = '18'
 
 /**
@@ -14432,7 +14432,7 @@ Writing 1 to this field clears the receive interrupt (RIS.RX). Writing 0 has no 
 export const UART_ICR_RX: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored. Write 0*/
+    Reads to this field return zero, writes to this field are ignored. Write 0*/
 export const UART_ICR_RESERVED2: any = '2'
 
 /**
@@ -14442,7 +14442,7 @@ Writing 1 to this field clears the clear to send interrupt (RIS.CTS). Writing 0 
 export const UART_ICR_CTSM: any = '1'
 
 /**
-	Reads to this field return zero, writes to this field are ignored. Write 0.*/
+    Reads to this field return zero, writes to this field are ignored. Write 0.*/
 export const UART_ICR_RESERVED0: any = '1'
 
 
@@ -14451,7 +14451,7 @@ export const UART_ICR_RESERVED0: any = '1'
 /**
 DMA Control*/
 /**
-	Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify.*/
+    Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify.*/
 export const UART_DMACTL_RESERVED3: any = '29'
 
 /**
@@ -14472,7 +14472,7 @@ export const UART_DMACTL_RXDMAE: any = '1'
 /**
 UART Reserved Area*/
 /**
-	Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify.*/
+    Reads to this field return zero, writes to this field are ignored. Read as zero, do not modify.*/
 export const UART_RESERVED1_RESERVED: any = '32'
 
 
@@ -14481,7 +14481,7 @@ export const UART_RESERVED1_RESERVED: any = '32'
 /**
 UART Reserved Area*/
 /**
-	Reads to this field return zero, writes to this field are ignored. */
+    Reads to this field return zero, writes to this field are ignored. */
 export const UART_RESERVED3_RESERVED: any = '32'
 
 
@@ -14490,14 +14490,13 @@ export const UART_RESERVED3_RESERVED: any = '32'
 /**
 UART Reserved Area For Future ID Expansion*/
 /**
-	Reads to this field return zero, writes to this field are ignored. */
+    Reads to this field return zero, writes to this field are ignored. */
 export const UART_RESERVED4_RESERVED: any = '32'
 
 
 // -------- INSTANCES -------- //
 
-export const IOC = { } as IOC_t
-export const CLKCTL = { } as CLKCTL_t
-export const GPIO = { } as GPIO_t
-export const UART0 = { } as UART_t
-
+export const IOC = {} as IOC_t
+export const CLKCTL = {} as CLKCTL_t
+export const GPIO = {} as GPIO_t
+export const UART0 = {} as UART_t

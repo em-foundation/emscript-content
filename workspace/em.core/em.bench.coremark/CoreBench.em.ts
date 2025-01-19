@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as ListBench from '@em.bench.coremark/ListBench.em'

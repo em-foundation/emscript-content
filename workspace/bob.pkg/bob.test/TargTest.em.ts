@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 import Mod from '@bob.test/Mod.em'
 
