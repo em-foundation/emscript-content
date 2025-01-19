@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('INTERFACE')
+export const em$_U = em.$declare('INTERFACE')
 
 import * as Utils from '@em.bench.coremark/Utils.em'
 

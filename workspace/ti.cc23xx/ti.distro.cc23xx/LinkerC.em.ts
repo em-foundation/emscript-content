@@ -1,9 +1,9 @@
 import em from '@$$emscript'
-export const em$_U = $declare('COMPOSITE')
+export const em$_U = em.$declare('COMPOSITE')
 
 
 export function em$generate() {
-    let out = new em.OutFile('linkcmd.ld')
+    let out = $outfile('linkcmd.ld')
     out.addFrag(`
         |-> MEMORY {
         |->     DMEM : ORIGIN = 0x20000000, LENGTH = 0x00009000

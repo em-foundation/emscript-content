@@ -675,7 +675,10 @@ namespace em {
         return memoryof(proto).size
     }
 
-    export class OutFile {
+    export function $outfile(path: string): em$OutFile {
+        return new em$OutFile(path)
+    }
+    export class em$OutFile {
         static readonly TAB = 4
         private col: number
         private text: Array<string>
@@ -727,10 +730,10 @@ namespace em {
                         res += ' '.repeat(this.col)
                         continue
                     case '+':
-                        this.col += OutFile.TAB
+                        this.col += em$OutFile.TAB
                         continue
                     case '-':
-                        this.col && (this.col -= OutFile.TAB)
+                        this.col && (this.col -= em$OutFile.TAB)
                         continue
                     case '1':
                         res += a0
@@ -778,6 +781,7 @@ declare global {
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
+    const $outfile: typeof em.$outfile
     const $param: typeof em.$param
     const $proxy: typeof em.$proxy
     const $ref: typeof em.$ref
@@ -801,6 +805,7 @@ Object.assign(globalThis, {
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
+    $outfile: em.$outfile,
     $param: em.$param,
     $proxy: em.$proxy,
     $ref: em.$ref,
@@ -813,6 +818,7 @@ Object.assign(globalThis, {
     printf: em.printf,
     c$: em.c$,
     t$: em.t$,
+    // $Outfile: em.$OutFile
 })
 
 export default em

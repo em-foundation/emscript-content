@@ -1,8 +1,8 @@
 import em from '@$$emscript'
-export const em$_U = $declare('COMPOSITE')
+export const em$_U = em.$declare('COMPOSITE')
 
 export function em$generate() {
-    let out = new em.OutFile('em.arch.arm/startup.c')
+    let out = $outfile('em.arch.arm/startup.c')
     out.addFrag(`
         |-> #define __EM_BOOT_FLASH__ 0
         |-> 

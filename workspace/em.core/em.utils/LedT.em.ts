@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_T = $declare('TEMPLATE')
+export const em$_T = em.$declare('TEMPLATE')
 
 import * as GpioI from '@em.hal/GpioI.em'
 import * as LedI from '@em.hal/LedI.em'
@@ -8,7 +8,7 @@ import * as Poller from '@em.mcu/Poller.em'
 
 export namespace em$template {
 
-    export const em$_U = $declare('MODULE')
+    export const em$_U = em.$declare('MODULE')
 
     export const Pin = $proxy<GpioI.em$_I>()
     export const active_low = $param<bool_t>(false)

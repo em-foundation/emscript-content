@@ -1,8 +1,8 @@
 import em from '@$$emscript'
-export const em$_U = $declare('COMPOSITE')
+export const em$_U = em.$declare('COMPOSITE')
 
 export function em$generate() {
-    let out = new em.OutFile('ti.distro.cc23xx/startup.c')
+    let out = $outfile('ti.distro.cc23xx/startup.c')
     out.addFrag(`
         |-> #include <stdbool.h>
         |-> #include <stdint.h>

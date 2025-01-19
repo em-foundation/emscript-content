@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 export const scalar = $param<u8>(3)
 

@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 export const Args = $array($u32(), 2)
 export const NumBuf = $array($u8(), 10)

@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 export namespace em$meta {
 
@@ -8,7 +8,7 @@ export namespace em$meta {
     }
 
     export function em$generate() {
-        let out = new em.OutFile('em.arch.arm/intr.c')
+        let out = $outfile('em.arch.arm/intr.c')
         out.addFrag(`
             |-> #include <stdbool.h>
             |-> #include <stdint.h>

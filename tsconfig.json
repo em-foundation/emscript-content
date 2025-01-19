@@ -54,6 +54,7 @@
         "esModuleInterop": true
     },
     "include": [
+        "./workspace/em.core/em.lang/emscript.ts",
         "./workspace/**/*.ts",
         "./workspace/.emscript/*/*.ts"
     ],

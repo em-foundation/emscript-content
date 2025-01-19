@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('MODULE')
+export const em$_U = em.$declare('MODULE')
 
 import * as em$_R from '@ti.distro.cc23xx/REGS.em'
 import * as GpioI from '@em.hal/GpioI.em'

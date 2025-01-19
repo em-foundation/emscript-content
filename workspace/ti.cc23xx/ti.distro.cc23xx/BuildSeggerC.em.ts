@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = $declare('COMPOSITE')
+export const em$_U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
@@ -20,7 +20,7 @@ export function em$configure() {
 }
 
 export function em$generate() {
-    let out = new em.OutFile('build.sh')
+    let out = $outfile('build.sh')
     out.addFrag(`
         |-> #!/bin/sh
         |-> 
@@ -89,7 +89,7 @@ export function em$generate() {
     `)
     out.close()
     //
-    out = new em.OutFile('load.sh')
+    out = $outfile('load.sh')
     out.addText('C:/Users/biosb/em-sdk/tools/ti-uniflash/dslite.bat -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n')
     out.close()
 }

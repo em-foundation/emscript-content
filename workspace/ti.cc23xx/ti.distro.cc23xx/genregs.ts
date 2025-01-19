@@ -6,8 +6,8 @@ import em from '@$$emscript'
 
 let instArr: Array<any>
 
-let meta = new em.OutFile('REGS.em.ts')
-let targ = new em.OutFile('REGS.hpp.txt')
+let meta = new em.$OutFile('REGS.em.ts')
+let targ = new em.$OutFile('REGS.hpp.txt')
 
 function genModule(xfile: string): void {
     const modName = Path.basename(xfile, '.xml')
