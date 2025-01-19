@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const em$_U = $declare('MODULE')
 
 import * as AppLed from '@bob.scratch/AppLed.em'
 import * as AppLedPin from '@bob.scratch/AppLedPin.em'

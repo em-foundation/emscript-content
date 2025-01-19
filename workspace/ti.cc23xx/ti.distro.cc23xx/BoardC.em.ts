@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('COMPOSITE')
+export const em$_U = $declare('COMPOSITE')
 
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'

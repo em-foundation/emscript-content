@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('COMPOSITE')
+export const em$_U = $declare('COMPOSITE')
 
 export function em$generate() {
     let out = new em.OutFile('em.arch.arm/startup.c')

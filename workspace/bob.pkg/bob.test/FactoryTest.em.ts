@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const em$_U = $declare('MODULE')
 
 import * as Types from '@bob.test/Types.em'
 
