@@ -66,6 +66,20 @@ namespace em {
 
     // #endregion
 
+    const __CB__ = null
+    // #region
+
+    class em$cb<A extends any[]> {
+        constructor(private fxn: (...args: A) => void) { }
+        $call(...args: A): void { this.fxn(...args); }
+    }
+
+    export function $cb<F extends cb_t<any[]>>(fxn: F): em$cb<Parameters<F>> {
+        return new em$cb(fxn);
+    }
+
+    // #endregion
+
     const __CHAR__ = null
     // #region
     export function char_t(cs: string): u8 {
@@ -273,8 +287,6 @@ namespace em {
         return new em$frame<T>(arr, start, len)
     }
 
-    // #endregion
-
     const __PARAM__ = null
     // #region
 
@@ -474,6 +486,8 @@ namespace em {
     // #region
 
     export type arg_t = bool_t | i8 | i16 | i32 | u8 | u16 | u32 | ptr_t<any> | text_t
+
+    export type  cb_t<A extends any[] = []> = (...args: A) => void
 
     export interface frame_t<T> extends index_t<T> {
         $len: u16
@@ -760,6 +774,7 @@ namespace em {
 declare global {
     type arg_t = em.arg_t
     type bool_t = em.bool_t
+    type cb_t<A extends any[] = []> = em.cb_t<A>
     type frame_t<T> = em.frame_t<T>
     type index_t<T> = em.index_t<T>
     type i8 = em.i8
@@ -775,6 +790,7 @@ declare global {
     type volatile_t<T> = em.volatile_t<T>
     const $array: typeof em.$array
     const $bool: typeof em.$bool
+    const $cb: typeof em.$cb
     const $declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
@@ -799,6 +815,7 @@ declare global {
 Object.assign(globalThis, {
     $array: em.$array,
     $bool: em.$bool,
+    $cb: em.$cb,
     $declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
