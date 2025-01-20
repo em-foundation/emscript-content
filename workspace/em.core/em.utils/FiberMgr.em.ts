@@ -16,10 +16,14 @@ class Fiber extends $struct {
 class List extends $struct {
     head: ref_t<Fiber>
     tail: ref_t<Fiber>
-
+    empty: () => bool_t
+    give: (elem: ref_t<Fiber>) => void
+    take: () => ref_t<Fiber>
 }
 
 let FiberFac = $factory(Fiber.$make())
+
+let ready_list = List.$make()
 
 export namespace em$meta {
     export function create(body: Body, arg: arg_t = 0): Obj {
@@ -30,8 +34,54 @@ export namespace em$meta {
     }
 }
 
-function Fiber__post(self: ref_t<Fiber>): void {
+function dispatch() {
+    while (!ready_list.empty()) {
+        let fiber = ready_list.take()
+        Common.GlobalInterrupts.$$.enable()
+        fiber.$$.body(fiber.$$.arg)
+        Common.GlobalInterrupts.$$.disable()
+    }
+}
 
+export function run() {
+    Common.GlobalInterrupts.$$.enable()
+    for (; ;) {
+        Common.GlobalInterrupts.$$.disable()
+        dispatch()
+    }
+}
+
+function Fiber__post(self: ref_t<Fiber>): void {
+    let key = Common.GlobalInterrupts.$$.disable()
+    if (self.$$.link == $nullref) ready_list.give(self)
+    Common.GlobalInterrupts.$$.restore(key)
+}
+
+function List__empty(self: ref_t<List>): bool_t {
+    return self.$$.head == $nullref
+}
+
+function List__give(self: ref_t<List>, elem: ref_t<Fiber>): void {
+    if (self.$$.empty()) {
+        self.$$.head = elem
+    }
+    else {
+        self.$$.tail.$$.link = elem
+    }
+    self.$$.tail = elem
+    elem.$$.link = $nullref
+}
+
+function List__take(self: ref_t<List>): ref_t<Fiber> {
+    let e = self.$$.head
+    self.$$.head = e.$$.link
+    e.$$.link = $nullref
+    if (self.$$.head == $nullref) self.$$.tail = $nullref
+    return e
+}
+
+export function em$run() {
+    printf`empty = %d\n`(ready_list.empty())
 }
 
 /*
