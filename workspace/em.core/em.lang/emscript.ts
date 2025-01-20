@@ -74,12 +74,16 @@ namespace em {
         return new em$cb(fxn, cname!) as unknown as cb_t<A>
     }
     
+    export function $cb$null() {
+        return new em$cb(undefined, '<undefined')
+    }
+
     class em$cb<A extends any[]> {
         __em$class = 'em$cb'
-        constructor(private fxn: (...args: A) => void, private cname: string) {
+        constructor(private fxn: ((...args: A) => void) | undefined, private cname: string) {
             return new Proxy(this, {
                 apply: (target, thisArg, args: A) => {
-                    return this.fxn(...args);
+                    return this.fxn!(...args);
                 }
             }) as any;
         }
@@ -806,6 +810,7 @@ declare global {
     const $array: typeof em.$array
     const $bool: typeof em.$bool
     const $cb: typeof em.$cb
+    const $cb$null: typeof em.$cb$null
     const $declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
@@ -831,6 +836,7 @@ Object.assign(globalThis, {
     $array: em.$array,
     $bool: em.$bool,
     $cb: em.$cb,
+    $cb$null: em.$cb$null,
     $declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
