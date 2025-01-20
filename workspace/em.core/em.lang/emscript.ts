@@ -69,14 +69,27 @@ namespace em {
     const __CB__ = null
     // #region
 
+    
+    export function $cb<A extends any[]>(fxn: (...args: A) => void): cb_t<A> {
+        return new em$cb(fxn) as cb_t<A>
+    }
+    
     class em$cb<A extends any[]> {
-        constructor(readonly $$: (...args: A) => void) { }
-        // $call(...args: A): void { this.fxn(...args); }
+        $$: (...args: A) => void
+        constructor(fxn: (...args: A) => void) {
+            this.$$ = fxn
+            return new Proxy(this, {
+                apply: (target, thisArg, args: A) => {
+                    return this.$$(...args);
+                }
+            }) as any;
+        }
     }
-
-    export function $cb<F extends cb_t<any[]>>(fxn: F): em$cb<Parameters<F>> {
-        return new em$cb(fxn);
-    }
+     
+    // class em$cb<A extends any[]> {
+    //     constructor(readonly $$: (...args: A) => void) {
+    //     }
+    // }
 
     // #endregion
 
@@ -487,7 +500,10 @@ namespace em {
 
     export type arg_t = bool_t | i8 | i16 | i32 | u8 | u16 | u32 | ptr_t<any> | text_t
 
-    export type  cb_t<A extends any[] = []> = (...args: A) => void
+    export interface cb_t<A extends any[] = []> {
+        $$: (...args: A) => void
+        (...args: A): void
+    }
 
     export interface frame_t<T> extends index_t<T> {
         $len: u16
