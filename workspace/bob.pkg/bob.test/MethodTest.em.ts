@@ -3,14 +3,14 @@ export const em$_U = em.$declare('MODULE')
 
 class Obj extends $struct {
     x: u8 = 10
-    foo: () => void
+    add: (y: u8) => u8
 }
 
 export function em$run() {
     let obj = Obj.$make()
-    obj.foo()
+    printf`z = %d\n`(obj.add(20))
 }
 
-function Obj__foo(self: ref_t<Obj>) {
-    printf`x = %d\n`(self.$$.x)
+function Obj__add(self: ref_t<Obj>, y: u8): u8 {
+    return self.$$.x + y
 }

@@ -13,6 +13,12 @@ class Fiber extends $struct {
     post: () => void
 }
 
+class List extends $struct {
+    head: ref_t<Fiber>
+    tail: ref_t<Fiber>
+
+}
+
 let FiberFac = $factory(Fiber.$make())
 
 export namespace em$meta {
