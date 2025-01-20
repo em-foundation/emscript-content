@@ -16,7 +16,9 @@ export function em$run() {
     fxn.$$(10)
 }
 
-function fooFxn(x: u8) {}
+function fooFxn(x: u8) {
+    printf`fooFxn(%d)\n`(x)
+}
 
 
 // export namespace em$meta {

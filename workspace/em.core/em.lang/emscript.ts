@@ -70,17 +70,16 @@ namespace em {
     // #region
 
     
-    export function $cb<A extends any[]>(fxn: (...args: A) => void): cb_t<A> {
-        return new em$cb(fxn) as cb_t<A>
+    export function $cb<A extends any[]>(fxn: (...args: A) => void, cname?: string): cb_t<A> {
+        return new em$cb(fxn, cname!) as unknown as cb_t<A>
     }
     
     class em$cb<A extends any[]> {
-        $$: (...args: A) => void
-        constructor(fxn: (...args: A) => void) {
-            this.$$ = fxn
+        __em$class = 'em$cb'
+        constructor(private fxn: (...args: A) => void, private cname: string) {
             return new Proxy(this, {
                 apply: (target, thisArg, args: A) => {
-                    return this.$$(...args);
+                    return this.fxn(...args);
                 }
             }) as any;
         }
