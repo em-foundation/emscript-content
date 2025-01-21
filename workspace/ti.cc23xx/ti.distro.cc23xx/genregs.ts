@@ -6,8 +6,8 @@ import em from '@$$emscript'
 
 let instArr: Array<any>
 
-let meta = new em.$OutFile('REGS.em.ts')
-let targ = new em.$OutFile('REGS.hpp.txt')
+let meta = em.$outfile('REGS.em.ts')
+let targ = em.$outfile('REGS.hpp.txt')
 
 function genModule(xfile: string): void {
     const modName = Path.basename(xfile, '.xml')
@@ -37,6 +37,7 @@ function genModule(xfile: string): void {
             meta.addText("*/\n")
             const fldLab = `${modName}_${reg.id}_${fld.id}`
             meta.print("export const %1: any = '%2'\n\n", fldLab, fld.width)
+            meta.print("export const %1_S: any = '%2'\n\n", fldLab, fld.width)
             const enmArr = f.bitenum as Array<any>
             if (enmArr === undefined) return
             enmArr.forEach(e => {
@@ -58,10 +59,10 @@ function readXmlFile(xfile: string): any {
 }
 
 meta.addText(`import em from '@$$emscript'\n`)
-meta.addText(`export const em$_U = em.declare('COMPOSITE')\n`)
+meta.addText(`export const em$_U = em.$declare('COMPOSITE')\n`)
 meta.addText(`
 export function em$generate() {
-    let out = new em.OutFile('ti.distro.cc23xx/REGS.hpp')
+    let out = new em.$outfile('ti.distro.cc23xx/REGS.hpp')
     out.addFile('../ti.cc23xx/ti.distro.cc23xx/REGS.hpp.txt')
     out.close()
 }

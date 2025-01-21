@@ -3,6 +3,8 @@ export const em$_U = em.$declare('MODULE')
 
 export namespace em$meta {
 
+    const intr_map = new Map<string, boolean>()
+
     export function em$init() {
         em$_U.used()
     }
@@ -29,4 +31,11 @@ export namespace em$meta {
         out.close()
     }
 
+    export function addIntr(name: string) {
+        intr_map.set(name, false)
+    }
+
+    export function useIntr(name: string) {
+        intr_map.set(name, true)
+    }
 }

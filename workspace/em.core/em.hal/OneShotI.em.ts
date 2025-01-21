@@ -1,0 +1,10 @@
+import em from '@$$emscript'
+export const em$_U = em.$declare('INTERFACE')
+
+export type Handler = cb_t<[arg_t]>
+
+export interface em$_I {
+    disable(): void
+    enable(msecs: u32, handler: Handler, arg: arg_t): void
+    uenable(usecs: u32, handler: Handler, arg: arg_t): void
+}
