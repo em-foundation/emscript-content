@@ -42,11 +42,7 @@ function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
 
 export function LGPT3_COMB_isr$$() {
     disable()
-    em.halt()
-}
-
-export function em$run() {
-
+    cur_fxn(cur_arg)
 }
 
 /*
