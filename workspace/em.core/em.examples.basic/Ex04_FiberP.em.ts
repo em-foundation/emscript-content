@@ -5,16 +5,17 @@ import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 
-let blinkF = $param<FiberMgr.Obj>()
-let count = <u8>5
-
 export const AppLed = $delegate(BoardC.AppLed)
+
+let blinkF = $param<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
         blinkF.$$ = FiberMgr.em$meta.create($cb(blinkFB))
     }
 }
+
+let count = <u8>5
 
 export function em$run() {
     blinkF.$$.$$.post()

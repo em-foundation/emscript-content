@@ -98,6 +98,7 @@ namespace em {
 
     const __CHAR__ = null
     // #region
+
     export function char_t(cs: string): u8 {
         return cs.charCodeAt(1)
     }
@@ -598,7 +599,12 @@ namespace em {
     // #endregion
 
     const __UTILS__ = null
-    // #region
+    // #
+    
+    export function e$(sa: TemplateStringsArray): any {
+        return 0
+    }
+
 
     export function $sizeof<T>(required?: undefined) { return 0 }
 
@@ -830,6 +836,7 @@ declare global {
     const $u32: typeof em.$u32
     const printf: typeof em.printf
     const c$: typeof em.c$
+    const e$: typeof em.e$
     const t$: typeof em.t$
 }
 
@@ -857,8 +864,8 @@ Object.assign(globalThis, {
     $u32: em.$u32,
     printf: em.printf,
     c$: em.c$,
+    e$: em.e$,
     t$: em.t$,
-    // $Outfile: em.$OutFile
 })
 
 export default em

@@ -85,9 +85,7 @@ export function NVIC_enable(irqN: u8) {
 }
 
 export function PRIMASK_get(): u32 {
-    let res = <u32>0
-    'res = __get_PRIMASK()'
-    return res
+    return e$`__get_PRIMASK()`
 }
 
 export function PRIMASK_set(m: u32) {

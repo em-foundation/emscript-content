@@ -12,6 +12,9 @@ import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
+import * as OneShot from '@ti.mcu.cc23xx/OneShotGpt3.em'
+
+export { OneShot }
 
 export const AppLed = LedT.em$clone()
 export const AppLedPin = GpioT.em$clone()
