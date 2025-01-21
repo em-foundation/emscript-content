@@ -8,6 +8,7 @@ import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
+import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
@@ -32,6 +33,7 @@ export function em$configure(): void {
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart0
     Common.GlobalInterrupts.$$ = GlobalInterrupts
+    Common.Idle.$$ = Idle
     Common.Mcu.$$ = Mcu
     DbgA.pin_num.$$ = 23
     DbgB.pin_num.$$ = 25
