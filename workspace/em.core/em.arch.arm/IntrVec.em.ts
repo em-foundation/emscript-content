@@ -72,6 +72,28 @@ export namespace em$meta {
     }
 }
 
+export function NVIC_clear(irqN: u8) {
+    'NVIC_ClearPendingIRQ((IRQn_Type)irqN)'
+}
+
+export function NVIC_disable(irqN: u8) {
+    'NVIC_DisableIRQ((IRQn_Type)irqN)'
+}
+
+export function NVIC_enable(irqN: u8) {
+    'NVIC_EnableIRQ((IRQn_Type)irqN)'
+}
+
+export function PRIMASK_get(): u32 {
+    let res = <u32>0
+    'res = __get_PRIMASK()'
+    return res
+}
+
+export function PRIMASK_set(m: u32) {
+    '__set_PRIMASK(m)'
+}
+
 export function DEFAULT_isr$$() {
     em.fail()
 }

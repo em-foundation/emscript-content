@@ -2,19 +2,22 @@ import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
 import * as GlobalInterruptsI from '@em.hal/GlobalInterruptsI.em'
+import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
 export function disable(): GlobalInterruptsI.Key {
-    return 0
+    const key = IntrVec.PRIMASK_get()
+    'asm volatile ("cpsid i" ::: "memory")'
+    return <GlobalInterruptsI.Key>key
 }
 
 export function enable() {
-    return
+    'asm volatile ("cpsie i" ::: "memory")'
 }
 
 export function isEnabled(): bool_t {
-    return false
+    return IntrVec.PRIMASK_get() == 0
 }
 
 export function restore(key: GlobalInterruptsI.Key) {
-    return
+    if (key == 0) enable()
 }

@@ -69,6 +69,8 @@ export function em$generate() {
 `)
 targ.addText('#ifndef __REGS_M\n')
 targ.addText("#define __REGS_M\n\n")
+targ.addText('#include "../../ti.cc23xx/ti.distro.cc23xx/inc/cc23x0r5.h"\n')
+targ.addText('#include "../../em.core/em.arch.arm/inc/core_cm0plus.h"\n')
 targ.addText('#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"\n\n')
 Fs.readdirSync('./xml').forEach(f => genModule(`./xml/${f}`))
 targ.addText("\n#endif\n")
