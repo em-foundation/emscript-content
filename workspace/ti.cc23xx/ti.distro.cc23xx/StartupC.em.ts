@@ -2,13 +2,13 @@ import em from '@$$emscript'
 export const em$_U = em.$declare('COMPOSITE')
 
 export function em$generate() {
-    let out = $outfile('ti.distro.cc23xx/startup.c')
+    let out = $outfile('ti.distro.cc23xx/startup.cpp')
     out.addFrag(`
         |-> #include <stdbool.h>
         |-> #include <stdint.h>
         |-> 
-        |-> #include "../em.arch.arm/intr.c"
-        |-> #include "../em.arch.arm/startup.c"
+        |-> #include "../em.arch.arm/intr.cpp"
+        |-> #include "../em.arch.arm/startup.cpp"
         |-> 
         |-> extern void em_main();
         |-> 
