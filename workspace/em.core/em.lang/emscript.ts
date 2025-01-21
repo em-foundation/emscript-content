@@ -822,7 +822,7 @@ declare global {
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
-    const $nullref: any
+    const $null: any
     const $outfile: typeof em.$outfile
     const $param: typeof em.$param
     const $proxy: typeof em.$proxy
@@ -850,7 +850,7 @@ Object.assign(globalThis, {
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
-    $nullref: null as any,
+    $null: null as any,
     $outfile: em.$outfile,
     $param: em.$param,
     $proxy: em.$proxy,

@@ -14,9 +14,10 @@ export namespace em$meta {
 }
 
 var cur_arg: arg_t
-var cur_fxn: Handler
+var cur_fxn: Handler = $null
 
 export function disable() {
+    cur_fxn = $null
     IntrVec.NVIC_disable(e$`LGPT3_COMB_IRQn`)
     em$_R.LGPT3.ICLR.$$ = em$_R.LGPT_ICLR_TGT
 }
@@ -41,8 +42,9 @@ function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
 }
 
 export function LGPT3_COMB_isr$$() {
+    let fxn = cur_fxn
     disable()
-    cur_fxn(cur_arg)
+    fxn(cur_arg)
 }
 
 /*

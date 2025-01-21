@@ -27,7 +27,7 @@ namespace em {
     using bool_t = bool;
 
     auto null = nullptr;
-    auto $nullref = nullptr;
+    auto $null = nullptr;
     typedef decltype(nullptr) null_t;
 
     template <typename T> struct frame_t {

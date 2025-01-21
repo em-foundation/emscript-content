@@ -55,12 +55,12 @@ export function run() {
 
 function Fiber__post(self: ref_t<Fiber>): void {
     let key = Common.GlobalInterrupts.$$.disable()
-    if (self.$$.link == $nullref) ready_list.give(self)
+    if (self.$$.link == $null) ready_list.give(self)
     Common.GlobalInterrupts.$$.restore(key)
 }
 
 function List__empty(self: ref_t<List>): bool_t {
-    return self.$$.head == $nullref
+    return self.$$.head == $null
 }
 
 function List__give(self: ref_t<List>, elem: ref_t<Fiber>): void {
@@ -71,14 +71,14 @@ function List__give(self: ref_t<List>, elem: ref_t<Fiber>): void {
         self.$$.tail.$$.link = elem
     }
     self.$$.tail = elem
-    elem.$$.link = $nullref
+    elem.$$.link = $null
 }
 
 function List__take(self: ref_t<List>): ref_t<Fiber> {
     let e = self.$$.head
     self.$$.head = e.$$.link
-    e.$$.link = $nullref
-    if (self.$$.head == $nullref) self.$$.tail = $nullref
+    e.$$.link = $null
+    if (self.$$.head == $null) self.$$.tail = $null
     return e
 }
 
