@@ -35,20 +35,20 @@ export namespace em$meta {
         for (let n of intr_list) {
             if (n == NO_VEC) continue
             out.addFrag(`
-                        |-> #define __${n}_isr _DEFAULT_isr\n
+                        |-> #define __${n}_isr _DEFAULT_isr
             `)
         }
         out.addFrag(`
                         |-> //
-                        |-> extern void DEFAULT_isr( void );
-                        |-> void _DEFAULT_isr( void ) { DEFAULT_isr(); }
+                        |-> extern "C" void DEFAULT_isr$$();
+                        |-> void _DEFAULT_isr( void ) { DEFAULT_isr$$(); }
                         |-> // used 
         `)
         for (let n of used_list) {
             out.addFrag(`
                         |-> #undef __${n}_isr
-                        |-> #define __${n}_isr ${n}_isr
-                        |-> void ${n}_isr( void ) __attribute__((weak, alias("_Z12_DEFAULT_isrv")));
+                        |-> #define __${n}_isr ${n}_isr$$
+                        |-> extern "C" void ${n}_isr$$(); // __attribute__((weak, alias("_Z12_DEFAULT_isrv")));
             `)
         }
         out.addFrag(`
@@ -67,6 +67,14 @@ export namespace em$meta {
                         |-> extern "C" const intvec_elem  __attribute__((section(".intvec"))) __vector_table[35] = {
                         |->     { .ptr = (void*)&__stack_top__ },
                         |->     { .fxn = em__start },
+        `)
+        for (let n of intr_list) {
+            const s = n == NO_VEC ? '0' : `__${n}_isr`
+            out.addFrag(`
+                        |-> /**/${s},
+            `)
+        }
+        out.addFrag(`
                         |-> };
         `)
         out.close()
@@ -79,4 +87,8 @@ export namespace em$meta {
     export function useIntr(name: string) {
         used_list.push(name)
     }
+}
+
+export function DEFAULT_isr$$() {
+    em.fail()
 }

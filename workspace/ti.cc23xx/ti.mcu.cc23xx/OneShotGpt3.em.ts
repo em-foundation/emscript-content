@@ -31,6 +31,13 @@ function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
     em$_R.LGPT3.CTL.$$ = em$_R.LGPT_CTL_MODE_UP_ONCE | em$_R.LGPT_CTL_C0RST_RST
 }
 
+export function LGPT3_COMB_isr$$() {
+    em.halt()
+}
+
+export function em$run() {
+
+}
 
 /*
 package ti.mcu.cc23xx
