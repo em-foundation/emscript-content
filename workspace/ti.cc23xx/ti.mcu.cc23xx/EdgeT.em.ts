@@ -52,12 +52,12 @@ export namespace em$template {
         Pin.$$.setInternalPullup(pullup)
     }
 
-    export function setDetectingFalling() {
+    export function setDetectFalling() {
         em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_EDGEDET_M
         em$_R.IOC.IOC0.$[pn].$$ |= em$_R.IOC_IOC0_EDGEDET_EDGE_NEG
     }
 
-    export function setDetectingRising() {
+    export function setDetectRising() {
         em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_EDGEDET_M
         em$_R.IOC.IOC0.$[pn].$$ |= em$_R.IOC_IOC0_EDGEDET_EDGE_POS
     }

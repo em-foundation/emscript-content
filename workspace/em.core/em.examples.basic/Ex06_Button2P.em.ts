@@ -19,7 +19,7 @@ export namespace em$meta {
 
 export function em$startup() {
     AppButEdge.$$.init(true)
-    AppButEdge.$$.setDetectingFalling()
+    AppButEdge.$$.setDetectFalling()
 }
 
 export function em$run() {

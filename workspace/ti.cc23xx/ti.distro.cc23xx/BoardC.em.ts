@@ -3,6 +3,7 @@ export const em$_U = em.$declare('COMPOSITE')
 
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
+import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
@@ -18,6 +19,7 @@ import * as OneShot from '@ti.mcu.cc23xx/OneShotGpt3.em'
 
 export { OneShot }
 
+export const AppBut = ButtonT.em$clone()
 export const AppButEdge = EdgeT.em$clone()
 export const AppButPin = GpioT.em$clone()
 export const AppLed = LedT.em$clone()
@@ -31,6 +33,7 @@ export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
 export function em$configure(): void {
+    AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
     AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = 9
     AppLed.Pin.$$ = AppLedPin
