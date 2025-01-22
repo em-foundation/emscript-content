@@ -41,7 +41,12 @@ function dispatch(delta: Secs24p8) {
     for (let i = 0; i < AlarmFac.$len; i++) {
         let a = $ref(AlarmFac[i])
         if (a.$$._dt_secs == 0) continue // inactive
-        a.$$._dt_secs -= delta  // TODO: saturate to 0
+        if (delta > a.$$._dt_secs) {
+            a.$$._dt_secs = 0
+        }
+        else {
+            a.$$._dt_secs -= delta
+        }
         if (a.$$._dt_secs == 0) {
             a.$$._fiber.$$.post() // ring the alarm
             continue // becomes inactive
