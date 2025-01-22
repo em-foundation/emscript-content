@@ -36,8 +36,9 @@ function genModule(xfile: string): void {
             meta.addText(desc.replace("\n", "\n\n"))
             meta.addText("*/\n")
             const fldLab = `${modName}_${reg.id}_${fld.id}`
-            meta.print("export const %1: any = '%2'\n\n", fldLab, fld.width)
-            meta.print("export const %1_S: any = '%2'\n\n", fldLab, fld.width)
+            meta.print("export const %1: any = '%2'\n", fldLab, fld.width)
+            meta.print("export const %1_M: any = '%2'\n", fldLab, fld.width)
+            meta.print("export const %1_S: any = '%2'\n", fldLab, fld.width)
             const enmArr = f.bitenum as Array<any>
             if (enmArr === undefined) return
             enmArr.forEach(e => {

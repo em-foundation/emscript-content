@@ -101,6 +101,8 @@ namespace em {
         T $$[N];
         static constexpr u16 $len = N;
         inline const T &operator[](u16 index) const { return $$[index]; }
+        const frame_t<T> $frame(i16 beg, u16 len = 0) const { return frame_t<T>::create($$, $len, beg, len); }
+        operator frame_t<T>() const { return $frame(0, 0); }
     };
 
     template <typename T, u16 N> struct table_rw {
