@@ -13,6 +13,7 @@ import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
+import * as Poller from '@em.mcu/Poller.em'
 import * as OneShot from '@ti.mcu.cc23xx/OneShotGpt3.em'
 
 export { OneShot }
@@ -43,6 +44,7 @@ export function em$configure(): void {
     Common.GlobalInterrupts.$$ = GlobalInterrupts
     Common.Idle.$$ = Idle
     Common.Mcu.$$ = Mcu
+    ConsoleUart0.TxPin.$$ = AppOutPin
     DbgA.pin_num.$$ = 23
     DbgB.pin_num.$$ = 25
     DbgC.pin_num.$$ = 1
@@ -51,7 +53,7 @@ export function em$configure(): void {
     Debug.DbgB.$$ = DbgB
     Debug.DbgC.$$ = DbgC
     Debug.DbgD.$$ = DbgD
-    ConsoleUart0.TxPin.$$ = AppOutPin
+    Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
     SysLedPin.pin_num.$$ = 14
 }
