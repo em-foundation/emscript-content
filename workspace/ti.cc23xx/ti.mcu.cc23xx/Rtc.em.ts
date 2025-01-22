@@ -46,7 +46,7 @@ export function getRawTime(): TimeTypes.RawTime {
     }
     let res = TimeTypes.RawTime.$make()
     res.secs = hi
-    res.subs = lo
+    res.subs = lo << 16
     return res
 }
 
