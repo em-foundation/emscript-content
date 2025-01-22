@@ -1,6 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('COMPOSITE')
 
+import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as ButtonT from '@em.utils/ButtonT.em'
@@ -16,6 +17,7 @@ import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
 import * as Poller from '@em.mcu/Poller.em'
 import * as OneShot from '@ti.mcu.cc23xx/OneShotGpt3.em'
+import * as WakeupTimer from '@ti.mcu.cc23xx/WakeupTimerRtc.em'
 
 export { OneShot }
 
@@ -33,6 +35,7 @@ export const SysLed = LedT.em$clone()
 export const SysLedPin = GpioT.em$clone()
 
 export function em$configure(): void {
+    AlarmMgr.WakeupTimer.$$ = WakeupTimer
     AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
     AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = 9

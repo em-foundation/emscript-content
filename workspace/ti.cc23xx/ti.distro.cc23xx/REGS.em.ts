@@ -7,6 +7,3642 @@ export function em$generate() {
     out.close()
 }
 
+// -------- MODULE CKMD -------- //
+
+export interface CKMD_t {
+    DESC: em.$Reg
+    IMASK: em.$Reg
+    RIS: em.$Reg
+    MIS: em.$Reg
+    ISET: em.$Reg
+    ICLR: em.$Reg
+    IMSET: em.$Reg
+    IMCLR: em.$Reg
+    HFOSCCTL: em.$Reg
+    HFXTCTL: em.$Reg
+    LFOSCCTL: em.$Reg
+    LFXTCTL: em.$Reg
+    LFQUALCTL: em.$Reg
+    LFINCCTL: em.$Reg
+    LFINCOVR: em.$Reg
+    AMPADCCTL: em.$Reg
+    HFTRACKCTL: em.$Reg
+    LDOCTL: em.$Reg
+    NABIASCTL: em.$Reg
+    LFMONCTL: em.$Reg
+    LFCLKSEL: em.$Reg
+    TDCCLKSEL: em.$Reg
+    ADCCLKSEL: em.$Reg
+    LFCLKSTAT: em.$Reg
+    HFXTSTAT: em.$Reg
+    AMPADCSTAT: em.$Reg
+    TRACKSTAT: em.$Reg
+    AMPSTAT: em.$Reg
+    ATBCTL0: em.$Reg
+    ATBCTL1: em.$Reg
+    DTBCTL: em.$Reg
+    TRIM0: em.$Reg
+    TRIM1: em.$Reg
+    HFXTINIT: em.$Reg
+    HFXTTARG: em.$Reg
+    HFXTDYN: em.$Reg
+    AMPCFG0: em.$Reg
+    AMPCFG1: em.$Reg
+    LOOPCFG: em.$Reg
+    TDCCTL: em.$Reg
+    TDCSTAT: em.$Reg
+    TDCRESULT: em.$Reg
+    TDCSATCFG: em.$Reg
+    TDCTRIGSRC: em.$Reg
+    TDCTRIGCNT: em.$Reg
+    TDCTRIGCNTLOAD: em.$Reg
+    TDCTRIGCNTCFG: em.$Reg
+    TDCPRECTL: em.$Reg
+    TDCPRECNTR: em.$Reg
+    WDTCNT: em.$Reg
+    WDTTEST: em.$Reg
+    WDTLOCK: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description Register.
+
+
+This register provides IP module ID, revision information, instance index and standard MMR registers offset.*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const CKMD_DESC_MODID: any = '16'
+export const CKMD_DESC_MODID_M: any = '16'
+export const CKMD_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+0: Standard IP MMRs do not exist
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)
+
+NOTE: This IP does not have DTB as part of the Standard IP MMRs. It uses DTBCTL instead.*/
+export const CKMD_DESC_STDIPOFF: any = '4'
+export const CKMD_DESC_STDIPOFF_M: any = '4'
+export const CKMD_DESC_STDIPOFF_S: any = '4'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_DESC_RESERVED8: any = '4'
+export const CKMD_DESC_RESERVED8_M: any = '4'
+export const CKMD_DESC_RESERVED8_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const CKMD_DESC_MAJREV: any = '4'
+export const CKMD_DESC_MAJREV_M: any = '4'
+export const CKMD_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).
+
+*/
+export const CKMD_DESC_MINREV: any = '4'
+export const CKMD_DESC_MINREV_M: any = '4'
+export const CKMD_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER IMASK -------- //
+
+/**
+Interrupt mask.
+
+
+This register selects interrupt sources which are allowed to pass from RIS to MIS when the corresponding bit-fields are set to 1.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_IMASK_RESERVED18: any = '14'
+export const CKMD_IMASK_RESERVED18_M: any = '14'
+export const CKMD_IMASK_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_IMASK_LFTICK: any = '1'
+export const CKMD_IMASK_LFTICK_M: any = '1'
+export const CKMD_IMASK_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_IMASK_LFGEARRSTRT: any = '1'
+export const CKMD_IMASK_LFGEARRSTRT_M: any = '1'
+export const CKMD_IMASK_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_IMASK_AMPSETTLED: any = '1'
+export const CKMD_IMASK_AMPSETTLED_M: any = '1'
+export const CKMD_IMASK_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_IMASK_AMPCTRLATTARG: any = '1'
+export const CKMD_IMASK_AMPCTRLATTARG_M: any = '1'
+export const CKMD_IMASK_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_IMASK_PRELFEDGE: any = '1'
+export const CKMD_IMASK_PRELFEDGE_M: any = '1'
+export const CKMD_IMASK_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_IMASK_LFCLKLOSS: any = '1'
+export const CKMD_IMASK_LFCLKLOSS_M: any = '1'
+export const CKMD_IMASK_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_IMASK_LFCLKOOR: any = '1'
+export const CKMD_IMASK_LFCLKOOR_M: any = '1'
+export const CKMD_IMASK_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_IMASK_LFCLKGOOD: any = '1'
+export const CKMD_IMASK_LFCLKGOOD_M: any = '1'
+export const CKMD_IMASK_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_IMASK_LFINCUPD: any = '1'
+export const CKMD_IMASK_LFINCUPD_M: any = '1'
+export const CKMD_IMASK_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_IMASK_TDCDONE: any = '1'
+export const CKMD_IMASK_TDCDONE_M: any = '1'
+export const CKMD_IMASK_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_IMASK_ADCPEAKUPD: any = '1'
+export const CKMD_IMASK_ADCPEAKUPD_M: any = '1'
+export const CKMD_IMASK_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_IMASK_ADCBIASUPD: any = '1'
+export const CKMD_IMASK_ADCBIASUPD_M: any = '1'
+export const CKMD_IMASK_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_IMASK_ADCCOMPUPD: any = '1'
+export const CKMD_IMASK_ADCCOMPUPD_M: any = '1'
+export const CKMD_IMASK_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_IMASK_TRACKREFOOR: any = '1'
+export const CKMD_IMASK_TRACKREFOOR_M: any = '1'
+export const CKMD_IMASK_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_IMASK_TRACKREFLOSS: any = '1'
+export const CKMD_IMASK_TRACKREFLOSS_M: any = '1'
+export const CKMD_IMASK_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_IMASK_HFXTAMPGOOD: any = '1'
+export const CKMD_IMASK_HFXTAMPGOOD_M: any = '1'
+export const CKMD_IMASK_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMASK_HFXTFAULT: any = '1'
+export const CKMD_IMASK_HFXTFAULT_M: any = '1'
+export const CKMD_IMASK_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMASK_HFXTGOOD: any = '1'
+export const CKMD_IMASK_HFXTGOOD_M: any = '1'
+export const CKMD_IMASK_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER RIS -------- //
+
+/**
+Raw interrupt status.
+
+
+This register reflects the state of all pending interrupts, regardless of masking. This register allows the user to implement a poll scheme. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_RIS_RESERVED18: any = '14'
+export const CKMD_RIS_RESERVED18_M: any = '14'
+export const CKMD_RIS_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_RIS_LFTICK: any = '1'
+export const CKMD_RIS_LFTICK_M: any = '1'
+export const CKMD_RIS_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_RIS_LFGEARRSTRT: any = '1'
+export const CKMD_RIS_LFGEARRSTRT_M: any = '1'
+export const CKMD_RIS_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_RIS_AMPSETTLED: any = '1'
+export const CKMD_RIS_AMPSETTLED_M: any = '1'
+export const CKMD_RIS_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_RIS_AMPCTRLATTARG: any = '1'
+export const CKMD_RIS_AMPCTRLATTARG_M: any = '1'
+export const CKMD_RIS_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_RIS_PRELFEDGE: any = '1'
+export const CKMD_RIS_PRELFEDGE_M: any = '1'
+export const CKMD_RIS_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_RIS_LFCLKLOSS: any = '1'
+export const CKMD_RIS_LFCLKLOSS_M: any = '1'
+export const CKMD_RIS_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_RIS_LFCLKOOR: any = '1'
+export const CKMD_RIS_LFCLKOOR_M: any = '1'
+export const CKMD_RIS_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_RIS_LFCLKGOOD: any = '1'
+export const CKMD_RIS_LFCLKGOOD_M: any = '1'
+export const CKMD_RIS_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_RIS_LFINCUPD: any = '1'
+export const CKMD_RIS_LFINCUPD_M: any = '1'
+export const CKMD_RIS_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_RIS_TDCDONE: any = '1'
+export const CKMD_RIS_TDCDONE_M: any = '1'
+export const CKMD_RIS_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_RIS_ADCPEAKUPD: any = '1'
+export const CKMD_RIS_ADCPEAKUPD_M: any = '1'
+export const CKMD_RIS_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_RIS_ADCBIASUPD: any = '1'
+export const CKMD_RIS_ADCBIASUPD_M: any = '1'
+export const CKMD_RIS_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_RIS_ADCCOMPUPD: any = '1'
+export const CKMD_RIS_ADCCOMPUPD_M: any = '1'
+export const CKMD_RIS_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_RIS_TRACKREFOOR: any = '1'
+export const CKMD_RIS_TRACKREFOOR_M: any = '1'
+export const CKMD_RIS_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_RIS_TRACKREFLOSS: any = '1'
+export const CKMD_RIS_TRACKREFLOSS_M: any = '1'
+export const CKMD_RIS_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_RIS_HFXTAMPGOOD: any = '1'
+export const CKMD_RIS_HFXTAMPGOOD_M: any = '1'
+export const CKMD_RIS_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_RIS_HFXTFAULT: any = '1'
+export const CKMD_RIS_HFXTFAULT_M: any = '1'
+export const CKMD_RIS_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_RIS_HFXTGOOD: any = '1'
+export const CKMD_RIS_HFXTGOOD_M: any = '1'
+export const CKMD_RIS_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER MIS -------- //
+
+/**
+Masked interrupt status.
+
+
+This register is simply a bitwise AND of the contents of IMASK and RIS.*] registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_MIS_RESERVED18: any = '14'
+export const CKMD_MIS_RESERVED18_M: any = '14'
+export const CKMD_MIS_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_MIS_LFTICK: any = '1'
+export const CKMD_MIS_LFTICK_M: any = '1'
+export const CKMD_MIS_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_MIS_LFGEARRSTRT: any = '1'
+export const CKMD_MIS_LFGEARRSTRT_M: any = '1'
+export const CKMD_MIS_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_MIS_AMPSETTLED: any = '1'
+export const CKMD_MIS_AMPSETTLED_M: any = '1'
+export const CKMD_MIS_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_MIS_AMPCTRLATTARG: any = '1'
+export const CKMD_MIS_AMPCTRLATTARG_M: any = '1'
+export const CKMD_MIS_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_MIS_PRELFEDGE: any = '1'
+export const CKMD_MIS_PRELFEDGE_M: any = '1'
+export const CKMD_MIS_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_MIS_LFCLKLOSS: any = '1'
+export const CKMD_MIS_LFCLKLOSS_M: any = '1'
+export const CKMD_MIS_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_MIS_LFCLKOOR: any = '1'
+export const CKMD_MIS_LFCLKOOR_M: any = '1'
+export const CKMD_MIS_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_MIS_LFCLKGOOD: any = '1'
+export const CKMD_MIS_LFCLKGOOD_M: any = '1'
+export const CKMD_MIS_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_MIS_LFINCUPD: any = '1'
+export const CKMD_MIS_LFINCUPD_M: any = '1'
+export const CKMD_MIS_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_MIS_TDCDONE: any = '1'
+export const CKMD_MIS_TDCDONE_M: any = '1'
+export const CKMD_MIS_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_MIS_ADCPEAKUPD: any = '1'
+export const CKMD_MIS_ADCPEAKUPD_M: any = '1'
+export const CKMD_MIS_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_MIS_ADCBIASUPD: any = '1'
+export const CKMD_MIS_ADCBIASUPD_M: any = '1'
+export const CKMD_MIS_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_MIS_ADCCOMPUPD: any = '1'
+export const CKMD_MIS_ADCCOMPUPD_M: any = '1'
+export const CKMD_MIS_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_MIS_TRACKREFOOR: any = '1'
+export const CKMD_MIS_TRACKREFOOR_M: any = '1'
+export const CKMD_MIS_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_MIS_TRACKREFLOSS: any = '1'
+export const CKMD_MIS_TRACKREFLOSS_M: any = '1'
+export const CKMD_MIS_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_MIS_HFXTAMPGOOD: any = '1'
+export const CKMD_MIS_HFXTAMPGOOD_M: any = '1'
+export const CKMD_MIS_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_MIS_HFXTFAULT: any = '1'
+export const CKMD_MIS_HFXTFAULT_M: any = '1'
+export const CKMD_MIS_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_MIS_HFXTGOOD: any = '1'
+export const CKMD_MIS_HFXTGOOD_M: any = '1'
+export const CKMD_MIS_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER ISET -------- //
+
+/**
+Interrupt set register.
+
+
+This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_ISET_RESERVED18: any = '14'
+export const CKMD_ISET_RESERVED18_M: any = '14'
+export const CKMD_ISET_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_ISET_LFTICK: any = '1'
+export const CKMD_ISET_LFTICK_M: any = '1'
+export const CKMD_ISET_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_ISET_LFGEARRSTRT: any = '1'
+export const CKMD_ISET_LFGEARRSTRT_M: any = '1'
+export const CKMD_ISET_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_ISET_AMPSETTLED: any = '1'
+export const CKMD_ISET_AMPSETTLED_M: any = '1'
+export const CKMD_ISET_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG.Q1CAP, HFXTTARG.Q2CAP and HFXTTARG.IREF or HFXTDYN.Q1CAP, HFXTDYN.Q2CAP and HFXTDYN.IREF are reached.*/
+export const CKMD_ISET_AMPCTRLATTARG: any = '1'
+export const CKMD_ISET_AMPCTRLATTARG_M: any = '1'
+export const CKMD_ISET_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_ISET_PRELFEDGE: any = '1'
+export const CKMD_ISET_PRELFEDGE_M: any = '1'
+export const CKMD_ISET_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_ISET_LFCLKLOSS: any = '1'
+export const CKMD_ISET_LFCLKLOSS_M: any = '1'
+export const CKMD_ISET_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_ISET_LFCLKOOR: any = '1'
+export const CKMD_ISET_LFCLKOOR_M: any = '1'
+export const CKMD_ISET_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_ISET_LFCLKGOOD: any = '1'
+export const CKMD_ISET_LFCLKGOOD_M: any = '1'
+export const CKMD_ISET_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_ISET_LFINCUPD: any = '1'
+export const CKMD_ISET_LFINCUPD_M: any = '1'
+export const CKMD_ISET_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_ISET_TDCDONE: any = '1'
+export const CKMD_ISET_TDCDONE_M: any = '1'
+export const CKMD_ISET_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_ISET_ADCPEAKUPD: any = '1'
+export const CKMD_ISET_ADCPEAKUPD_M: any = '1'
+export const CKMD_ISET_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_ISET_ADCBIASUPD: any = '1'
+export const CKMD_ISET_ADCBIASUPD_M: any = '1'
+export const CKMD_ISET_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_ISET_ADCCOMPUPD: any = '1'
+export const CKMD_ISET_ADCCOMPUPD_M: any = '1'
+export const CKMD_ISET_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_ISET_TRACKREFOOR: any = '1'
+export const CKMD_ISET_TRACKREFOOR_M: any = '1'
+export const CKMD_ISET_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_ISET_TRACKREFLOSS: any = '1'
+export const CKMD_ISET_TRACKREFLOSS_M: any = '1'
+export const CKMD_ISET_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_ISET_HFXTAMPGOOD: any = '1'
+export const CKMD_ISET_HFXTAMPGOOD_M: any = '1'
+export const CKMD_ISET_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_ISET_HFXTFAULT: any = '1'
+export const CKMD_ISET_HFXTFAULT_M: any = '1'
+export const CKMD_ISET_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_ISET_HFXTGOOD: any = '1'
+export const CKMD_ISET_HFXTGOOD_M: any = '1'
+export const CKMD_ISET_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER ICLR -------- //
+
+/**
+Interrupt clear register.
+
+
+This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_ICLR_RESERVED18: any = '14'
+export const CKMD_ICLR_RESERVED18_M: any = '14'
+export const CKMD_ICLR_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_ICLR_LFTICK: any = '1'
+export const CKMD_ICLR_LFTICK_M: any = '1'
+export const CKMD_ICLR_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_ICLR_LFGEARRSTRT: any = '1'
+export const CKMD_ICLR_LFGEARRSTRT_M: any = '1'
+export const CKMD_ICLR_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_ICLR_AMPSETTLED: any = '1'
+export const CKMD_ICLR_AMPSETTLED_M: any = '1'
+export const CKMD_ICLR_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_ICLR_AMPCTRLATTARG: any = '1'
+export const CKMD_ICLR_AMPCTRLATTARG_M: any = '1'
+export const CKMD_ICLR_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_ICLR_PRELFEDGE: any = '1'
+export const CKMD_ICLR_PRELFEDGE_M: any = '1'
+export const CKMD_ICLR_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_ICLR_LFCLKLOSS: any = '1'
+export const CKMD_ICLR_LFCLKLOSS_M: any = '1'
+export const CKMD_ICLR_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_ICLR_LFCLKOOR: any = '1'
+export const CKMD_ICLR_LFCLKOOR_M: any = '1'
+export const CKMD_ICLR_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_ICLR_LFCLKGOOD: any = '1'
+export const CKMD_ICLR_LFCLKGOOD_M: any = '1'
+export const CKMD_ICLR_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_ICLR_LFINCUPD: any = '1'
+export const CKMD_ICLR_LFINCUPD_M: any = '1'
+export const CKMD_ICLR_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_ICLR_TDCDONE: any = '1'
+export const CKMD_ICLR_TDCDONE_M: any = '1'
+export const CKMD_ICLR_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_ICLR_ADCPEAKUPD: any = '1'
+export const CKMD_ICLR_ADCPEAKUPD_M: any = '1'
+export const CKMD_ICLR_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_ICLR_ADCBIASUPD: any = '1'
+export const CKMD_ICLR_ADCBIASUPD_M: any = '1'
+export const CKMD_ICLR_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_ICLR_ADCCOMPUPD: any = '1'
+export const CKMD_ICLR_ADCCOMPUPD_M: any = '1'
+export const CKMD_ICLR_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_ICLR_TRACKREFOOR: any = '1'
+export const CKMD_ICLR_TRACKREFOOR_M: any = '1'
+export const CKMD_ICLR_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_ICLR_TRACKREFLOSS: any = '1'
+export const CKMD_ICLR_TRACKREFLOSS_M: any = '1'
+export const CKMD_ICLR_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_ICLR_HFXTAMPGOOD: any = '1'
+export const CKMD_ICLR_HFXTAMPGOOD_M: any = '1'
+export const CKMD_ICLR_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_ICLR_HFXTFAULT: any = '1'
+export const CKMD_ICLR_HFXTFAULT_M: any = '1'
+export const CKMD_ICLR_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_ICLR_HFXTGOOD: any = '1'
+export const CKMD_ICLR_HFXTGOOD_M: any = '1'
+export const CKMD_ICLR_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER IMSET -------- //
+
+/**
+Interrupt mask set register.
+
+
+Writing a 1 to a bit in this register will set the corresponding IMASK bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_IMSET_RESERVED18: any = '14'
+export const CKMD_IMSET_RESERVED18_M: any = '14'
+export const CKMD_IMSET_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_IMSET_LFTICK: any = '1'
+export const CKMD_IMSET_LFTICK_M: any = '1'
+export const CKMD_IMSET_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_IMSET_LFGEARRSTRT: any = '1'
+export const CKMD_IMSET_LFGEARRSTRT_M: any = '1'
+export const CKMD_IMSET_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_IMSET_AMPSETTLED: any = '1'
+export const CKMD_IMSET_AMPSETTLED_M: any = '1'
+export const CKMD_IMSET_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_IMSET_AMPCTRLATTARG: any = '1'
+export const CKMD_IMSET_AMPCTRLATTARG_M: any = '1'
+export const CKMD_IMSET_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_IMSET_PRELFEDGE: any = '1'
+export const CKMD_IMSET_PRELFEDGE_M: any = '1'
+export const CKMD_IMSET_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_IMSET_LFCLKLOSS: any = '1'
+export const CKMD_IMSET_LFCLKLOSS_M: any = '1'
+export const CKMD_IMSET_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_IMSET_LFCLKOOR: any = '1'
+export const CKMD_IMSET_LFCLKOOR_M: any = '1'
+export const CKMD_IMSET_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_IMSET_LFCLKGOOD: any = '1'
+export const CKMD_IMSET_LFCLKGOOD_M: any = '1'
+export const CKMD_IMSET_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_IMSET_LFINCUPD: any = '1'
+export const CKMD_IMSET_LFINCUPD_M: any = '1'
+export const CKMD_IMSET_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_IMSET_TDCDONE: any = '1'
+export const CKMD_IMSET_TDCDONE_M: any = '1'
+export const CKMD_IMSET_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_IMSET_ADCPEAKUPD: any = '1'
+export const CKMD_IMSET_ADCPEAKUPD_M: any = '1'
+export const CKMD_IMSET_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_IMSET_ADCBIASUPD: any = '1'
+export const CKMD_IMSET_ADCBIASUPD_M: any = '1'
+export const CKMD_IMSET_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_IMSET_ADCCOMPUPD: any = '1'
+export const CKMD_IMSET_ADCCOMPUPD_M: any = '1'
+export const CKMD_IMSET_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_IMSET_TRACKREFOOR: any = '1'
+export const CKMD_IMSET_TRACKREFOOR_M: any = '1'
+export const CKMD_IMSET_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_IMSET_TRACKREFLOSS: any = '1'
+export const CKMD_IMSET_TRACKREFLOSS_M: any = '1'
+export const CKMD_IMSET_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_IMSET_HFXTAMPGOOD: any = '1'
+export const CKMD_IMSET_HFXTAMPGOOD_M: any = '1'
+export const CKMD_IMSET_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMSET_HFXTFAULT: any = '1'
+export const CKMD_IMSET_HFXTFAULT_M: any = '1'
+export const CKMD_IMSET_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMSET_HFXTGOOD: any = '1'
+export const CKMD_IMSET_HFXTGOOD_M: any = '1'
+export const CKMD_IMSET_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER IMCLR -------- //
+
+/**
+Interrupt mask clear register.
+
+
+Writing a 1 to a bit in this register will clear the corresponding IMASK bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_IMCLR_RESERVED18: any = '14'
+export const CKMD_IMCLR_RESERVED18_M: any = '14'
+export const CKMD_IMCLR_RESERVED18_S: any = '14'
+/**
+32kHz TICK to RTC and WDT.
+
+
+Either derived from selected LFCLK or generated from CLKULL in absence of LFCLK.*/
+export const CKMD_IMCLR_LFTICK: any = '1'
+export const CKMD_IMCLR_LFTICK_M: any = '1'
+export const CKMD_IMCLR_LFTICK_S: any = '1'
+/**
+LFINC filter gearing restart.
+
+
+Indicates that the LFINC filter restarted gearing. Subsequent LFINC estimates may have higher variation.*/
+export const CKMD_IMCLR_LFGEARRSTRT: any = '1'
+export const CKMD_IMCLR_LFGEARRSTRT_M: any = '1'
+export const CKMD_IMCLR_LFGEARRSTRT_S: any = '1'
+/**
+HFXT Amplitude compensation - settled
+
+
+Indicates that the amplitude compensation FSM has reached the SETTLED or TCXOMODE state,
+and the controls configured in HFXTTARG or HFXTDYN are reached.
+*/
+export const CKMD_IMCLR_AMPSETTLED: any = '1'
+export const CKMD_IMCLR_AMPSETTLED_M: any = '1'
+export const CKMD_IMCLR_AMPSETTLED_S: any = '1'
+/**
+HFXT Amplitude compensation - controls at target
+
+
+Indicates that the control values configured in HFXTTARG or HFXTDYN are reached.
+Applies to Q1CAP, Q2CAP and IREF.*/
+export const CKMD_IMCLR_AMPCTRLATTARG: any = '1'
+export const CKMD_IMCLR_AMPCTRLATTARG_M: any = '1'
+export const CKMD_IMCLR_AMPCTRLATTARG_S: any = '1'
+/**
+Pre-LF clock edge detect.
+
+
+Indicates that a positive edge occured on the selected pre-LF clock LFCLKSEL.PRE.
+Can be used by software to confirm that a LF clock source is running and within the expected frequency,
+before selecting it as the main LF clock source.*/
+export const CKMD_IMCLR_PRELFEDGE: any = '1'
+export const CKMD_IMCLR_PRELFEDGE_M: any = '1'
+export const CKMD_IMCLR_PRELFEDGE_S: any = '1'
+/**
+LF clock is lost.
+
+
+Indicates that no LF clock edge occured for ~49us (~1.6 times nominal period).
+The system will automatically fall-back to generating LFTICK based on CLKULL,
+to avoid timing corruption.
+Note that this signal is NOT related to the analog LF clock-loss detector which can reset the device during STANDBY.*/
+export const CKMD_IMCLR_LFCLKLOSS: any = '1'
+export const CKMD_IMCLR_LFCLKLOSS_M: any = '1'
+export const CKMD_IMCLR_LFCLKLOSS_S: any = '1'
+/**
+LF clock period out-of-range.
+
+
+Indicates that a LF clock period was measured to be out-of-range,
+according to LFQUALCTL.MAXERR.*/
+export const CKMD_IMCLR_LFCLKOOR: any = '1'
+export const CKMD_IMCLR_LFCLKOOR_M: any = '1'
+export const CKMD_IMCLR_LFCLKOOR_S: any = '1'
+/**
+LF clock good.
+
+
+Indicates that the LF clock is good, according to the configuration in LFQUALCTL.*/
+export const CKMD_IMCLR_LFCLKGOOD: any = '1'
+export const CKMD_IMCLR_LFCLKGOOD_M: any = '1'
+export const CKMD_IMCLR_LFCLKGOOD_S: any = '1'
+/**
+LFINC updated.
+
+
+Indicates that a new LFINC measurement value is available in LFCLKSTAT.LFINC.*/
+export const CKMD_IMCLR_LFINCUPD: any = '1'
+export const CKMD_IMCLR_LFINCUPD_M: any = '1'
+export const CKMD_IMCLR_LFINCUPD_S: any = '1'
+/**
+TDC done event.
+
+
+Indicates that the TDC measurement is done.*/
+export const CKMD_IMCLR_TDCDONE: any = '1'
+export const CKMD_IMCLR_TDCDONE_M: any = '1'
+export const CKMD_IMCLR_TDCDONE_S: any = '1'
+/**
+HFXT-ADC PEAK measurement update event.
+
+
+Indicates that the HFXT-ADC PEAK measurement is done.*/
+export const CKMD_IMCLR_ADCPEAKUPD: any = '1'
+export const CKMD_IMCLR_ADCPEAKUPD_M: any = '1'
+export const CKMD_IMCLR_ADCPEAKUPD_S: any = '1'
+/**
+HFXT-ADC BIAS measurement update event.
+
+
+Indicates that the HFXT-ADC BIAS measurement is done.*/
+export const CKMD_IMCLR_ADCBIASUPD: any = '1'
+export const CKMD_IMCLR_ADCBIASUPD_M: any = '1'
+export const CKMD_IMCLR_ADCBIASUPD_S: any = '1'
+/**
+HFXT-ADC comparison update event.
+
+
+Indicates that the HFXT-ADC comparison is done.*/
+export const CKMD_IMCLR_ADCCOMPUPD: any = '1'
+export const CKMD_IMCLR_ADCCOMPUPD_M: any = '1'
+export const CKMD_IMCLR_ADCCOMPUPD_S: any = '1'
+/**
+Out-of-range indication from the tracking loop.
+
+
+Indicates that the selected reference clock frequency of the tracking loop is out-of-range.*/
+export const CKMD_IMCLR_TRACKREFOOR: any = '1'
+export const CKMD_IMCLR_TRACKREFOOR_M: any = '1'
+export const CKMD_IMCLR_TRACKREFOOR_S: any = '1'
+/**
+Clock loss indication from the tracking loop.
+
+
+Indicates that the selected reference clock of the tracking loop is lost.*/
+export const CKMD_IMCLR_TRACKREFLOSS: any = '1'
+export const CKMD_IMCLR_TRACKREFLOSS_M: any = '1'
+export const CKMD_IMCLR_TRACKREFLOSS_S: any = '1'
+/**
+HFXT amplitude good indication.*/
+export const CKMD_IMCLR_HFXTAMPGOOD: any = '1'
+export const CKMD_IMCLR_HFXTAMPGOOD_M: any = '1'
+export const CKMD_IMCLR_HFXTAMPGOOD_S: any = '1'
+/**
+HFXT fault indication.
+
+
+Indicates that HFXT did not start correctly, or its frequency is too low.
+HFXT will not recover from this fault and has to be restarted.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMCLR_HFXTFAULT: any = '1'
+export const CKMD_IMCLR_HFXTFAULT_M: any = '1'
+export const CKMD_IMCLR_HFXTFAULT_S: any = '1'
+/**
+HFXT good indication.
+
+
+Indicates that HFXT started correctly. The frequency is not necessarily good enough for radio operation.
+This is only a one-time check at HFXT startup.*/
+export const CKMD_IMCLR_HFXTGOOD: any = '1'
+export const CKMD_IMCLR_HFXTGOOD_M: any = '1'
+export const CKMD_IMCLR_HFXTGOOD_S: any = '1'
+
+// -------- REGISTER HFOSCCTL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_PW: any = '8'
+export const CKMD_HFOSCCTL_PW_M: any = '8'
+export const CKMD_HFOSCCTL_PW_S: any = '8'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_RESERVED9: any = '15'
+export const CKMD_HFOSCCTL_RESERVED9_M: any = '15'
+export const CKMD_HFOSCCTL_RESERVED9_S: any = '15'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_CLKSVTOVR: any = '1'
+export const CKMD_HFOSCCTL_CLKSVTOVR_M: any = '1'
+export const CKMD_HFOSCCTL_CLKSVTOVR_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_CLKSVTOVR_HFXT: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_CLKSVTOVR_HFOSC: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_RESERVED2: any = '6'
+export const CKMD_HFOSCCTL_RESERVED2_M: any = '6'
+export const CKMD_HFOSCCTL_RESERVED2_S: any = '6'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_FORCEOFF: any = '1'
+export const CKMD_HFOSCCTL_FORCEOFF_M: any = '1'
+export const CKMD_HFOSCCTL_FORCEOFF_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFOSCCTL_QUALBYP: any = '1'
+export const CKMD_HFOSCCTL_QUALBYP_M: any = '1'
+export const CKMD_HFOSCCTL_QUALBYP_S: any = '1'
+
+// -------- REGISTER HFXTCTL -------- //
+
+/**
+High frequency crystal control*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_AMPOVR: any = '1'
+export const CKMD_HFXTCTL_AMPOVR_M: any = '1'
+export const CKMD_HFXTCTL_AMPOVR_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTCTL_RESERVED27: any = '4'
+export const CKMD_HFXTCTL_RESERVED27_M: any = '4'
+export const CKMD_HFXTCTL_RESERVED27_S: any = '4'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_BIASEN: any = '1'
+export const CKMD_HFXTCTL_BIASEN_M: any = '1'
+export const CKMD_HFXTCTL_BIASEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_LPBUFEN: any = '1'
+export const CKMD_HFXTCTL_LPBUFEN_M: any = '1'
+export const CKMD_HFXTCTL_LPBUFEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_INJECT: any = '1'
+export const CKMD_HFXTCTL_INJECT_M: any = '1'
+export const CKMD_HFXTCTL_INJECT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_QUALBYP: any = '1'
+export const CKMD_HFXTCTL_QUALBYP_M: any = '1'
+export const CKMD_HFXTCTL_QUALBYP_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTCTL_RESERVED20: any = '3'
+export const CKMD_HFXTCTL_RESERVED20_M: any = '3'
+export const CKMD_HFXTCTL_RESERVED20_S: any = '3'
+/**
+Skip potentially unstable clock cycles after enabling HFXT.
+
+Number of cycles skipped is 8*QUALDLY.*/
+export const CKMD_HFXTCTL_QUALDLY: any = '12'
+export const CKMD_HFXTCTL_QUALDLY_M: any = '12'
+export const CKMD_HFXTCTL_QUALDLY_S: any = '12'
+/**
+Temperature compensated crystal oscillator mode.
+
+
+Set this bit if a TXCO is connected.*/
+export const CKMD_HFXTCTL_TCXOMODE: any = '1'
+export const CKMD_HFXTCTL_TCXOMODE_M: any = '1'
+export const CKMD_HFXTCTL_TCXOMODE_S: any = '1'
+/**
+Type of temperature compensated crystal used.
+
+
+Only has effect if TCXOMODE is set.*/
+export const CKMD_HFXTCTL_TCXOTYPE: any = '1'
+export const CKMD_HFXTCTL_TCXOTYPE_M: any = '1'
+export const CKMD_HFXTCTL_TCXOTYPE_S: any = '1'
+/**
+Use with CMOS TCXO*/
+export const CKMD_HFXTCTL_TCXOTYPE_CMOS: any = '1'
+
+/**
+Use with clipped-sine TCXO*/
+export const CKMD_HFXTCTL_TCXOTYPE_CLIPPEDSINE: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTCTL_RESERVED3: any = '3'
+export const CKMD_HFXTCTL_RESERVED3_M: any = '3'
+export const CKMD_HFXTCTL_RESERVED3_S: any = '3'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_AUTOEN: any = '1'
+export const CKMD_HFXTCTL_AUTOEN_M: any = '1'
+export const CKMD_HFXTCTL_AUTOEN_S: any = '1'
+/**
+High performance clock buffer enable.
+
+
+This bit controls the clock output for the RF PLL.
+It is required for radio operation.*/
+export const CKMD_HFXTCTL_HPBUFEN: any = '1'
+export const CKMD_HFXTCTL_HPBUFEN_M: any = '1'
+export const CKMD_HFXTCTL_HPBUFEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_HFXTCTL_EN: any = '1'
+export const CKMD_HFXTCTL_EN_M: any = '1'
+export const CKMD_HFXTCTL_EN_S: any = '1'
+
+// -------- REGISTER LFOSCCTL -------- //
+
+/**
+Low frequency oscillator control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFOSCCTL_RESERVED1: any = '31'
+export const CKMD_LFOSCCTL_RESERVED1_M: any = '31'
+export const CKMD_LFOSCCTL_RESERVED1_S: any = '31'
+/**
+LFOSC enable*/
+export const CKMD_LFOSCCTL_EN: any = '1'
+export const CKMD_LFOSCCTL_EN_M: any = '1'
+export const CKMD_LFOSCCTL_EN_S: any = '1'
+
+// -------- REGISTER LFXTCTL -------- //
+
+/**
+Low frequency crystal control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFXTCTL_RESERVED15: any = '17'
+export const CKMD_LFXTCTL_RESERVED15_M: any = '17'
+export const CKMD_LFXTCTL_RESERVED15_S: any = '17'
+/**
+Leakage compensation control*/
+export const CKMD_LFXTCTL_LEAKCOMP: any = '2'
+export const CKMD_LFXTCTL_LEAKCOMP_M: any = '2'
+export const CKMD_LFXTCTL_LEAKCOMP_S: any = '2'
+/**
+No leakage compensation*/
+export const CKMD_LFXTCTL_LEAKCOMP_OFF: any = '3'
+
+/**
+Half leakage compensation*/
+export const CKMD_LFXTCTL_LEAKCOMP_HALF: any = '1'
+
+/**
+Full leakage compensation*/
+export const CKMD_LFXTCTL_LEAKCOMP_FULL: any = '0'
+
+/**
+Control the BIAS current of the input amp in LP buffer*/
+export const CKMD_LFXTCTL_BUFBIAS: any = '1'
+export const CKMD_LFXTCTL_BUFBIAS_M: any = '1'
+export const CKMD_LFXTCTL_BUFBIAS_S: any = '1'
+/**
+Maximum bias current: 50nA*/
+export const CKMD_LFXTCTL_BUFBIAS_MAX: any = '1'
+
+/**
+Minimum bias current: 25nA*/
+export const CKMD_LFXTCTL_BUFBIAS_MIN: any = '0'
+
+/**
+Adjust current mirror ratio into oscillator core. This value is depending on crystal and is set by FW. This field uses a 2's complement encoding.*/
+export const CKMD_LFXTCTL_AMPBIAS: any = '4'
+export const CKMD_LFXTCTL_AMPBIAS_M: any = '4'
+export const CKMD_LFXTCTL_AMPBIAS_S: any = '4'
+/**
+Boost oscillator amplitude
+
+
+This value depends on the crystal and needs to be configured by Firmware.*/
+export const CKMD_LFXTCTL_BIASBOOST: any = '2'
+export const CKMD_LFXTCTL_BIASBOOST_M: any = '2'
+export const CKMD_LFXTCTL_BIASBOOST_S: any = '2'
+/**
+Regulation loop bias resistor value
+
+
+This value depends on the crystal and needs to be configured by Firmware.*/
+export const CKMD_LFXTCTL_REGBIAS: any = '2'
+export const CKMD_LFXTCTL_REGBIAS_M: any = '2'
+export const CKMD_LFXTCTL_REGBIAS_S: any = '2'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFXTCTL_RESERVED3: any = '1'
+export const CKMD_LFXTCTL_RESERVED3_M: any = '1'
+export const CKMD_LFXTCTL_RESERVED3_S: any = '1'
+/**
+Control the buffer used. In normal operation, low-power buffer is used in all device modes. The high-performance buffer is only used for test purposes.
+
+*/
+export const CKMD_LFXTCTL_HPBUFEN: any = '1'
+export const CKMD_LFXTCTL_HPBUFEN_M: any = '1'
+export const CKMD_LFXTCTL_HPBUFEN_S: any = '1'
+/**
+Amplitude regulation mode*/
+export const CKMD_LFXTCTL_AMPREGMODE: any = '1'
+export const CKMD_LFXTCTL_AMPREGMODE_M: any = '1'
+export const CKMD_LFXTCTL_AMPREGMODE_S: any = '1'
+/**
+Amplitude control loop disabled*/
+export const CKMD_LFXTCTL_AMPREGMODE_LOOPDIS: any = '1'
+
+/**
+Amplitude control loop enabled*/
+export const CKMD_LFXTCTL_AMPREGMODE_LOOPEN: any = '0'
+
+/**
+LFXT enable*/
+export const CKMD_LFXTCTL_EN: any = '1'
+export const CKMD_LFXTCTL_EN_M: any = '1'
+export const CKMD_LFXTCTL_EN_S: any = '1'
+
+// -------- REGISTER LFQUALCTL -------- //
+
+/**
+Low frequency clock qualification control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFQUALCTL_RESERVED14: any = '18'
+export const CKMD_LFQUALCTL_RESERVED14_M: any = '18'
+export const CKMD_LFQUALCTL_RESERVED14_S: any = '18'
+/**
+Maximum LFCLK period error.
+
+
+Value given in microseconds, 3 integer bits + 3 fractional bits.*/
+export const CKMD_LFQUALCTL_MAXERR: any = '6'
+export const CKMD_LFQUALCTL_MAXERR_M: any = '6'
+export const CKMD_LFQUALCTL_MAXERR_S: any = '6'
+/**
+Number of consecutive times the LFCLK period error has to be 
+
+smaller than MAXERR to be considered "good".
+Setting this value to 0 will bypass clock qualification,
+and the "good" indicator will always be 1.*/
+export const CKMD_LFQUALCTL_CONSEC: any = '8'
+export const CKMD_LFQUALCTL_CONSEC_M: any = '8'
+export const CKMD_LFQUALCTL_CONSEC_S: any = '8'
+
+// -------- REGISTER LFINCCTL -------- //
+
+/**
+Low frequency time increment control*/
+/**
+Controls if the LFINC filter prevents STANBY entry until settled.
+
+*/
+export const CKMD_LFINCCTL_PREVENTSTBY: any = '1'
+export const CKMD_LFINCCTL_PREVENTSTBY_M: any = '1'
+export const CKMD_LFINCCTL_PREVENTSTBY_S: any = '1'
+/**
+Enable. Prevent STANDBY entry.*/
+export const CKMD_LFINCCTL_PREVENTSTBY_ON: any = '1'
+
+/**
+Disable. Do not prevent STANDBY entry.*/
+export const CKMD_LFINCCTL_PREVENTSTBY_OFF: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFINCCTL_RESERVED30: any = '1'
+export const CKMD_LFINCCTL_RESERVED30_M: any = '1'
+export const CKMD_LFINCCTL_RESERVED30_S: any = '1'
+/**
+Integral part of the LFINC filter.
+
+
+This value is updated by Hardware to reflect the current state of the filter.
+It can also be written to change the current state.*/
+export const CKMD_LFINCCTL_INT: any = '22'
+export const CKMD_LFINCCTL_INT_M: any = '22'
+export const CKMD_LFINCCTL_INT_S: any = '22'
+/**
+Controls the final gear of the LFINC filter.*/
+export const CKMD_LFINCCTL_STOPGEAR: any = '1'
+export const CKMD_LFINCCTL_STOPGEAR_M: any = '1'
+export const CKMD_LFINCCTL_STOPGEAR_S: any = '1'
+/**
+Highest final gear. Best dynamic frequency tracking, but higher variation in filter value.*/
+export const CKMD_LFINCCTL_STOPGEAR_HIGH: any = '1'
+
+/**
+Lowest final gear. Best settling, but less dynamic frequency tracking.*/
+export const CKMD_LFINCCTL_STOPGEAR_LOW: any = '0'
+
+/**
+Controls the threshold for gearing restart of the LFINC filter.
+
+
+Only effective if GEARRSTRT is not ONETHR or TWOTHR.*/
+export const CKMD_LFINCCTL_ERRTHR: any = '2'
+export const CKMD_LFINCCTL_ERRTHR_M: any = '2'
+export const CKMD_LFINCCTL_ERRTHR_S: any = '2'
+/**
+Restart gearing on small error. Potentially more false restarts, faster response on small frequency shifts.*/
+export const CKMD_LFINCCTL_ERRTHR_SMALL: any = '3'
+
+/**
+Middle value towards SMALL.*/
+export const CKMD_LFINCCTL_ERRTHR_MIDSMALL: any = '2'
+
+/**
+Middle value towards LARGE.*/
+export const CKMD_LFINCCTL_ERRTHR_MIDLARGE: any = '1'
+
+/**
+Restart gearing on large error. Fewer false restarts, slower response on small frequency shifts.*/
+export const CKMD_LFINCCTL_ERRTHR_LARGE: any = '0'
+
+/**
+Controls gearing restart of the LFINC filter.*/
+export const CKMD_LFINCCTL_GEARRSTRT: any = '2'
+export const CKMD_LFINCCTL_GEARRSTRT_M: any = '2'
+export const CKMD_LFINCCTL_GEARRSTRT_S: any = '2'
+/**
+Restart gearing when the error accumulator crosses the threshold twice in a row.*/
+export const CKMD_LFINCCTL_GEARRSTRT_TWOTHR: any = '2'
+
+/**
+Restart gearing when the error accumulator crosses the threshold once.*/
+export const CKMD_LFINCCTL_GEARRSTRT_ONETHR: any = '1'
+
+/**
+Never restart gearing. Very stable filter value, but very slow response on frequency changes.*/
+export const CKMD_LFINCCTL_GEARRSTRT_NEVER: any = '0'
+
+/**
+Use a higher gear after re-enabling / wakeup.
+
+
+The filter will require 16-24 LFCLK periods to settle (depending on STOPGEAR), but may respond faster to frequency changes during STANDBY.*/
+export const CKMD_LFINCCTL_SOFTRSTRT: any = '1'
+export const CKMD_LFINCCTL_SOFTRSTRT_M: any = '1'
+export const CKMD_LFINCCTL_SOFTRSTRT_S: any = '1'
+/**
+Use soft gearing restarts*/
+export const CKMD_LFINCCTL_SOFTRSTRT_ON: any = '1'
+
+/**
+Don't use soft gearing restarts*/
+export const CKMD_LFINCCTL_SOFTRSTRT_OFF: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFINCCTL_RESERVED0: any = '2'
+export const CKMD_LFINCCTL_RESERVED0_M: any = '2'
+export const CKMD_LFINCCTL_RESERVED0_S: any = '2'
+
+// -------- REGISTER LFINCOVR -------- //
+
+/**
+Low frequency time increment override control*/
+/**
+Override LF increment
+
+
+Use the value provided in LFINC instead of the value calculated by Hardware.*/
+export const CKMD_LFINCOVR_OVERRIDE: any = '1'
+export const CKMD_LFINCOVR_OVERRIDE_M: any = '1'
+export const CKMD_LFINCOVR_OVERRIDE_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFINCOVR_RESERVED22: any = '9'
+export const CKMD_LFINCOVR_RESERVED22_M: any = '9'
+export const CKMD_LFINCOVR_RESERVED22_S: any = '9'
+/**
+LF increment value
+
+
+This value is used when OVERRIDE is set to 1.
+Otherwise the value is calculated automatically.*/
+export const CKMD_LFINCOVR_LFINC: any = '22'
+export const CKMD_LFINCOVR_LFINC_M: any = '22'
+export const CKMD_LFINCOVR_LFINC_S: any = '22'
+
+// -------- REGISTER AMPADCCTL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_SWOVR: any = '1'
+export const CKMD_AMPADCCTL_SWOVR_M: any = '1'
+export const CKMD_AMPADCCTL_SWOVR_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_RESERVED18: any = '13'
+export const CKMD_AMPADCCTL_RESERVED18_M: any = '13'
+export const CKMD_AMPADCCTL_RESERVED18_S: any = '13'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_PEAKDETEN: any = '1'
+export const CKMD_AMPADCCTL_PEAKDETEN_M: any = '1'
+export const CKMD_AMPADCCTL_PEAKDETEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_PEAKDETEN_ENABLE: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_PEAKDETEN_DISABLE: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_ADCEN: any = '1'
+export const CKMD_AMPADCCTL_ADCEN_M: any = '1'
+export const CKMD_AMPADCCTL_ADCEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_ADCEN_ENABLE: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_ADCEN_DISABLE: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_RESERVED15: any = '1'
+export const CKMD_AMPADCCTL_RESERVED15_M: any = '1'
+export const CKMD_AMPADCCTL_RESERVED15_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_COMPVAL: any = '7'
+export const CKMD_AMPADCCTL_COMPVAL_M: any = '7'
+export const CKMD_AMPADCCTL_COMPVAL_S: any = '7'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_RESERVED5: any = '3'
+export const CKMD_AMPADCCTL_RESERVED5_M: any = '3'
+export const CKMD_AMPADCCTL_RESERVED5_S: any = '3'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_SRCSEL: any = '1'
+export const CKMD_AMPADCCTL_SRCSEL_M: any = '1'
+export const CKMD_AMPADCCTL_SRCSEL_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_SRCSEL_PEAK: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_SRCSEL_BIAS: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_RESERVED2: any = '2'
+export const CKMD_AMPADCCTL_RESERVED2_M: any = '2'
+export const CKMD_AMPADCCTL_RESERVED2_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_COMPSTRT: any = '1'
+export const CKMD_AMPADCCTL_COMPSTRT_M: any = '1'
+export const CKMD_AMPADCCTL_COMPSTRT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCCTL_SARSTRT: any = '1'
+export const CKMD_AMPADCCTL_SARSTRT_M: any = '1'
+export const CKMD_AMPADCCTL_SARSTRT_S: any = '1'
+
+// -------- REGISTER HFTRACKCTL -------- //
+
+/**
+High frequency tracking loop control*/
+/**
+Enable tracking loop.*/
+export const CKMD_HFTRACKCTL_EN: any = '1'
+export const CKMD_HFTRACKCTL_EN_M: any = '1'
+export const CKMD_HFTRACKCTL_EN_S: any = '1'
+/**
+Bypass Delta-Sigma-Modulation of fine trim.*/
+export const CKMD_HFTRACKCTL_DSMBYP: any = '1'
+export const CKMD_HFTRACKCTL_DSMBYP_M: any = '1'
+export const CKMD_HFTRACKCTL_DSMBYP_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFTRACKCTL_RESERVED28: any = '2'
+export const CKMD_HFTRACKCTL_RESERVED28_M: any = '2'
+export const CKMD_HFTRACKCTL_RESERVED28_S: any = '2'
+/**
+Select the reference clock for the tracking loop.
+
+Change only while the tracking loop is disabled.*/
+export const CKMD_HFTRACKCTL_REFCLK: any = '2'
+export const CKMD_HFTRACKCTL_REFCLK_M: any = '2'
+export const CKMD_HFTRACKCTL_REFCLK_S: any = '2'
+/**
+Select GPI as reference clock.*/
+export const CKMD_HFTRACKCTL_REFCLK_GPI: any = '2'
+
+/**
+Select LRF reference clock.*/
+export const CKMD_HFTRACKCTL_REFCLK_LRF: any = '1'
+
+/**
+Select HFXT as reference clock.*/
+export const CKMD_HFTRACKCTL_REFCLK_HFXT: any = '0'
+
+/**
+Reference clock ratio.
+
+
+RATIO = 24MHz / (2*reference-frequency) * 2^24
+Commonly used reference clock frequencies are provided as enumerations.
+*/
+export const CKMD_HFTRACKCTL_RATIO: any = '26'
+export const CKMD_HFTRACKCTL_RATIO_M: any = '26'
+export const CKMD_HFTRACKCTL_RATIO_S: any = '26'
+/**
+Use for 4MHz reference clock*/
+export const CKMD_HFTRACKCTL_RATIO_REF4M: any = '50331648'
+
+/**
+Use for 8MHz reference clock*/
+export const CKMD_HFTRACKCTL_RATIO_REF8M: any = '25165824'
+
+/**
+Use for 48MHz reference clock*/
+export const CKMD_HFTRACKCTL_RATIO_REF48M: any = '4194304'
+
+
+// -------- REGISTER LDOCTL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_SWOVR: any = '1'
+export const CKMD_LDOCTL_SWOVR_M: any = '1'
+export const CKMD_LDOCTL_SWOVR_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_RESERVED5: any = '26'
+export const CKMD_LDOCTL_RESERVED5_M: any = '26'
+export const CKMD_LDOCTL_RESERVED5_S: any = '26'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_HFXTLVLEN: any = '1'
+export const CKMD_LDOCTL_HFXTLVLEN_M: any = '1'
+export const CKMD_LDOCTL_HFXTLVLEN_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_STARTCTL: any = '1'
+export const CKMD_LDOCTL_STARTCTL_M: any = '1'
+export const CKMD_LDOCTL_STARTCTL_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_START: any = '1'
+export const CKMD_LDOCTL_START_M: any = '1'
+export const CKMD_LDOCTL_START_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_BYPASS: any = '1'
+export const CKMD_LDOCTL_BYPASS_M: any = '1'
+export const CKMD_LDOCTL_BYPASS_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_LDOCTL_EN: any = '1'
+export const CKMD_LDOCTL_EN_M: any = '1'
+export const CKMD_LDOCTL_EN_S: any = '1'
+
+// -------- REGISTER NABIASCTL -------- //
+
+/**
+Nanoamp-bias control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_NABIASCTL_RESERVED1: any = '31'
+export const CKMD_NABIASCTL_RESERVED1_M: any = '31'
+export const CKMD_NABIASCTL_RESERVED1_S: any = '31'
+/**
+Enable nanoamp-bias*/
+export const CKMD_NABIASCTL_EN: any = '1'
+export const CKMD_NABIASCTL_EN_M: any = '1'
+export const CKMD_NABIASCTL_EN_S: any = '1'
+
+// -------- REGISTER LFMONCTL -------- //
+
+/**
+Low-frequency clock-monitor control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFMONCTL_RESERVED1: any = '31'
+export const CKMD_LFMONCTL_RESERVED1_M: any = '31'
+export const CKMD_LFMONCTL_RESERVED1_S: any = '31'
+/**
+Enable LFMONITOR.
+
+Enable only after a LF clock source has been selected, enabled and is stable.
+If LFMONITOR detects a clock loss, the system will be reset.*/
+export const CKMD_LFMONCTL_EN: any = '1'
+export const CKMD_LFMONCTL_EN_M: any = '1'
+export const CKMD_LFMONCTL_EN_S: any = '1'
+
+// -------- REGISTER LFCLKSEL -------- //
+
+/**
+Low frequency clock selection*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFCLKSEL_RESERVED4: any = '28'
+export const CKMD_LFCLKSEL_RESERVED4_M: any = '28'
+export const CKMD_LFCLKSEL_RESERVED4_S: any = '28'
+/**
+Select low frequency clock source for the PRELFCLK interrupt.
+
+
+Can be used by Software to confirm that the clock is running and it's frequency is good, before selecting it in MAIN.*/
+export const CKMD_LFCLKSEL_PRE: any = '2'
+export const CKMD_LFCLKSEL_PRE_M: any = '2'
+export const CKMD_LFCLKSEL_PRE_S: any = '2'
+/**
+External LF clock through GPI.*/
+export const CKMD_LFCLKSEL_PRE_EXTLF: any = '3'
+
+/**
+Low frequency crystal oscillator*/
+export const CKMD_LFCLKSEL_PRE_LFXT: any = '2'
+
+/**
+Low frequency on-chip oscillator*/
+export const CKMD_LFCLKSEL_PRE_LFOSC: any = '1'
+
+/**
+No clock. Output will be tied low.*/
+export const CKMD_LFCLKSEL_PRE_NONE: any = '0'
+
+/**
+Select the main low frequency clock source.
+
+
+If running, this clock will be used to generate LFTICK and as CLKULL during STANDBY.
+If not running, LFTICK will be generated from HFOSC and STANDBY entry will be prevented.*/
+export const CKMD_LFCLKSEL_MAIN: any = '2'
+export const CKMD_LFCLKSEL_MAIN_M: any = '2'
+export const CKMD_LFCLKSEL_MAIN_S: any = '2'
+/**
+External LF clock through GPI.*/
+export const CKMD_LFCLKSEL_MAIN_EXTLF: any = '3'
+
+/**
+Low frequency crystal oscillator*/
+export const CKMD_LFCLKSEL_MAIN_LFXT: any = '2'
+
+/**
+Low frequency on-chip oscillator*/
+export const CKMD_LFCLKSEL_MAIN_LFOSC: any = '1'
+
+/**
+No LF clock selected. LFTICK will be generated from HFOSC, STANDBY entry will be prevented.*/
+export const CKMD_LFCLKSEL_MAIN_FAKE: any = '0'
+
+
+// -------- REGISTER TDCCLKSEL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_RESERVED2: any = '30'
+export const CKMD_TDCCLKSEL_RESERVED2_M: any = '30'
+export const CKMD_TDCCLKSEL_RESERVED2_S: any = '30'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_REFCLK: any = '2'
+export const CKMD_TDCCLKSEL_REFCLK_M: any = '2'
+export const CKMD_TDCCLKSEL_REFCLK_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_REFCLK_GPI: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_REFCLK_CLKULL: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_REFCLK_CLKSVT: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCLKSEL_REFCLK_NONE: any = '0'
+
+
+// -------- REGISTER ADCCLKSEL -------- //
+
+/**
+ADC clock selection*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_ADCCLKSEL_RESERVED2: any = '30'
+export const CKMD_ADCCLKSEL_RESERVED2_M: any = '30'
+export const CKMD_ADCCLKSEL_RESERVED2_S: any = '30'
+/**
+Select ADC clock source
+
+
+Change only while ADC is disabled.*/
+export const CKMD_ADCCLKSEL_SRC: any = '2'
+export const CKMD_ADCCLKSEL_SRC_M: any = '2'
+export const CKMD_ADCCLKSEL_SRC_S: any = '2'
+/**
+48MHz HFXT*/
+export const CKMD_ADCCLKSEL_SRC_HFXT: any = '1'
+
+/**
+48MHz CLKSVT*/
+export const CKMD_ADCCLKSEL_SRC_CLKSVT: any = '0'
+
+
+// -------- REGISTER LFCLKSTAT -------- //
+
+/**
+Low-frequency clock status*/
+/**
+Low frequency clock good
+
+
+Note: This is only a coarse frequency check based on LFQUALCTL. The clock may not be accurate enough for timing purposes.*/
+export const CKMD_LFCLKSTAT_GOOD: any = '1'
+export const CKMD_LFCLKSTAT_GOOD_M: any = '1'
+export const CKMD_LFCLKSTAT_GOOD_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_LFCLKSTAT_RESERVED26: any = '5'
+export const CKMD_LFCLKSTAT_RESERVED26_M: any = '5'
+export const CKMD_LFCLKSTAT_RESERVED26_S: any = '5'
+/**
+LFINC filter is running and settled.*/
+export const CKMD_LFCLKSTAT_FLTSETTLED: any = '1'
+export const CKMD_LFCLKSTAT_FLTSETTLED_M: any = '1'
+export const CKMD_LFCLKSTAT_FLTSETTLED_S: any = '1'
+/**
+Source of LFTICK.*/
+export const CKMD_LFCLKSTAT_LFTICKSRC: any = '1'
+export const CKMD_LFCLKSTAT_LFTICKSRC_M: any = '1'
+export const CKMD_LFCLKSTAT_LFTICKSRC_S: any = '1'
+/**
+LFTICK generated from CLKULL (LFCLK not available)*/
+export const CKMD_LFCLKSTAT_LFTICKSRC_FAKE: any = '1'
+
+/**
+LFTICK generated from the selected LFCLK*/
+export const CKMD_LFCLKSTAT_LFTICKSRC_LFCLK: any = '0'
+
+/**
+Source of LFINC used by the RTC.
+
+
+This value depends on LFINCOVR.OVERRIDE, LF clock availability, HF tracking loop status and the device state (ACTIVE/STANDBY).*/
+export const CKMD_LFCLKSTAT_LFINCSRC: any = '2'
+export const CKMD_LFCLKSTAT_LFINCSRC_M: any = '2'
+export const CKMD_LFCLKSTAT_LFINCSRC_S: any = '2'
+/**
+Using FAKE LFTICKs with corresponding LFINC value.*/
+export const CKMD_LFCLKSTAT_LFINCSRC_FAKE: any = '3'
+
+/**
+Using override value from LFINCOVR.LFINC*/
+export const CKMD_LFCLKSTAT_LFINCSRC_OVERRIDE: any = '2'
+
+/**
+Using filtered / average value.
+
+This value is updated by hardware and can be read and updated in LFINCCTL.INT.*/
+export const CKMD_LFCLKSTAT_LFINCSRC_AVG: any = '1'
+
+/**
+Using measured value.
+
+This value is updated by hardware and can be read from LFINC.*/
+export const CKMD_LFCLKSTAT_LFINCSRC_MEAS: any = '0'
+
+/**
+Measured value of LFINC.
+
+
+Given in microseconds with 16 fractional bits.
+This value is calculated by Hardware.
+It is the LFCLK period according to CLKULL cycles.*/
+export const CKMD_LFCLKSTAT_LFINC: any = '22'
+export const CKMD_LFCLKSTAT_LFINC_M: any = '22'
+export const CKMD_LFCLKSTAT_LFINC_S: any = '22'
+
+// -------- REGISTER HFXTSTAT -------- //
+
+/**
+HFXT status information*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTSTAT_RESERVED31: any = '1'
+export const CKMD_HFXTSTAT_RESERVED31_M: any = '1'
+export const CKMD_HFXTSTAT_RESERVED31_S: any = '1'
+/**
+HFXT startup time
+
+
+Can be used by software to plan starting HFXT ahead in time.
+Measured whenever HFXT is enabled in CLKULL periods (24MHz), from HFXTCTL.EN until the clock is good for radio operation (amplitude compensation is settled).*/
+export const CKMD_HFXTSTAT_STARTUPTIME: any = '15'
+export const CKMD_HFXTSTAT_STARTUPTIME_M: any = '15'
+export const CKMD_HFXTSTAT_STARTUPTIME_S: any = '15'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTSTAT_RESERVED2: any = '14'
+export const CKMD_HFXTSTAT_RESERVED2_M: any = '14'
+export const CKMD_HFXTSTAT_RESERVED2_S: any = '14'
+/**
+HFXT clock fault
+
+
+Indicates a lower than expected HFXT frequency.
+HFXT will not recover from this fault, disabling and re-enabling HFXT is required.*/
+export const CKMD_HFXTSTAT_FAULT: any = '1'
+export const CKMD_HFXTSTAT_FAULT_M: any = '1'
+export const CKMD_HFXTSTAT_FAULT_S: any = '1'
+/**
+HFXT clock available.
+
+
+The frequency is not necessarily good enough for radio operation.*/
+export const CKMD_HFXTSTAT_GOOD: any = '1'
+export const CKMD_HFXTSTAT_GOOD_M: any = '1'
+export const CKMD_HFXTSTAT_GOOD_S: any = '1'
+
+// -------- REGISTER AMPADCSTAT -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_RESERVED25: any = '7'
+export const CKMD_AMPADCSTAT_RESERVED25_M: any = '7'
+export const CKMD_AMPADCSTAT_RESERVED25_S: any = '7'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_COMPOUT: any = '1'
+export const CKMD_AMPADCSTAT_COMPOUT_M: any = '1'
+export const CKMD_AMPADCSTAT_COMPOUT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_RESERVED23: any = '1'
+export const CKMD_AMPADCSTAT_RESERVED23_M: any = '1'
+export const CKMD_AMPADCSTAT_RESERVED23_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_PEAKRAW: any = '7'
+export const CKMD_AMPADCSTAT_PEAKRAW_M: any = '7'
+export const CKMD_AMPADCSTAT_PEAKRAW_S: any = '7'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_PEAK: any = '8'
+export const CKMD_AMPADCSTAT_PEAK_M: any = '8'
+export const CKMD_AMPADCSTAT_PEAK_S: any = '8'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_RESERVED7: any = '1'
+export const CKMD_AMPADCSTAT_RESERVED7_M: any = '1'
+export const CKMD_AMPADCSTAT_RESERVED7_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_AMPADCSTAT_BIAS: any = '7'
+export const CKMD_AMPADCSTAT_BIAS_M: any = '7'
+export const CKMD_AMPADCSTAT_BIAS_S: any = '7'
+
+// -------- REGISTER TRACKSTAT -------- //
+
+/**
+HFOSC tracking loop status information*/
+/**
+Current HFOSC tracking error valid
+
+
+This bit is one if the tracking loop is running and the error value is valid.*/
+export const CKMD_TRACKSTAT_LOOPERRVLD: any = '1'
+export const CKMD_TRACKSTAT_LOOPERRVLD_M: any = '1'
+export const CKMD_TRACKSTAT_LOOPERRVLD_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_TRACKSTAT_RESERVED30: any = '1'
+export const CKMD_TRACKSTAT_RESERVED30_M: any = '1'
+export const CKMD_TRACKSTAT_RESERVED30_S: any = '1'
+/**
+Current HFOSC tracking error*/
+export const CKMD_TRACKSTAT_LOOPERR: any = '14'
+export const CKMD_TRACKSTAT_LOOPERR_M: any = '14'
+export const CKMD_TRACKSTAT_LOOPERR_S: any = '14'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_TRACKSTAT_RESERVED13: any = '3'
+export const CKMD_TRACKSTAT_RESERVED13_M: any = '3'
+export const CKMD_TRACKSTAT_RESERVED13_S: any = '3'
+/**
+Current HFOSC Fine-trim value
+
+
+This field uses the internal fractional representation (sign, 4 integer bits, 8 fractional bits).
+The actual trim value applied to the oscillator is delta-sigma modulated 5 bits non-signed
+(inverted sign bit + integer bits).
+
+*/
+export const CKMD_TRACKSTAT_FINETRIM: any = '13'
+export const CKMD_TRACKSTAT_FINETRIM_M: any = '13'
+export const CKMD_TRACKSTAT_FINETRIM_S: any = '13'
+
+// -------- REGISTER AMPSTAT -------- //
+
+/**
+HFXT Amplitude Compensation Status*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_AMPSTAT_RESERVED29: any = '3'
+export const CKMD_AMPSTAT_RESERVED29_M: any = '3'
+export const CKMD_AMPSTAT_RESERVED29_S: any = '3'
+/**
+Current AMPCOMP FSM state.*/
+export const CKMD_AMPSTAT_STATE: any = '4'
+export const CKMD_AMPSTAT_STATE_M: any = '4'
+export const CKMD_AMPSTAT_STATE_S: any = '4'
+/**
+Settled state*/
+export const CKMD_AMPSTAT_STATE_SETTLED: any = '15'
+
+/**
+Amplitude up correction*/
+export const CKMD_AMPSTAT_STATE_UPDATEUP: any = '14'
+
+/**
+TCXO settled state*/
+export const CKMD_AMPSTAT_STATE_TXCOMODE: any = '12'
+
+/**
+First shutdown state*/
+export const CKMD_AMPSTAT_STATE_SHUTDN0: any = '10'
+
+/**
+Post injection settle wait*/
+export const CKMD_AMPSTAT_STATE_INJWAIT: any = '7'
+
+/**
+Amplitude down correction*/
+export const CKMD_AMPSTAT_STATE_UPDATEDN: any = '6'
+
+/**
+Initial amplitude ramping with HFXTINIT values*/
+export const CKMD_AMPSTAT_STATE_RAMP0: any = '5'
+
+/**
+Transition to HFXTTARG values*/
+export const CKMD_AMPSTAT_STATE_RAMP1: any = '4'
+
+/**
+Injecting HFOSC for fast startup*/
+export const CKMD_AMPSTAT_STATE_INJECT: any = '3'
+
+/**
+Second shutdown state*/
+export const CKMD_AMPSTAT_STATE_SHUTDN1: any = '2'
+
+/**
+Starting LDO*/
+export const CKMD_AMPSTAT_STATE_LDOSTART: any = '1'
+
+/**
+FSM in idle state*/
+export const CKMD_AMPSTAT_STATE_IDLE: any = '0'
+
+/**
+Current IDAC control value.*/
+export const CKMD_AMPSTAT_IDAC: any = '7'
+export const CKMD_AMPSTAT_IDAC_M: any = '7'
+export const CKMD_AMPSTAT_IDAC_S: any = '7'
+/**
+Current IREF control value.*/
+export const CKMD_AMPSTAT_IREF: any = '4'
+export const CKMD_AMPSTAT_IREF_M: any = '4'
+export const CKMD_AMPSTAT_IREF_S: any = '4'
+/**
+Current Q2CAP control value.*/
+export const CKMD_AMPSTAT_Q2CAP: any = '6'
+export const CKMD_AMPSTAT_Q2CAP_M: any = '6'
+export const CKMD_AMPSTAT_Q2CAP_S: any = '6'
+/**
+Current Q1CAP control value.*/
+export const CKMD_AMPSTAT_Q1CAP: any = '6'
+export const CKMD_AMPSTAT_Q1CAP_M: any = '6'
+export const CKMD_AMPSTAT_Q1CAP_S: any = '6'
+/**
+HFXT control values match target values.
+
+
+This applies to IREF, Q1CAP, Q2CAP values.*/
+export const CKMD_AMPSTAT_CTRLATTARGET: any = '1'
+export const CKMD_AMPSTAT_CTRLATTARGET_M: any = '1'
+export const CKMD_AMPSTAT_CTRLATTARGET_S: any = '1'
+/**
+HFXT amplitude good*/
+export const CKMD_AMPSTAT_AMPGOOD: any = '1'
+export const CKMD_AMPSTAT_AMPGOOD_M: any = '1'
+export const CKMD_AMPSTAT_AMPGOOD_S: any = '1'
+
+// -------- REGISTER ATBCTL0 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_RESERVED19: any = '13'
+export const CKMD_ATBCTL0_RESERVED19_M: any = '13'
+export const CKMD_ATBCTL0_RESERVED19_S: any = '13'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL: any = '19'
+export const CKMD_ATBCTL0_SEL_M: any = '19'
+export const CKMD_ATBCTL0_SEL_S: any = '19'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LFXTTESTCLK: any = '458752'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LFOSCTESTCLK: any = '327680'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFXTTESTCLK: any = '196608'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFOSCTESTCLK: any = '65536'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LFMONVTEST: any = '4096'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LFOSCVDDL: any = '2048'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFOSCIBIAS: any = '1024'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFOSCVDDL: any = '512'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFOSCVREF: any = '256'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_NABIASITEST: any = '128'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_ADCDACOUT: any = '64'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_ADCCOMPIN: any = '32'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_ADCCOMPOUT: any = '16'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LFXTANA: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_LDOITEST: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_VDDCKM: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_HFXTANA: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL0_SEL_OFF: any = '0'
+
+
+// -------- REGISTER ATBCTL1 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_RESERVED15: any = '17'
+export const CKMD_ATBCTL1_RESERVED15_M: any = '17'
+export const CKMD_ATBCTL1_RESERVED15_S: any = '17'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFOSC: any = '2'
+export const CKMD_ATBCTL1_LFOSC_M: any = '2'
+export const CKMD_ATBCTL1_LFOSC_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFOSC_BOTH: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFOSC_VDDLOCAL: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFOSC_TESTCLK: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFOSC_OFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_NABIAS: any = '1'
+export const CKMD_ATBCTL1_NABIAS_M: any = '1'
+export const CKMD_ATBCTL1_NABIAS_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_RESERVED11: any = '1'
+export const CKMD_ATBCTL1_RESERVED11_M: any = '1'
+export const CKMD_ATBCTL1_RESERVED11_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFXT: any = '1'
+export const CKMD_ATBCTL1_LFXT_M: any = '1'
+export const CKMD_ATBCTL1_LFXT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFXT_TESTCLK: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFXT_OFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFMON: any = '2'
+export const CKMD_ATBCTL1_LFMON_M: any = '2'
+export const CKMD_ATBCTL1_LFMON_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFMON_TEST2: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFMON_TEST1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_LFMON_OFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_HFXT: any = '1'
+export const CKMD_ATBCTL1_HFXT_M: any = '1'
+export const CKMD_ATBCTL1_HFXT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_RESERVED1: any = '6'
+export const CKMD_ATBCTL1_RESERVED1_M: any = '6'
+export const CKMD_ATBCTL1_RESERVED1_S: any = '6'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_ATBCTL1_HFOSC: any = '1'
+export const CKMD_ATBCTL1_HFOSC_M: any = '1'
+export const CKMD_ATBCTL1_HFOSC_S: any = '1'
+
+// -------- REGISTER DTBCTL -------- //
+
+/**
+Digital test bus mux control*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_DTBCTL_RESERVED23: any = '9'
+export const CKMD_DTBCTL_RESERVED23_M: any = '9'
+export const CKMD_DTBCTL_RESERVED23_S: any = '9'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_DTBCTL_DSEL2: any = '5'
+export const CKMD_DTBCTL_DSEL2_M: any = '5'
+export const CKMD_DTBCTL_DSEL2_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_DTBCTL_DSEL1: any = '5'
+export const CKMD_DTBCTL_DSEL1_M: any = '5'
+export const CKMD_DTBCTL_DSEL1_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_DTBCTL_DSEL0: any = '5'
+export const CKMD_DTBCTL_DSEL0_M: any = '5'
+export const CKMD_DTBCTL_DSEL0_S: any = '5'
+/**
+Select clock to output on DTB[0]*/
+export const CKMD_DTBCTL_CLKSEL: any = '4'
+export const CKMD_DTBCTL_CLKSEL_M: any = '4'
+export const CKMD_DTBCTL_CLKSEL_S: any = '4'
+/**
+Select LFXT*/
+export const CKMD_DTBCTL_CLKSEL_LFXT: any = '15'
+
+/**
+Select LFOSC*/
+export const CKMD_DTBCTL_CLKSEL_LFOSC: any = '14'
+
+/**
+Select HFXT*/
+export const CKMD_DTBCTL_CLKSEL_HFXT: any = '13'
+
+/**
+Select HFXT divided by 8*/
+export const CKMD_DTBCTL_CLKSEL_HFXTBY8: any = '12'
+
+/**
+Select HFOSC after qualification*/
+export const CKMD_DTBCTL_CLKSEL_HFOSC: any = '10'
+
+/**
+Select LFCLK (selected by LFCLKSEL.MAIN)*/
+export const CKMD_DTBCTL_CLKSEL_LFCLK: any = '7'
+
+/**
+Select tracking loop reference clock*/
+export const CKMD_DTBCTL_CLKSEL_TRACKREF: any = '4'
+
+/**
+Select CLKADC (48 MHz)*/
+export const CKMD_DTBCTL_CLKSEL_CLKADC: any = '2'
+
+/**
+Select CLKSVT (48 MHz)*/
+export const CKMD_DTBCTL_CLKSEL_CLKSVT: any = '1'
+
+/**
+Select CLKULL (24 MHz during ACTIVE, 32kHz during STANDBY)*/
+export const CKMD_DTBCTL_CLKSEL_CLKULL: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_DTBCTL_RESERVED1: any = '3'
+export const CKMD_DTBCTL_RESERVED1_M: any = '3'
+export const CKMD_DTBCTL_RESERVED1_S: any = '3'
+/**
+Enable DTB output*/
+export const CKMD_DTBCTL_EN: any = '1'
+export const CKMD_DTBCTL_EN_M: any = '1'
+export const CKMD_DTBCTL_EN_S: any = '1'
+
+// -------- REGISTER TRIM0 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM0_RESERVED9: any = '23'
+export const CKMD_TRIM0_RESERVED9_M: any = '23'
+export const CKMD_TRIM0_RESERVED9_S: any = '23'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM0_HFOSC_CAP: any = '4'
+export const CKMD_TRIM0_HFOSC_CAP_M: any = '4'
+export const CKMD_TRIM0_HFOSC_CAP_S: any = '4'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM0_HFOSC_COARSE: any = '5'
+export const CKMD_TRIM0_HFOSC_COARSE_M: any = '5'
+export const CKMD_TRIM0_HFOSC_COARSE_S: any = '5'
+
+// -------- REGISTER TRIM1 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_HFXTSLICER: any = '2'
+export const CKMD_TRIM1_HFXTSLICER_M: any = '2'
+export const CKMD_TRIM1_HFXTSLICER_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_PEAKIBIAS: any = '2'
+export const CKMD_TRIM1_PEAKIBIAS_M: any = '2'
+export const CKMD_TRIM1_PEAKIBIAS_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_NABIAS_UDIGLDO: any = '1'
+export const CKMD_TRIM1_NABIAS_UDIGLDO_M: any = '1'
+export const CKMD_TRIM1_NABIAS_UDIGLDO_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_LDOBW: any = '3'
+export const CKMD_TRIM1_LDOBW_M: any = '3'
+export const CKMD_TRIM1_LDOBW_S: any = '3'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_LDOFB: any = '4'
+export const CKMD_TRIM1_LDOFB_M: any = '4'
+export const CKMD_TRIM1_LDOFB_S: any = '4'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_LFDLY: any = '4'
+export const CKMD_TRIM1_LFDLY_M: any = '4'
+export const CKMD_TRIM1_LFDLY_S: any = '4'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_NABIAS_LFOSC: any = '1'
+export const CKMD_TRIM1_NABIAS_LFOSC_M: any = '1'
+export const CKMD_TRIM1_NABIAS_LFOSC_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_NABIAS_RES: any = '7'
+export const CKMD_TRIM1_NABIAS_RES_M: any = '7'
+export const CKMD_TRIM1_NABIAS_RES_S: any = '7'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TRIM1_LFOSC_CAP: any = '8'
+export const CKMD_TRIM1_LFOSC_CAP_M: any = '8'
+export const CKMD_TRIM1_LFOSC_CAP_S: any = '8'
+
+// -------- REGISTER HFXTINIT -------- //
+
+/**
+Initial values for HFXT ramping*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTINIT_RESERVED30: any = '2'
+export const CKMD_HFXTINIT_RESERVED30_M: any = '2'
+export const CKMD_HFXTINIT_RESERVED30_S: any = '2'
+/**
+Amplitude threshold during HFXT ramping*/
+export const CKMD_HFXTINIT_AMPTHR: any = '7'
+export const CKMD_HFXTINIT_AMPTHR_M: any = '7'
+export const CKMD_HFXTINIT_AMPTHR_S: any = '7'
+/**
+Initial HFXT IDAC current*/
+export const CKMD_HFXTINIT_IDAC: any = '7'
+export const CKMD_HFXTINIT_IDAC_M: any = '7'
+export const CKMD_HFXTINIT_IDAC_S: any = '7'
+/**
+Initial HFXT IREF current*/
+export const CKMD_HFXTINIT_IREF: any = '4'
+export const CKMD_HFXTINIT_IREF_M: any = '4'
+export const CKMD_HFXTINIT_IREF_S: any = '4'
+/**
+Initial HFXT Q2 cap trim*/
+export const CKMD_HFXTINIT_Q2CAP: any = '6'
+export const CKMD_HFXTINIT_Q2CAP_M: any = '6'
+export const CKMD_HFXTINIT_Q2CAP_S: any = '6'
+/**
+Initial HFXT Q1 cap trim*/
+export const CKMD_HFXTINIT_Q1CAP: any = '6'
+export const CKMD_HFXTINIT_Q1CAP_M: any = '6'
+export const CKMD_HFXTINIT_Q1CAP_S: any = '6'
+
+// -------- REGISTER HFXTTARG -------- //
+
+/**
+Target values for HFXT ramping*/
+/**
+ADC hysteresis used during IDAC updates.
+
+
+Every AMPCFG1.INTERVAL, IDAC will be regulated
+- up as long as ADC $lt; AMPTHR
+- down as long as ADC $gt; AMPTHR+AMPHYST*/
+export const CKMD_HFXTTARG_AMPHYST: any = '2'
+export const CKMD_HFXTTARG_AMPHYST_M: any = '2'
+export const CKMD_HFXTTARG_AMPHYST_S: any = '2'
+/**
+Minimum HFXT amplitude*/
+export const CKMD_HFXTTARG_AMPTHR: any = '7'
+export const CKMD_HFXTTARG_AMPTHR_M: any = '7'
+export const CKMD_HFXTTARG_AMPTHR_S: any = '7'
+/**
+Minimum IDAC current*/
+export const CKMD_HFXTTARG_IDAC: any = '7'
+export const CKMD_HFXTTARG_IDAC_M: any = '7'
+export const CKMD_HFXTTARG_IDAC_S: any = '7'
+/**
+Target HFXT IREF current*/
+export const CKMD_HFXTTARG_IREF: any = '4'
+export const CKMD_HFXTTARG_IREF_M: any = '4'
+export const CKMD_HFXTTARG_IREF_S: any = '4'
+/**
+Target HFXT Q2 cap trim*/
+export const CKMD_HFXTTARG_Q2CAP: any = '6'
+export const CKMD_HFXTTARG_Q2CAP_M: any = '6'
+export const CKMD_HFXTTARG_Q2CAP_S: any = '6'
+/**
+Target HFXT Q1 cap trim*/
+export const CKMD_HFXTTARG_Q1CAP: any = '6'
+export const CKMD_HFXTTARG_Q1CAP_M: any = '6'
+export const CKMD_HFXTTARG_Q1CAP_S: any = '6'
+
+// -------- REGISTER HFXTDYN -------- //
+
+/**
+Alternative target values for HFXT configuration
+
+
+Software can change these values to dynamically transition the HFXT configuration while HFXT is running.
+Set SEL to select the alternative set of target values.*/
+/**
+Select the dynamic configuration.
+
+
+Amplitude ramping will always happen using the values in HFXTINIT, and HFXTTARG.
+Afterwards, this bit can be used to select between HFXTTARG and HFXTDYN.
+Hardware will ensure a smooth transition of analog control signals.*/
+export const CKMD_HFXTDYN_SEL: any = '1'
+export const CKMD_HFXTDYN_SEL_M: any = '1'
+export const CKMD_HFXTDYN_SEL_S: any = '1'
+/**
+Select configuration in HFXTDYN.*/
+export const CKMD_HFXTDYN_SEL_DYNAMIC: any = '1'
+
+/**
+Select configuration in HFXTTARG.*/
+export const CKMD_HFXTDYN_SEL_TARGET: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_HFXTDYN_RESERVED30: any = '1'
+export const CKMD_HFXTDYN_RESERVED30_M: any = '1'
+export const CKMD_HFXTDYN_RESERVED30_S: any = '1'
+/**
+Minimum HFXT amplitude*/
+export const CKMD_HFXTDYN_AMPTHR: any = '7'
+export const CKMD_HFXTDYN_AMPTHR_M: any = '7'
+export const CKMD_HFXTDYN_AMPTHR_S: any = '7'
+/**
+Minimum IDAC current*/
+export const CKMD_HFXTDYN_IDAC: any = '7'
+export const CKMD_HFXTDYN_IDAC_M: any = '7'
+export const CKMD_HFXTDYN_IDAC_S: any = '7'
+/**
+Target HFXT IREF current*/
+export const CKMD_HFXTDYN_IREF: any = '4'
+export const CKMD_HFXTDYN_IREF_M: any = '4'
+export const CKMD_HFXTDYN_IREF_S: any = '4'
+/**
+Target HFXT Q2 cap trim*/
+export const CKMD_HFXTDYN_Q2CAP: any = '6'
+export const CKMD_HFXTDYN_Q2CAP_M: any = '6'
+export const CKMD_HFXTDYN_Q2CAP_S: any = '6'
+/**
+Target HFXT Q1 cap trim*/
+export const CKMD_HFXTDYN_Q1CAP: any = '6'
+export const CKMD_HFXTDYN_Q1CAP_M: any = '6'
+export const CKMD_HFXTDYN_Q1CAP_S: any = '6'
+
+// -------- REGISTER AMPCFG0 -------- //
+
+/**
+Amplitude Compensation Configuration 0*/
+/**
+Q2CAP change delay.
+
+
+Number of clock cycles to wait before changing Q2CAP by one step.
+Clock frequency defined in FSMRATE.*/
+export const CKMD_AMPCFG0_Q2DLY: any = '4'
+export const CKMD_AMPCFG0_Q2DLY_M: any = '4'
+export const CKMD_AMPCFG0_Q2DLY_S: any = '4'
+/**
+Q1CAP change delay.
+
+
+Number of clock cycles to wait before changing Q1CAP by one step.
+Clock frequency defined in FSMRATE.*/
+export const CKMD_AMPCFG0_Q1DLY: any = '4'
+export const CKMD_AMPCFG0_Q1DLY_M: any = '4'
+export const CKMD_AMPCFG0_Q1DLY_S: any = '4'
+/**
+ADC and PEAKDET startup time.
+
+
+Number of clock cycles to wait after enabling the PEAKDET and ADC before the first measurement.
+Clock frequency defined in FSMRATE.*/
+export const CKMD_AMPCFG0_ADCDLY: any = '4'
+export const CKMD_AMPCFG0_ADCDLY_M: any = '4'
+export const CKMD_AMPCFG0_ADCDLY_S: any = '4'
+/**
+LDO startup time.
+
+
+Number of clock cycles to bypass the LDO resistors for faster startup.
+Clock frequency defined in FSMRATE.*/
+export const CKMD_AMPCFG0_LDOSTART: any = '5'
+export const CKMD_AMPCFG0_LDOSTART_M: any = '5'
+export const CKMD_AMPCFG0_LDOSTART_S: any = '5'
+/**
+Inject HFOSC for faster HFXT startup.
+
+
+This value specifies the number of clock cycles to wait after injection is done.
+The clock speed is defined in FSMRATE.*/
+export const CKMD_AMPCFG0_INJWAIT: any = '5'
+export const CKMD_AMPCFG0_INJWAIT_M: any = '5'
+export const CKMD_AMPCFG0_INJWAIT_S: any = '5'
+/**
+Inject HFOSC for faster HFXT startup.
+
+
+This value specifies the number of clock cycles the injection is enabled.
+The clock speed is defined in FSMRATE.
+Set to 0 to disable injection.*/
+export const CKMD_AMPCFG0_INJTIME: any = '5'
+export const CKMD_AMPCFG0_INJTIME_M: any = '5'
+export const CKMD_AMPCFG0_INJTIME_S: any = '5'
+/**
+Update rate for the AMPCOMP update rate.
+
+Also affects the clock rate for the Amplitude ADC.
+
+The update rate is 6MHz / (FSMRATE+1).*/
+export const CKMD_AMPCFG0_FSMRATE: any = '5'
+export const CKMD_AMPCFG0_FSMRATE_M: any = '5'
+export const CKMD_AMPCFG0_FSMRATE_S: any = '5'
+/**
+250 kHz*/
+export const CKMD_AMPCFG0_FSMRATE__250K: any = '23'
+
+/**
+500 kHz*/
+export const CKMD_AMPCFG0_FSMRATE__500K: any = '11'
+
+/**
+1 MHz*/
+export const CKMD_AMPCFG0_FSMRATE__1M: any = '5'
+
+/**
+2 MHz*/
+export const CKMD_AMPCFG0_FSMRATE__2M: any = '2'
+
+/**
+3 MHz*/
+export const CKMD_AMPCFG0_FSMRATE__3M: any = '1'
+
+/**
+6 MHz*/
+export const CKMD_AMPCFG0_FSMRATE__6M: any = '0'
+
+
+// -------- REGISTER AMPCFG1 -------- //
+
+/**
+Amplitude Compensation Configuration 1*/
+/**
+IDAC change delay.
+
+
+Time to wait before changing IDAC by one step.
+This time needs to be long enough for the crystal to settle.
+The number of clock cycles to wait is IDACDLY$lt;$lt;4 + 15.
+Clock frequency defined in AMPCFG0.FSMRATE.*/
+export const CKMD_AMPCFG1_IDACDLY: any = '4'
+export const CKMD_AMPCFG1_IDACDLY_M: any = '4'
+export const CKMD_AMPCFG1_IDACDLY_S: any = '4'
+/**
+IREF change delay.
+
+
+Number of clock cycles to wait before changing IREF by one step.
+Clock frequency defined in AMPCFG0.FSMRATE.*/
+export const CKMD_AMPCFG1_IREFDLY: any = '4'
+export const CKMD_AMPCFG1_IREFDLY_M: any = '4'
+export const CKMD_AMPCFG1_IREFDLY_S: any = '4'
+/**
+Lifetime of the amplitude ADC bias value.
+
+This value specifies the number of adjustment intervals,
+until the ADC bias value has to be measured again.
+Set to 0 to disable automatic bias measurements.*/
+export const CKMD_AMPCFG1_BIASLT: any = '12'
+export const CKMD_AMPCFG1_BIASLT_M: any = '12'
+export const CKMD_AMPCFG1_BIASLT_S: any = '12'
+/**
+Interval for amplitude adjustments.
+
+Set to 0 to disable periodic adjustments.
+
+This value specifies the number of clock cycles between adjustments.
+The clock speed is defined in AMPCFG0.FSMRATE.*/
+export const CKMD_AMPCFG1_INTERVAL: any = '12'
+export const CKMD_AMPCFG1_INTERVAL_M: any = '12'
+export const CKMD_AMPCFG1_INTERVAL_S: any = '12'
+
+// -------- REGISTER LOOPCFG -------- //
+
+/**
+Configuration Register for the Tracking Loop*/
+/**
+Initial value for the resistor fine trim*/
+export const CKMD_LOOPCFG_FINETRIM_INIT: any = '6'
+export const CKMD_LOOPCFG_FINETRIM_INIT_M: any = '6'
+export const CKMD_LOOPCFG_FINETRIM_INIT_S: any = '6'
+/**
+Number of error-updates using BOOST values, before using KI/KP*/
+export const CKMD_LOOPCFG_BOOST_TARGET: any = '5'
+export const CKMD_LOOPCFG_BOOST_TARGET_M: any = '5'
+export const CKMD_LOOPCFG_BOOST_TARGET_S: any = '5'
+/**
+Proportional loop coefficient during BOOST*/
+export const CKMD_LOOPCFG_KP_BOOST: any = '3'
+export const CKMD_LOOPCFG_KP_BOOST_M: any = '3'
+export const CKMD_LOOPCFG_KP_BOOST_S: any = '3'
+/**
+Integral loop coefficient during BOOST*/
+export const CKMD_LOOPCFG_KI_BOOST: any = '3'
+export const CKMD_LOOPCFG_KI_BOOST_M: any = '3'
+export const CKMD_LOOPCFG_KI_BOOST_S: any = '3'
+/**
+Number of updates before HFOSC is considered "settled"*/
+export const CKMD_LOOPCFG_SETTLED_TARGET: any = '5'
+export const CKMD_LOOPCFG_SETTLED_TARGET_M: any = '5'
+export const CKMD_LOOPCFG_SETTLED_TARGET_S: any = '5'
+/**
+Out-of-range threshold*/
+export const CKMD_LOOPCFG_OOR_LIMIT: any = '4'
+export const CKMD_LOOPCFG_OOR_LIMIT_M: any = '4'
+export const CKMD_LOOPCFG_OOR_LIMIT_S: any = '4'
+/**
+Proportional loop coefficient*/
+export const CKMD_LOOPCFG_KP: any = '3'
+export const CKMD_LOOPCFG_KP_M: any = '3'
+export const CKMD_LOOPCFG_KP_S: any = '3'
+/**
+Integral loop coefficient*/
+export const CKMD_LOOPCFG_KI: any = '3'
+export const CKMD_LOOPCFG_KI_M: any = '3'
+export const CKMD_LOOPCFG_KI_S: any = '3'
+
+// -------- REGISTER TDCCTL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_RESERVED2: any = '30'
+export const CKMD_TDCCTL_RESERVED2_M: any = '30'
+export const CKMD_TDCCTL_RESERVED2_S: any = '30'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_CMD: any = '2'
+export const CKMD_TDCCTL_CMD_M: any = '2'
+export const CKMD_TDCCTL_CMD_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_CMD_ABORT: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_CMD_RUN: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_CMD_RUN_SYNC_START: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCCTL_CMD_CLR_RESULT: any = '0'
+
+
+// -------- REGISTER TDCSTAT -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_RESERVED10: any = '22'
+export const CKMD_TDCSTAT_RESERVED10_M: any = '22'
+export const CKMD_TDCSTAT_RESERVED10_S: any = '22'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STOP_BF: any = '1'
+export const CKMD_TDCSTAT_STOP_BF_M: any = '1'
+export const CKMD_TDCSTAT_STOP_BF_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_START_BF: any = '1'
+export const CKMD_TDCSTAT_START_BF_M: any = '1'
+export const CKMD_TDCSTAT_START_BF_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_SAT: any = '1'
+export const CKMD_TDCSTAT_SAT_M: any = '1'
+export const CKMD_TDCSTAT_SAT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_DONE: any = '1'
+export const CKMD_TDCSTAT_DONE_M: any = '1'
+export const CKMD_TDCSTAT_DONE_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE: any = '6'
+export const CKMD_TDCSTAT_STATE_M: any = '6'
+export const CKMD_TDCSTAT_STATE_S: any = '6'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_FORCE_STOP: any = '46'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_START_FALL: any = '30'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_WAIT_CLR_CNT_DONE: any = '22'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_POR: any = '15'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_GET_RESULT: any = '14'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_WAIT_STOP_CNTDWN: any = '12'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_WAIT_STOP: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_CLR_CNT: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_IDLE: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_WAIT_START_STOP_CNT_EN: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSTAT_STATE_WAIT_START: any = '0'
+
+
+// -------- REGISTER TDCRESULT -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCRESULT_VALUE: any = '32'
+export const CKMD_TDCRESULT_VALUE_M: any = '32'
+export const CKMD_TDCRESULT_VALUE_S: any = '32'
+
+// -------- REGISTER TDCSATCFG -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_RESERVED5: any = '27'
+export const CKMD_TDCSATCFG_RESERVED5_M: any = '27'
+export const CKMD_TDCSATCFG_RESERVED5_S: any = '27'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT: any = '5'
+export const CKMD_TDCSATCFG_LIMIT_M: any = '5'
+export const CKMD_TDCSATCFG_LIMIT_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R30: any = '21'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R29: any = '20'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R28: any = '19'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R27: any = '18'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R26: any = '17'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R25: any = '16'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R24: any = '15'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R23: any = '14'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R22: any = '13'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R21: any = '12'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R20: any = '11'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R19: any = '10'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R18: any = '9'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R17: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R16: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R15: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R14: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R13: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_R12: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCSATCFG_LIMIT_NONE: any = '0'
+
+
+// -------- REGISTER TDCTRIGSRC -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_RESERVED16: any = '16'
+export const CKMD_TDCTRIGSRC_RESERVED16_M: any = '16'
+export const CKMD_TDCTRIGSRC_RESERVED16_S: any = '16'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_POL: any = '1'
+export const CKMD_TDCTRIGSRC_STOP_POL_M: any = '1'
+export const CKMD_TDCTRIGSRC_STOP_POL_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_POL_LOW: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_POL_HIGH: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_RESERVED13: any = '2'
+export const CKMD_TDCTRIGSRC_RESERVED13_M: any = '2'
+export const CKMD_TDCTRIGSRC_RESERVED13_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC: any = '5'
+export const CKMD_TDCTRIGSRC_STOP_SRC_M: any = '5'
+export const CKMD_TDCTRIGSRC_STOP_SRC_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_TDC_PRE: any = '31'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB15: any = '20'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB14: any = '19'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB13: any = '18'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB12: any = '17'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB11: any = '16'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB10: any = '15'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB9: any = '14'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB8: any = '13'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB7: any = '12'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB6: any = '11'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB5: any = '10'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB4: any = '9'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB3: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB2: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB1: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_DTB0: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_GPI: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_LFCLK_DLY: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_LFXT: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_LFOSC: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_STOP_SRC_LFTICK: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_POL: any = '1'
+export const CKMD_TDCTRIGSRC_START_POL_M: any = '1'
+export const CKMD_TDCTRIGSRC_START_POL_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_POL_LOW: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_POL_HIGH: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_RESERVED5: any = '2'
+export const CKMD_TDCTRIGSRC_RESERVED5_M: any = '2'
+export const CKMD_TDCTRIGSRC_RESERVED5_S: any = '2'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC: any = '5'
+export const CKMD_TDCTRIGSRC_START_SRC_M: any = '5'
+export const CKMD_TDCTRIGSRC_START_SRC_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_TDC_PRE: any = '31'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB15: any = '20'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB14: any = '19'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB13: any = '18'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB12: any = '17'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB11: any = '16'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB10: any = '15'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB9: any = '14'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB8: any = '13'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB7: any = '12'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB6: any = '11'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB5: any = '10'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB4: any = '9'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB3: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB2: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB1: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_DTB0: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_GPI: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_LFCLK_DLY: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_LFXT: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_LFOSC: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGSRC_START_SRC_LFTICK: any = '0'
+
+
+// -------- REGISTER TDCTRIGCNT -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNT_RESERVED16: any = '16'
+export const CKMD_TDCTRIGCNT_RESERVED16_M: any = '16'
+export const CKMD_TDCTRIGCNT_RESERVED16_S: any = '16'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNT_CNT: any = '16'
+export const CKMD_TDCTRIGCNT_CNT_M: any = '16'
+export const CKMD_TDCTRIGCNT_CNT_S: any = '16'
+
+// -------- REGISTER TDCTRIGCNTLOAD -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNTLOAD_RESERVED16: any = '16'
+export const CKMD_TDCTRIGCNTLOAD_RESERVED16_M: any = '16'
+export const CKMD_TDCTRIGCNTLOAD_RESERVED16_S: any = '16'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNTLOAD_CNT: any = '16'
+export const CKMD_TDCTRIGCNTLOAD_CNT_M: any = '16'
+export const CKMD_TDCTRIGCNTLOAD_CNT_S: any = '16'
+
+// -------- REGISTER TDCTRIGCNTCFG -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNTCFG_RESERVED1: any = '31'
+export const CKMD_TDCTRIGCNTCFG_RESERVED1_M: any = '31'
+export const CKMD_TDCTRIGCNTCFG_RESERVED1_S: any = '31'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCTRIGCNTCFG_EN: any = '1'
+export const CKMD_TDCTRIGCNTCFG_EN_M: any = '1'
+export const CKMD_TDCTRIGCNTCFG_EN_S: any = '1'
+
+// -------- REGISTER TDCPRECTL -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RESERVED8: any = '24'
+export const CKMD_TDCPRECTL_RESERVED8_M: any = '24'
+export const CKMD_TDCPRECTL_RESERVED8_S: any = '24'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RESET_N: any = '1'
+export const CKMD_TDCPRECTL_RESET_N_M: any = '1'
+export const CKMD_TDCPRECTL_RESET_N_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RATIO: any = '1'
+export const CKMD_TDCPRECTL_RATIO_M: any = '1'
+export const CKMD_TDCPRECTL_RATIO_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RATIO_DIV64: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RATIO_DIV16: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_RESERVED5: any = '1'
+export const CKMD_TDCPRECTL_RESERVED5_M: any = '1'
+export const CKMD_TDCPRECTL_RESERVED5_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC: any = '5'
+export const CKMD_TDCPRECTL_SRC_M: any = '5'
+export const CKMD_TDCPRECTL_SRC_S: any = '5'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_HFXT: any = '22'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_HFOSC: any = '21'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB15: any = '20'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB14: any = '19'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB13: any = '18'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB12: any = '17'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB11: any = '16'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB10: any = '15'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB9: any = '14'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB8: any = '13'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB7: any = '12'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB6: any = '11'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB5: any = '10'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB4: any = '9'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB3: any = '8'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB2: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB1: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_DTB0: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_GPI: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_LFCLK_DLY: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_LFXT: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_LFOSC: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECTL_SRC_LFTICK: any = '0'
+
+
+// -------- REGISTER TDCPRECNTR -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECNTR_RESERVED17: any = '15'
+export const CKMD_TDCPRECNTR_RESERVED17_M: any = '15'
+export const CKMD_TDCPRECNTR_RESERVED17_S: any = '15'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECNTR_CAPT: any = '1'
+export const CKMD_TDCPRECNTR_CAPT_M: any = '1'
+export const CKMD_TDCPRECNTR_CAPT_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const CKMD_TDCPRECNTR_CNT: any = '16'
+export const CKMD_TDCPRECNTR_CNT_M: any = '16'
+export const CKMD_TDCPRECNTR_CNT_S: any = '16'
+
+// -------- REGISTER WDTCNT -------- //
+
+/**
+WDT counter value register*/
+/**
+Counter value.
+
+
+A write to this field immediately starts (or restarts) the counter. It will count down from the written value.
+If the counter reaches 0, a reset will be generated.
+A write value of 0 immediately generates a reset.
+
+This field is only writable if not locked. See WDTLOCK register.
+Writing this field will automatically activate the lock.
+
+A read returns the current value of the counter.*/
+export const CKMD_WDTCNT_VAL: any = '32'
+export const CKMD_WDTCNT_VAL_M: any = '32'
+export const CKMD_WDTCNT_VAL_S: any = '32'
+
+// -------- REGISTER WDTTEST -------- //
+
+/**
+WDT test mode register*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const CKMD_WDTTEST_RESERVED1: any = '31'
+export const CKMD_WDTTEST_RESERVED1_M: any = '31'
+export const CKMD_WDTTEST_RESERVED1_S: any = '31'
+/**
+WDT stall enable
+
+
+This field is only writable if not locked. See WDTLOCK register.*/
+export const CKMD_WDTTEST_STALLEN: any = '1'
+export const CKMD_WDTTEST_STALLEN_M: any = '1'
+export const CKMD_WDTTEST_STALLEN_S: any = '1'
+/**
+ENABLE
+
+
+WDT stops counting while the CPU is stopped by a debugger.*/
+export const CKMD_WDTTEST_STALLEN_EN: any = '1'
+
+/**
+DISABLE
+
+
+WDT continues counting while the CPU is stopped by a debugger.*/
+export const CKMD_WDTTEST_STALLEN_DIS: any = '0'
+
+
+// -------- REGISTER WDTLOCK -------- //
+
+/**
+WDT lock register*/
+/**
+A write with value 0x1ACCE551 unlocks the watchdog registers for write access.
+
+A write with any other value locks the watchdog registers for write access.
+Writing the WDTCNT register will also lock the watchdog registers.
+
+A read of this field returns the state of the lock (0=unlocked, 1=locked).*/
+export const CKMD_WDTLOCK_STAT: any = '32'
+export const CKMD_WDTLOCK_STAT_M: any = '32'
+export const CKMD_WDTLOCK_STAT_S: any = '32'
+
 // -------- MODULE CLKCTL -------- //
 
 export interface CLKCTL_t {
@@ -986,6 +4622,6103 @@ Flash LDO is on in SLEEP/IDLE mode.
 
 Gives fast wake up time from SLEEP/IDLE mode, but increased power consumption.*/
 export const CLKCTL_IDLECFG_MODE_LDO_ON: any = '0'
+
+
+// -------- MODULE EVTSVT -------- //
+
+export interface EVTSVT_t {
+    DESC: em.$Reg
+    DESCEX: em.$Reg
+    DTB: em.$Reg
+    NMISEL: em.$Reg
+    CPUIRQ0SEL: em.$Reg
+    CPUIRQ1SEL: em.$Reg
+    CPUIRQ2SEL: em.$Reg
+    CPUIRQ3SEL: em.$Reg
+    CPUIRQ4SEL: em.$Reg
+    CPUIRQ5SEL: em.$Reg
+    CPUIRQ6SEL: em.$Reg
+    CPUIRQ7SEL: em.$Reg
+    CPUIRQ8SEL: em.$Reg
+    CPUIRQ9SEL: em.$Reg
+    CPUIRQ10SEL: em.$Reg
+    CPUIRQ11SEL: em.$Reg
+    CPUIRQ12SEL: em.$Reg
+    CPUIRQ13SEL: em.$Reg
+    CPUIRQ14SEL: em.$Reg
+    CPUIRQ15SEL: em.$Reg
+    CPUIRQ16SEL: em.$Reg
+    CPUIRQ17SEL: em.$Reg
+    CPUIRQ18SEL: em.$Reg
+    SYSTIMC0SEL: em.$Reg
+    SYSTIMC1SEL: em.$Reg
+    SYSTIMC2SEL: em.$Reg
+    SYSTIMC3SEL: em.$Reg
+    SYSTIMC4SEL: em.$Reg
+    ADCTRGSEL: em.$Reg
+    LGPTSYNCSEL: em.$Reg
+    LGPT0IN0SEL: em.$Reg
+    LGPT0IN1SEL: em.$Reg
+    LGPT0IN2SEL: em.$Reg
+    LGPT0TENSEL: em.$Reg
+    LGPT1IN0SEL: em.$Reg
+    LGPT1IN1SEL: em.$Reg
+    LGPT1IN2SEL: em.$Reg
+    LGPT1TENSEL: em.$Reg
+    LGPT2IN0SEL: em.$Reg
+    LGPT2IN1SEL: em.$Reg
+    LGPT2IN2SEL: em.$Reg
+    LGPT2TENSEL: em.$Reg
+    LGPT3IN0SEL: em.$Reg
+    LGPT3IN1SEL: em.$Reg
+    LGPT3IN2SEL: em.$Reg
+    LGPT3TENSEL: em.$Reg
+    LRFDIN0SEL: em.$Reg
+    LRFDIN1SEL: em.$Reg
+    LRFDIN2SEL: em.$Reg
+    DMACH0SEL: em.$Reg
+    DMACH1SEL: em.$Reg
+    DMACH2SEL: em.$Reg
+    DMACH3SEL: em.$Reg
+    DMACH4SEL: em.$Reg
+    DMACH5SEL: em.$Reg
+    DMACH6SEL: em.$Reg
+    DMACH7SEL: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description 
+
+                    
+                    This register provides IP module ID, revision information, instance index and standard MMR registers offset.*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const EVTSVT_DESC_MODID: any = '16'
+export const EVTSVT_DESC_MODID_M: any = '16'
+export const EVTSVT_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+0: Standard IP MMRs do not exist
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)*/
+export const EVTSVT_DESC_STDIPOFF: any = '4'
+export const EVTSVT_DESC_STDIPOFF_M: any = '4'
+export const EVTSVT_DESC_STDIPOFF_S: any = '4'
+/**
+IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15).*/
+export const EVTSVT_DESC_INSTIDX: any = '4'
+export const EVTSVT_DESC_INSTIDX_M: any = '4'
+export const EVTSVT_DESC_INSTIDX_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const EVTSVT_DESC_MAJREV: any = '4'
+export const EVTSVT_DESC_MAJREV_M: any = '4'
+export const EVTSVT_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).*/
+export const EVTSVT_DESC_MINREV: any = '4'
+export const EVTSVT_DESC_MINREV_M: any = '4'
+export const EVTSVT_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER DESCEX -------- //
+
+/**
+Extended Description
+
+                    
+                    This register provides configuration details of the IP to software drivers and end users.
+*/
+/**
+Number of DMA input channels*/
+export const EVTSVT_DESCEX_IDMA: any = '10'
+export const EVTSVT_DESCEX_IDMA_M: any = '10'
+export const EVTSVT_DESCEX_IDMA_S: any = '10'
+/**
+Number of DMA output channels*/
+export const EVTSVT_DESCEX_NDMA: any = '5'
+export const EVTSVT_DESCEX_NDMA_M: any = '5'
+export const EVTSVT_DESCEX_NDMA_S: any = '5'
+/**
+Power Domain.
+
+0 : SVT
+ 1 : ULL*/
+export const EVTSVT_DESCEX_PD: any = '1'
+export const EVTSVT_DESCEX_PD_M: any = '1'
+export const EVTSVT_DESCEX_PD_S: any = '1'
+/**
+Number of Subscribers*/
+export const EVTSVT_DESCEX_NSUB: any = '8'
+export const EVTSVT_DESCEX_NSUB_M: any = '8'
+export const EVTSVT_DESCEX_NSUB_S: any = '8'
+/**
+Number of Publishers*/
+export const EVTSVT_DESCEX_NPUB: any = '8'
+export const EVTSVT_DESCEX_NPUB_M: any = '8'
+export const EVTSVT_DESCEX_NPUB_S: any = '8'
+
+// -------- REGISTER DTB -------- //
+
+/**
+Digital test bus control 
+
+                    
+                    This register can be used to bring out IP internal signals to the pads for observation. 16 signals can be observed per select value.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DTB_RESERVED2: any = '30'
+export const EVTSVT_DTB_RESERVED2_M: any = '30'
+export const EVTSVT_DTB_RESERVED2_S: any = '30'
+/**
+Digital test bus selection mux control.
+
+Non-zero select values output a 16 bit selected group of signals per value.*/
+export const EVTSVT_DTB_SEL: any = '2'
+export const EVTSVT_DTB_SEL_M: any = '2'
+export const EVTSVT_DTB_SEL_S: any = '2'
+/**
+All 16 observation signals are set to zero.*/
+export const EVTSVT_DTB_SEL_DIS: any = '0'
+
+
+// -------- REGISTER NMISEL -------- //
+
+/**
+Output Selection for CPU NMI Exception
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_NMISEL_RESERVED6: any = '26'
+export const EVTSVT_NMISEL_RESERVED6_M: any = '26'
+export const EVTSVT_NMISEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_NMISEL_PUBID: any = '6'
+export const EVTSVT_NMISEL_PUBID_M: any = '6'
+export const EVTSVT_NMISEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_NMISEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_NMISEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_NMISEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_NMISEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_NMISEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_NMISEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_NMISEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_NMISEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_NMISEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_NMISEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_NMISEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_NMISEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_NMISEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_NMISEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_NMISEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_NMISEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_NMISEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_NMISEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_NMISEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_NMISEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_NMISEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_NMISEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_NMISEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+Selects an AON_NMI source, controlled by EVTULL:NMISEL*/
+export const EVTSVT_NMISEL_PUBID_AON_NMI_SEL: any = '1'
+
+/**
+Always inactive*/
+export const EVTSVT_NMISEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ0SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ0SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ0SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ0SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ0SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ0SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_CPUIRQ0SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ0SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ1SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ1SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ1SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ1SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_CPUIRQ1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ2SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ2SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ2SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ2SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ2SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ2SEL_PUBID_S: any = '6'
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ2SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ3SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ3
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ3SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ3SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ3SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ3SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ3SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ3SEL_PUBID_S: any = '6'
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ3SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ4SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ4
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ4SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ4SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ4SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ4SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ4SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ4SEL_PUBID_S: any = '6'
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ4SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ5SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ5
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ5SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ5SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ5SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ5SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ5SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ5SEL_PUBID_S: any = '6'
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ5SEL_PUBID_GPIO_COMB: any = '9'
+
+
+// -------- REGISTER CPUIRQ6SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ6
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ6SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ6SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ6SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ6SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ6SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ6SEL_PUBID_S: any = '6'
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ6SEL_PUBID_LRFD_IRQ0: any = '12'
+
+
+// -------- REGISTER CPUIRQ7SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ7
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ7SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ7SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ7SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ7SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ7SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ7SEL_PUBID_S: any = '6'
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ7SEL_PUBID_LRFD_IRQ1: any = '13'
+
+
+// -------- REGISTER CPUIRQ8SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ8
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ8SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ8SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ8SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ8SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ8SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ8SEL_PUBID_S: any = '6'
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ8SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+
+// -------- REGISTER CPUIRQ9SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ9
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ9SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ9SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ9SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ9SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ9SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ9SEL_PUBID_S: any = '6'
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ9SEL_PUBID_AES_COMB: any = '22'
+
+
+// -------- REGISTER CPUIRQ10SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ10
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ10SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ10SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ10SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ10SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ10SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ10SEL_PUBID_S: any = '6'
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ10SEL_PUBID_SPI0_COMB: any = '15'
+
+
+// -------- REGISTER CPUIRQ11SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ11
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ11SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ11SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ11SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ11SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ11SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ11SEL_PUBID_S: any = '6'
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ11SEL_PUBID_UART0_COMB: any = '23'
+
+
+// -------- REGISTER CPUIRQ12SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ12
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ12SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ12SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ12SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ12SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ12SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ12SEL_PUBID_S: any = '6'
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ12SEL_PUBID_I2C0_IRQ: any = '24'
+
+
+// -------- REGISTER CPUIRQ13SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ13
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ13SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ13SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ13SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ13SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ13SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ13SEL_PUBID_S: any = '6'
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ13SEL_PUBID_LGPT0_COMB: any = '18'
+
+
+// -------- REGISTER CPUIRQ14SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ14
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ14SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ14SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ14SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ14SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ14SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ14SEL_PUBID_S: any = '6'
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ14SEL_PUBID_LGPT1_COMB: any = '19'
+
+
+// -------- REGISTER CPUIRQ15SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ15
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ15SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ15SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ15SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ15SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ15SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ15SEL_PUBID_S: any = '6'
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ15SEL_PUBID_ADC_COMB: any = '16'
+
+
+// -------- REGISTER CPUIRQ16SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ16
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ16SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ16SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ16SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_CPUIRQ16SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ16SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ16SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_CPUIRQ16SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_CPUIRQ16SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER CPUIRQ17SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ17
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ17SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ17SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ17SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ17SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ17SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ17SEL_PUBID_S: any = '6'
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_CPUIRQ17SEL_PUBID_LGPT2_COMB: any = '49'
+
+
+// -------- REGISTER CPUIRQ18SEL -------- //
+
+/**
+Output Selection for CPU Interrupt CPUIRQ18
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_CPUIRQ18SEL_RESERVED6: any = '26'
+export const EVTSVT_CPUIRQ18SEL_RESERVED6_M: any = '26'
+export const EVTSVT_CPUIRQ18SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_CPUIRQ18SEL_PUBID: any = '6'
+export const EVTSVT_CPUIRQ18SEL_PUBID_M: any = '6'
+export const EVTSVT_CPUIRQ18SEL_PUBID_S: any = '6'
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_CPUIRQ18SEL_PUBID_LGPT3_COMB: any = '55'
+
+
+// -------- REGISTER SYSTIMC0SEL -------- //
+
+/**
+Output Selection for SYSTIMC0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_SYSTIMC0SEL_RESERVED6: any = '26'
+export const EVTSVT_SYSTIMC0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_SYSTIMC0SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_SYSTIMC0SEL_PUBID: any = '6'
+export const EVTSVT_SYSTIMC0SEL_PUBID_M: any = '6'
+export const EVTSVT_SYSTIMC0SEL_PUBID_S: any = '6'
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_SYSTIMC0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+
+// -------- REGISTER SYSTIMC1SEL -------- //
+
+/**
+ Output Selection for SYSTIMC1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_SYSTIMC1SEL_RESERVED6: any = '26'
+export const EVTSVT_SYSTIMC1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_SYSTIMC1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_SYSTIMC1SEL_PUBID: any = '6'
+export const EVTSVT_SYSTIMC1SEL_PUBID_M: any = '6'
+export const EVTSVT_SYSTIMC1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_SYSTIMC1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_SYSTIMC1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER SYSTIMC2SEL -------- //
+
+/**
+Output Selection for SYSTIMC2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_SYSTIMC2SEL_RESERVED6: any = '26'
+export const EVTSVT_SYSTIMC2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_SYSTIMC2SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_SYSTIMC2SEL_PUBID: any = '6'
+export const EVTSVT_SYSTIMC2SEL_PUBID_M: any = '6'
+export const EVTSVT_SYSTIMC2SEL_PUBID_S: any = '6'
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_SYSTIMC2SEL_PUBID_LRFD_EVT0: any = '42'
+
+
+// -------- REGISTER SYSTIMC3SEL -------- //
+
+/**
+Output Selection for SYSTIMC3
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_SYSTIMC3SEL_RESERVED6: any = '26'
+export const EVTSVT_SYSTIMC3SEL_RESERVED6_M: any = '26'
+export const EVTSVT_SYSTIMC3SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_SYSTIMC3SEL_PUBID: any = '6'
+export const EVTSVT_SYSTIMC3SEL_PUBID_M: any = '6'
+export const EVTSVT_SYSTIMC3SEL_PUBID_S: any = '6'
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_SYSTIMC3SEL_PUBID_LRFD_EVT1: any = '43'
+
+
+// -------- REGISTER SYSTIMC4SEL -------- //
+
+/**
+Output Selection for SYSTIMC4
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_SYSTIMC4SEL_RESERVED6: any = '26'
+export const EVTSVT_SYSTIMC4SEL_RESERVED6_M: any = '26'
+export const EVTSVT_SYSTIMC4SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_SYSTIMC4SEL_PUBID: any = '6'
+export const EVTSVT_SYSTIMC4SEL_PUBID_M: any = '6'
+export const EVTSVT_SYSTIMC4SEL_PUBID_S: any = '6'
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_SYSTIMC4SEL_PUBID_LRFD_EVT2: any = '44'
+
+
+// -------- REGISTER ADCTRGSEL -------- //
+
+/**
+Output Selection for ADCTRG
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_ADCTRGSEL_RESERVED6: any = '26'
+export const EVTSVT_ADCTRGSEL_RESERVED6_M: any = '26'
+export const EVTSVT_ADCTRGSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_ADCTRGSEL_PUBID: any = '6'
+export const EVTSVT_ADCTRGSEL_PUBID_M: any = '6'
+export const EVTSVT_ADCTRGSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_ADCTRGSEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_ADCTRGSEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_ADCTRGSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_ADCTRGSEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_ADCTRGSEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_ADCTRGSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_ADCTRGSEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_ADCTRGSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPTSYNCSEL -------- //
+
+/**
+Output Selection for LGPTSYNC
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPTSYNCSEL_RESERVED6: any = '26'
+export const EVTSVT_LGPTSYNCSEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPTSYNCSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPTSYNCSEL_PUBID: any = '6'
+export const EVTSVT_LGPTSYNCSEL_PUBID_M: any = '6'
+export const EVTSVT_LGPTSYNCSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPTSYNCSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPTSYNCSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT0IN0SEL -------- //
+
+/**
+Output Selection for LGPT0IN0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT0IN0SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT0IN0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT0IN0SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT0IN0SEL_PUBID: any = '6'
+export const EVTSVT_LGPT0IN0SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT0IN0SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT0IN0SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT0IN0SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT0IN1SEL -------- //
+
+/**
+Output Selection for LGPT0IN1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT0IN1SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT0IN1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT0IN1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT0IN1SEL_PUBID: any = '6'
+export const EVTSVT_LGPT0IN1SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT0IN1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT0IN1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT0IN1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT0IN2SEL -------- //
+
+/**
+Output Selection for LGPT0IN2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT0IN2SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT0IN2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT0IN2SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT0IN2SEL_PUBID: any = '6'
+export const EVTSVT_LGPT0IN2SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT0IN2SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT0IN2SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT0IN2SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT0TENSEL -------- //
+
+/**
+Output Selection for LGPT0TEN
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT0TENSEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT0TENSEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT0TENSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT0TENSEL_PUBID: any = '6'
+export const EVTSVT_LGPT0TENSEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT0TENSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT0TENSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT0TENSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT0TENSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT0TENSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT0TENSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT1IN0SEL -------- //
+
+/**
+Output Selection for LGPT1IN0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT1IN0SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT1IN0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT1IN0SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT1IN0SEL_PUBID: any = '6'
+export const EVTSVT_LGPT1IN0SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT1IN0SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT1IN0SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT1IN0SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT1IN1SEL -------- //
+
+/**
+Output Selection for LGPT1IN1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT1IN1SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT1IN1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT1IN1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT1IN1SEL_PUBID: any = '6'
+export const EVTSVT_LGPT1IN1SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT1IN1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT1IN1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT1IN1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT1IN2SEL -------- //
+
+/**
+Output Selection for LGPT1IN2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT1IN2SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT1IN2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT1IN2SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT1IN2SEL_PUBID: any = '6'
+export const EVTSVT_LGPT1IN2SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT1IN2SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT1IN2SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT1IN2SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT1TENSEL -------- //
+
+/**
+Output Selection for LGPT1TEN
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT1TENSEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT1TENSEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT1TENSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT1TENSEL_PUBID: any = '6'
+export const EVTSVT_LGPT1TENSEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT1TENSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT1TENSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT1TENSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT1TENSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT1TENSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT1TENSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT2IN0SEL -------- //
+
+/**
+Output Selection for LGPT2IN0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT2IN0SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT2IN0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT2IN0SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT2IN0SEL_PUBID: any = '6'
+export const EVTSVT_LGPT2IN0SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT2IN0SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT2IN0SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT2IN0SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT2IN1SEL -------- //
+
+/**
+Output Selection for LGPT2IN1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT2IN1SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT2IN1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT2IN1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT2IN1SEL_PUBID: any = '6'
+export const EVTSVT_LGPT2IN1SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT2IN1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT2IN1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT2IN1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT2IN2SEL -------- //
+
+/**
+Output Selection for LGPT2IN2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT2IN2SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT2IN2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT2IN2SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT2IN2SEL_PUBID: any = '6'
+export const EVTSVT_LGPT2IN2SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT2IN2SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT2IN2SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT2IN2SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT2TENSEL -------- //
+
+/**
+Output Selection for LGPT2TEN
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT2TENSEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT2TENSEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT2TENSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT2TENSEL_PUBID: any = '6'
+export const EVTSVT_LGPT2TENSEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT2TENSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT2TENSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT2TENSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT2TENSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT2TENSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT2TENSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT3IN0SEL -------- //
+
+/**
+Output Selection for LGPT3IN0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT3IN0SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT3IN0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT3IN0SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT3IN0SEL_PUBID: any = '6'
+export const EVTSVT_LGPT3IN0SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT3IN0SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT3IN0SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT3IN0SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT3IN1SEL -------- //
+
+/**
+Output Selection for LGPT3IN1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT3IN1SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT3IN1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT3IN1SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT3IN1SEL_PUBID: any = '6'
+export const EVTSVT_LGPT3IN1SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT3IN1SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT3IN1SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT3IN1SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT3IN2SEL -------- //
+
+/**
+Output Selection for LGPT3IN2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT3IN2SEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT3IN2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT3IN2SEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT3IN2SEL_PUBID: any = '6'
+export const EVTSVT_LGPT3IN2SEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT3IN2SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT3IN2SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT3IN2SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LGPT3TENSEL -------- //
+
+/**
+Output Selection for LGPT3TEN
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LGPT3TENSEL_RESERVED6: any = '26'
+export const EVTSVT_LGPT3TENSEL_RESERVED6_M: any = '26'
+export const EVTSVT_LGPT3TENSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_LGPT3TENSEL_PUBID: any = '6'
+export const EVTSVT_LGPT3TENSEL_PUBID_M: any = '6'
+export const EVTSVT_LGPT3TENSEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_LGPT3TENSEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_LGPT3TENSEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_LGPT3TENSEL_PUBID_ADC_EVT: any = '17'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_LGPT3TENSEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+Always inactive*/
+export const EVTSVT_LGPT3TENSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER LRFDIN0SEL -------- //
+
+/**
+Output Selection for LRFDIN0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LRFDIN0SEL_RESERVED6: any = '26'
+export const EVTSVT_LRFDIN0SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LRFDIN0SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_LRFDIN0SEL_PUBID: any = '6'
+export const EVTSVT_LRFDIN0SEL_PUBID_M: any = '6'
+export const EVTSVT_LRFDIN0SEL_PUBID_S: any = '6'
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_LRFDIN0SEL_PUBID_SYSTIM2: any = '29'
+
+
+// -------- REGISTER LRFDIN1SEL -------- //
+
+/**
+Output Selection for LRFDIN1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LRFDIN1SEL_RESERVED6: any = '26'
+export const EVTSVT_LRFDIN1SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LRFDIN1SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_LRFDIN1SEL_PUBID: any = '6'
+export const EVTSVT_LRFDIN1SEL_PUBID_M: any = '6'
+export const EVTSVT_LRFDIN1SEL_PUBID_S: any = '6'
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_LRFDIN1SEL_PUBID_SYSTIM3: any = '30'
+
+
+// -------- REGISTER LRFDIN2SEL -------- //
+
+/**
+Output Selection for LRFDIN2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_LRFDIN2SEL_RESERVED6: any = '26'
+export const EVTSVT_LRFDIN2SEL_RESERVED6_M: any = '26'
+export const EVTSVT_LRFDIN2SEL_RESERVED6_S: any = '26'
+/**
+Read only selection value*/
+export const EVTSVT_LRFDIN2SEL_PUBID: any = '6'
+export const EVTSVT_LRFDIN2SEL_PUBID_M: any = '6'
+export const EVTSVT_LRFDIN2SEL_PUBID_S: any = '6'
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_LRFDIN2SEL_PUBID_SYSTIM4: any = '31'
+
+
+// -------- REGISTER DMACH0SEL -------- //
+
+/**
+Output Selection for DMA CH0
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH0SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH0SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH0SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH0SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH0SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH0SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH0SEL_IPID: any = '3'
+export const EVTSVT_DMACH0SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH0SEL_IPID_S: any = '3'
+/**
+Selects uart0rxtrg as channel source*/
+export const EVTSVT_DMACH0SEL_IPID_UART0RXTRG: any = '7'
+
+/**
+Selects spi0txtrg as channel source*/
+export const EVTSVT_DMACH0SEL_IPID_SPI0TXTRG: any = '0'
+
+
+// -------- REGISTER DMACH1SEL -------- //
+
+/**
+Output Selection for DMA CH1
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH1SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH1SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH1SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH1SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH1SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH1SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH1SEL_IPID: any = '3'
+export const EVTSVT_DMACH1SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH1SEL_IPID_S: any = '3'
+/**
+Selects uart0txtrg as channel source*/
+export const EVTSVT_DMACH1SEL_IPID_UART0TXTRG: any = '6'
+
+/**
+Selects spi0rxtrg as channel source*/
+export const EVTSVT_DMACH1SEL_IPID_SPI0RXTRG: any = '1'
+
+
+// -------- REGISTER DMACH2SEL -------- //
+
+/**
+Output Selection for DMA CH2
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH2SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH2SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH2SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH2SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH2SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH2SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH2SEL_IPID: any = '3'
+export const EVTSVT_DMACH2SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH2SEL_IPID_S: any = '3'
+/**
+Selects uart0txtrg as channel source*/
+export const EVTSVT_DMACH2SEL_IPID_UART0TXTRG: any = '6'
+
+/**
+Reserved value. Should not be programmed.
+
+*/
+export const EVTSVT_DMACH2SEL_IPID_RSVD: any = '2'
+
+
+// -------- REGISTER DMACH3SEL -------- //
+
+/**
+Output Selection for DMA CH3
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH3SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH3SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH3SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH3SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH3SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH3SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH3SEL_IPID: any = '3'
+export const EVTSVT_DMACH3SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH3SEL_IPID_S: any = '3'
+/**
+Selects uart0rxtrg as channel source*/
+export const EVTSVT_DMACH3SEL_IPID_UART0RXTRG: any = '7'
+
+/**
+Selects adc0trg as channel source*/
+export const EVTSVT_DMACH3SEL_IPID_ADC0TRG: any = '5'
+
+
+// -------- REGISTER DMACH4SEL -------- //
+
+/**
+Output Selection for DMA CH4
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH4SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH4SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH4SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH4SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH4SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH4SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH4SEL_IPID: any = '3'
+export const EVTSVT_DMACH4SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH4SEL_IPID_S: any = '3'
+/**
+Selects laestrga as channel source*/
+export const EVTSVT_DMACH4SEL_IPID_LAESTRGA: any = '3'
+
+/**
+Reserved value. Should not be programmed.
+
+*/
+export const EVTSVT_DMACH4SEL_IPID_RSVD: any = '2'
+
+
+// -------- REGISTER DMACH5SEL -------- //
+
+/**
+Output Selection for DMA CH5
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const EVTSVT_DMACH5SEL_RESERVED29: any = '3'
+export const EVTSVT_DMACH5SEL_RESERVED29_M: any = '3'
+export const EVTSVT_DMACH5SEL_RESERVED29_S: any = '3'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH5SEL_RESERVED3: any = '26'
+export const EVTSVT_DMACH5SEL_RESERVED3_M: any = '26'
+export const EVTSVT_DMACH5SEL_RESERVED3_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH5SEL_IPID: any = '3'
+export const EVTSVT_DMACH5SEL_IPID_M: any = '3'
+export const EVTSVT_DMACH5SEL_IPID_S: any = '3'
+/**
+Selects adc0trg as channel source*/
+export const EVTSVT_DMACH5SEL_IPID_ADC0TRG: any = '5'
+
+/**
+Selects laestrgb as channel source*/
+export const EVTSVT_DMACH5SEL_IPID_LAESTRGB: any = '4'
+
+
+// -------- REGISTER DMACH6SEL -------- //
+
+/**
+Output Selection for DMA CH6
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH6SEL_RESERVED17: any = '15'
+export const EVTSVT_DMACH6SEL_RESERVED17_M: any = '15'
+export const EVTSVT_DMACH6SEL_RESERVED17_S: any = '15'
+/**
+Edge detect disable.
+
+0: Enabled.
+1: Disabled*/
+export const EVTSVT_DMACH6SEL_EDGDETDIS: any = '1'
+export const EVTSVT_DMACH6SEL_EDGDETDIS_M: any = '1'
+export const EVTSVT_DMACH6SEL_EDGDETDIS_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH6SEL_RESERVED6: any = '10'
+export const EVTSVT_DMACH6SEL_RESERVED6_M: any = '10'
+export const EVTSVT_DMACH6SEL_RESERVED6_S: any = '10'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH6SEL_PUBID: any = '6'
+export const EVTSVT_DMACH6SEL_PUBID_M: any = '6'
+export const EVTSVT_DMACH6SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_DMACH6SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_DMACH6SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_DMACH6SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_DMACH6SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_DMACH6SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_DMACH6SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_DMACH6SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_DMACH6SEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER DMACH7SEL -------- //
+
+/**
+Output Selection for DMA CH7
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH7SEL_RESERVED17: any = '15'
+export const EVTSVT_DMACH7SEL_RESERVED17_M: any = '15'
+export const EVTSVT_DMACH7SEL_RESERVED17_S: any = '15'
+/**
+Edge detect disable.
+
+0: Enabled.
+1: Disabled*/
+export const EVTSVT_DMACH7SEL_EDGDETDIS: any = '1'
+export const EVTSVT_DMACH7SEL_EDGDETDIS_M: any = '1'
+export const EVTSVT_DMACH7SEL_EDGDETDIS_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTSVT_DMACH7SEL_RESERVED6: any = '10'
+export const EVTSVT_DMACH7SEL_RESERVED6_M: any = '10'
+export const EVTSVT_DMACH7SEL_RESERVED6_S: any = '10'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTSVT_DMACH7SEL_PUBID: any = '6'
+export const EVTSVT_DMACH7SEL_PUBID_M: any = '6'
+export const EVTSVT_DMACH7SEL_PUBID_S: any = '6'
+/**
+LGPT3 ADC trigger event, controlled by LGPT3:ADCTRG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3_ADC: any = '57'
+
+/**
+LGPT3 DMA request event, controlled by LGPT3:DMA setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3_DMA: any = '56'
+
+/**
+LGPT3 combined interrupt, interrupt flags are found here LGPT3:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3_COMB: any = '55'
+
+/**
+LGPT3 compare/capture output event 2, controlled by LGPT3:C2CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3C2: any = '54'
+
+/**
+LGPT3 compare/capture output event 1, controlled by LGPT3:C1CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3C1: any = '53'
+
+/**
+LGPT3 compare/capture output event 0, controlled by LGPT3:C0CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT3C0: any = '52'
+
+/**
+LGPT2 ADC trigger event, controlled by LGPT2:ADCTRG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2_ADC: any = '51'
+
+/**
+LGPT2 DMA request event, controlled by LGPT2:DMA setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2_DMA: any = '50'
+
+/**
+LGPT2 combined interrupt, interrupt flags are found here LGPT2:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2_COMB: any = '49'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT2:C2CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2C2: any = '48'
+
+/**
+LGPT2 compare/capture output event 1, controlled by LGPT2:C1CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2C1: any = '47'
+
+/**
+LGPT2 compare/capture output event 0, controlled by LGPT2:C0CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT2C0: any = '46'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC2*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_EVT2: any = '44'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC1*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_EVT1: any = '43'
+
+/**
+LRFD interrupt to SYSTIM, controlled by LRFDDBELL:SYSTIMOEV.SRC0*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_EVT0: any = '42'
+
+/**
+LGPT1 ADC trigger event, controlled by LGPT1:ADCTRG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1_ADC: any = '41'
+
+/**
+LGPT1 DMA request event, controlled by LGPT1:DMA setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1_DMA: any = '40'
+
+/**
+LGPT1 compare/capture output event 2, controlled by LGPT1:C2CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1C2: any = '39'
+
+/**
+LGPT1 compare/capture output event 1, controlled by LGPT1:C1CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1C1: any = '38'
+
+/**
+LGPT1 compare/capture output event 0, controlled by LGPT1:C0CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1C0: any = '37'
+
+/**
+LGPT0 ADC trigger event, controlled by LGPT0:ADCTRG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0_ADC: any = '36'
+
+/**
+LGPT0 DMA request event, controlled by LGPT0:DMA setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0_DMA: any = '35'
+
+/**
+LGPT0 compare/capture output event 2, controlled by LGPT0:C2CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0C2: any = '34'
+
+/**
+LGPT0 compare/capture output event 1, controlled by LGPT0:C1CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0C1: any = '33'
+
+/**
+LGPT0 compare/capture output event 0, controlled by LGPT0:C0CFG setting*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0C0: any = '32'
+
+/**
+SYSTIM Channel 4 event, event flag is SYSTIM:MIS.EVT4*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM4: any = '31'
+
+/**
+SYSTIM Channel 3 event, event flag is SYSTIM:MIS.EVT3*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM3: any = '30'
+
+/**
+SYSTIM Channel 2 event, event flag is SYSTIM:MIS.EVT2*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM2: any = '29'
+
+/**
+SYSTIM Channel 1 event, event flag is  SYSTIM:MIS.EVT1*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM1: any = '28'
+
+/**
+SYSTIM Channel 0 event, event flag is SYSTIM:MIS.EVT0*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM0: any = '27'
+
+/**
+SYSTIM interrupt driven by synchronizing LFTICK signal to SVT clock*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM_LT: any = '26'
+
+/**
+SYSTIM heartbeat, can be set by SYSTIM:TIMEBIT*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM_HB: any = '25'
+
+/**
+Interrupt event from I2C0, interrupt flags can be found here I2C0:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_I2C0_IRQ: any = '24'
+
+/**
+UART0 combined interrupt, interrupt flags are found here UART0:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_UART0_COMB: any = '23'
+
+/**
+AES accelerator combined interrupt request, interrupt flags can be found here AES:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_AES_COMB: any = '22'
+
+/**
+DMA bus error, corresponds to DMA:ERROR.STATUS*/
+export const EVTSVT_DMACH7SEL_PUBID_DMA_ERR: any = '21'
+
+/**
+DMA combined done interrupt, corresponding flags can be found here DMA:REQDONE*/
+export const EVTSVT_DMACH7SEL_PUBID_DMA_DONE_COMB: any = '20'
+
+/**
+LGPT1 combined interrupt, interrupt flags are found here LGPT1:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT1_COMB: any = '19'
+
+/**
+LGPT0 combined interrupt, interrupt flags are found here LGPT0:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_LGPT0_COMB: any = '18'
+
+/**
+ADC general published event, interrupt flags can be found here ADC:MIS1 */
+export const EVTSVT_DMACH7SEL_PUBID_ADC_EVT: any = '17'
+
+/**
+ADC combined interrupt request, interrupt flags can be found here ADC:MIS0*/
+export const EVTSVT_DMACH7SEL_PUBID_ADC_COMB: any = '16'
+
+/**
+SPI0 combined interrupt request, interrupt flags can be found here SPI0:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_SPI0_COMB: any = '15'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS2*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_IRQ2: any = '14'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS1*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_IRQ1: any = '13'
+
+/**
+LRFD combined event, interrupt flags can be found here LRFDDBELL:MIS0*/
+export const EVTSVT_DMACH7SEL_PUBID_LRFD_IRQ0: any = '12'
+
+/**
+NoWrapper Flash interrupt indicating that the flash operation has completed, interrupt flags can be found here FLASH:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_FLASH_IRQ: any = '11'
+
+/**
+GPIO generic published event, controlled by GPIO:EVTCFG*/
+export const EVTSVT_DMACH7SEL_PUBID_GPIO_EVT: any = '10'
+
+/**
+GPIO combined wake up interrupt, interrupt flags can be found here GPIO:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_GPIO_COMB: any = '9'
+
+/**
+SYSTIM combined interrupt, interrupt flags are found here SYSTIM:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_SYSTIM_COMB: any = '8'
+
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTSVT_DMACH7SEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTSVT_DMACH7SEL_PUBID_NONE: any = '0'
 
 
 // -------- MODULE GPIO -------- //
@@ -21475,6 +31208,525 @@ export const LGPT3_C2CCNC_VAL: any = '24'
 export const LGPT3_C2CCNC_VAL_M: any = '24'
 export const LGPT3_C2CCNC_VAL_S: any = '24'
 
+// -------- MODULE RTC -------- //
+
+export interface RTC_t {
+    DESC: em.$Reg
+    CTL: em.$Reg
+    ARMSET: em.$Reg
+    ARMCLR: em.$Reg
+    TIME8U: em.$Reg
+    TIME524M: em.$Reg
+    CH0CC8U: em.$Reg
+    CH1CC8U: em.$Reg
+    CH1CFG: em.$Reg
+    IMASK: em.$Reg
+    RIS: em.$Reg
+    MIS: em.$Reg
+    ISET: em.$Reg
+    ICLR: em.$Reg
+    IMSET: em.$Reg
+    IMCLR: em.$Reg
+    EMU: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset.*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const RTC_DESC_MODID: any = '16'
+export const RTC_DESC_MODID_M: any = '16'
+export const RTC_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+
+0: Standard IP MMRs do not exist
+
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)*/
+export const RTC_DESC_STDIPOFF: any = '4'
+export const RTC_DESC_STDIPOFF_M: any = '4'
+export const RTC_DESC_STDIPOFF_S: any = '4'
+/**
+IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15).*/
+export const RTC_DESC_INSTIDX: any = '4'
+export const RTC_DESC_INSTIDX_M: any = '4'
+export const RTC_DESC_INSTIDX_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const RTC_DESC_MAJREV: any = '4'
+export const RTC_DESC_MAJREV_M: any = '4'
+export const RTC_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).*/
+export const RTC_DESC_MINREV: any = '4'
+export const RTC_DESC_MINREV_M: any = '4'
+export const RTC_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER CTL -------- //
+
+/**
+RTC Control register. This register controls resetting the of RTC counter*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_CTL_RESERVED1: any = '31'
+export const RTC_CTL_RESERVED1_M: any = '31'
+export const RTC_CTL_RESERVED1_S: any = '31'
+/**
+RTC counter reset. Writing 1 to this bit will reset the RTC counter, and cause it to resume counting from 0x0*/
+export const RTC_CTL_RST: any = '1'
+export const RTC_CTL_RST_M: any = '1'
+export const RTC_CTL_RST_S: any = '1'
+/**
+Reset the timer.*/
+export const RTC_CTL_RST_CLR: any = '1'
+
+/**
+No effect*/
+export const RTC_CTL_RST_NOEFF: any = '0'
+
+
+// -------- REGISTER ARMSET -------- //
+
+/**
+RTC channel mode set register. Read to each bit field of this register provides the current channel mode.	
+
+- Read of 1'b0 indicates the channel is unarmed.
+- Read of 1'b1 indicates the channel is either in capture or compare mode.
+
+A write to each bitfield of this register the following effect:
+- Write of 1'b0 has no effect on channel mode.
+- Write of 1'b1 has no effect on the compare channel. While write of 1'b1 for capture channel will arm it in capture mode if it is disabled.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_ARMSET_RESERVED2: any = '30'
+export const RTC_ARMSET_RESERVED2_M: any = '30'
+export const RTC_ARMSET_RESERVED2_S: any = '30'
+/**
+Arming Channel 1 for capture operation.*/
+export const RTC_ARMSET_CH1: any = '1'
+export const RTC_ARMSET_CH1_M: any = '1'
+export const RTC_ARMSET_CH1_S: any = '1'
+/**
+Enable the Channel 1 for capture operation*/
+export const RTC_ARMSET_CH1_SET: any = '1'
+
+/**
+No effect on the channel*/
+export const RTC_ARMSET_CH1_NOEFF: any = '0'
+
+/**
+No effect on arming the channel. Read will give the status of the Channel 0.*/
+export const RTC_ARMSET_CH0: any = '1'
+export const RTC_ARMSET_CH0_M: any = '1'
+export const RTC_ARMSET_CH0_S: any = '1'
+/**
+No effect on the compare channel*/
+export const RTC_ARMSET_CH0_SET: any = '1'
+
+/**
+No effect on the channel*/
+export const RTC_ARMSET_CH0_NOEFF: any = '0'
+
+
+// -------- REGISTER ARMCLR -------- //
+
+/**
+RTC channel mode clear register. Read to each bit field of this register provides the current channel mode.	
+
+- Read of 1'b0 indicates the channel is unarmed.
+- Read of 1'b1 indicates the channel is either in capture or compare mode.
+
+A write to each bitfield of this register the following effect:
+- Write of 1'b0 has no effect on channel mode.
+- Write of 1'b1 for capture/compare channel will disarm it without triggering event unless a compare/capture event happens in the same cycle.
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_ARMCLR_RESERVED2: any = '30'
+export const RTC_ARMCLR_RESERVED2_M: any = '30'
+export const RTC_ARMCLR_RESERVED2_S: any = '30'
+/**
+Disarming Channel 1*/
+export const RTC_ARMCLR_CH1: any = '1'
+export const RTC_ARMCLR_CH1_M: any = '1'
+export const RTC_ARMCLR_CH1_S: any = '1'
+/**
+Set channel in UNARMED state without triggering event unless a capture event happens in the same cycle*/
+export const RTC_ARMCLR_CH1_CLR: any = '1'
+
+/**
+No effect on the channel*/
+export const RTC_ARMCLR_CH1_NOEFF: any = '0'
+
+/**
+Disarming Channel 0*/
+export const RTC_ARMCLR_CH0: any = '1'
+export const RTC_ARMCLR_CH0_M: any = '1'
+export const RTC_ARMCLR_CH0_S: any = '1'
+/**
+Set channel in UNARMED state without triggering event unless a compare event happens in the same cycle*/
+export const RTC_ARMCLR_CH0_CLR: any = '1'
+
+/**
+No effect on the channel*/
+export const RTC_ARMCLR_CH0_NOEFF: any = '0'
+
+
+// -------- REGISTER TIME8U -------- //
+
+/**
+RTC Time value register. 32-bit unsigned integer representing [34:3] time slice of the real time clock counter. The counter runs on LFCLK. This field has a resolution of 8us, and range of about 9.5 hours.*/
+/**
+Unsigned integer representing [34:3]slice of real time counter.
+
+*/
+export const RTC_TIME8U_VAL: any = '32'
+export const RTC_TIME8U_VAL_M: any = '32'
+export const RTC_TIME8U_VAL_S: any = '32'
+
+// -------- REGISTER TIME524M -------- //
+
+/**
+RTC time value register. 32-bit unsigned integer representing [50:19] time slice of the real time clock counter. This field has a resolution of about 0.5s and a range of about 71.4 years.*/
+/**
+Unsigned integer representing. [50:19]slice of real time counter.*/
+export const RTC_TIME524M_VAL: any = '32'
+export const RTC_TIME524M_VAL_M: any = '32'
+export const RTC_TIME524M_VAL_S: any = '32'
+
+// -------- REGISTER CH0CC8U -------- //
+
+/**
+Channel 0 compare value. A write to this register automatically enables the channel to trigger an event when RTC timer reaches the programmed value or if the programmed value is 1 sec in the past.*/
+/**
+RTC Channel 0 compare value. This value is compared against TIME8U.VAL. A Channel 0 event is generated when TIME8U.VAL value reaches or exceeds this compare value.*/
+export const RTC_CH0CC8U_VAL: any = '32'
+export const RTC_CH0CC8U_VAL_M: any = '32'
+export const RTC_CH0CC8U_VAL_S: any = '32'
+
+// -------- REGISTER CH1CC8U -------- //
+
+/**
+Channel 1 capture value. This register captures the RTC time slice [34:3] on each selected edge of the capture event when the ARMSET.CH1 = 1.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_CH1CC8U_RESERVED21: any = '11'
+export const RTC_CH1CC8U_RESERVED21_M: any = '11'
+export const RTC_CH1CC8U_RESERVED21_S: any = '11'
+/**
+TIME8U.VAL captured value at the last selected edge of capture event.*/
+export const RTC_CH1CC8U_VAL: any = '21'
+export const RTC_CH1CC8U_VAL_M: any = '21'
+export const RTC_CH1CC8U_VAL_S: any = '21'
+
+// -------- REGISTER CH1CFG -------- //
+
+/**
+Channel 1 configuration register. This register can be used to select the capture edge for generating the capture event.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_CH1CFG_RESERVED1: any = '31'
+export const RTC_CH1CFG_RESERVED1_M: any = '31'
+export const RTC_CH1CFG_RESERVED1_S: any = '31'
+/**
+Edge detect configuration for capture source*/
+export const RTC_CH1CFG_EDGE: any = '1'
+export const RTC_CH1CFG_EDGE_M: any = '1'
+export const RTC_CH1CFG_EDGE_S: any = '1'
+/**
+Falling Edge.*/
+export const RTC_CH1CFG_EDGE_FALL: any = '1'
+
+/**
+Rising Edge.*/
+export const RTC_CH1CFG_EDGE_RISE: any = '0'
+
+
+// -------- REGISTER IMASK -------- //
+
+/**
+Interrupt Mask. If a bit is set, then corresponding interrupt is un-masked. Un-masking the interrupt causes the raw interrupt to be visible in IIDX, as well as MIS.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_IMASK_RESERVED2: any = '30'
+export const RTC_IMASK_RESERVED2_M: any = '30'
+export const RTC_IMASK_RESERVED2_S: any = '30'
+/**
+Channel 1 Event Interrupt Mask.*/
+export const RTC_IMASK_EV1: any = '1'
+export const RTC_IMASK_EV1_M: any = '1'
+export const RTC_IMASK_EV1_S: any = '1'
+/**
+Enable Interrrupt Mask*/
+export const RTC_IMASK_EV1_EN: any = '1'
+
+/**
+Clear Interrupt Mask*/
+export const RTC_IMASK_EV1_DIS: any = '0'
+
+/**
+Channel 0 Event Interrupt Mask.*/
+export const RTC_IMASK_EV0: any = '1'
+export const RTC_IMASK_EV0_M: any = '1'
+export const RTC_IMASK_EV0_S: any = '1'
+/**
+Enable Interrrupt Mask*/
+export const RTC_IMASK_EV0_EN: any = '1'
+
+/**
+Disable Interrupt Mask*/
+export const RTC_IMASK_EV0_DIS: any = '0'
+
+
+// -------- REGISTER RIS -------- //
+
+/**
+Interrupt mask. This register selects interrupt sources which are allowed to pass from RIS to MIS when the corresponding bit-fields are set to 1.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_RIS_RESERVED2: any = '30'
+export const RTC_RIS_RESERVED2_M: any = '30'
+export const RTC_RIS_RESERVED2_S: any = '30'
+/**
+Raw interrupt status for Channel 1 event.
+
+This bit is set to 1 when a capture event is received on Channel 1. 
+This bit will be cleared when the bit in ICLR.EV1 is set to 1 or when the captured time value is read from the CH1CC8U register.*/
+export const RTC_RIS_EV1: any = '1'
+export const RTC_RIS_EV1_M: any = '1'
+export const RTC_RIS_EV1_S: any = '1'
+/**
+Interrupt occured*/
+export const RTC_RIS_EV1_SET: any = '1'
+
+/**
+Interrupt did not occur*/
+export const RTC_RIS_EV1_CLR: any = '0'
+
+/**
+Raw interrupt status for Channel 0 event.
+
+This bit is set to 1 when a compare event occurs on Channel 0. 
+This bit will be cleared. When the corresponding bit in ICLR.EV0 is set to 1. Or when a new compare value is written in CH0CC8U register*/
+export const RTC_RIS_EV0: any = '1'
+export const RTC_RIS_EV0_M: any = '1'
+export const RTC_RIS_EV0_S: any = '1'
+/**
+Interrupt occured*/
+export const RTC_RIS_EV0_SET: any = '1'
+
+/**
+Interrupt did not occur*/
+export const RTC_RIS_EV0_CLR: any = '0'
+
+
+// -------- REGISTER MIS -------- //
+
+/**
+Masked interrupt status. This register is simply a bitwise AND of the contents of IMASK and RIS.*] registers. A flag set in this register can be cleared by writing 1 to the corresponding ICLR register bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_MIS_RESERVED2: any = '30'
+export const RTC_MIS_RESERVED2_M: any = '30'
+export const RTC_MIS_RESERVED2_S: any = '30'
+/**
+Masked interrupt status for channel 1 event.*/
+export const RTC_MIS_EV1: any = '1'
+export const RTC_MIS_EV1_M: any = '1'
+export const RTC_MIS_EV1_S: any = '1'
+/**
+Interrupt occured*/
+export const RTC_MIS_EV1_SET: any = '1'
+
+/**
+Interrupt did not occur*/
+export const RTC_MIS_EV1_CLR: any = '0'
+
+/**
+Masked interrupt status for channel 0 event.*/
+export const RTC_MIS_EV0: any = '1'
+export const RTC_MIS_EV0_M: any = '1'
+export const RTC_MIS_EV0_S: any = '1'
+/**
+Interrupt occured*/
+export const RTC_MIS_EV0_SET: any = '1'
+
+/**
+Interrupt did not occur*/
+export const RTC_MIS_EV0_CLR: any = '0'
+
+
+// -------- REGISTER ISET -------- //
+
+/**
+Interrupt set register. This register can used by software for diagnostics and safety checking purposes. Writing a 1 to a bit in this register will set the event and the corresponding RIS bit also gets set. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets set.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_ISET_RESERVED2: any = '30'
+export const RTC_ISET_RESERVED2_M: any = '30'
+export const RTC_ISET_RESERVED2_S: any = '30'
+/**
+Set Channel 1 event Interrupt.*/
+export const RTC_ISET_EV1: any = '1'
+export const RTC_ISET_EV1_M: any = '1'
+export const RTC_ISET_EV1_S: any = '1'
+/**
+Set interrupt*/
+export const RTC_ISET_EV1_SET: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_ISET_EV1_NO_EFFECT: any = '0'
+
+/**
+Set Channel 0 event Interrupt.*/
+export const RTC_ISET_EV0: any = '1'
+export const RTC_ISET_EV0_M: any = '1'
+export const RTC_ISET_EV0_S: any = '1'
+/**
+Set interrupt*/
+export const RTC_ISET_EV0_SET: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_ISET_EV0_NO_EFFECT: any = '0'
+
+
+// -------- REGISTER ICLR -------- //
+
+/**
+	Interrupt clear register. This register allows software to clear interrupts. Writing a 1 to a bit in this register will clear the event and the corresponding RIS bit also gets cleared. If the corresponding IMASK bit is set, then the corresponding MIS register bit also gets cleared.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_ICLR_RESERVED2: any = '30'
+export const RTC_ICLR_RESERVED2_M: any = '30'
+export const RTC_ICLR_RESERVED2_S: any = '30'
+/**
+Clears channel 1 event interrupt.*/
+export const RTC_ICLR_EV1: any = '1'
+export const RTC_ICLR_EV1_M: any = '1'
+export const RTC_ICLR_EV1_S: any = '1'
+/**
+Clear Interrupt*/
+export const RTC_ICLR_EV1_CLR: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_ICLR_EV1_NO_EFF: any = '0'
+
+/**
+Clears channel 0 event interrupt.*/
+export const RTC_ICLR_EV0: any = '1'
+export const RTC_ICLR_EV0_M: any = '1'
+export const RTC_ICLR_EV0_S: any = '1'
+/**
+Clear Interrupt.*/
+export const RTC_ICLR_EV0_CLR: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_ICLR_EV0_NO_EFF: any = '0'
+
+
+// -------- REGISTER IMSET -------- //
+
+/**
+Interrupt mask set register. Writing a 1 to a bit in this register will set the corresponding IMASK bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_IMSET_RESERVED2: any = '30'
+export const RTC_IMSET_RESERVED2_M: any = '30'
+export const RTC_IMSET_RESERVED2_S: any = '30'
+/**
+Set channel 1 event interrupt mask.*/
+export const RTC_IMSET_EV1: any = '1'
+export const RTC_IMSET_EV1_M: any = '1'
+export const RTC_IMSET_EV1_S: any = '1'
+/**
+Set interrupt mask*/
+export const RTC_IMSET_EV1_SET: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_IMSET_EV1_NO_EFF: any = '0'
+
+/**
+Set channel 0 event interrupt mask.*/
+export const RTC_IMSET_EV0: any = '1'
+export const RTC_IMSET_EV0_M: any = '1'
+export const RTC_IMSET_EV0_S: any = '1'
+/**
+Set interrupt mask*/
+export const RTC_IMSET_EV0_SET: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_IMSET_EV0_NO_EFF: any = '0'
+
+
+// -------- REGISTER IMCLR -------- //
+
+/**
+Interrupt mask clear register. Writing a 1 to a bit in this register will clear the corresponding IMASK bit.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_IMCLR_RESERVED2: any = '30'
+export const RTC_IMCLR_RESERVED2_M: any = '30'
+export const RTC_IMCLR_RESERVED2_S: any = '30'
+/**
+Clears Channel 1 event interrupt mask.*/
+export const RTC_IMCLR_EV1: any = '1'
+export const RTC_IMCLR_EV1_M: any = '1'
+export const RTC_IMCLR_EV1_S: any = '1'
+/**
+Clear Interrupt Mask*/
+export const RTC_IMCLR_EV1_CLR: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_IMCLR_EV1_NO_EFF: any = '0'
+
+/**
+Clears Channel 0 event interrupt mask.*/
+export const RTC_IMCLR_EV0: any = '1'
+export const RTC_IMCLR_EV0_M: any = '1'
+export const RTC_IMCLR_EV0_S: any = '1'
+/**
+Clear Interrupt Mask*/
+export const RTC_IMCLR_EV0_CLR: any = '1'
+
+/**
+Writing 0 has no effect*/
+export const RTC_IMCLR_EV0_NO_EFF: any = '0'
+
+
+// -------- REGISTER EMU -------- //
+
+/**
+Emulation control register. This register controls the behavior of the IP related to core halted input.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const RTC_EMU_RESERVED1: any = '31'
+export const RTC_EMU_RESERVED1_M: any = '31'
+export const RTC_EMU_RESERVED1_S: any = '31'
+/**
+Halt control.*/
+export const RTC_EMU_HALT: any = '1'
+export const RTC_EMU_HALT_M: any = '1'
+export const RTC_EMU_HALT_S: any = '1'
+/**
+Freeze option. The IP freezes functionality when the core halted input is asserted, and resumes when it is deasserted. The freeze can either be immediate or after the IP has reached a boundary from where it can resume without corruption.*/
+export const RTC_EMU_HALT_STOP: any = '1'
+
+/**
+Free run option. The IP ignores the state of the core halted input.*/
+export const RTC_EMU_HALT_RUN: any = '0'
+
+
 // -------- MODULE UART -------- //
 
 export interface UART_t {
@@ -22542,9 +32794,12 @@ export const UART_RESERVED4_RESERVED_S: any = '32'
 
 // -------- INSTANCES -------- //
 
+export const CKMD = { } as CKMD_t
+export const RTC = { } as RTC_t
 export const IOC = { } as IOC_t
 export const CLKCTL = { } as CLKCTL_t
 export const GPIO = { } as GPIO_t
+export const EVTSVT = { } as EVTSVT_t
 export const UART0 = { } as UART_t
 export const LGPT3 = { } as LGPT3_t
 
