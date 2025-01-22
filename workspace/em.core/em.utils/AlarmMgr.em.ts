@@ -38,7 +38,8 @@ function dispatch(delta: Secs24p8) {
     WakeupTimer.$$.disable()
     let nxt_alarm = <Obj>$null
     let max_dt_secs = ~(<Secs24p8>0)
-    for (let a of AlarmFac.$frame(0)) {
+    for (let i = 0; i < AlarmFac.$len; i++) {
+        let a = $ref(AlarmFac[i])
         if (a.$$._dt_secs == 0) continue // inactive
         a.$$._dt_secs -= delta  // TODO: saturate to 0
         if (a.$$._dt_secs == 0) {
