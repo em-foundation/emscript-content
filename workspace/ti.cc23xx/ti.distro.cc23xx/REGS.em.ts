@@ -10721,6 +10721,276 @@ Always inactive*/
 export const EVTSVT_DMACH7SEL_PUBID_NONE: any = '0'
 
 
+// -------- MODULE EVTULL -------- //
+
+export interface EVTULL_t {
+    DESC: em.$Reg
+    DESCEX: em.$Reg
+    DTB: em.$Reg
+    NMISEL: em.$Reg
+    RTCCPTSEL: em.$Reg
+    WKUPMASK: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description
+
+          
+          This register provides IP module ID, revision information, instance index and standard MMR registers offset.
+*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const EVTULL_DESC_MODID: any = '16'
+export const EVTULL_DESC_MODID_M: any = '16'
+export const EVTULL_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+0: Standard IP MMRs do not exist
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)*/
+export const EVTULL_DESC_STDIPOFF: any = '4'
+export const EVTULL_DESC_STDIPOFF_M: any = '4'
+export const EVTULL_DESC_STDIPOFF_S: any = '4'
+/**
+IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15).*/
+export const EVTULL_DESC_INSTIDX: any = '4'
+export const EVTULL_DESC_INSTIDX_M: any = '4'
+export const EVTULL_DESC_INSTIDX_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const EVTULL_DESC_MAJREV: any = '4'
+export const EVTULL_DESC_MAJREV_M: any = '4'
+export const EVTULL_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).*/
+export const EVTULL_DESC_MINREV: any = '4'
+export const EVTULL_DESC_MINREV_M: any = '4'
+export const EVTULL_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER DESCEX -------- //
+
+/**
+Extended Description
+
+          
+          This register provides configuration details of the IP to software drivers and end users.
+*/
+/**
+Number of DMA input channels*/
+export const EVTULL_DESCEX_IDMA: any = '10'
+export const EVTULL_DESCEX_IDMA_M: any = '10'
+export const EVTULL_DESCEX_IDMA_S: any = '10'
+/**
+Number of DMA output channels*/
+export const EVTULL_DESCEX_NDMA: any = '5'
+export const EVTULL_DESCEX_NDMA_M: any = '5'
+export const EVTULL_DESCEX_NDMA_S: any = '5'
+/**
+Power Domain.
+
+0 : SVT
+ 1 : ULL*/
+export const EVTULL_DESCEX_PD: any = '1'
+export const EVTULL_DESCEX_PD_M: any = '1'
+export const EVTULL_DESCEX_PD_S: any = '1'
+/**
+Number of Subscribers*/
+export const EVTULL_DESCEX_NSUB: any = '8'
+export const EVTULL_DESCEX_NSUB_M: any = '8'
+export const EVTULL_DESCEX_NSUB_S: any = '8'
+/**
+Number of Publishers*/
+export const EVTULL_DESCEX_NPUB: any = '8'
+export const EVTULL_DESCEX_NPUB_M: any = '8'
+export const EVTULL_DESCEX_NPUB_S: any = '8'
+
+// -------- REGISTER DTB -------- //
+
+/**
+Digital test bus control register
+
+            
+            This register can be used to bring out IP internal signals to the pads for observation. 16 signals can be observed per select value.
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTULL_DTB_RESERVED1: any = '31'
+export const EVTULL_DTB_RESERVED1_M: any = '31'
+export const EVTULL_DTB_RESERVED1_S: any = '31'
+/**
+Digital test bus selection mux control
+
+            
+            Non-zero select values output a 16 bit selected group of signals per value.*/
+export const EVTULL_DTB_SEL: any = '1'
+export const EVTULL_DTB_SEL_M: any = '1'
+export const EVTULL_DTB_SEL_S: any = '1'
+/**
+All 16 observation signals are set to zero.*/
+export const EVTULL_DTB_SEL_DIS: any = '0'
+
+
+// -------- REGISTER NMISEL -------- //
+
+/**
+Output Selection for CPU NMI Exception
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTULL_NMISEL_RESERVED6: any = '26'
+export const EVTULL_NMISEL_RESERVED6_M: any = '26'
+export const EVTULL_NMISEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTULL_NMISEL_PUBID: any = '6'
+export const EVTULL_NMISEL_PUBID_M: any = '6'
+export const EVTULL_NMISEL_PUBID_S: any = '6'
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTULL_NMISEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTULL_NMISEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTULL_NMISEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTULL_NMISEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTULL_NMISEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTULL_NMISEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTULL_NMISEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER RTCCPTSEL -------- //
+
+/**
+Output Selection for RTCCPT
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTULL_RTCCPTSEL_RESERVED6: any = '26'
+export const EVTULL_RTCCPTSEL_RESERVED6_M: any = '26'
+export const EVTULL_RTCCPTSEL_RESERVED6_S: any = '26'
+/**
+Read/write selection value.
+
+Writing any other value than values defined by a ENUM may result in undefined behavior.*/
+export const EVTULL_RTCCPTSEL_PUBID: any = '6'
+export const EVTULL_RTCCPTSEL_PUBID_M: any = '6'
+export const EVTULL_RTCCPTSEL_PUBID_S: any = '6'
+/**
+IOC synchronous combined event, controlled by IOC:EVTCFG*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_IOC_COMB: any = '7'
+
+/**
+AON LPCMP interrupt, controlled by SYS0:LPCMPCFG*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_LPMCMP_IRQ: any = '6'
+
+/**
+DebugSS combined interrupt, interrupt flags can be found here DBGSS:MIS*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_DBG_COMB: any = '5'
+
+/**
+AON_RTC event, controlled by the RTC:IMASK setting*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_RTC_COMB: any = '4'
+
+/**
+CKMD combined interrupt request, interrupt flags can be found here CKMD:MIS*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_CKM_COMB: any = '3'
+
+/**
+PMU combined interrupt request for BATMON, interrupt flags can be found here PMUD:EVENT*/
+export const EVTULL_RTCCPTSEL_PUBID_AON_PMU_COMB: any = '2'
+
+/**
+Always inactive*/
+export const EVTULL_RTCCPTSEL_PUBID_NONE: any = '0'
+
+
+// -------- REGISTER WKUPMASK -------- //
+
+/**
+WAKEUP Mask
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTULL_WKUPMASK_RESERVED8: any = '24'
+export const EVTULL_WKUPMASK_RESERVED8_M: any = '24'
+export const EVTULL_WKUPMASK_RESERVED8_S: any = '24'
+/**
+Wake-up mask for AON_IOC_COMB.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_IOC_COMB: any = '1'
+export const EVTULL_WKUPMASK_AON_IOC_COMB_M: any = '1'
+export const EVTULL_WKUPMASK_AON_IOC_COMB_S: any = '1'
+/**
+Wake-up mask for AON_LPMCMP_IRQ.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_LPMCMP_IRQ: any = '1'
+export const EVTULL_WKUPMASK_AON_LPMCMP_IRQ_M: any = '1'
+export const EVTULL_WKUPMASK_AON_LPMCMP_IRQ_S: any = '1'
+/**
+Wake-up mask for AON_DBG_COMB.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_DBG_COMB: any = '1'
+export const EVTULL_WKUPMASK_AON_DBG_COMB_M: any = '1'
+export const EVTULL_WKUPMASK_AON_DBG_COMB_S: any = '1'
+/**
+Wake-up mask for AON_RTC_COMB.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_RTC_COMB: any = '1'
+export const EVTULL_WKUPMASK_AON_RTC_COMB_M: any = '1'
+export const EVTULL_WKUPMASK_AON_RTC_COMB_S: any = '1'
+/**
+Wake-up mask for AON_CKM_COMB.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_CKM_COMB: any = '1'
+export const EVTULL_WKUPMASK_AON_CKM_COMB_M: any = '1'
+export const EVTULL_WKUPMASK_AON_CKM_COMB_S: any = '1'
+/**
+Wake-up mask for AON_PMU_COMB.
+
+0 - Wakeup Disabled
+1 - Wakeup Enabled*/
+export const EVTULL_WKUPMASK_AON_PMU_COMB: any = '1'
+export const EVTULL_WKUPMASK_AON_PMU_COMB_M: any = '1'
+export const EVTULL_WKUPMASK_AON_PMU_COMB_S: any = '1'
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior*/
+export const EVTULL_WKUPMASK_RESERVED0: any = '2'
+export const EVTULL_WKUPMASK_RESERVED0_M: any = '2'
+export const EVTULL_WKUPMASK_RESERVED0_S: any = '2'
+
 // -------- MODULE GPIO -------- //
 
 export interface GPIO_t {
@@ -31208,6 +31478,887 @@ export const LGPT3_C2CCNC_VAL: any = '24'
 export const LGPT3_C2CCNC_VAL_M: any = '24'
 export const LGPT3_C2CCNC_VAL_S: any = '24'
 
+// -------- MODULE PMCTL -------- //
+
+export interface PMCTL_t {
+    DESC: em.$Reg
+    DESCEX: em.$Reg
+    SHTDWN: em.$Reg
+    SLPCTL: em.$Reg
+    WUSTA: em.$Reg
+    VDDRCTL: em.$Reg
+    SYSFSET: em.$Reg
+    SYSFCLR: em.$Reg
+    SYSFSTA: em.$Reg
+    RSTCTL: em.$Reg
+    RSTSTA: em.$Reg
+    BOOTSTA: em.$Reg
+    AONRSTA1: em.$Reg
+    AONRSET1: em.$Reg
+    AONRCLR1: em.$Reg
+    ETPP: em.$Reg
+    RETCFG0: em.$Reg
+    RETCFG1: em.$Reg
+    RETCFG2: em.$Reg
+    RETCFG3: em.$Reg
+    RETCFG4: em.$Reg
+    RETCFG5: em.$Reg
+    RETCFG6: em.$Reg
+    RETCFG7: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description Register. 
+
+This register provides IP module ID, revision information, instance index and standard MMR registers offset.*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const PMCTL_DESC_MODID: any = '16'
+export const PMCTL_DESC_MODID_M: any = '16'
+export const PMCTL_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+
+0: Standard IP MMRs do not exist
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)*/
+export const PMCTL_DESC_STDIPOFF: any = '4'
+export const PMCTL_DESC_STDIPOFF_M: any = '4'
+export const PMCTL_DESC_STDIPOFF_S: any = '4'
+/**
+IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15).*/
+export const PMCTL_DESC_INSTIDX: any = '4'
+export const PMCTL_DESC_INSTIDX_M: any = '4'
+export const PMCTL_DESC_INSTIDX_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const PMCTL_DESC_MAJREV: any = '4'
+export const PMCTL_DESC_MAJREV_M: any = '4'
+export const PMCTL_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).*/
+export const PMCTL_DESC_MINREV: any = '4'
+export const PMCTL_DESC_MINREV_M: any = '4'
+export const PMCTL_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER DESCEX -------- //
+
+/**
+Extended Description Register.
+
+This register shows ULL IP availability and memory size configuration.*/
+/**
+System flash availability*/
+export const PMCTL_DESCEX_FLASHSZ: any = '2'
+export const PMCTL_DESCEX_FLASHSZ_M: any = '2'
+export const PMCTL_DESCEX_FLASHSZ_S: any = '2'
+/**
+Flash size set to level 3 (Max size)*/
+export const PMCTL_DESCEX_FLASHSZ_SZ3: any = '3'
+
+/**
+Flash size set to level 2*/
+export const PMCTL_DESCEX_FLASHSZ_SZ2: any = '2'
+
+/**
+Flash size set to level 1*/
+export const PMCTL_DESCEX_FLASHSZ_SZ1: any = '1'
+
+/**
+Flash size set to level 0 (Min size)*/
+export const PMCTL_DESCEX_FLASHSZ_SZ0: any = '0'
+
+/**
+System SRAM availability*/
+export const PMCTL_DESCEX_SRAMSZ: any = '2'
+export const PMCTL_DESCEX_SRAMSZ_M: any = '2'
+export const PMCTL_DESCEX_SRAMSZ_S: any = '2'
+/**
+SRAM size set to level 3 (Max size)*/
+export const PMCTL_DESCEX_SRAMSZ_SZ3: any = '3'
+
+/**
+SRAM size set to level 2*/
+export const PMCTL_DESCEX_SRAMSZ_SZ2: any = '2'
+
+/**
+SRAM size set to level 1*/
+export const PMCTL_DESCEX_SRAMSZ_SZ1: any = '1'
+
+/**
+SRAM size set to level 0 (Min size)*/
+export const PMCTL_DESCEX_SRAMSZ_SZ0: any = '0'
+
+/**
+ TSD (thermal shutdown) IP status on device*/
+export const PMCTL_DESCEX_TSD: any = '1'
+export const PMCTL_DESCEX_TSD_M: any = '1'
+export const PMCTL_DESCEX_TSD_S: any = '1'
+/**
+IP is available*/
+export const PMCTL_DESCEX_TSD_IP_AVAIL: any = '1'
+
+/**
+IP is unavailable*/
+export const PMCTL_DESCEX_TSD_IP_UNAVAIL: any = '0'
+
+/**
+LPCMP (low power comparator) IP status on device*/
+export const PMCTL_DESCEX_LPCMP: any = '1'
+export const PMCTL_DESCEX_LPCMP_M: any = '1'
+export const PMCTL_DESCEX_LPCMP_S: any = '1'
+/**
+IP is available*/
+export const PMCTL_DESCEX_LPCMP_IP_AVAIL: any = '1'
+
+/**
+IP is unavailable*/
+export const PMCTL_DESCEX_LPCMP_IP_UNAVAIL: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_DESCEX_RESERVED0: any = '26'
+export const PMCTL_DESCEX_RESERVED0_M: any = '26'
+export const PMCTL_DESCEX_RESERVED0_S: any = '26'
+
+// -------- REGISTER SHTDWN -------- //
+
+/**
+Shutdown Register.
+
+This register controls SHUTDOWN mode entry.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_SHTDWN_RESERVED16: any = '16'
+export const PMCTL_SHTDWN_RESERVED16_M: any = '16'
+export const PMCTL_SHTDWN_RESERVED16_S: any = '16'
+/**
+Setting a valid key will trigger the device to enter SHUTDOWN mode.
+
+*/
+export const PMCTL_SHTDWN_KEY: any = '16'
+export const PMCTL_SHTDWN_KEY_M: any = '16'
+export const PMCTL_SHTDWN_KEY_S: any = '16'
+/**
+This is the only valid key value that will trigger SHUTDOWN mode.
+
+All other values are invalid and will have no effect.*/
+export const PMCTL_SHTDWN_KEY_VALID: any = '42405'
+
+
+// -------- REGISTER SLPCTL -------- //
+
+/**
+Sleep Control Register.
+
+This register controls I/O pad sleep mode. When I/O pad sleep mode is enabled all I/O pad outputs and I/O pad configurations are latched. Inputs are transparent if I/O pad is configured as input.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_SLPCTL_RESERVED1: any = '31'
+export const PMCTL_SLPCTL_RESERVED1_M: any = '31'
+export const PMCTL_SLPCTL_RESERVED1_S: any = '31'
+/**
+The boot code will set this bit field and disable sleep mode, automatically unless waking up from a SHUTDOWN RSTSTA.SDDET is set.
+
+Application software must reconfigure the state for all IO's before setting this bit field upon waking up from a SHUTDOWN to avoid glitches on pins.*/
+export const PMCTL_SLPCTL_SLPN: any = '1'
+export const PMCTL_SLPCTL_SLPN_M: any = '1'
+export const PMCTL_SLPCTL_SLPN_S: any = '1'
+/**
+I/O pad sleep mode is disabled*/
+export const PMCTL_SLPCTL_SLPN_DIS: any = '1'
+
+/**
+I/O pad sleep mode is enabled*/
+export const PMCTL_SLPCTL_SLPN_EN: any = '0'
+
+
+// -------- REGISTER WUSTA -------- //
+
+/**
+Wakeup Status Register
+
+This register shows the device wakeup source. Used to distinguish between wakeup from STANDBY, SHUTDOWN and reset.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_WUSTA_RESERVED2: any = '30'
+export const PMCTL_WUSTA_RESERVED2_M: any = '30'
+export const PMCTL_WUSTA_RESERVED2_S: any = '30'
+/**
+This field shows the device wakeup source.
+
+*/
+export const PMCTL_WUSTA_SRC: any = '2'
+export const PMCTL_WUSTA_SRC_M: any = '2'
+export const PMCTL_WUSTA_SRC_S: any = '2'
+/**
+Wakeup from STANDBY mode.*/
+export const PMCTL_WUSTA_SRC_STBY: any = '2'
+
+/**
+Wakeup from system reset / SHUTDOWN mode. 
+
+See RSTSTA for more status information.*/
+export const PMCTL_WUSTA_SRC_RST_SHTDWN: any = '1'
+
+
+// -------- REGISTER VDDRCTL -------- //
+
+/**
+VDDR Control Register.
+
+This register contains VDDR regulator settings for the device.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_VDDRCTL_RESERVED2: any = '30'
+export const PMCTL_VDDRCTL_RESERVED2_M: any = '30'
+export const PMCTL_VDDRCTL_RESERVED2_S: any = '30'
+/**
+Select between continuous or duty-cycled VDDR regulation in STANDBY mode.*/
+export const PMCTL_VDDRCTL_STBY: any = '1'
+export const PMCTL_VDDRCTL_STBY_M: any = '1'
+export const PMCTL_VDDRCTL_STBY_S: any = '1'
+/**
+Continuous VDDR regulation in STANDBY mode.*/
+export const PMCTL_VDDRCTL_STBY_PSUEDO: any = '1'
+
+/**
+Duty-cycled VDDR regulation in STANDBY mode.*/
+export const PMCTL_VDDRCTL_STBY_NORMAL: any = '0'
+
+/**
+Select between GLDO and DCDC as VDDR regulator (in ACTIVE, IDLE and STANDBY mode).*/
+export const PMCTL_VDDRCTL_SELECT: any = '1'
+export const PMCTL_VDDRCTL_SELECT_M: any = '1'
+export const PMCTL_VDDRCTL_SELECT_S: any = '1'
+/**
+DCDC enabled for regulation of VDDR voltage*/
+export const PMCTL_VDDRCTL_SELECT_DCDC: any = '1'
+
+/**
+GLDO enabled for regulation of VDDR voltage*/
+export const PMCTL_VDDRCTL_SELECT_GLDO: any = '0'
+
+
+// -------- REGISTER SYSFSET -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_RESERVED3: any = '29'
+export const PMCTL_SYSFSET_RESERVED3_M: any = '29'
+export const PMCTL_SYSFSET_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG2: any = '1'
+export const PMCTL_SYSFSET_FLAG2_M: any = '1'
+export const PMCTL_SYSFSET_FLAG2_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG2_SET: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG2_NOEFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG1: any = '1'
+export const PMCTL_SYSFSET_FLAG1_M: any = '1'
+export const PMCTL_SYSFSET_FLAG1_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG1_SET: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG1_NOEFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG0: any = '1'
+export const PMCTL_SYSFSET_FLAG0_M: any = '1'
+export const PMCTL_SYSFSET_FLAG0_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG0_SET: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSET_FLAG0_NOEFF: any = '0'
+
+
+// -------- REGISTER SYSFCLR -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_RESERVED3: any = '29'
+export const PMCTL_SYSFCLR_RESERVED3_M: any = '29'
+export const PMCTL_SYSFCLR_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG2: any = '1'
+export const PMCTL_SYSFCLR_FLAG2_M: any = '1'
+export const PMCTL_SYSFCLR_FLAG2_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG2_CLR: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG2_NOEFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG1: any = '1'
+export const PMCTL_SYSFCLR_FLAG1_M: any = '1'
+export const PMCTL_SYSFCLR_FLAG1_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG1_CLR: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG1_NOEFF: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG0: any = '1'
+export const PMCTL_SYSFCLR_FLAG0_M: any = '1'
+export const PMCTL_SYSFCLR_FLAG0_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG0_CLR: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFCLR_FLAG0_NOEFF: any = '0'
+
+
+// -------- REGISTER SYSFSTA -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_RESERVED3: any = '29'
+export const PMCTL_SYSFSTA_RESERVED3_M: any = '29'
+export const PMCTL_SYSFSTA_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG2: any = '1'
+export const PMCTL_SYSFSTA_FLAG2_M: any = '1'
+export const PMCTL_SYSFSTA_FLAG2_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG2_VAL1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG2_VAL0: any = '0'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG1: any = '1'
+export const PMCTL_SYSFSTA_FLAG1_M: any = '1'
+export const PMCTL_SYSFSTA_FLAG1_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG1_VAL1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG0: any = '1'
+export const PMCTL_SYSFSTA_FLAG0_M: any = '1'
+export const PMCTL_SYSFSTA_FLAG0_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG0_VAL1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_SYSFSTA_FLAG0_VAL0: any = '0'
+
+
+// -------- REGISTER RSTCTL -------- //
+
+/**
+Reset Control Register.
+
+This register configures and controls system reset.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_RSTCTL_RESERVED3: any = '29'
+export const PMCTL_RSTCTL_RESERVED3_M: any = '29'
+export const PMCTL_RSTCTL_RESERVED3_S: any = '29'
+/**
+LF clock loss reset enable.
+
+Trigger system reset when LF clock loss is detected, which reset the entire device and causes a reboot of the system.
+The system reset event is captured as RSTSTA.RESETSRC set to SYSRESET and RSTSTA.SYSSRC set to LFLOSSEV.*/
+export const PMCTL_RSTCTL_LFLOSS: any = '1'
+export const PMCTL_RSTCTL_LFLOSS_M: any = '1'
+export const PMCTL_RSTCTL_LFLOSS_S: any = '1'
+/**
+LF clock loss detection will trigger a system reset.*/
+export const PMCTL_RSTCTL_LFLOSS_ARMED: any = '1'
+
+/**
+LF clock loss detection will not trigger a system reset.*/
+export const PMCTL_RSTCTL_LFLOSS_DISARMED: any = '0'
+
+/**
+TSD (Thermal Shutdown) enable.  
+
+TSD will trigger an immediate system reset, which reset the entire device and causes a reboot of the system.
+The device will be in reset until released by the TSD IP.
+The system reset event is captured as RSTSTA.TSDEV flag set.*/
+export const PMCTL_RSTCTL_TSDEN: any = '1'
+export const PMCTL_RSTCTL_TSDEN_M: any = '1'
+export const PMCTL_RSTCTL_TSDEN_S: any = '1'
+/**
+Temperature shutdown comparator enable. 
+
+Note: If TSD IP not present, see DESCEX.TSD, enable will have no effect.*/
+export const PMCTL_RSTCTL_TSDEN_EN: any = '1'
+
+/**
+No effect*/
+export const PMCTL_RSTCTL_TSDEN_NOEFF: any = '0'
+
+/**
+Trigger system reset, which will reset the entire device and causes a reboot of the system.
+
+The system reset event is captured as RSTSTA.RESETSRC set to SYSRESET and RSTSTA.SYSSRC set to SYSRSTEV.*/
+export const PMCTL_RSTCTL_SYSRST: any = '1'
+export const PMCTL_RSTCTL_SYSRST_M: any = '1'
+export const PMCTL_RSTCTL_SYSRST_S: any = '1'
+/**
+Trigger a system reset.*/
+export const PMCTL_RSTCTL_SYSRST_SET: any = '1'
+
+/**
+No effect*/
+export const PMCTL_RSTCTL_SYSRST_NOEFF: any = '0'
+
+
+// -------- REGISTER RSTSTA -------- //
+
+/**
+Reset Status. 
+
+This register contains the reset source and SHUTDOWN wakeup source for the system.
+Check WUSTA.SRC first to ensure that wakeup from STANDBY is not set.
+The capture feature is not rearmed until all of the possible reset sources have been released and the result has been copied to this register. 
+During the copy and rearm process it is one 24MHz period in which an eventual new system reset will be reported as Power on reset regardless of the root cause.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_RSTSTA_RESERVED18: any = '14'
+export const PMCTL_RSTSTA_RESERVED18_M: any = '14'
+export const PMCTL_RSTSTA_RESERVED18_S: any = '14'
+/**
+Wakeup from SHUTDOWN flag.
+
+Note: This flag will be cleared when SLPCTL.SLPN is asserted.*/
+export const PMCTL_RSTSTA_SDDET: any = '1'
+export const PMCTL_RSTSTA_SDDET_M: any = '1'
+export const PMCTL_RSTSTA_SDDET_S: any = '1'
+/**
+Wakeup from SHUTDOWN mode*/
+export const PMCTL_RSTSTA_SDDET_TRIG: any = '1'
+
+/**
+Wakeup from SHUTDOWN mode not triggered*/
+export const PMCTL_RSTSTA_SDDET_NO_TRIG: any = '0'
+
+/**
+Wakeup from SHUTDOWN on an I/O event flag.
+
+Note: This flag will be cleared when SLPCTL.SLPN is asserted.*/
+export const PMCTL_RSTSTA_IOWUSD: any = '1'
+export const PMCTL_RSTSTA_IOWUSD_M: any = '1'
+export const PMCTL_RSTSTA_IOWUSD_S: any = '1'
+/**
+Wakeup from SHUTDOWN triggered by an I/O event.*/
+export const PMCTL_RSTSTA_IOWUSD_TRIG: any = '1'
+
+/**
+Wakeup from SHUTDOWN not triggered by an I/O event.*/
+export const PMCTL_RSTSTA_IOWUSD_NO_TRIG: any = '0'
+
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_RSTSTA_RESERVED8: any = '8'
+export const PMCTL_RSTSTA_RESERVED8_M: any = '8'
+export const PMCTL_RSTSTA_RESERVED8_S: any = '8'
+/**
+Shows which reset event that triggered SYSRESET in RESETSRC*/
+export const PMCTL_RSTSTA_SYSSRC: any = '4'
+export const PMCTL_RSTSTA_SYSSRC_M: any = '4'
+export const PMCTL_RSTSTA_SYSSRC_S: any = '4'
+/**
+Digital Error reset event*/
+export const PMCTL_RSTSTA_SYSSRC_DERREV: any = '15'
+
+/**
+Analog Error reset event*/
+export const PMCTL_RSTSTA_SYSSRC_AERREV: any = '14'
+
+/**
+Analog FSM timeout event*/
+export const PMCTL_RSTSTA_SYSSRC_AFSMEV: any = '6'
+
+/**
+Serial Wire Debug reset event*/
+export const PMCTL_RSTSTA_SYSSRC_SWDRSTEV: any = '5'
+
+/**
+System reset event*/
+export const PMCTL_RSTSTA_SYSSRC_SYSRSTEV: any = '4'
+
+/**
+Watchdog timeout event*/
+export const PMCTL_RSTSTA_SYSSRC_WDTEV: any = '3'
+
+/**
+CPU LOCKUP event*/
+export const PMCTL_RSTSTA_SYSSRC_LOCKUPEV: any = '2'
+
+/**
+CPU reset event*/
+export const PMCTL_RSTSTA_SYSSRC_CPURSTEV: any = '1'
+
+/**
+LF clock loss event*/
+export const PMCTL_RSTSTA_SYSSRC_LFLOSSEV: any = '0'
+
+/**
+System reset triggered by TSD event*/
+export const PMCTL_RSTSTA_TSDEV: any = '1'
+export const PMCTL_RSTSTA_TSDEV_M: any = '1'
+export const PMCTL_RSTSTA_TSDEV_S: any = '1'
+/**
+System reset triggered by TSD event*/
+export const PMCTL_RSTSTA_TSDEV_TRIG: any = '1'
+
+/**
+TSD event not triggered*/
+export const PMCTL_RSTSTA_TSDEV_NO_TRIG: any = '0'
+
+/**
+Shows the root cause of the last system reset. More than one reported reset source can have been active during the last system reset, but only the root cause is reported.
+
+If reset cause is SYSRESET or PINRESET, the other reset flags must be read to determine actual root cause.*/
+export const PMCTL_RSTSTA_RESETSRC: any = '3'
+export const PMCTL_RSTSTA_RESETSRC_M: any = '3'
+export const PMCTL_RSTSTA_RESETSRC_S: any = '3'
+/**
+Digital system reset. Actual root cause is given by SYSSRC.*/
+export const PMCTL_RSTSTA_RESETSRC_SYSRESET: any = '6'
+
+/**
+Brown out detect on VDDR*/
+export const PMCTL_RSTSTA_RESETSRC_VDDRLOSS: any = '4'
+
+/**
+Brown out detect on VDDS*/
+export const PMCTL_RSTSTA_RESETSRC_VDDSLOSS: any = '2'
+
+/**
+Reset pin. TSD will also trigger a pin reset, so actual root cause is given by TSDEV reset flag status.*/
+export const PMCTL_RSTSTA_RESETSRC_PINRESET: any = '1'
+
+/**
+Power on reset*/
+export const PMCTL_RSTSTA_RESETSRC_PWRON: any = '0'
+
+
+// -------- REGISTER BOOTSTA -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_RESERVED8: any = '24'
+export const PMCTL_BOOTSTA_RESERVED8_M: any = '24'
+export const PMCTL_BOOTSTA_RESERVED8_S: any = '24'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG: any = '8'
+export const PMCTL_BOOTSTA_FLAG_M: any = '8'
+export const PMCTL_BOOTSTA_FLAG_S: any = '8'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_APP_FAULT_HANDLER: any = '255'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_APP_FAIL_APPTRANSFER: any = '254'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_APP_FAIL_NOAPP: any = '253'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_APP_WAITLOOP_DBGPROBE: any = '193'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_MODE_APP: any = '192'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_FAULT_HANDLER: any = '191'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_FAIL_APPTRANSFER: any = '190'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_FAIL_EXECUTION_CONTEXT: any = '189'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_CMD_PROCESSING: any = '188'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_CMD_IDLE: any = '187'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_STARTED: any = '186'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BLDR_WAITLOOP_DBGPROBE: any = '129'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_MODE_BLDR: any = '128'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_FAULT_HANDLER: any = '63'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_FAIL_SRAM_REPAIR: any = '62'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_WAITLOOP_DBGPROBE: any = '56'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_EXITED_SACI: any = '55'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_WAIT_SWD_DISCONNECT: any = '54'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_ENTERED_SACI: any = '32'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_GENERAL_TRIMS: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_SRAM_REP_DONE: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_COLD_BOOT: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_BOOTSTA_FLAG_BOOT_RESET: any = '0'
+
+
+// -------- REGISTER AONRSTA1 -------- //
+
+/**
+AON Register Status 1.
+
+This register contains the general purpose AON flags for SW, and is updated through AONRSET1.FLAG and AONRCLR1.FLAG.
+The register is only reset on a POR event.
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_AONRSTA1_RESERVED18: any = '14'
+export const PMCTL_AONRSTA1_RESERVED18_M: any = '14'
+export const PMCTL_AONRSTA1_RESERVED18_S: any = '14'
+/**
+State of the AON register flags*/
+export const PMCTL_AONRSTA1_FLAG: any = '18'
+export const PMCTL_AONRSTA1_FLAG_M: any = '18'
+export const PMCTL_AONRSTA1_FLAG_S: any = '18'
+
+// -------- REGISTER AONRSET1 -------- //
+
+/**
+AON Register Set 1.
+
+This register sets the AON flags that can be read through AONRSTA1.FLAG.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_AONRSET1_RESERVED18: any = '14'
+export const PMCTL_AONRSET1_RESERVED18_M: any = '14'
+export const PMCTL_AONRSET1_RESERVED18_S: any = '14'
+/**
+Write 1 to set AONRSTA1.FLAG*/
+export const PMCTL_AONRSET1_FLAG: any = '18'
+export const PMCTL_AONRSET1_FLAG_M: any = '18'
+export const PMCTL_AONRSET1_FLAG_S: any = '18'
+/**
+Set all flags*/
+export const PMCTL_AONRSET1_FLAG_ALL_SET: any = '262143'
+
+/**
+No flags changed status*/
+export const PMCTL_AONRSET1_FLAG_NOEFF: any = '0'
+
+
+// -------- REGISTER AONRCLR1 -------- //
+
+/**
+AON Register Clear 1.
+
+This register clears the AON flags that can be read through AONRSTA1.FLAG.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const PMCTL_AONRCLR1_RESERVED18: any = '14'
+export const PMCTL_AONRCLR1_RESERVED18_M: any = '14'
+export const PMCTL_AONRCLR1_RESERVED18_S: any = '14'
+/**
+Write 1 to clear AONRSTA1.FLAG*/
+export const PMCTL_AONRCLR1_FLAG: any = '18'
+export const PMCTL_AONRCLR1_FLAG_M: any = '18'
+export const PMCTL_AONRCLR1_FLAG_S: any = '18'
+/**
+Clear all flags*/
+export const PMCTL_AONRCLR1_FLAG_ALL_CLR: any = '262143'
+
+/**
+No flags changed status*/
+export const PMCTL_AONRCLR1_FLAG_NOEFF: any = '0'
+
+
+// -------- REGISTER ETPP -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_ETPP_RESERVED0: any = '32'
+export const PMCTL_ETPP_RESERVED0_M: any = '32'
+export const PMCTL_ETPP_RESERVED0_S: any = '32'
+
+// -------- REGISTER RETCFG0 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG0_RESERVED1: any = '31'
+export const PMCTL_RETCFG0_RESERVED1_M: any = '31'
+export const PMCTL_RETCFG0_RESERVED1_S: any = '31'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG0_VAL: any = '1'
+export const PMCTL_RETCFG0_VAL_M: any = '1'
+export const PMCTL_RETCFG0_VAL_S: any = '1'
+
+// -------- REGISTER RETCFG1 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG1_RESERVED1: any = '31'
+export const PMCTL_RETCFG1_RESERVED1_M: any = '31'
+export const PMCTL_RETCFG1_RESERVED1_S: any = '31'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG1_VAL: any = '1'
+export const PMCTL_RETCFG1_VAL_M: any = '1'
+export const PMCTL_RETCFG1_VAL_S: any = '1'
+
+// -------- REGISTER RETCFG2 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG2_RESERVED3: any = '29'
+export const PMCTL_RETCFG2_RESERVED3_M: any = '29'
+export const PMCTL_RETCFG2_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG2_VAL: any = '3'
+export const PMCTL_RETCFG2_VAL_M: any = '3'
+export const PMCTL_RETCFG2_VAL_S: any = '3'
+
+// -------- REGISTER RETCFG3 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG3_RESERVED0: any = '32'
+export const PMCTL_RETCFG3_RESERVED0_M: any = '32'
+export const PMCTL_RETCFG3_RESERVED0_S: any = '32'
+
+// -------- REGISTER RETCFG4 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG4_RESERVED0: any = '32'
+export const PMCTL_RETCFG4_RESERVED0_M: any = '32'
+export const PMCTL_RETCFG4_RESERVED0_S: any = '32'
+
+// -------- REGISTER RETCFG5 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG5_RESERVED0: any = '32'
+export const PMCTL_RETCFG5_RESERVED0_M: any = '32'
+export const PMCTL_RETCFG5_RESERVED0_S: any = '32'
+
+// -------- REGISTER RETCFG6 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG6_RESERVED0: any = '32'
+export const PMCTL_RETCFG6_RESERVED0_M: any = '32'
+export const PMCTL_RETCFG6_RESERVED0_S: any = '32'
+
+// -------- REGISTER RETCFG7 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const PMCTL_RETCFG7_RESERVED0: any = '32'
+export const PMCTL_RETCFG7_RESERVED0_M: any = '32'
+export const PMCTL_RETCFG7_RESERVED0_S: any = '32'
+
 // -------- MODULE RTC -------- //
 
 export interface RTC_t {
@@ -32794,9 +33945,11 @@ export const UART_RESERVED4_RESERVED_S: any = '32'
 
 // -------- INSTANCES -------- //
 
+export const PMCTL = { } as PMCTL_t
 export const CKMD = { } as CKMD_t
 export const RTC = { } as RTC_t
 export const IOC = { } as IOC_t
+export const EVTULL = { } as EVTULL_t
 export const CLKCTL = { } as CLKCTL_t
 export const GPIO = { } as GPIO_t
 export const EVTSVT = { } as EVTSVT_t
