@@ -49,12 +49,12 @@ export function wrU32(data: u32) {
 
 // private
 
-'static inline void wr(em::u8 data) { wrU8(data); }'
-'static inline void wr(em::i8 data) { wrU8((em::u8)data); }'
-'static inline void wr(em::u16 data) { wrU16(data); }'
-'static inline void wr(em::i16 data) { wrU16((em::u16)data); }'
-'static inline void wr(em::u32 data) { wrU32(data); }'
-'static inline void wr(em::i32 data) { wrU32((em::u32)data); }'
+e$`static inline void wr(em::u8 data) { wrU8(data); }`
+e$`static inline void wr(em::i8 data) { wrU8((em::u8)data); }`
+e$`static inline void wr(em::u16 data) { wrU16(data); }`
+e$`static inline void wr(em::i16 data) { wrU16((em::u16)data); }`
+e$`static inline void wr(em::u32 data) { wrU32(data); }`
+e$`static inline void wr(em::i32 data) { wrU32((em::u32)data); }`
 
 const Args = $array($u32(), 4)
 const NumBuf = $array($u8(), 10)

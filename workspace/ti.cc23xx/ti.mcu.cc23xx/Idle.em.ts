@@ -7,7 +7,7 @@ function doWait() {
     em.$['%%b:'](0)
     em.$['%%b-']
     IntrVec.PRIMASK_set(1)
-    'asm volatile ("wfi")'
+    e$`asm volatile ("wfi")`
     em.$['%%b+']
     IntrVec.PRIMASK_set(0)
 }

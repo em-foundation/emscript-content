@@ -6,12 +6,12 @@ import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
 export function disable(): GlobalInterruptsI.Key {
     const key = IntrVec.PRIMASK_get()
-    'asm volatile ("cpsid i" ::: "memory")'
+    e$`asm volatile ("cpsid i" ::: "memory")`
     return <GlobalInterruptsI.Key>key
 }
 
 export function enable() {
-    'asm volatile ("cpsie i" ::: "memory")'
+    e$`asm volatile ("cpsie i" ::: "memory")`
 }
 
 export function isEnabled(): bool_t {
