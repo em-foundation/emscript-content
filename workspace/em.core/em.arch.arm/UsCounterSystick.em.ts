@@ -5,6 +5,19 @@ export const MHZ = $param<u16>(48)
 
 const MAX = <u32>0x00FF_FFFF
 
+var cur_thresh = <u32>0
+
+export function set(time_us: u32) {
+    cur_thresh = MAX - (time_us * MHZ.$$)
+    start()
+}
+
+export function spin() {
+    let val: volatile_t<u32> = MAX
+    while (val > cur_thresh) val = e$`SysTick->VAL`
+    e$`SysTick->CTRL = 0`
+}
+
 export function start() {
     e$`SysTick->CTRL = (1 << SysTick_CTRL_CLKSOURCE_Pos) | (1 << SysTick_CTRL_ENABLE_Pos)`
     e$`SysTick->LOAD = 0xFFFFFF`
