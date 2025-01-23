@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as $R from '@$distro/REGS.em'
+// import * as $R from '@$distro/REGS.em'
 
 const pin = 15
 const mask = 1 << pin

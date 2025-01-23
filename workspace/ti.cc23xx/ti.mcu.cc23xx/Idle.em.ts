@@ -1,7 +1,6 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as $R from '@ti.distro.cc23xx/REGS.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 

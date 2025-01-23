@@ -1,8 +1,6 @@
 import em from '@$$emscript'
 export const em$_T = em.$declare('TEMPLATE')
 
-import * as $R from '@ti.distro.cc23xx/REGS.em'
-
 export namespace em$template {
 
     export const em$_U = em.$declare('MODULE')

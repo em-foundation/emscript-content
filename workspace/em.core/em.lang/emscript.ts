@@ -2,6 +2,8 @@ import * as Fs from 'fs'
 import * as Path from 'path'
 import { sprintf } from 'sprintf-js'
 
+import * as REGS from '@$distro/REGS.em'
+
 namespace em {
 
     const __ARRAY__ = null
@@ -837,6 +839,7 @@ declare global {
     const c$: typeof em.c$
     const e$: typeof em.e$
     const t$: typeof em.t$
+    const $R: typeof REGS
 }
 
 Object.assign(globalThis, {
@@ -865,6 +868,7 @@ Object.assign(globalThis, {
     c$: em.c$,
     e$: em.e$,
     t$: em.t$,
+    $R: REGS
 })
 
 export default em
