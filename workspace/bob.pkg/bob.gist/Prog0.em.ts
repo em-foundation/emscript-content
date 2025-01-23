@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as $R from '@ti.distro.cc23xx/REGS.em'
+import * as $R from '@$distro/REGS.em'
 
 export function em$run() {
     const pin = 15 // appLed

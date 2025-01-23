@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+import * as BoardC from '@$distro/BoardC.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'

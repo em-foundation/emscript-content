@@ -46,6 +46,9 @@
             ],
             "@ti.mcu.cc23xx/*": [
                 "./workspace/ti.cc23xx/ti.mcu.cc23xx/*"
+            ],
+            "@$distro/*": [
+                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
             ]
         },
         "sourceMap": true,

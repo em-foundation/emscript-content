@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+import * as BoardC from '@$distro/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
 import * as CoreBench from '@em.bench.coremark/CoreBench.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
