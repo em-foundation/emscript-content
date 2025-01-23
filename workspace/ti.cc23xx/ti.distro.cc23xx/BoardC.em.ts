@@ -17,6 +17,7 @@ import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@ti.mcu.cc23xx/Mcu.em'
 import * as Poller from '@em.mcu/Poller.em'
 import * as OneShot from '@ti.mcu.cc23xx/OneShotGpt3.em'
+import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 import * as WakeupTimer from '@ti.mcu.cc23xx/WakeupTimerRtc.em'
 
 export { OneShot }
@@ -50,6 +51,7 @@ export function em$configure(): void {
     Common.GlobalInterrupts.$$ = GlobalInterrupts
     Common.Idle.$$ = Idle
     Common.Mcu.$$ = Mcu
+    Common.UsCounter.$$ = UsCounter
     ConsoleUart0.TxPin.$$ = AppOutPin
     DbgA.pin_num.$$ = 23
     DbgB.pin_num.$$ = 25
