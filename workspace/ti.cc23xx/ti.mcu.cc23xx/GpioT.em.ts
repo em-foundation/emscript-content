@@ -1,7 +1,6 @@
 import em from '@$$emscript'
 export const em$_T = em.$declare('TEMPLATE')
 
-// import * as GpioI from '@em.hal/GpioI.em'
 import * as $R from '@ti.distro.cc23xx/REGS.em'
 
 export namespace em$template {

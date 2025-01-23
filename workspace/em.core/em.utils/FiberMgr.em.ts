@@ -20,12 +20,12 @@ class List extends $struct {
     give: (elem: ref_t<Fiber>) => void
     take: () => ref_t<Fiber>
 }
-
 let FiberFac = $factory(Fiber.$make())
 
 let ready_list = List.$make()
 
 export namespace em$meta {
+
     export function create(body: Body, arg: arg_t = 0): Obj {
         let fiber = FiberFac.$create()
         fiber.$$.body = body
@@ -80,8 +80,4 @@ function List__take(self: ref_t<List>): ref_t<Fiber> {
     e.$$.link = $null
     if (self.$$.head == $null) self.$$.tail = $null
     return e
-}
-
-export function em$run() {
-    printf`empty = %d\n`(ready_list.empty())
 }

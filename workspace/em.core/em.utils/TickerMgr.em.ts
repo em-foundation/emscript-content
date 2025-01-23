@@ -16,10 +16,10 @@ class Ticker extends $struct {
     start: (rate: TimeTypes.Secs24p8, tick_cb: Callback) => void
     stop: () => void
 }
-
 let TickerFac = $factory(Ticker.$make())
 
 export namespace em$meta {
+
     export function create(): Obj {
         let ticker = TickerFac.$create()
         let fiber = FiberMgr.em$meta.create($cb(alarmFB), TickerFac.$len - 1)

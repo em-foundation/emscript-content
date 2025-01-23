@@ -50,30 +50,3 @@ export function setup() {
     MatrixBench.setup()
     StateBench.setup()
 }
-
-// export function em$run() {
-// 
-//     em.$['%%a']
-//     ListBench.setup()
-//     em.$['%%a+']
-//     let crc = ListBench.run(1)
-//     em.$['%%a-']
-//     ListBench.print()
-//     printf`\ncrc = %04x\n`(crc)
-// 
-//     // em.$['%%a']
-//     // StateBench.setup()
-//     // em.$['%%a+']
-//     // let crc = StateBench.run(0)
-//     // em.$['%%a-']
-//     // StateBench.print()
-//     // printf`\ncrc = %04x\n`(crc)
-// 
-//     // em.$['%%a']
-//     // MatrixBench.setup()
-//     // em.$['%%a+']
-//     // let crc = MatrixBench.run(0)
-//     // em.$['%%a-']
-//     // MatrixBench.print()
-//     // printf`\ncrc = %04x\n`(crc)
-// }

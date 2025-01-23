@@ -21,10 +21,10 @@ class Alarm extends $struct {
     wakeup: (delta: Secs24p8) => void
     wakeupAligned: (delta: Secs24p8) => void
 }
-
 let AlarmFac = $factory(Alarm.$make())
 
 export namespace em$meta {
+
     export function create(fiber: FiberMgr.Obj): Obj {
         let alarm = AlarmFac.$create()
         alarm.$$._fiber = fiber

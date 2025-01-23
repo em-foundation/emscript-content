@@ -2,7 +2,6 @@ import em from '@$$emscript'
 export const em$_T = em.$declare('TEMPLATE')
 
 import * as GpioI from '@em.hal/GpioI.em'
-import * as LedI from '@em.hal/LedI.em'
 
 import * as Poller from '@em.mcu/Poller.em'
 

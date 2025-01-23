@@ -17,6 +17,7 @@ export namespace em$template {
     const debounceF = $param<FiberMgr.Obj>()
 
     export namespace em$meta {
+
         export function em$construct() {
             debounceF.$$ = FiberMgr.em$meta.create($cb(debounceFB))
             Edge.$$.em$meta.setDetectHandler($cb(buttonHandler))

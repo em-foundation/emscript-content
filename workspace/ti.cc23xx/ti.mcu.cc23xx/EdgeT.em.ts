@@ -15,9 +15,6 @@ export namespace em$template {
 
     export namespace em$meta {
 
-        export function em$construct() {
-        }
-
         export function setDetectHandler(h: EdgeI.Handler) {
             let hi = Aux.HandlerInfo.$make()
             hi.handler = h

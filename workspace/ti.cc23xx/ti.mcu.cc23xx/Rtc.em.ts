@@ -13,7 +13,6 @@ export namespace em$meta {
 
 export type Handler = cb_t<[]>
 
-const MSECS_SCALAR = <u16>(1000 / 8)
 const RES_BITS = <u8>20
 
 var cur_hlr = <Handler>$null
