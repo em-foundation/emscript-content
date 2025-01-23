@@ -2,6 +2,7 @@ import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
 import * as $R from '@ti.distro.cc23xx/REGS.em'
+import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as OneShotI from '@em.hal/OneShotI.em'
 
@@ -18,6 +19,7 @@ var cur_fxn: Handler = $null
 
 export function disable() {
     cur_fxn = $null
+    Idle.setPauseOnly(false)
     IntrVec.NVIC_disable(e$`LGPT3_COMB_IRQn`)
     $R.LGPT3.ICLR.$$ = $R.LGPT_ICLR_TGT
 }
@@ -33,6 +35,7 @@ export function uenable(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
 function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
     cur_fxn = handler
     cur_arg = arg
+    Idle.setPauseOnly(true)
     IntrVec.NVIC_enable(e$`LGPT3_COMB_IRQn`)
     $R.CLKCTL.CLKENSET0.$$ = $R.CLKCTL_CLKCFG0_LGPT3
     $R.LGPT3.IMSET.$$ = $R.LGPT_IMSET_TGT

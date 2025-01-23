@@ -62,6 +62,13 @@ export function pulse(id: u8) {
     delay()
 }
 
+export function reset() {
+    DbgA.$$.reset()
+    DbgB.$$.reset()
+    DbgC.$$.reset()
+    DbgD.$$.reset()
+}
+
 export function startup() {
     DbgA.$$.makeOutput()
     DbgA.$$.set()

@@ -3,6 +3,7 @@
 
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/cc23x0r5.h"
 #include "../../em.core/em.arch.arm/inc/core_cm0plus.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/driverlib/hapi.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"
 
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_ckmd.h"
