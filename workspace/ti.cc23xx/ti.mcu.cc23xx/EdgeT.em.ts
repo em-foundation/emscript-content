@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_T = em.$declare('TEMPLATE')
 
-import * as em$_R from '@ti.distro.cc23xx/REGS.em'
+import * as $R from '@ti.distro.cc23xx/REGS.em'
 import * as Aux from '@ti.mcu.cc23xx/EdgeAux.em'
 import * as EdgeI from '@em.hal/EdgeI.em'
 import * as GpioI from '@em.hal/GpioI.em'
@@ -30,17 +30,17 @@ export namespace em$template {
     const mask = 1 << pn
 
     export function clearDetect(): void {
-        em$_R.GPIO.ICLR.$$ = mask
+        $R.GPIO.ICLR.$$ = mask
     }
 
     export function disableDetect(): void {
-        em$_R.GPIO.IMCLR.$$ = mask
-        em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_WUENSB
+        $R.GPIO.IMCLR.$$ = mask
+        $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_WUENSB
     }
 
     export function enableDetect(): void {
-        em$_R.GPIO.IMSET.$$ = mask
-        em$_R.IOC.IOC0.$[pn].$$ |= em$_R.IOC_IOC0_WUENSB
+        $R.GPIO.IMSET.$$ = mask
+        $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_WUENSB
     }
 
     export function getState(): bool_t {
@@ -53,13 +53,13 @@ export namespace em$template {
     }
 
     export function setDetectFalling() {
-        em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_EDGEDET_M
-        em$_R.IOC.IOC0.$[pn].$$ |= em$_R.IOC_IOC0_EDGEDET_EDGE_NEG
+        $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_EDGEDET_M
+        $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_EDGEDET_EDGE_NEG
     }
 
     export function setDetectRising() {
-        em$_R.IOC.IOC0.$[pn].$$ &= ~em$_R.IOC_IOC0_EDGEDET_M
-        em$_R.IOC.IOC0.$[pn].$$ |= em$_R.IOC_IOC0_EDGEDET_EDGE_POS
+        $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_EDGEDET_M
+        $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_EDGEDET_EDGE_POS
     }
 }
 

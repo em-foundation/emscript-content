@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as em$_R from '@ti.distro.cc23xx/REGS.em'
+import * as $R from '@ti.distro.cc23xx/REGS.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as OneShotI from '@em.hal/OneShotI.em'
 
@@ -19,7 +19,7 @@ var cur_fxn: Handler = $null
 export function disable() {
     cur_fxn = $null
     IntrVec.NVIC_disable(e$`LGPT3_COMB_IRQn`)
-    em$_R.LGPT3.ICLR.$$ = em$_R.LGPT_ICLR_TGT
+    $R.LGPT3.ICLR.$$ = $R.LGPT_ICLR_TGT
 }
 
 export function enable(msecs: u32, handler: OneShotI.Handler, arg: arg_t) {
@@ -34,11 +34,11 @@ function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
     cur_fxn = handler
     cur_arg = arg
     IntrVec.NVIC_enable(e$`LGPT3_COMB_IRQn`)
-    em$_R.CLKCTL.CLKENSET0.$$ = em$_R.CLKCTL_CLKCFG0_LGPT3
-    em$_R.LGPT3.IMSET.$$ = em$_R.LGPT_IMSET_TGT
-    em$_R.LGPT3.PRECFG.$$ = 48 << em$_R.LGPT_PRECFG_TICKDIV_S
-    em$_R.LGPT3.TGT.$$ = usecs
-    em$_R.LGPT3.CTL.$$ = em$_R.LGPT_CTL_MODE_UP_ONCE | em$_R.LGPT_CTL_C0RST_RST
+    $R.CLKCTL.CLKENSET0.$$ = $R.CLKCTL_CLKCFG0_LGPT3
+    $R.LGPT3.IMSET.$$ = $R.LGPT_IMSET_TGT
+    $R.LGPT3.PRECFG.$$ = 48 << $R.LGPT_PRECFG_TICKDIV_S
+    $R.LGPT3.TGT.$$ = usecs
+    $R.LGPT3.CTL.$$ = $R.LGPT_CTL_MODE_UP_ONCE | $R.LGPT_CTL_C0RST_RST
 }
 
 export function LGPT3_COMB_isr$$() {

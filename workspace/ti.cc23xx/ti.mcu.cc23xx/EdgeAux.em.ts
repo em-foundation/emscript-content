@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-import * as em$_R from '@ti.distro.cc23xx/REGS.em'
+import * as $R from '@ti.distro.cc23xx/REGS.em'
 import * as EdgeI from '@em.hal/EdgeI.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -28,7 +28,7 @@ export function em$startup() {
 }
 
 export function GPIO_COMB_isr$$() {
-    let mis = em$_R.GPIO.MIS.$$
+    let mis = $R.GPIO.MIS.$$
     for (let i = 0; i < handler_info_tab.$len; i++) {
         let hi = $ref(handler_info_tab[i])
         if ((mis & hi.$$.mask) && hi.$$.handler != $null) {
