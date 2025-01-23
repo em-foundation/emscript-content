@@ -569,6 +569,7 @@ namespace em {
     // #region
 
     export function $declare(kind: UnitKind, path?: string): Unit {
+        if (path === undefined) return new Unit('$$anon', kind)
         const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const unit = new Unit(uid, kind)
         unit_map.set(uid, unit)
