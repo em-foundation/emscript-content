@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_T = em.$declare('TEMPLATE')
+export const $T = em.$declare('TEMPLATE')
 
 import * as GpioI from '@em.hal/GpioI.em'
 
@@ -36,4 +36,4 @@ export namespace em$template {
     }
 }
 
-export function $clone() { return { em$_T, ...em$template } }
+export function $clone() { return { $T, ...em$template } }
