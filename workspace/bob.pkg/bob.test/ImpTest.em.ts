@@ -6,4 +6,4 @@ import * as LedT from '@em.utils/LedT.em'
 
 
 // const AppLed = em.clone<LedT.em$_I>("MyLed", LedT.em$_U)
-const SysLed = LedT.em$clone()
+const SysLed = LedT.$clone()

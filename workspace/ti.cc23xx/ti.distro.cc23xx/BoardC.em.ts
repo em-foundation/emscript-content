@@ -22,18 +22,18 @@ import * as WakeupTimer from '@ti.mcu.cc23xx/WakeupTimerRtc.em'
 
 export { OneShot }
 
-export const AppBut = ButtonT.em$clone()
-export const AppButEdge = EdgeT.em$clone()
-export const AppButPin = GpioT.em$clone()
-export const AppLed = LedT.em$clone()
-export const AppLedPin = GpioT.em$clone()
-export const AppOutPin = GpioT.em$clone()
-export const DbgA = GpioT.em$clone()
-export const DbgB = GpioT.em$clone()
-export const DbgC = GpioT.em$clone()
-export const DbgD = GpioT.em$clone()
-export const SysLed = LedT.em$clone()
-export const SysLedPin = GpioT.em$clone()
+export const AppBut = ButtonT.$clone()
+export const AppButEdge = EdgeT.$clone()
+export const AppButPin = GpioT.$clone()
+export const AppLed = LedT.$clone()
+export const AppLedPin = GpioT.$clone()
+export const AppOutPin = GpioT.$clone()
+export const DbgA = GpioT.$clone()
+export const DbgB = GpioT.$clone()
+export const DbgC = GpioT.$clone()
+export const DbgD = GpioT.$clone()
+export const SysLed = LedT.$clone()
+export const SysLedPin = GpioT.$clone()
 
 export function em$configure(): void {
     AlarmMgr.WakeupTimer.$$ = WakeupTimer

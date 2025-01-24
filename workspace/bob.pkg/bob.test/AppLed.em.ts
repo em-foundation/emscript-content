@@ -48,7 +48,7 @@ namespace em$template {
         }
     }
 
-    export const em$clone = { em$_U, em$_C, ...em$meta, ...em$targ }
+    export const $clone = { em$_U, em$_C, ...em$meta, ...em$targ }
 }
 
-export default { ...em$template.em$clone }
+export default { ...em$template.$clone }

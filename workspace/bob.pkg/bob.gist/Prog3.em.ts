@@ -4,8 +4,8 @@ export const em$_U = em.$declare('MODULE')
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 
-const AppLedPin = GpioT.em$clone()
-const SysLedPin = GpioT.em$clone()
+const AppLedPin = GpioT.$clone()
+const SysLedPin = GpioT.$clone()
 
 export namespace em$meta {
     export function em$configure() {

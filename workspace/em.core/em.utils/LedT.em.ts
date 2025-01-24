@@ -36,4 +36,4 @@ export namespace em$template {
     }
 }
 
-export function em$clone() { return { em$_T, ...em$template } }
+export function $clone() { return { em$_T, ...em$template } }
