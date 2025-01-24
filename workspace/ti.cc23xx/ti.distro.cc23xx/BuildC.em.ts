@@ -61,8 +61,6 @@ export function em$generate() {
         |-> 
         |-> CFLAGS="\\
         |->     -D__EM_ARCH_arm__ \\
-        |->     -D__EM_BOOT__=0 \\
-        |->     -D__EM_BOOT_FLASH__=0 \\
         |->     -D__EM_COMPILER_segger__ \\
         |->     -D__EM_CPU_cortex_m0plus__ \\
         |->     -D__EM_MCU_null__ \\

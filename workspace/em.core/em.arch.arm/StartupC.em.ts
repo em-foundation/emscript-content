@@ -3,8 +3,9 @@ export const em$_U = em.$declare('COMPOSITE')
 
 export function em$generate() {
     let out = $outfile('em.arch.arm/startup.cpp')
+    let bf = $property('em.build.BootFlash', false) ? '1' : '0'
     out.addFrag(`
-        |-> #define __EM_BOOT_FLASH__ 0
+        |-> #define __EM_BOOT_FLASH__ ${bf}
         |-> 
         |-> #include <stdbool.h>
         |-> #include <stdint.h>
@@ -65,7 +66,7 @@ export function em$generate() {
         |-> }
         |-> 
         |-> #if __EM_BOOT_FLASH__ == 1
-        |-> extern const void*  __attribute__((section(".start_vec"))) __em_start_vec[] = {
+        |-> extern "C" const void* __attribute__((section(".start_vec"))) __em_start_vec[] = {
         |->     (void*)&__stack_top__ ,
         |->     (void*)em__start,
         |-> };
