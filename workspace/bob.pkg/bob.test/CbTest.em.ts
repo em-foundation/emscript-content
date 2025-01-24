@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 type Fxn = cb_t<[x: u8]>
 

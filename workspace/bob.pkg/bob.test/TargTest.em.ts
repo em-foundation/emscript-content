@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 import Mod from '@bob.test/Mod.em'
 
@@ -25,6 +25,6 @@ namespace em$targ {
 }
 
 export default {
-    em$_U,
+    $U,
     ...em$targ,
 }

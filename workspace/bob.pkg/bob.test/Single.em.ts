@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 namespace em$meta {
     export function em$init() {
@@ -11,4 +11,4 @@ namespace em$meta {
     }
 }
 
-export default { em$_U, ...em$meta }
+export default { $U, ...em$meta }

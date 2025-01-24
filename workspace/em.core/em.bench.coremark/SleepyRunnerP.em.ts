@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 import * as CoreBench from '@em.bench.coremark/CoreBench.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'

@@ -7,7 +7,7 @@ import * as Poller from '@em.mcu/Poller.em'
 
 export namespace em$template {
 
-    export const em$_U = em.$declare('MODULE')
+    export const $U = em.$declare('MODULE')
 
     export const Pin = $proxy<GpioI.em$_I>()
     export const active_low = $config<bool_t>(false)

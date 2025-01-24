@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('COMPOSITE')
+export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
@@ -33,13 +33,13 @@ const nvic_intrs = [
 
 
 export function em$configure() {
-    ArmStartupC.em$_U.used()
-    BoardC.em$_U.used()
-    IntrVec.em$_U.used()
-    LinkerC.em$_U.used()
-    REGS.em$_U.used()
-    StartupC.em$_U.used()
-    TargC.em$_U.used()
+    ArmStartupC.$U.used()
+    BoardC.$U.used()
+    IntrVec.$U.used()
+    LinkerC.$U.used()
+    REGS.$U.used()
+    StartupC.$U.used()
+    TargC.$U.used()
     for (let name of nvic_intrs) IntrVec.em$meta.addIntr(name)
 }
 

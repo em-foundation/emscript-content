@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('COMPOSITE')
+export const $U = em.$declare('COMPOSITE')
 
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
@@ -44,8 +44,8 @@ export function em$configure(): void {
     AppLedPin.pin_num.$$ = 15
     AppOutPin.pin_num.$$ = 20
     BoardController.Led.$$ = SysLed
-    BoardController.em$_U.used()
-    Console.em$_U.used()
+    BoardController.$U.used()
+    Console.$U.used()
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart0
     Common.GlobalInterrupts.$$ = GlobalInterrupts

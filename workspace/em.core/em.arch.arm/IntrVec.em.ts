@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 export namespace em$meta {
 
@@ -27,7 +27,7 @@ export namespace em$meta {
     const used_set = new Set<string>()
 
     export function em$init() {
-        em$_U.used()
+        $U.used()
         for (let name of core_intrs) addIntr(name)
     }
 

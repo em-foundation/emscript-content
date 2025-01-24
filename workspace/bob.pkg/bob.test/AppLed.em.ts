@@ -7,7 +7,7 @@ import Poller from '@em.mcu/Poller.em'
 
 namespace em$template {
 
-    export const em$_U = em.$declare('MODULE')
+    export const $U = em.$declare('MODULE')
 
     const em$_C = {
         Pin: $proxy<GpioI.em$_I>(),
@@ -48,7 +48,7 @@ namespace em$template {
         }
     }
 
-    export const $clone = { em$_U, em$_C, ...em$meta, ...em$targ }
+    export const $clone = { $U, em$_C, ...em$meta, ...em$targ }
 }
 
 export default { ...em$template.$clone }

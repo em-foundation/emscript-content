@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'

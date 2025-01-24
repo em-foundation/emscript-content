@@ -3,7 +3,7 @@ export const em$_T = em.$declare('TEMPLATE')
 
 export namespace em$template {
 
-    export const em$_U = em.$declare('MODULE')
+    export const $U = em.$declare('MODULE')
 
     export const pin_num = $config<i16>(-1)
 

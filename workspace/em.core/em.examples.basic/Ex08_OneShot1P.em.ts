@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const em$_U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE')
 
 import * as BoardC from '@$distro/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
