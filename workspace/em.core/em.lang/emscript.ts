@@ -2,7 +2,7 @@ import * as Fs from 'fs'
 import * as Path from 'path'
 import { sprintf } from 'sprintf-js'
 
-import * as REGS from '@$distro/REGS.em'
+const PROPS = JSON.parse(String(Fs.readFileSync('workspace/.emscript/props.json')))
 
 namespace em {
 
@@ -607,6 +607,14 @@ namespace em {
         return 0
     }
 
+    export function $property<T>(name: string, defval: T): T {
+        const val = PROPS[name]
+        if (val === undefined) return defval
+        if (typeof defval === 'boolean') return Boolean(val) as T
+        if (typeof defval === 'number') return Number(val) as T
+        return val
+    }
+
 
     export function $sizeof<T>(required?: undefined) { return 0 }
 
@@ -828,6 +836,7 @@ declare global {
     const $null: any
     const $outfile: typeof em.$outfile
     const $param: typeof em.$param
+    const $property: typeof em.$property
     const $proxy: typeof em.$proxy
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
@@ -840,7 +849,6 @@ declare global {
     const c$: typeof em.c$
     const e$: typeof em.e$
     const t$: typeof em.t$
-    const $R: typeof REGS
 }
 
 Object.assign(globalThis, {
@@ -857,6 +865,7 @@ Object.assign(globalThis, {
     $null: null as any,
     $outfile: em.$outfile,
     $param: em.$param,
+    $property: em.$property,
     $proxy: em.$proxy,
     $ref: em.$ref,
     $sizeof: em.$sizeof,
@@ -869,7 +878,6 @@ Object.assign(globalThis, {
     c$: em.c$,
     e$: em.e$,
     t$: em.t$,
-    $R: REGS
 })
 
 export default em
