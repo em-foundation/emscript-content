@@ -72,6 +72,10 @@ export namespace em$meta {
     }
 }
 
+export function em$startup() {
+    e$`SCB->VTOR = (uint32_t)(&__vector_table)`
+}
+
 export function NVIC_clear(irqN: u8) {
     e$`NVIC_ClearPendingIRQ((IRQn_Type)irqN)`
 }

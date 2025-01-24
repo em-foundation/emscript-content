@@ -33943,6 +33943,431 @@ export const UART_RESERVED4_RESERVED: any = '32'
 export const UART_RESERVED4_RESERVED_M: any = '32'
 export const UART_RESERVED4_RESERVED_S: any = '32'
 
+// -------- MODULE VIMS -------- //
+
+export interface VIMS_t {
+    DESC: em.$Reg
+    DESCEX: em.$Reg
+    FLWS1T: em.$Reg
+    FLWS2T: em.$Reg
+    PTRMC0: em.$Reg
+    B0TRMC1: em.$Reg
+    B0TRMC0: em.$Reg
+    FLBLCK: em.$Reg
+    CFG: em.$Reg
+    WEPRA: em.$Reg
+    WEPRB: em.$Reg
+    WEPRAUX: em.$Reg
+    FLBSTAT: em.$Reg
+    CCHCTRL: em.$Reg
+}
+
+// -------- REGISTER DESC -------- //
+
+/**
+Description Register. This register provides IP module ID, revision information, instance index and standard MMR registers offset.*/
+/**
+Module identifier used to uniquely identify this IP.*/
+export const VIMS_DESC_MODID: any = '16'
+export const VIMS_DESC_MODID_M: any = '16'
+export const VIMS_DESC_MODID_S: any = '16'
+/**
+Standard IP MMR block offset. Standard IP MMRs are the set of from aggregated IRQ registers till DTB.
+
+
+0: Standard IP MMRs do not exist
+
+0x1-0xF: Standard IP MMRs begin at offset of (64*STDIPOFF from the base IP address)*/
+export const VIMS_DESC_STDIPOFF: any = '4'
+export const VIMS_DESC_STDIPOFF_M: any = '4'
+export const VIMS_DESC_STDIPOFF_S: any = '4'
+/**
+IP Instance ID number. If multiple instances of IP exist in the device, this field can identify the instance number (0-15).*/
+export const VIMS_DESC_INSTIDX: any = '4'
+export const VIMS_DESC_INSTIDX_M: any = '4'
+export const VIMS_DESC_INSTIDX_S: any = '4'
+/**
+Major revision of IP (0-15).*/
+export const VIMS_DESC_MAJREV: any = '4'
+export const VIMS_DESC_MAJREV_M: any = '4'
+export const VIMS_DESC_MAJREV_S: any = '4'
+/**
+Minor revision of IP (0-15).*/
+export const VIMS_DESC_MINREV: any = '4'
+export const VIMS_DESC_MINREV_M: any = '4'
+export const VIMS_DESC_MINREV_S: any = '4'
+
+// -------- REGISTER DESCEX -------- //
+
+/**
+Extended Description Register. This register provides configuration details of the IP to software drivers and end users.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_DESCEX_RESERVED28: any = '4'
+export const VIMS_DESCEX_RESERVED28_M: any = '4'
+export const VIMS_DESCEX_RESERVED28_S: any = '4'
+/**
+Provides the FLASH Bank count*/
+export const VIMS_DESCEX_NBANK: any = '1'
+export const VIMS_DESCEX_NBANK_M: any = '1'
+export const VIMS_DESCEX_NBANK_S: any = '1'
+/**
+This provides the total FLASH size in Kilo Bytes. The total FLASH size is (FLSZ + 1)KB*/
+export const VIMS_DESCEX_FLSZ: any = '12'
+export const VIMS_DESCEX_FLSZ_M: any = '12'
+export const VIMS_DESCEX_FLSZ_S: any = '12'
+/**
+Provides the size of ROM in Bytes.*/
+export const VIMS_DESCEX_ROMSZ: any = '15'
+export const VIMS_DESCEX_ROMSZ_M: any = '15'
+export const VIMS_DESCEX_ROMSZ_S: any = '15'
+
+// -------- REGISTER FLWS1T -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_RESERVED3: any = '29'
+export const VIMS_FLWS1T_RESERVED3_M: any = '29'
+export const VIMS_FLWS1T_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL: any = '3'
+export const VIMS_FLWS1T_VAL_M: any = '3'
+export const VIMS_FLWS1T_VAL_S: any = '3'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS7: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS6: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS5: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS4: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS3: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS2: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS1T_VAL_WS0: any = '0'
+
+
+// -------- REGISTER FLWS2T -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_RESERVED3: any = '29'
+export const VIMS_FLWS2T_RESERVED3_M: any = '29'
+export const VIMS_FLWS2T_RESERVED3_S: any = '29'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL: any = '3'
+export const VIMS_FLWS2T_VAL_M: any = '3'
+export const VIMS_FLWS2T_VAL_S: any = '3'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS7: any = '7'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS6: any = '6'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS5: any = '5'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS4: any = '4'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS3: any = '3'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS2: any = '2'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS1: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLWS2T_VAL_WS0: any = '0'
+
+
+// -------- REGISTER PTRMC0 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_PTRMC0_VAL: any = '32'
+export const VIMS_PTRMC0_VAL_M: any = '32'
+export const VIMS_PTRMC0_VAL_S: any = '32'
+
+// -------- REGISTER B0TRMC1 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_B0TRMC1_VAL: any = '32'
+export const VIMS_B0TRMC1_VAL_M: any = '32'
+export const VIMS_B0TRMC1_VAL_S: any = '32'
+
+// -------- REGISTER B0TRMC0 -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_B0TRMC0_VAL: any = '32'
+export const VIMS_B0TRMC0_VAL_M: any = '32'
+export const VIMS_B0TRMC0_VAL_S: any = '32'
+
+// -------- REGISTER FLBLCK -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLBLCK_RESERVED1: any = '31'
+export const VIMS_FLBLCK_RESERVED1_M: any = '31'
+export const VIMS_FLBLCK_RESERVED1_S: any = '31'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLBLCK_VAL: any = '1'
+export const VIMS_FLBLCK_VAL_M: any = '1'
+export const VIMS_FLBLCK_VAL_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLBLCK_VAL_BLOCK: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_FLBLCK_VAL_ALLOW: any = '0'
+
+
+// -------- REGISTER CFG -------- //
+
+/**
+Internal. Only to be used through TI provided API.*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_CFG_RESERVED2: any = '30'
+export const VIMS_CFG_RESERVED2_M: any = '30'
+export const VIMS_CFG_RESERVED2_S: any = '30'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_CFG_TRMVLID: any = '1'
+export const VIMS_CFG_TRMVLID_M: any = '1'
+export const VIMS_CFG_TRMVLID_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_CFG_WEPRTRM: any = '1'
+export const VIMS_CFG_WEPRTRM_M: any = '1'
+export const VIMS_CFG_WEPRTRM_S: any = '1'
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_CFG_WEPRTRM_ALLOW: any = '1'
+
+/**
+Internal. Only to be used through TI provided API.*/
+export const VIMS_CFG_WEPRTRM_RESTRICT: any = '0'
+
+
+// -------- REGISTER WEPRA -------- //
+
+/**
+Flash main region write/erase protection for first 32 sectors. Nth bit corresponds to the Nth sector. This register is sticky when written with value 0.
+
+*/
+/**
+Flash write/erase protection configuration value.*/
+export const VIMS_WEPRA_VAL: any = '32'
+export const VIMS_WEPRA_VAL_M: any = '32'
+export const VIMS_WEPRA_VAL_S: any = '32'
+
+// -------- REGISTER WEPRB -------- //
+
+/**
+Flash main region write/erase protection for remaining sectors. Each bit corresponds to 8 sectors. Bit 0 corresponds to sector 32-39, bit 1 corresponds to sector 40-47 and so on. This register is sticky when written with value 0.
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_WEPRB_RESERVED28: any = '4'
+export const VIMS_WEPRB_RESERVED28_M: any = '4'
+export const VIMS_WEPRB_RESERVED28_S: any = '4'
+/**
+Flash write/erase protection configuration value.*/
+export const VIMS_WEPRB_VAL: any = '28'
+export const VIMS_WEPRB_VAL_M: any = '28'
+export const VIMS_WEPRB_VAL_S: any = '28'
+
+// -------- REGISTER WEPRAUX -------- //
+
+/**
+Flash Write/Erase  protection for Non-Main, TRIM and ENGR Regions. This register is sticky when written with value 0.
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_WEPRAUX_RESERVED3: any = '29'
+export const VIMS_WEPRAUX_RESERVED3_M: any = '29'
+export const VIMS_WEPRAUX_RESERVED3_S: any = '29'
+/**
+Flash engr region write/erase protection configuration value.*/
+export const VIMS_WEPRAUX_WEPREGR: any = '1'
+export const VIMS_WEPRAUX_WEPREGR_M: any = '1'
+export const VIMS_WEPRAUX_WEPREGR_S: any = '1'
+/**
+Flash trim region write/erase protection configuration value.*/
+export const VIMS_WEPRAUX_WEPRTRM: any = '1'
+export const VIMS_WEPRAUX_WEPRTRM_M: any = '1'
+export const VIMS_WEPRAUX_WEPRTRM_S: any = '1'
+/**
+Flash non main region write/erase protection configuration value.*/
+export const VIMS_WEPRAUX_WEPRNMN: any = '1'
+export const VIMS_WEPRAUX_WEPRNMN_M: any = '1'
+export const VIMS_WEPRAUX_WEPRNMN_S: any = '1'
+
+// -------- REGISTER FLBSTAT -------- //
+
+/**
+This register is used to indicate status of flash. This register is not retained.
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_FLBSTAT_RESERVED4: any = '28'
+export const VIMS_FLBSTAT_RESERVED4_M: any = '28'
+export const VIMS_FLBSTAT_RESERVED4_S: any = '28'
+/**
+This bit indicates parity error on write/erase and read protection MMRs. This bit is sticky when set to 1 by hardware.*/
+export const VIMS_FLBSTAT_PARERR: any = '1'
+export const VIMS_FLBSTAT_PARERR_M: any = '1'
+export const VIMS_FLBSTAT_PARERR_S: any = '1'
+/**
+Error*/
+export const VIMS_FLBSTAT_PARERR_ERROR: any = '1'
+
+/**
+No Error*/
+export const VIMS_FLBSTAT_PARERR_NOERROR: any = '0'
+
+/**
+This bit indicates if flash is busy.*/
+export const VIMS_FLBSTAT_B0BSY: any = '1'
+export const VIMS_FLBSTAT_B0BSY_M: any = '1'
+export const VIMS_FLBSTAT_B0BSY_S: any = '1'
+/**
+Busy*/
+export const VIMS_FLBSTAT_B0BSY_BUSY: any = '1'
+
+/**
+Idle*/
+export const VIMS_FLBSTAT_B0BSY_IDLE: any = '0'
+
+/**
+This bit indicates if flash is ready in 2T mode.*/
+export const VIMS_FLBSTAT_B2TRDY: any = '1'
+export const VIMS_FLBSTAT_B2TRDY_M: any = '1'
+export const VIMS_FLBSTAT_B2TRDY_S: any = '1'
+/**
+Ready*/
+export const VIMS_FLBSTAT_B2TRDY_READY: any = '1'
+
+/**
+Not Ready*/
+export const VIMS_FLBSTAT_B2TRDY_NOTREADY: any = '0'
+
+/**
+This bit indicates if flash is ready in 1T mode.*/
+export const VIMS_FLBSTAT_B1TRDY: any = '1'
+export const VIMS_FLBSTAT_B1TRDY_M: any = '1'
+export const VIMS_FLBSTAT_B1TRDY_S: any = '1'
+/**
+Ready*/
+export const VIMS_FLBSTAT_B1TRDY_READY: any = '1'
+
+/**
+Not Ready*/
+export const VIMS_FLBSTAT_B1TRDY_NOTREADY: any = '0'
+
+
+// -------- REGISTER CCHCTRL -------- //
+
+/**
+This register is used for enabling cache, prefetch and micropredictor units.
+
+*/
+/**
+Software should not rely on the value of a reserved. Writing any other value than the reset value may result in undefined behavior.*/
+export const VIMS_CCHCTRL_RESERVED3: any = '29'
+export const VIMS_CCHCTRL_RESERVED3_M: any = '29'
+export const VIMS_CCHCTRL_RESERVED3_S: any = '29'
+/**
+This bit is used to enable the micropredictor unit.*/
+export const VIMS_CCHCTRL_CCHMPEN: any = '1'
+export const VIMS_CCHCTRL_CCHMPEN_M: any = '1'
+export const VIMS_CCHCTRL_CCHMPEN_S: any = '1'
+/**
+Enable*/
+export const VIMS_CCHCTRL_CCHMPEN_EN: any = '1'
+
+/**
+Disable*/
+export const VIMS_CCHCTRL_CCHMPEN_DIS: any = '0'
+
+/**
+This bit is used to enable the prefetch unit.*/
+export const VIMS_CCHCTRL_CCHPFEN: any = '1'
+export const VIMS_CCHCTRL_CCHPFEN_M: any = '1'
+export const VIMS_CCHCTRL_CCHPFEN_S: any = '1'
+/**
+Enable*/
+export const VIMS_CCHCTRL_CCHPFEN_EN: any = '1'
+
+/**
+Disable*/
+export const VIMS_CCHCTRL_CCHPFEN_DIS: any = '0'
+
+/**
+This bit is used to enable the cache.*/
+export const VIMS_CCHCTRL_CCHEN: any = '1'
+export const VIMS_CCHCTRL_CCHEN_M: any = '1'
+export const VIMS_CCHCTRL_CCHEN_S: any = '1'
+/**
+Enable*/
+export const VIMS_CCHCTRL_CCHEN_EN: any = '1'
+
+/**
+Disable*/
+export const VIMS_CCHCTRL_CCHEN_DIS: any = '0'
+
+
 // -------- INSTANCES -------- //
 
 export const PMCTL = { } as PMCTL_t
@@ -33952,6 +34377,7 @@ export const IOC = { } as IOC_t
 export const EVTULL = { } as EVTULL_t
 export const CLKCTL = { } as CLKCTL_t
 export const GPIO = { } as GPIO_t
+export const VIMS = { } as VIMS_t
 export const EVTSVT = { } as EVTSVT_t
 export const UART0 = { } as UART_t
 export const LGPT3 = { } as LGPT3_t

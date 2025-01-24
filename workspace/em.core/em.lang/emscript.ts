@@ -2,7 +2,8 @@ import * as Fs from 'fs'
 import * as Path from 'path'
 import { sprintf } from 'sprintf-js'
 
-const PROPS = JSON.parse(String(Fs.readFileSync('workspace/.emscript/props.json')))
+const PATH = 'workspace/.emscript/props.json'
+const PROPS = Fs.existsSync(PATH) ? JSON.parse(String(Fs.readFileSync(PATH))) : {}
 
 namespace em {
 
