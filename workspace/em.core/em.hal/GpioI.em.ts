@@ -5,7 +5,7 @@ export namespace em$meta {
     export declare function pinId(): i16
 }
 
-export interface em$_I {
+export interface $I {
     clear(): void
     functionSelect(select: u8): void
     get(): bool_t

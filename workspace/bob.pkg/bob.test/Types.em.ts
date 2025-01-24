@@ -6,4 +6,4 @@ export class Pair extends $struct {
     y: i16 = 20
 }
 
-export interface em$_I {}
+export interface $I {}

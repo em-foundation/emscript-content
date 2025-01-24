@@ -8,9 +8,9 @@ import * as IdleI from '@em.hal/IdleI.em'
 import * as McuI from '@em.hal/McuI.em'
 import * as UsCounterI from '@em.hal/UsCounterI.em'
 
-export const BusyWait = $proxy<BusyWaitI.em$_I>()
-export const ConsoleUart = $proxy<ConsoleUartI.em$_I>()
-export const GlobalInterrupts = $proxy<GlobalInterruptsI.em$_I>()
-export const Idle = $proxy<IdleI.em$_I>()
-export const Mcu = $proxy<McuI.em$_I>()
-export const UsCounter = $proxy<UsCounterI.em$_I>()
+export const BusyWait = $proxy<BusyWaitI.$I>()
+export const ConsoleUart = $proxy<ConsoleUartI.$I>()
+export const GlobalInterrupts = $proxy<GlobalInterruptsI.$I>()
+export const Idle = $proxy<IdleI.$I>()
+export const Mcu = $proxy<McuI.$I>()
+export const UsCounter = $proxy<UsCounterI.$I>()

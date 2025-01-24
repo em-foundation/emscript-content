@@ -7,7 +7,7 @@ export interface em$meta {
     setDetectHandler(h: Handler): void
 }
 
-export interface em$_I {
+export interface $I {
     em$meta: em$meta
     clearDetect(): void
     disableDetect(): void

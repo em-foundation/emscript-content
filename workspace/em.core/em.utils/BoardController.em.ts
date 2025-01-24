@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 import * as LedI from '@em.hal/LedI.em'
 
-export const Led = $proxy<LedI.em$_I>()
+export const Led = $proxy<LedI.$I>()
 
 const blinkRate = 50000
 const EOT_BYTE = 0x04

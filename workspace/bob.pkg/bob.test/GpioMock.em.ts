@@ -11,4 +11,4 @@ namespace em$meta {
     export const c_pin = em$_C.pin
 }
 
-export default { $U, em$_C, ...em$meta, ...em.isa<GpioI.em$_I>() }
+export default { $U, em$_C, ...em$meta, ...em.isa<GpioI.$I>() }

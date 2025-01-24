@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 import * as OneShotI from '@em.hal/OneShotI.em'
 
-export const OneShot = $proxy<OneShotI.em$_I>()
+export const OneShot = $proxy<OneShotI.$I>()
 
 var active_flag = <volatile_t<bool_t>>false
 

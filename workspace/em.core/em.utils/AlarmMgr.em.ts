@@ -5,7 +5,7 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 import * as WakeupTimerI from '@em.hal/WakeupTimerI.em'
 
-export const WakeupTimer = $proxy<WakeupTimerI.em$_I>()
+export const WakeupTimer = $proxy<WakeupTimerI.$I>()
 
 export type Obj = ref_t<Alarm>
 

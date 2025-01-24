@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as GpioI from '@em.hal/GpioI.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 
-export const TxPin = $proxy<GpioI.em$_I>()
+export const TxPin = $proxy<GpioI.$I>()
 
 export namespace em$meta {
 

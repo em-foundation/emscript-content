@@ -3,7 +3,7 @@ export const $U = em.$declare('INTERFACE')
 
 export type Key = u32
 
-export interface em$_I {
+export interface $I {
     disable(): Key
     enable(): void
     isEnabled(): bool_t

@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const TxPin = $proxy<GpioI.em$_I>()
+export const TxPin = $proxy<GpioI.$I>()
 
 export function em$startup(): void {
     TxPin.$$.makeOutput()

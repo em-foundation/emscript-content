@@ -9,7 +9,7 @@ export namespace em$template {
 
     export const $U = em.$declare('MODULE')
 
-    export const Pin = $proxy<GpioI.em$_I>()
+    export const Pin = $proxy<GpioI.$I>()
     export const pin_num = $config<i16>()
 
     export namespace em$meta {

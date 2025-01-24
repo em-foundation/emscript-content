@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const Pin = $proxy<GpioI.em$_I>()
+export const Pin = $proxy<GpioI.$I>()
 export const active_low = $config<bool_t>(false)
 
 export function em$startup(): void {

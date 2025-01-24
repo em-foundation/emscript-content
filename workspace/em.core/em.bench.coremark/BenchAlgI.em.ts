@@ -3,7 +3,7 @@ export const $U = em.$declare('INTERFACE')
 
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export interface em$_I {
+export interface $I {
     kind(): Utils.Kind
     print(): void
     run(arg: i16): Utils.sum_t

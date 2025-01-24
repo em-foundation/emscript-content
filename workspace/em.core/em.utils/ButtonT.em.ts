@@ -10,7 +10,7 @@ export namespace em$template {
 
     export const $U = em.$declare('MODULE')
 
-    export const Edge = $proxy<EdgeI.em$_I>()
+    export const Edge = $proxy<EdgeI.$I>()
 
     export type Handler = ButtonI.Handler
 
