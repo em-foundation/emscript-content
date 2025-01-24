@@ -4,7 +4,7 @@ export const em$_U = em.$declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const memsize = $param<u16>(666)
+export const memsize = $config<u16>(666)
 
 export class Data extends $struct {
     val: i16
@@ -20,9 +20,9 @@ let ElemFac = $factory(Elem.$make())
 
 type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
 
-const maxElems = $param<u16>(0)
+const maxElems = $config<u16>(0)
 
-let curHead_c = $param<ref_t<Elem>>()
+let curHead_c = $config<ref_t<Elem>>()
 var curHead: ref_t<Elem>
 
 export namespace em$meta {

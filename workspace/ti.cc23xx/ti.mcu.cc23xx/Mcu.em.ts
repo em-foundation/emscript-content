@@ -3,7 +3,7 @@ export const em$_U = em.$declare('MODULE')
 
 import * as Debug from '@em.lang/Debug.em'
 
-const use_sram = $param<bool_t>()
+const use_sram = $config<bool_t>()
 
 export namespace em$meta {
 

@@ -8,7 +8,7 @@ class Elem extends $struct {
 
 let ElemFac = $factory(Elem.$make())
 
-const head = $param<ref_t<Elem>>()
+const head = $config<ref_t<Elem>>()
 
 export namespace em$meta {
     let e = ElemFac.$create()

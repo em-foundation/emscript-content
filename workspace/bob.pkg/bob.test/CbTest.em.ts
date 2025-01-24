@@ -3,7 +3,7 @@ export const em$_U = em.$declare('MODULE')
 
 type Fxn = cb_t<[x: u8]>
 
-const fxn = $param<Fxn>()
+const fxn = $config<Fxn>()
 
 export namespace em$meta {
 

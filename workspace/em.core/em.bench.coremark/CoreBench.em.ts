@@ -7,8 +7,8 @@ import * as MatrixBench from '@em.bench.coremark/MatrixBench.em'
 import * as StateBench from '@em.bench.coremark/StateBench.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-const TOTAL_DATA_SIZE = $param<u16>(2000)
-const NUM_ALGS = $param<u8>(3)
+const TOTAL_DATA_SIZE = $config<u16>(2000)
+const NUM_ALGS = $config<u8>(3)
 
 export namespace em$meta {
 

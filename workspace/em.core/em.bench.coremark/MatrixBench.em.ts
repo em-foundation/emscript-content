@@ -4,12 +4,12 @@ export const em$_U = em.$declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const memsize = $param<u16>(0)
+export const memsize = $config<u16>(0)
 
 type matdat_t = i16
 type matres_t = i32
 
-const dimN = $param<u8>(0)
+const dimN = $config<u8>(0)
 
 var matA = $table<matdat_t>('rw')
 var matB = $table<matdat_t>('rw')

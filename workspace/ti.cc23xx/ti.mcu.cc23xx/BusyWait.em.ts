@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-export const scalar = $param<u8>(3)
+export const scalar = $config<u8>(3)
 
 export function wait(usecs: u32): void {
     if (usecs == 0) return

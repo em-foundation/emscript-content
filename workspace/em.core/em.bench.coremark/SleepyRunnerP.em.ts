@@ -6,7 +6,7 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
-const ticker = $param<TickerMgr.Obj>()
+const ticker = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
 

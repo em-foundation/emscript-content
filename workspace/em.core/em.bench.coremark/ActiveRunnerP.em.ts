@@ -8,7 +8,7 @@ import * as Utils from '@em.bench.coremark/Utils.em'
 
 const AppLed = $delegate(BoardC.AppLed)
 
-let ITERATIONS = $param<u16>(10)
+let ITERATIONS = $config<u16>(10)
 
 export function em$startup() {
     CoreBench.setup()

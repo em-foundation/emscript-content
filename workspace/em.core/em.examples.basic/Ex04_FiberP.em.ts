@@ -7,7 +7,7 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-let blinkF = $param<FiberMgr.Obj>()
+let blinkF = $config<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {

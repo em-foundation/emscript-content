@@ -11,7 +11,7 @@ namespace em$template {
 
     const em$_C = {
         Pin: $proxy<GpioI.em$_I>(),
-        active_low: $param<bool_t>(false)
+        active_low: $config<bool_t>(false)
     }
 
     namespace em$meta {

@@ -310,15 +310,15 @@ namespace em {
     const __PARAM__ = null
     // #region
 
-    class em$param_t<T> {
-        private $$em$config: string = 'param'
+    class em$config_t<T> {
+        private $$em$config: string = 'config'
         private val: T | null = null
         constructor(val?: T) { this.val = val === undefined ? null : val }
         get $$(): T { return this.val! }
         set $$(v: T) { this.val = v }
     }
-    export function $param<T>(val?: T): em$param_t<T> & Boxed<T> {
-        return new em$param_t<T>(val)
+    export function $config<T>(val?: T): em$config_t<T> & Boxed<T> {
+        return new em$config_t<T>(val)
     }
 
     // #endregion
@@ -836,7 +836,7 @@ declare global {
     const $i32: typeof em.$i32
     const $null: any
     const $outfile: typeof em.$outfile
-    const $param: typeof em.$param
+    const $config: typeof em.$config
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
     const $ref: typeof em.$ref
@@ -865,7 +865,7 @@ Object.assign(globalThis, {
     $i32: em.$i32,
     $null: null as any,
     $outfile: em.$outfile,
-    $param: em.$param,
+    $config: em.$config,
     $property: em.$property,
     $proxy: em.$proxy,
     $ref: em.$ref,

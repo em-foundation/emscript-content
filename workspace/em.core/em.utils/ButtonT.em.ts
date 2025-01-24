@@ -14,7 +14,7 @@ export namespace em$template {
 
     export type Handler = ButtonI.Handler
 
-    const debounceF = $param<FiberMgr.Obj>()
+    const debounceF = $config<FiberMgr.Obj>()
 
     export namespace em$meta {
 

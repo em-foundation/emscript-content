@@ -4,7 +4,7 @@ export const em$_U = em.$declare('MODULE')
 import * as GpioI from '@em.hal/GpioI.em'
 
 const em$_C = {
-    pin: $param<u8>()
+    pin: $config<u8>()
 }
 
 namespace em$meta {

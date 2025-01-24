@@ -4,7 +4,7 @@ export const em$_U = em.$declare('MODULE')
 import * as Crc from '@em.bench.coremark/Crc.em'
 import * as Utils from '@em.bench.coremark/Utils.em'
 
-export const memsize = $param<u16>(0)
+export const memsize = $config<u16>(0)
 
 const NUM_STATES = 8
 
@@ -17,10 +17,10 @@ const fltPat = $table<text_t>('ro')
 const sciPat = $table<text_t>('ro')
 const errPat = $table<text_t>('ro')
 
-const intPatLen = $param<u16>(0)
-const fltPatLen = $param<u16>(0)
-const sciPatLen = $param<u16>(0)
-const errPatLen = $param<u16>(0)
+const intPatLen = $config<u16>(0)
+const fltPatLen = $config<u16>(0)
+const sciPatLen = $config<u16>(0)
+const errPatLen = $config<u16>(0)
 
 const StateCnt = $array($u32(), NUM_STATES)
 

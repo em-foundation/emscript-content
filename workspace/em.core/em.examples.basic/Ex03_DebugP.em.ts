@@ -6,9 +6,9 @@ import * as Common from '@em.mcu/Common.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-const dbg_flag = $param<bool_t>(true)
-const min_cnt = $param<u16>(1000)
-const max_cnt = $param<u16>(1020)
+const dbg_flag = $config<bool_t>(true)
+const min_cnt = $config<u16>(1000)
+const max_cnt = $config<u16>(1020)
 
 export function em$run() {
     AppLed.$$.on()

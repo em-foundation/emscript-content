@@ -63,9 +63,9 @@ namespace em {
         operator arg_t() const { return (arg_t)(p_); }
     };
 
-    template <typename T> struct param {
+    template <typename T> struct config {
         T $$;
-        constexpr param(T v) : $$(v) {}
+        constexpr config(T v) : $$(v) {}
     };
 
     template <typename T> struct ptr_t {

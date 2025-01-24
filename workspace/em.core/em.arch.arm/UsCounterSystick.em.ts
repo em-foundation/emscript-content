@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const em$_U = em.$declare('MODULE')
 
-export const MHZ = $param<u16>(48)
+export const MHZ = $config<u16>(48)
 
 const MAX = <u32>0x00FF_FFFF
 
