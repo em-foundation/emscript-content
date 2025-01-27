@@ -17,7 +17,7 @@ export function flush(): void {
 export function put(data: u8): void {
     const bit_cnt = 10
     const bit_time = 8
-    var tx_byte: em.u16 = (data << 1) | 0x600
+    var tx_byte: u16 = (data << 1) | 0x600
     const key = Common.GlobalInterrupts.$$.disable()
     for (let i = 0; i < bit_cnt; i++) {
         Common.UsCounter.$$.set(bit_time)
