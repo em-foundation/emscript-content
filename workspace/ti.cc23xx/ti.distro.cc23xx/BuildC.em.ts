@@ -29,9 +29,8 @@ export function em$generate() {
         |-> TOOLS=C:/tools/SEGGER/ses
         |-> CC=$TOOLS/bin/segger-cc
         |-> LD=$TOOLS/gcc/arm-none-eabi/bin/ld.exe
-        |-> LIBC=
-        |-> OBJCOPY=llvm-objcopy
-        |-> OBJDUMP=llvm-objdump
+        |-> OBJCOPY=$TOOLS/gcc/arm-none-eabi/bin/objcopy
+        |-> OBJDUMP=$TOOLS/gcc/arm-none-eabi/bin/objdump
         |-> 
         |-> OUT=.out
         |-> 
