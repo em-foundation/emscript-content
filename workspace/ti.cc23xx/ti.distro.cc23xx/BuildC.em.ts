@@ -99,3 +99,11 @@ export function em$generate() {
     out.addText('C:/Users/biosb/em-sdk/tools/ti-uniflash/dslite.bat -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n')
     out.close()
 }
+
+declare global {
+    const $R: typeof REGS
+}
+
+Object.assign(globalThis, {
+    $R: REGS
+})
