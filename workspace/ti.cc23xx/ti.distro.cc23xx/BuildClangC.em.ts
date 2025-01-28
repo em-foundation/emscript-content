@@ -24,10 +24,10 @@ export function em$generate() {
     out.addFrag(`
         |-> #!/bin/sh
         |-> 
-        |-> TOOLS=C:/tools/SEGGER/ses
+        |-> TOOLS=/c/tools/SEGGER/ses
         |-> CC=$TOOLS/bin/segger-cc
         |-> LD=$TOOLS/gcc/arm-none-eabi/bin/ld.exe
-        |-> LIBC=
+        |-> LIBC=$TOOLS/lib/libc_v6m_t_le_eabi_small.a
         |-> OBJCOPY=llvm-objcopy
         |-> OBJDUMP=llvm-objdump
         |-> 
@@ -35,7 +35,6 @@ export function em$generate() {
         |-> 
         |-> rm -rf $OUT
         |-> mkdir $OUT
-        |-> 
         |-> 
         |-> CFLAGS="\\
         |->     -D__EM_ARCH_arm__ \\
@@ -45,21 +44,23 @@ export function em$generate() {
         |->     -D__EM_CPU_cortex_m0plus__ \\
         |->     -D__EM_MCU_null__ \\
         |->     -D__EM_LANG__=1 \\
+        |-> 
         |->     --std=c++14 \\
-        |->     -triple thumbv6m-none-eabi \\
-        |->     -target-cpu cortex-m0plus \\
+        |->     -target arm-none-eabi \\
+        |->     -mcpu=cortex-m0plus \\
+        |-> 
         |->     -ffunction-sections \\
         |->     -fdata-sections \\
+        |->     -fomit-frame-pointer \\
+        |->     -fno-exceptions \\
         |->     -fno-threadsafe-statics \\
+        |->     -nostdlib \\
         |->     -Wno-deprecated-register \\
         |->     -Wno-invalid-noreturn \\
-        |->     -Wno-macro-redefined \\
         |->     -Wno-switch \\
-        |->     -Wno-uninitialized \\
         |->     -Wno-c99-designator \\
         |->     -Wno-c++20-designator \\
         |->     -Wpointer-to-int-cast \\
-        |->     -target-feature +strict-align -target-feature +soft-float -target-feature +soft-float-abi -msoft-float -target-abi aapcs -mfloat-abi soft -fno-signed-char -fnative-half-type -fnative-half-arguments-and-returns \\
         |-> "
         |-> 
         |-> CINCS="\\
@@ -68,7 +69,7 @@ export function em$generate() {
         |-> "
         |-> 
         |-> COPTS="\\
-        |->     -Oz \\
+        |->     -O z \\
         |-> "
         |-> 
         |-> LFLAGS="\\
@@ -77,20 +78,14 @@ export function em$generate() {
         |->     --gc-sections \\
         |-> "
         |-> 
-        |-> LIBS="
-        |->     $TOOLS/lib/libc_v6m_t_le_eabi_small.a \\
-        |->     $TOOLS/lib/strops_v6m_t_le_eabi_small.a \\
-        |-> "
-        |-> 
-        |-> $CC -c $CFLAGS $CINCS $COPTS -x c++ main.cpp -o $OUT/main.obj
-        |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj $LIBS
+        |-> $CC -c $CFLAGS $COPTS $CINCS main.cpp -o $OUT/main.obj
+        |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj $LIBC
         |-> $OBJCOPY -O ihex $OUT/main.out $OUT/main.out.hex
         |-> $OBJDUMP -h -d --demangle $OUT/main.out >$OUT/main.out.dis
-        |-> $OBJDUMP -t --demangle $OUT/main.out | tail -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
+        |-> $OBJDUMP -t $OUT/main.out il -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
         |-> sort -k1 $OUT/main.out.sym > $OUT/main.out.syma
         |-> sort -k5 $OUT/main.out.sym > $OUT/main.out.symn
         |-> $OBJDUMP -h $OUT/main.out
-
     `)
     out.close()
     //
