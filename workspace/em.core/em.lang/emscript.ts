@@ -725,17 +725,18 @@ namespace em {
         return memoryof(proto).size
     }
 
-    export function $outfile(path: string): em$OutFile {
-        return new em$OutFile(path)
+    export function $outfile(path: string, mode?: Fs.Mode): em$OutFile {
+        return new em$OutFile(path, mode)
     }
     export class em$OutFile {
         static readonly TAB = 4
         private col: number
         private text: Array<string>
-        constructor(readonly path: string) {
+        constructor(readonly path: string, readonly mode?: Fs.Mode) {
             this.col = 0
             this.path = path
             this.text = []
+            this.mode = mode
         }
         addFile(path: string) {
             this.addText(String(Fs.readFileSync(path)))
@@ -755,7 +756,7 @@ namespace em {
         }
         close() {
             Fs.mkdirSync(Path.dirname(this.path), { recursive: true })
-            Fs.writeFileSync(this.path, this.getText())
+            Fs.writeFileSync(this.path, this.getText(), { mode: this.mode })
         }
         genTitle(msg: string) {
             this.print("\n// -------- %1 -------- //\n\n", msg)
