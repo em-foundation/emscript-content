@@ -9,6 +9,28 @@ import * as REGS from '@ti.distro.cc23xx/REGS.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
 
+const nvic_intrs = [
+    'CPUIRQ0',
+    'CPUIRQ1',
+    'CPUIRQ2',
+    'CPUIRQ3',
+    'CPUIRQ4',
+    'GPIO_COMB',
+    'LRFD_IRQ0',
+    'LRFD_IRQ1',
+    'DMA_DONE_COMB',
+    'AES_COMB',
+    'SPI0_COMB',
+    'UART0_COMB',
+    'I2C0_IRQ',
+    'LGPT0_COMB',
+    'LGPT1_COMB',
+    'ADC0_COMB',
+    'CPUIRQ16',
+    'LGPT2_COMB',
+    'LGPT3_COMB',
+]
+
 export function em$configure() {
     ArmStartupC.$U.used()
     BoardC.$U.used()
@@ -17,6 +39,7 @@ export function em$configure() {
     REGS.$U.used()
     StartupC.$U.used()
     TargC.$U.used()
+    for (let name of nvic_intrs) IntrVec.em$meta.addIntr(name)
 }
 
 export function em$generate() {
