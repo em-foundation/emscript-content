@@ -97,5 +97,15 @@ export function PRIMASK_set(m: u32) {
 }
 
 export function DEFAULT_isr$$() {
+    em.$['%%b:'](3)
+    let vnum = <u32>e$`__get_IPSR()`
+    em.$['%%>'](vnum)
+    let fp = <ptr_t<u32>>(e$`__get_MSP()`)
+    em.$['%%>'](fp.$cur())
+    for (let i = 0; i < 8; i++) {
+        em.$['%%b']
+        em.$['%%>'](fp.$$)
+        fp.$inc()
+    }
     em.fail()
 }
