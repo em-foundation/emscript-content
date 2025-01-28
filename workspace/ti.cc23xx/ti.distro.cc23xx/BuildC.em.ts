@@ -20,6 +20,8 @@ export function em$configure() {
 }
 
 export function em$generate() {
+    const opt = $property('em.build.Optimize', 'Oz')
+    const libflav = opt == 'Oz' ? 'small' : 'balanced'
     let out = $outfile('build.sh')
     out.addFrag(`
         |-> #!/bin/sh
@@ -68,7 +70,7 @@ export function em$generate() {
         |-> "
         |-> 
         |-> COPTS="\\
-        |->     -Oz \\
+        |->     -${opt} \\
         |-> "
         |-> 
         |-> LFLAGS="\\
@@ -78,8 +80,8 @@ export function em$generate() {
         |-> "
         |-> 
         |-> LIBS="
-        |->     $TOOLS/lib/libc_v6m_t_le_eabi_small.a \\
-        |->     $TOOLS/lib/strops_v6m_t_le_eabi_small.a \\
+        |->     $TOOLS/lib/libc_v6m_t_le_eabi_${libflav}.a \\
+        |->     $TOOLS/lib/strops_v6m_t_le_eabi_${libflav}.a \\
         |-> "
         |-> 
         |-> $CC -c $CFLAGS $CINCS $COPTS -x c++ main.cpp -o $OUT/main.obj
