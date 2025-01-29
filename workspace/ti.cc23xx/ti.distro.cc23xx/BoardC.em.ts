@@ -42,6 +42,9 @@ export const SysLed = LedT.$clone()
 export const SysLedPin = GpioT.$clone()
 
 export function em$configure(): void {
+    $using(BoardController)
+    $using(Console)
+    $using(ExtFlashDisabler)
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
     AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
@@ -50,8 +53,6 @@ export function em$configure(): void {
     AppLedPin.pin_num.$$ = 15
     AppOutPin.pin_num.$$ = 20
     BoardController.Led.$$ = SysLed
-    BoardController.$U.used()
-    Console.$U.used()
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart0
     Common.GlobalInterrupts.$$ = GlobalInterrupts
@@ -72,7 +73,6 @@ export function em$configure(): void {
     ExtFlashDisabler.CS.$$ = FlashCS
     ExtFlashDisabler.PICO.$$ = FlashPICO
     ExtFlashDisabler.POCI.$$ = FlashPOCI
-    ExtFlashDisabler.$U.used()
     FlashCLK.pin_num.$$ = 18
     FlashCS.pin_num.$$ = 6
     FlashPICO.pin_num.$$ = 13

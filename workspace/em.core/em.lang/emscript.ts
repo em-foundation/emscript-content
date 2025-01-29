@@ -577,6 +577,10 @@ namespace em {
         return unit
     }
 
+    export function $using<U extends Object>(unit: U) {
+        if ('$U' in unit) (unit['$U'] as Unit).used()
+    }
+
     type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
     export class Unit {
@@ -847,6 +851,7 @@ declare global {
     const $u8: typeof em.$u8
     const $u16: typeof em.$u16
     const $u32: typeof em.$u32
+    const $using: typeof em.$using
     const printf: typeof em.printf
     const c$: typeof em.c$
     const e$: typeof em.e$
@@ -873,6 +878,7 @@ Object.assign(globalThis, {
     $sizeof: em.$sizeof,
     $struct: em.$struct,
     $table: em.$table,
+    $using: em.$using,
     $u8: em.$u8,
     $u16: em.$u16,
     $u32: em.$u32,

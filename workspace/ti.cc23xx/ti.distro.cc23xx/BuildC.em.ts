@@ -32,13 +32,13 @@ const nvic_intrs = [
 ]
 
 export function em$configure() {
-    ArmStartupC.$U.used()
-    BoardC.$U.used()
-    IntrVec.$U.used()
-    LinkerC.$U.used()
-    REGS.$U.used()
-    StartupC.$U.used()
-    TargC.$U.used()
+    $using(ArmStartupC)
+    $using(BoardC)
+    $using(IntrVec)
+    $using(LinkerC)
+    $using(REGS)
+    $using(StartupC)
+    $using(TargC)
     for (let name of nvic_intrs) IntrVec.em$meta.addIntr(name)
 }
 
