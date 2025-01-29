@@ -56,7 +56,7 @@ e$`static inline void wr(em::i16 data) { wrU16((em::u16)data); }`
 e$`static inline void wr(em::u32 data) { wrU32(data); }`
 e$`static inline void wr(em::i32 data) { wrU32((em::u32)data); }`
 
-const Args = $array($u32(), 4)
+const Args = $array($u32(), 6)
 const NumBuf = $array($u8(), 10)
 
 function c2d(ch: u8): u8 { return ch - c$`0` }
@@ -83,13 +83,15 @@ function isDigit(ch: u8): bool_t {
     return ch >= c$`0` && ch <= c$`9`
 }
 
-export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, a4: arg_t = 0) {
+export function print(fmt: text_t, a1: arg_t = 0, a2: arg_t = 0, a3: arg_t = 0, a4: arg_t = 0, a5: arg_t = 0, a6: arg_t = 0) {
     let args = Args.$make()
     let num_buf = NumBuf.$make()
     args[0] = <u32>a1
     args[1] = <u32>a2
     args[2] = <u32>a3
     args[3] = <u32>a4
+    args[4] = <u32>a5
+    args[5] = <u32>a6
     let argp = args.$ptr()
     let idx = 0
     while (idx < fmt.$len) {
