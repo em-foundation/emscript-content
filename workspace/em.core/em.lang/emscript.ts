@@ -686,9 +686,9 @@ namespace em {
         })
     }
 
-    export function printf(sa: TemplateStringsArray): (a1?: any, a2?: any, a3?: any, a4?: any) => void {
-        function fn(a1?: any, a2?: any, a3?: any, a4?: any) {
-            console.log(sprintf(sa[0], a1, a2, a3, a4))
+    export function printf(sa: TemplateStringsArray): (a1?: any, a2?: any, a3?: any, a4?: any, a5?: any, a6?: any) => void {
+        function fn(a1?: any, a2?: any, a3?: any, a4?: any, a5?: any, a6?: any) {
+            console.log(sprintf(sa[0], a1, a2, a3, a4, a5, a6))
         }
         return fn
     }
