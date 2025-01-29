@@ -44,14 +44,15 @@ export function em$configure() {
 
 export function em$generate() {
     const opt = $property('em.build.Optimize', 'Oz')
+    const tools = $property('em.build.ToolsHome', '')
     const libflav = opt == 'Oz' ? 'small' : 'balanced'
     let out = $outfile('build.sh', 0o755)
     out.addFrag(`
         |-> #!/bin/sh
         |-> 
-        |-> TOOLS=C:/tools/SEGGER/ses
+        |-> TOOLS=${tools}/ses-arm
         |-> CC=$TOOLS/bin/segger-cc
-        |-> LD=$TOOLS/gcc/arm-none-eabi/bin/ld.exe
+        |-> LD=$TOOLS/gcc/arm-none-eabi/bin/ld
         |-> OBJCOPY=$TOOLS/gcc/arm-none-eabi/bin/objcopy
         |-> OBJDUMP=$TOOLS/gcc/arm-none-eabi/bin/objdump
         |-> 
@@ -118,8 +119,9 @@ export function em$generate() {
     `)
     out.close()
     //
+    const ext = process.platform === 'win32' ? 'bat' : 'sh'
     out = $outfile('load.sh', 0o755)
-    out.addText('C:/Users/biosb/em-sdk/tools/ti-uniflash/dslite.bat -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n')
+    out.addText(`${tools}/ti-uniflash/dslite.${ext} -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n`)
     out.close()
 }
 
