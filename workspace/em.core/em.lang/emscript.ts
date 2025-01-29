@@ -577,6 +577,10 @@ namespace em {
         return unit
     }
 
+    export function $clone<M extends { $clone(): any }>(mod: M): ReturnType<M['$clone']> {
+        return mod.$clone()
+    }
+
     export function $using<U extends Object>(unit: U) {
         if ('$U' in unit) (unit['$U'] as Unit).used()
     }
@@ -833,6 +837,7 @@ declare global {
     const $bool: typeof em.$bool
     const $cb: typeof em.$cb
     const $cb$null: typeof em.$cb$null
+    const $clone: typeof em.$clone
     const $declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
@@ -863,6 +868,7 @@ Object.assign(globalThis, {
     $bool: em.$bool,
     $cb: em.$cb,
     $cb$null: em.$cb$null,
+    $clone: em.$clone,
     $declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
