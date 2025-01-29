@@ -10,6 +10,7 @@ import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart0 from '@ti.mcu.cc23xx/ConsoleUart0.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as EdgeT from '@ti.mcu.cc23xx/EdgeT.em'
+import * as ExtFlashDisabler from '@ti.mcu.cc23xx/ExtFlashDisabler.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@ti.mcu.cc23xx/GpioT.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
@@ -32,6 +33,10 @@ export const DbgA = GpioT.$clone()
 export const DbgB = GpioT.$clone()
 export const DbgC = GpioT.$clone()
 export const DbgD = GpioT.$clone()
+export const FlashCLK = GpioT.$clone()
+export const FlashCS = GpioT.$clone()
+export const FlashPICO = GpioT.$clone()
+export const FlashPOCI = GpioT.$clone()
 export const SysLed = LedT.$clone()
 export const SysLedPin = GpioT.$clone()
 
@@ -61,6 +66,15 @@ export function em$configure(): void {
     Debug.DbgB.$$ = DbgB
     Debug.DbgC.$$ = DbgC
     Debug.DbgD.$$ = DbgD
+    ExtFlashDisabler.CLK.$$ = FlashCLK
+    ExtFlashDisabler.CS.$$ = FlashCS
+    ExtFlashDisabler.PICO.$$ = FlashPICO
+    ExtFlashDisabler.POCI.$$ = FlashPOCI
+    ExtFlashDisabler.$U.used()
+    FlashCLK.pin_num.$$ = 18
+    FlashCS.pin_num.$$ = 6
+    FlashPICO.pin_num.$$ = 13
+    FlashPOCI.pin_num.$$ = 12
     Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
     SysLedPin.pin_num.$$ = 14

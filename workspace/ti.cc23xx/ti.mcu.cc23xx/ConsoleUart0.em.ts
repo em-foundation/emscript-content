@@ -15,15 +15,7 @@ export namespace em$meta {
 }
 
 export function em$startup(): void {
-    $R.CLKCTL.CLKENSET0.$$ = $R.CLKCTL_CLKENSET0_UART0
-    TxPin.$$.makeOutput()
-    TxPin.$$.set()
-    TxPin.$$.functionSelect(2)
-    $R.UART0.CTL.$$ &= ~$R.UART_CTL_UARTEN
-    $R.UART0.IBRD.$$ = 26
-    $R.UART0.FBRD.$$ = 3
-    $R.UART0.LCRH.$$ = $R.UART_LCRH_WLEN_BITL8
-    $R.UART0.CTL.$$ |= $R.UART_CTL_UARTEN
+    sleepLeave()
 }
 
 export function flush(): void {
