@@ -29,6 +29,9 @@
             "@em.examples.basic/*": [
                 "./workspace/em.core/em.examples.basic/*"
             ],
+            "@em.examples.combo/*": [
+                "./workspace/em.core/em.examples.combo/*"
+            ],
             "@em.hal/*": [
                 "./workspace/em.core/em.hal/*"
             ],
