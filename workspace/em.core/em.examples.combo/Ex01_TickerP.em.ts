@@ -57,9 +57,11 @@ function appTickCb() {
 }
 
 function asterisk(count: u32, expectedCount: u32): text_t {
-    return (count < expectedCount || count > expectedCount + 1) 
-        ? t$`*`
-        : t$``
+    return countError(count, expectedCount) ? t$`*` : t$``
+}
+
+function countError(count: u32, expectedCount: u32): bool_t {
+    return (count < expectedCount || count > expectedCount + 1)
 }
 
 function onButtonPressed() {
@@ -95,7 +97,7 @@ function printTickCb() {
     const thisAppCount = appCount - lastAppCount
     const thisSysCount = sysCount - lastSysCount
     printTime(Common.Uptimer.$$.read())
-    printf`:  Hello World:  rate: %dx  ticks(app,sys): (%d%s,%d%s)\n`(
+    printf` Print tick {rate: %dx, ticks: {app: %d%s, sys: %d%s}}\n`(
         dividedBy,
         thisAppCount,
         asterisk(thisAppCount, expectedAppCount),
