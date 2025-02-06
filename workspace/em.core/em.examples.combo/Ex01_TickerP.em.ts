@@ -32,6 +32,8 @@ let lastSysCount: u32 = 0
 let printCount: u32 = 0
 let expectedAppCount: u32
 let expectedSysCount: u32
+let totalErrors: u32 = 0
+let printsAfterRateChange: u32 = 0
 
 export namespace em$meta {
     export function em$construct() {
@@ -56,10 +58,6 @@ function appTickCb() {
     AppLed.$$.wink(10)
 }
 
-function asterisk(count: u32, expectedCount: u32): text_t {
-    return countError(count, expectedCount) ? t$`*` : t$``
-}
-
 function countError(count: u32, expectedCount: u32): bool_t {
     return (count < expectedCount || count > expectedCount + 1)
 }
@@ -68,17 +66,18 @@ function onButtonPressed() {
     if (AppBut.$$.isPressed()) {
         // a long press (press time > maxPressTimeMs)
         printf`Long button press: Stopping app/sys tickers\n`()
-        dividedBy = 0;
+        dividedBy = 0
         stopLedTickers()
-        lastAppCount = 0;
-        lastSysCount = 0;
+        lastAppCount = 0
+        lastSysCount = 0
     } else {
         // a short press (minPressTimeMs < press time < maxPressTimeMs)
         dividedBy = (dividedBy >= maxDividedBy || dividedBy < 1) ? 1 : dividedBy * 2
         printf`Short button press: Setting rate to %dx\n`(dividedBy)
         startLedTickers()
-        printStatus();
+        printStatus()
     }
+    printsAfterRateChange = 0
 }
 
 function printStatus() {
@@ -94,15 +93,23 @@ function printStatus() {
 
 function printTickCb() {
     printCount += 1
+    printsAfterRateChange++
     const thisAppCount = appCount - lastAppCount
     const thisSysCount = sysCount - lastSysCount
+    const thisAppError = countError(thisAppCount, expectedAppCount)
+    const thisSysError = countError(thisSysCount, expectedSysCount)
+    if (printsAfterRateChange > 2 && (thisAppError || thisSysError)) {
+        thisAppError && totalErrors++
+        thisSysError && totalErrors++
+    }
     printTime(Common.Uptimer.$$.read())
-    printf` Print tick {rate: %dx, ticks: {app: %d%s, sys: %d%s}}\n`(
+    printf` Print tick {rate: %dx, ticks: {app: %d%s, sys: %d%s}, errors: %d}\n`(
         dividedBy,
         thisAppCount,
-        asterisk(thisAppCount, expectedAppCount),
+        thisAppError ? t$`*` : t$``,
         thisSysCount,
-        asterisk(thisSysCount, expectedSysCount)
+        thisSysError ? t$`*` : t$``,
+        totalErrors
     )
     if (dividedBy > 0 && lastSysCount > 0 && lastSysCount == sysCount) {
         printf`No sys ticks detected since last print\n`()
