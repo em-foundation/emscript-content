@@ -1,12 +1,6 @@
 {
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "node",
-        "target": "ESNext",
-        "lib": [
-            "ESNext"
-        ],
-        "outDir": "out",
         "paths": {
             "@$$emscript": [
                 "./workspace/em.core/em.lang/emscript"
@@ -53,19 +47,6 @@
             "@$distro/*": [
                 "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
             ]
-        },
-        "sourceMap": true,
-        "strict": true,
-        "strictPropertyInitialization": false,
-        "esModuleInterop": true
-    },
-    "include": [
-        "./workspace/em.core/em.lang/emscript.ts",
-        "./workspace/**/*.ts",
-        "./workspace/.emscript/*/*.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "junk"
-    ]
+        }
+    }
 }
