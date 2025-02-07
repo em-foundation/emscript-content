@@ -1,6 +1,7 @@
 .history/
 **/.junk/
 node_modules/
+/tools/
 .vscode/
 workspace/.emscript
 workspace/emscript-local.ini
