@@ -1,0 +1,52 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "paths": {
+            "@$$emscript": [
+                "./workspace/em.core/em.lang/emscript"
+            ],
+            "@bob.gist/*": [
+                "./workspace/bob.pkg/bob.gist/*"
+            ],
+            "@bob.scratch/*": [
+                "./workspace/bob.pkg/bob.scratch/*"
+            ],
+            "@bob.test/*": [
+                "./workspace/bob.pkg/bob.test/*"
+            ],
+            "@em.arch.arm/*": [
+                "./workspace/em.core/em.arch.arm/*"
+            ],
+            "@em.bench.coremark/*": [
+                "./workspace/em.core/em.bench.coremark/*"
+            ],
+            "@em.examples.basic/*": [
+                "./workspace/em.core/em.examples.basic/*"
+            ],
+            "@em.examples.combo/*": [
+                "./workspace/em.core/em.examples.combo/*"
+            ],
+            "@em.hal/*": [
+                "./workspace/em.core/em.hal/*"
+            ],
+            "@em.lang/*": [
+                "./workspace/em.core/em.lang/*"
+            ],
+            "@em.mcu/*": [
+                "./workspace/em.core/em.mcu/*"
+            ],
+            "@em.utils/*": [
+                "./workspace/em.core/em.utils/*"
+            ],
+            "@ti.distro.cc23xx/*": [
+                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
+            ],
+            "@ti.mcu.cc23xx/*": [
+                "./workspace/ti.cc23xx/ti.mcu.cc23xx/*"
+            ],
+            "@$distro/*": [
+                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
+            ]
+        }
+    }
+}
