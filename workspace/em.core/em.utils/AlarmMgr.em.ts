@@ -36,8 +36,8 @@ var cur_alarm = <Obj>$null
 
 function dispatch(delta: Secs24p8) {
     WakeupTimer.$$.disable()
-    let nxt_alarm = <Obj>$null
     let max_dt_secs = ~(<Secs24p8>0)
+    let nxt_alarm = <Obj>$null
     for (let i = 0; i < AlarmFac.$len; i++) {
         let a = $ref(AlarmFac[i])
         if (a.$$._dt_secs == 0) continue // inactive
@@ -48,6 +48,7 @@ function dispatch(delta: Secs24p8) {
             a.$$._dt_secs -= delta
         }
         if (a.$$._dt_secs == 0) {
+            a.$$._thresh = 0
             a.$$._fiber.$$.post() // ring the alarm
             continue // becomes inactive
         }
@@ -71,7 +72,10 @@ function wakeupHandler() {
 }
 
 function Alarm__cancel(self: Obj) {
-    self.$$._thresh = self.$$._dt_secs = 0
+    self.$$._dt_secs = 0
+    if (cur_alarm && cur_alarm == self) {
+        cur_alarm = $null
+    }
     dispatch(0)
 }
 
