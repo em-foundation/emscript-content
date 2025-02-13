@@ -41,12 +41,7 @@ function dispatch(delta: Secs24p8) {
     for (let i = 0; i < AlarmFac.$len; i++) {
         let a = $ref(AlarmFac[i])
         if (a.$$._dt_secs == 0) continue // inactive
-        if (delta > a.$$._dt_secs) {
-            a.$$._dt_secs = 0
-        }
-        else {
-            a.$$._dt_secs -= delta
-        }
+        a.$$._dt_secs -= (delta > a.$$._dt_secs) ? a.$$._dt_secs : delta
         if (a.$$._dt_secs == 0) {
             a.$$._thresh = 0
             a.$$._fiber.$$.post() // ring the alarm
@@ -73,10 +68,6 @@ function wakeupHandler() {
 
 function Alarm__cancel(self: Obj) {
     self.$$._dt_secs = 0
-    if (cur_alarm && cur_alarm == self) {
-        cur_alarm = $null
-    }
-    dispatch(0)
 }
 
 function Alarm__isActive(self: Obj): bool_t {
