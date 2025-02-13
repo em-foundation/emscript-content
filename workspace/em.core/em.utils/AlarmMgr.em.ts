@@ -71,9 +71,8 @@ function wakeupHandler() {
 }
 
 function Alarm__cancel(self: Obj) {
-    self.$$._dt_secs = 0
+    self.$$._thresh = self.$$._dt_secs = 0
     dispatch(0)
-
 }
 
 function Alarm__isActive(self: Obj): bool_t {
