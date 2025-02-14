@@ -5,3 +5,4 @@ node_modules/
 .vscode/
 workspace/.emscript
 workspace/emscript-local.ini
+.DS_Store
