@@ -35,27 +35,24 @@ export namespace em$meta {
 var cur_alarm = <Obj>$null
 
 function dispatch(delta: Secs24p8) {
-    let max_dt_secs = ~(<Secs24p8>0)
+    WakeupTimer.$$.disable()
     let nxt_alarm = <Obj>$null
+    let max_dt_secs = ~(<Secs24p8>0)
     for (let i = 0; i < AlarmFac.$len; i++) {
         let a = $ref(AlarmFac[i])
         if (a.$$._dt_secs == 0) continue // inactive
         a.$$._dt_secs -= (delta > a.$$._dt_secs) ? a.$$._dt_secs : delta
         if (a.$$._dt_secs == 0) {
-            cur_alarm = $null // updated after loop
             a.$$._fiber.$$.post() // ring the alarm
             continue // becomes inactive
         }
-        if (a.$$._dt_secs < max_dt_secs) {
+        if (a.$$._dt_secs <= max_dt_secs) {
             nxt_alarm = a
             max_dt_secs = a.$$._dt_secs
         }
     }
-    if (nxt_alarm != $null) {
-        cur_alarm = nxt_alarm
-        WakeupTimer.$$.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
-    }
-    if (cur_alarm == $null) WakeupTimer.$$.disable()
+    cur_alarm = nxt_alarm
+    if (cur_alarm.$$._thresh) WakeupTimer.$$.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
 }
 
 function setup(alarm: Obj, delta: Secs24p8) {
@@ -69,8 +66,8 @@ function wakeupHandler() {
 }
 
 function Alarm__cancel(self: Obj) {
+    self.$$._thresh = 0
     self.$$._dt_secs = 0
-    dispatch(0)
 }
 
 function Alarm__isActive(self: Obj): bool_t {
