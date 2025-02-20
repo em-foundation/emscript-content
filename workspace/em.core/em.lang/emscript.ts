@@ -612,6 +612,9 @@ namespace em {
         return mod.$clone()
     }
 
+    export function $implements<I extends Object>(iunit: I) {
+    }
+
     export function $using<U extends Object>(unit: U) {
         if ('$U' in unit) (unit['$U'] as Unit).used()
     }
@@ -872,6 +875,7 @@ declare global {
     const $declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
+    const $implements: typeof em.$implements
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
@@ -903,6 +907,7 @@ Object.assign(globalThis, {
     $declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
+    $implements: em.$implements,
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
