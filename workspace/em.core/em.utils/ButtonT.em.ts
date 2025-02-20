@@ -8,7 +8,7 @@ import * as Poller from '@em.mcu/Poller.em'
 
 export namespace em$template {
 
-    export const $U = em.$declare('MODULE')
+    export const $U = em.$declare('MODULE', ButtonI)
 
     export const Edge = $proxy<EdgeI.$I>()
 

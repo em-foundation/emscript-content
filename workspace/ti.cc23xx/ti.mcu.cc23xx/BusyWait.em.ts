@@ -1,5 +1,7 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', BusyWaitI)
+
+import * as BusyWaitI from '@em.hal/BusyWaitI.em'
 
 export const scalar = $config<u8>(3)
 

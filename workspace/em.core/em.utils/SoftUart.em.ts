@@ -1,7 +1,8 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', ConsoleUartI)
 
 import * as Common from '@em.mcu/Common.em'
+import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
 export const baud_rate = $config<u32>(57_600)
