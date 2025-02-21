@@ -895,6 +895,7 @@ declare global {
     type u32 = em.u32
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
+    const $: typeof em.$
     const $array: typeof em.$array
     const $bool: typeof em.$bool
     const $cb: typeof em.$cb
@@ -920,6 +921,8 @@ declare global {
     const $u16: typeof em.$u16
     const $u32: typeof em.$u32
     const $using: typeof em.$using
+    const fail: typeof em.fail
+    const halt: typeof em.halt
     const printf: typeof em.printf
     const c$: typeof em.c$
     const e$: typeof em.e$
@@ -927,6 +930,7 @@ declare global {
 }
 
 Object.assign(globalThis, {
+    $: em.$,
     $array: em.$array,
     $bool: em.$bool,
     $cb: em.$cb,
@@ -952,6 +956,8 @@ Object.assign(globalThis, {
     $u8: em.$u8,
     $u16: em.$u16,
     $u32: em.$u32,
+    fail: em.fail,
+    halt: em.halt,
     printf: em.printf,
     c$: em.c$,
     e$: em.e$,
