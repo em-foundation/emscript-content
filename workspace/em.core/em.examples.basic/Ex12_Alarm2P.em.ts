@@ -26,7 +26,7 @@ export function em$run() {
 }
 
 function blinkFB(a: arg_t) {
-    em.$['%%c']
+    $['%%c']
     counter += 1
     let msecs = (counter & 0x1) != 0 ? 100 : 5
     AppLed.$$.wink(msecs)

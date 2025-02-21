@@ -23,8 +23,8 @@ export function em$run() {
 }
 
 function blinkFB(a: arg_t) {
-    em.$['%%d']
-    if (--count == 0) em.halt()
+    $['%%d']
+    if (--count == 0) halt()
     AppLed.$$.on()
     Common.BusyWait.$$.wait(250_000)
     AppLed.$$.off()

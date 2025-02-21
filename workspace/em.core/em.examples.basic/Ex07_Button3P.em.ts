@@ -15,7 +15,7 @@ export function em$run() {
 }
 
 function onPressedH() {
-    em.$['%%c']
+    $['%%c']
     if (AppBut.$$.isPressed()) {
         SysLed.$$.on()
         Common.BusyWait.$$.wait(40_000)

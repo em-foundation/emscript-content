@@ -54,7 +54,7 @@ export function em$run() {
 
 function appTickCb() {
     app_count += 1
-    em.$['%%c']
+    $['%%c']
     AppLed.$$.wink(10)
 }
 
@@ -113,11 +113,11 @@ function printTickCb() {
     )
     if (divided_by > 0 && last_sys_count > 0 && last_sys_count == sys_count) {
         printf`No sys ticks detected since last print\n`()
-        em.halt()
+        halt()
     }
     if (divided_by > 0 && last_app_count > 0 && last_app_count == app_count) {
         printf`No app ticks detected since last print\n`()
-        em.halt()
+        halt()
     }
     last_app_count = app_count
     last_sys_count = sys_count
@@ -158,6 +158,6 @@ function stopLedTickers() {
 
 function sysTickCb() {
     sys_count += 1
-    em.$['%%d']
+    $['%%d']
     SysLed.$$.wink(10)
 }

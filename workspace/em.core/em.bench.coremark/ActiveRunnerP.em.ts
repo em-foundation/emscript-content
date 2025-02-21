@@ -19,11 +19,11 @@ export function em$run() {
     Common.BusyWait.$$.wait(250_000)
     AppLed.$$.off()
     Common.UsCounter.$$.start()
-    em.$['%%d+']
+    $['%%d+']
     for (let _ of $range(iterations.$$)) {
         CoreBench.run(0)
     }
-    em.$['%%d-']
+    $['%%d-']
     let usecs = Common.UsCounter.$$.stop()
     AppLed.$$.on()
     Common.BusyWait.$$.wait(250_000)

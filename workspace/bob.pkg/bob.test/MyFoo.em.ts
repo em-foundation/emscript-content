@@ -6,6 +6,6 @@ import * as FooI from '@bob.test/FooI.em'
 export namespace em$meta {}
 
 export function em$run() {
-    em.halt()
+    halt()
 
 }
