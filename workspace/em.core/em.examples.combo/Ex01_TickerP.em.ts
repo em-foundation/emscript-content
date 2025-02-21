@@ -83,10 +83,10 @@ function onButtonPressed() {
 function printStatus() {
     printf`Button effects:\n... short press (>%d ms): cycle through rates (1,2,4,8x)\n... long press (>%d s): stop led tickers\n`(
         min_press_time_ms,
-        max_press_time_ms / TimeTypes.millisecondsPerSecond
+        max_press_time_ms / TimeTypes.milliseconds_per_second
     )
     printf`Current rate %dx\n`(divided_by)
-    printf`... should print every ~%ds\n`(print_period_ms / TimeTypes.millisecondsPerSecond)
+    printf`... should print every ~%ds\n`(print_period_ms / TimeTypes.milliseconds_per_second)
     printf`... app ticks should be %d..%d\n`(expected_app_count, expected_app_count + 1)
     printf`... sys ticks should be %d..%d\n`(expected_sys_count, expected_sys_count + 1)
 }
