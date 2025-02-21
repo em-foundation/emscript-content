@@ -28,8 +28,8 @@ export function em$startup() {
 
 export function GPIO_COMB_isr$$() {
     let mis = $R.GPIO.MIS.$$
-    for (let i = 0; i < handler_info_tab.$len; i++) {
-        let hi = $ref(handler_info_tab[i])
+    for (let i of $range(handler_info_tab.$len)) {
+        let hi = $ref(handler_info_tab[i]) // TODO: use iterator
         if ((mis & hi.$$.mask) && hi.$$.handler != $null) {
             hi.$$.handler()
         }

@@ -30,7 +30,7 @@ export function em$startup() {
 }
 
 function doSleep() {
-    for (let i = 0; i < sleep_enter_tab.$len; i++) {
+    for (let i of $range(sleep_enter_tab.$len)) {
         const cb = sleep_enter_tab[i]
         cb()
     }
@@ -42,7 +42,7 @@ function doSleep() {
     e$`HapiEnterStandby(0)`
     Debug.startup()
     em.$['%%b+']
-    for (let i = 0; i < sleep_leave_tab.$len; i++) {
+    for (let i of $range(sleep_leave_tab.$len)) {
         const cb = sleep_leave_tab[i]
         cb()
     }
@@ -65,8 +65,7 @@ export function setPauseOnly(pause_only: bool_t) {
 export function exec() {
     if (cur_pause_only) {
         doPause()
-    }
-    else {
+    } else {
         doSleep()
     }
 }

@@ -66,8 +66,7 @@ export namespace em$template {
     export function setInternalPulldown(enable: bool_t): void {
         if (enable) {
             $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_PULLCTL_PULL_DOWN
-        }
-        else {
+        } else {
             $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_PULLCTL_PULL_DOWN
         }
     }
@@ -75,8 +74,7 @@ export namespace em$template {
     export function setInternalPullup(enable: bool_t): void {
         if (enable) {
             $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_PULLCTL_PULL_UP
-        }
-        else {
+        } else {
             $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_PULLCTL_PULL_UP
         }
     }
