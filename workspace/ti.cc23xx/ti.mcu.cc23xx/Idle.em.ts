@@ -30,10 +30,11 @@ export function em$startup() {
 }
 
 function doSleep() {
-    for (let i of $range(sleep_enter_tab.$len)) {
-        const cb = sleep_enter_tab[i]
-        cb()
-    }
+    for (let cb of sleep_enter_tab) cb()
+    // for (let i of $range(sleep_enter_tab.$len)) {
+    //     const cb = sleep_enter_tab[i]
+    //     cb()
+    // }
     em.$['%%b:'](2)
     em.$['%%b-']
     Debug.reset()

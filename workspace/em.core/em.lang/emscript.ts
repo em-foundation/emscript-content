@@ -463,11 +463,27 @@ namespace em {
         $add(e: T) { this.elems.push(e) }
         $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
         $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
-
+        [Symbol.iterator](): Iterator<T> {  // TODO combine with ARRAY
+            let idx = 0
+            let items = this.elems
+            return {
+                next(): IteratorResult<T> {
+                    if (idx < items.length) {
+                        let cur = idx
+                        idx += 1
+                        return { value: items[cur], done: false }
+                    }
+                    else {
+                        return { value: undefined as any, done: true }
+                    }
+                }
+            }
+        }
     }
     export function $table<T>(access: TableAccess = 'rw'): table_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
+                if (typeof prop == 'symbol') return targ[prop]
                 const idx = Number(prop)
                 if (!isNaN(idx)) return targ.elems[idx]
                 switch (prop) {
