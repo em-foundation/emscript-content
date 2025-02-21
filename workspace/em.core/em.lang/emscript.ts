@@ -663,6 +663,13 @@ namespace em {
         return val
     }
 
+    export function* $range(stop: number, start: number = 0, step: number = 1): Iterable<number> {
+        if (step > 0) {
+            for (let i = start; i < stop; i += step) yield i;
+        } else {
+            for (let i = start; i > stop; i += step) yield i;
+        }
+    }
 
     export function $sizeof<T>(required?: undefined) { return 0 }
 
@@ -888,6 +895,7 @@ declare global {
     const $config: typeof em.$config
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
+    const $range: typeof em.$range
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
     const $struct: typeof em.$struct
@@ -919,6 +927,7 @@ Object.assign(globalThis, {
     $config: em.$config,
     $property: em.$property,
     $proxy: em.$proxy,
+    $range: em.$range,
     $ref: em.$ref,
     $sizeof: em.$sizeof,
     $struct: em.$struct,
