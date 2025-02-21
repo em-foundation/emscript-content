@@ -7,7 +7,7 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-let blinkF = $config<FiberMgr.Obj>()
+const blinkF = $config<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
@@ -15,7 +15,7 @@ export namespace em$meta {
     }
 }
 
-let count = <u8>5
+var count = <u8>5
 
 export function em$run() {
     blinkF.$$.$$.post()

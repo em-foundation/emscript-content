@@ -8,6 +8,7 @@ import * as OneShotI from '@em.hal/OneShotI.em'
 export type Handler = OneShotI.Handler
 
 export namespace em$meta {
+
     export function em$construct() {
         IntrVec.em$meta.useIntr('LGPT3_COMB')
     }
