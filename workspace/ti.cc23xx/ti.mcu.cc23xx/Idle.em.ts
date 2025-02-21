@@ -31,10 +31,6 @@ export function em$startup() {
 
 function doSleep() {
     for (let cb of sleep_enter_tab) cb()
-    // for (let i of $range(sleep_enter_tab.$len)) {
-    //     const cb = sleep_enter_tab[i]
-    //     cb()
-    // }
     em.$['%%b:'](2)
     em.$['%%b-']
     Debug.reset()
@@ -43,10 +39,7 @@ function doSleep() {
     e$`HapiEnterStandby(0)`
     Debug.startup()
     em.$['%%b+']
-    for (let i of $range(sleep_leave_tab.$len)) {
-        const cb = sleep_leave_tab[i]
-        cb()
-    }
+    for (let cb of sleep_leave_tab) cb()
     IntrVec.PRIMASK_set(0)
 }
 
