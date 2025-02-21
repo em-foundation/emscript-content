@@ -1,7 +1,8 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', McuI)
 
 import * as Debug from '@em.lang/Debug.em'
+import * as McuI from '@em.hal/McuI.em'
 
 const use_sram = $config<bool_t>()
 

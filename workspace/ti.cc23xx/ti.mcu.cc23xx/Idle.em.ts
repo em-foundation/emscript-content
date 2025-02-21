@@ -1,7 +1,8 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', IdleI)
 
 import * as Debug from '@em.lang/Debug.em'
+import * as IdleI from '@em.hal/IdleI.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
 export type SleepCB = cb_t<[]>

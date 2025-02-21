@@ -600,7 +600,11 @@ namespace em {
     const __UNIT__ = null
     // #region
 
-    export function $declare(kind: UnitKind, path?: string): Unit {
+    export function $declare(kind: UnitKind, inherits?: { $U: Unit }): Unit {
+        return undefined as unknown as Unit
+    }
+
+    export function __$declare(path: string, kind: UnitKind): Unit {
         if (path === undefined) return new Unit('$$anon', kind)
         const uid = `${Path.basename(Path.dirname(path!))}/${Path.basename(path!, '.em.ts')}`
         const unit = new Unit(uid, kind)
@@ -608,8 +612,12 @@ namespace em {
         return unit
     }
 
+
     export function $clone<M extends { $clone(): any }>(mod: M): ReturnType<M['$clone']> {
         return mod.$clone()
+    }
+
+    export function $implements<I extends {$U: Unit}>(iunit: I) {
     }
 
     export function $using<U extends Object>(unit: U) {
@@ -869,9 +877,9 @@ declare global {
     const $cb: typeof em.$cb
     const $cb$null: typeof em.$cb$null
     const $clone: typeof em.$clone
-    const $declare: typeof em.$declare
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
+    const $implements: typeof em.$implements
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
@@ -900,9 +908,9 @@ Object.assign(globalThis, {
     $cb: em.$cb,
     $cb$null: em.$cb$null,
     $clone: em.$clone,
-    $declare: em.$declare,
     $delegate: em.$delegate,
     $factory: em.$factory,
+    $implements: em.$implements,
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
