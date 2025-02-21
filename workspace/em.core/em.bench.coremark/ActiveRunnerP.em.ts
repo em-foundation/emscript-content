@@ -20,7 +20,7 @@ export function em$run() {
     AppLed.$$.off()
     Common.UsCounter.$$.start()
     em.$['%%d+']
-    for (let i = 0; i < ITERATIONS.$$; i++) {
+    for (let _ of $range(ITERATIONS.$$)) {
         CoreBench.run(0)
     }
     em.$['%%d-']

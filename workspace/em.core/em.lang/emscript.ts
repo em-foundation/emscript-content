@@ -463,11 +463,27 @@ namespace em {
         $add(e: T) { this.elems.push(e) }
         $frame(beg: i16, len: u16 = 0) { return frame$create<T>(this.elems, 0, beg, len) }
         $ptr(): ptr_t<T> { return new em$ptr<T>(this.elems) }
-
+        [Symbol.iterator](): Iterator<T> {  // TODO combine with ARRAY
+            let idx = 0
+            let items = this.elems
+            return {
+                next(): IteratorResult<T> {
+                    if (idx < items.length) {
+                        let cur = idx
+                        idx += 1
+                        return { value: items[cur], done: false }
+                    }
+                    else {
+                        return { value: undefined as any, done: true }
+                    }
+                }
+            }
+        }
     }
     export function $table<T>(access: TableAccess = 'rw'): table_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
+                if (typeof prop == 'symbol') return targ[prop]
                 const idx = Number(prop)
                 if (!isNaN(idx)) return targ.elems[idx]
                 switch (prop) {
@@ -663,6 +679,13 @@ namespace em {
         return val
     }
 
+    export function* $range(stop: number, start: number = 0, step: number = 1): Iterable<number> {
+        if (step > 0) {
+            for (let i = start; i < stop; i += step) yield i;
+        } else {
+            for (let i = start; i > stop; i += step) yield i;
+        }
+    }
 
     export function $sizeof<T>(required?: undefined) { return 0 }
 
@@ -888,6 +911,7 @@ declare global {
     const $config: typeof em.$config
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
+    const $range: typeof em.$range
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
     const $struct: typeof em.$struct
@@ -919,6 +943,7 @@ Object.assign(globalThis, {
     $config: em.$config,
     $property: em.$property,
     $proxy: em.$proxy,
+    $range: em.$range,
     $ref: em.$ref,
     $sizeof: em.$sizeof,
     $struct: em.$struct,

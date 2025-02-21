@@ -26,7 +26,7 @@ export function em$startup() {
     BusyWait.wait(50)
     // shutdown command
     CS.$$.clear()
-    for (let i = 0; i < 8; i++) {
+    for (let i of $range(8)) {
         CLK.$$.clear()
         const bv = (SD_CMD >> (7 - i)) & 0x01
         if (bv == 0) {

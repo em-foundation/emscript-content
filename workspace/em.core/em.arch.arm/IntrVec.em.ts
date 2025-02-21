@@ -102,7 +102,7 @@ export function DEFAULT_isr$$() {
     em.$['%%>'](vnum)
     let fp = <ptr_t<u32>>(e$`__get_MSP()`)
     em.$['%%>'](fp.$cur())
-    for (let i = 0; i < 8; i++) {
+    for (let _ of $range(8)) {
         em.$['%%b']
         em.$['%%>'](fp.$$)
         fp.$inc()

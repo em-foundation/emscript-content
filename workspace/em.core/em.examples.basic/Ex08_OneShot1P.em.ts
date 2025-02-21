@@ -11,7 +11,7 @@ var active_flag = false
 
 export function em$run() {
     Common.GlobalInterrupts.$$.enable()
-    for (let i = 0; i < 5; i++) {
+    for (let _ of $range(5)) {
         em.$['%%d']
         AppLed.$$.on()
         Common.BusyWait.$$.wait(5_000)
