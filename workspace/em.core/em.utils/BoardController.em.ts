@@ -21,7 +21,7 @@ export function em$ready(): void {
     Common.ConsoleUart.$$.flush()
     Common.ConsoleUart.$$.put(0x00)
     Common.ConsoleUart.$$.put(0x00)
-    for (let i = 0; i < SOT_COUNT; i++) {
+    for (let i of $range(SOT_COUNT)) {
         Common.ConsoleUart.$$.put(SOT_BYTE)
     }
     Common.ConsoleUart.$$.flush()
@@ -40,7 +40,7 @@ export function em$halt(): void {
 }
 
 function blink(times: u8, usecs: u32): void {
-    for (let i = 0; i < times * 2; i++) {
+    for (let _ of $range(times * 2)) {
         Led.$$.toggle()
         Common.BusyWait.$$.wait(usecs)
     }

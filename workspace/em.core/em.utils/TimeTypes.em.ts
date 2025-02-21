@@ -36,11 +36,11 @@ export function Secs24p8_ZERO(): Secs24p8 {
 }
 
 export function RawTimeToTimeParts(rawTime: RawTime): TimeParts {
-    let timeParts = TimeParts.$make()
-    timeParts.days = rawTime.secs / secondsPerDay
-    timeParts.hours = (rawTime.secs % secondsPerDay) / secondsPerHour
-    timeParts.minutes = (rawTime.secs % secondsPerHour) / secondsPerMinute
-    timeParts.seconds = rawTime.secs % secondsPerMinute
-    timeParts.milliseconds = RawSubsToMsecs(rawTime.subs)
-    return timeParts
+    let time_parts = TimeParts.$make()
+    time_parts.days = rawTime.secs / secondsPerDay
+    time_parts.hours = (rawTime.secs % secondsPerDay) / secondsPerHour
+    time_parts.minutes = (rawTime.secs % secondsPerHour) / secondsPerMinute
+    time_parts.seconds = rawTime.secs % secondsPerMinute
+    time_parts.milliseconds = RawSubsToMsecs(rawTime.subs)
+    return time_parts
 }

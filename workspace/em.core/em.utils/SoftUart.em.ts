@@ -29,7 +29,7 @@ export function put(data: u8): void {
     const bit_cnt = 10
     var tx_byte: u16 = (data << 1) | 0x600
     const key = Common.GlobalInterrupts.$$.disable()
-    for (let i = 0; i < bit_cnt; i++) {
+    for (let _ of $range(bit_cnt)) {
         Common.UsCounter.$$.set(bit_time.$$)
         if (tx_byte & 0x1) {
             TxPin.$$.set()

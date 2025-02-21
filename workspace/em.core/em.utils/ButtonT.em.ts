@@ -60,8 +60,7 @@ export namespace em$template {
         cur_min = min_dur_ms
         if (handler == $null) {
             Edge.$$.disableDetect()
-        }
-        else {
+        } else {
             Edge.$$.enableDetect()
         }
     }
