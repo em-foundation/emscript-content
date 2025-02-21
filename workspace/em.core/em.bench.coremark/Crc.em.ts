@@ -27,15 +27,13 @@ function update(data: u8, crc: sum_t): sum_t {
         if (x16 == 1) {
             crc ^= 0x4002
             carry = 1
-        }
-        else {
+        } else {
             carry = 0
         }
         crc >>= 1
         if (carry) {
             crc |= 0x8000
-        }
-        else {
+        } else {
             crc &= 0x7fff
         }
     }

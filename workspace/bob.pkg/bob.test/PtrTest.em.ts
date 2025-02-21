@@ -22,34 +22,34 @@ export function em$run() {
         buf[i] = i + 10
     }
     let ptr = buf.$ptr()
-    // em.$['%%a']
+    // $['%%a']
     // Console.wrU32(ptr.$cur())
     // ptr.$inc()
-    // em.$['%%a']
+    // $['%%a']
     // Console.wrU32(ptr.$cur())
 
     for (let i = 0; i < buf.$len; i++) {
-        em.$['%%a']
+        $['%%a']
         Console.wrU8(ptr.$$)
         ptr.$inc()
     }
 
     // let a = <u32>0
     // 'a = (em::u32)&buf[0]'
-    // em.$['%%a']
+    // $['%%a']
     // Console.wrU32(a)
     // let ptr = buf.$ptr()
-    // em.$['%%a']
+    // $['%%a']
     // Console.wrU32(ptr.$cur())
 
 
     // for (let i = 0; i < buf.$len; i++) {
     //     buf[i] = i + 10
     // }
-    // em.$['%%a']
+    // $['%%a']
     // for (let b of buf) Console.putb(b.$$)
     // for (let b of buf) b.$$ *= 2
-    // em.$['%%a']
+    // $['%%a']
     // for (let b of buf) Console.putb(b.$$)
     // let ptr = buf.$ptr()
     // Console.wrU32(ptr.$cur())

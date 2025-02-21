@@ -12,7 +12,7 @@ export const POCI = $proxy<GpioI.$I>()
 const SD_CMD = <u8>0xB9
 
 export function em$startup() {
-    em.$['%%c+']
+    $['%%c+']
     CS.$$.makeOutput()
     CLK.$$.makeOutput()
     PICO.$$.makeOutput()
@@ -45,5 +45,5 @@ export function em$startup() {
     CLK.$$.reset()
     PICO.$$.reset()
     POCI.$$.reset()
-    em.$['%%c-']
+    $['%%c-']
 }

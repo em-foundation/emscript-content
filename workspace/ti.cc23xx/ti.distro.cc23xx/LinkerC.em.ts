@@ -4,7 +4,7 @@ export const $U = em.$declare('COMPOSITE')
 
 export function em$generate() {
     let out = $outfile('linkcmd.ld')
-    const use_sram = $property('em.build.BootFlash', false)
+    let use_sram = $property('em.build.BootFlash', false)
     if (!use_sram) {
         out.addFrag(`
             |-> MEMORY {

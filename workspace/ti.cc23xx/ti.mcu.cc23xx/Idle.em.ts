@@ -24,31 +24,31 @@ export namespace em$meta {
 var cur_pause_only = false
 
 export function em$startup() {
-    em.$['%%b+']
+    $['%%b+']
     $R.PMCTL.VDDRCTL.$$ = $R.PMCTL_VDDRCTL_SELECT
     $R.EVTULL.WKUPMASK.$$ = $R.EVTULL_WKUPMASK_AON_IOC_COMB | $R.EVTULL_WKUPMASK_AON_RTC_COMB
 }
 
 function doSleep() {
     for (let cb of sleep_enter_tab) cb()
-    em.$['%%b:'](2)
-    em.$['%%b-']
+    $['%%b:'](2)
+    $['%%b-']
     Debug.reset()
     $R.CKMD.LDOCTL.$$ = 0
     IntrVec.PRIMASK_set(1)
     e$`HapiEnterStandby(0)`
     Debug.startup()
-    em.$['%%b+']
+    $['%%b+']
     for (let cb of sleep_leave_tab) cb()
     IntrVec.PRIMASK_set(0)
 }
 
 function doPause() {
-    em.$['%%b:'](1)
-    em.$['%%b-']
+    $['%%b:'](1)
+    $['%%b-']
     IntrVec.PRIMASK_set(1)
     e$`asm volatile ("wfi")`
-    em.$['%%b+']
+    $['%%b+']
     IntrVec.PRIMASK_set(0)
 }
 
