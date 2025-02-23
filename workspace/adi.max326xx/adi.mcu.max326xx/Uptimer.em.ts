@@ -7,5 +7,5 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 export namespace em$meta {}
 
 export function read(): TimeTypes.RawTime {
-    return { secs: 0, subs: 0 }
+    return TimeTypes.RawTime_ZERO()
 }
