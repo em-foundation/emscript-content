@@ -16,13 +16,19 @@ export namespace em$template {
         }
     }
 
-    const pn = pin_num.$$
-    const mask = 1 << pn
+    const pid = pin_num.$$ & 0xFF
+    const port = <u8>(pin_num.$$ >> 8)
+    const mask = 1 << pid
+
+    const GPIOn = e$`MXC_GPIO_GET_GPIO(port)`
 
     export function clear(): void {
+        e$`GPIOn->out_clr = mask`
     }
 
     export function functionSelect(select: u8): void {
+        e$`GPIOn->en0_clr = mask`
+        e$`GPIOn->en1_set = mask`
     }
 
     export function get(): bool_t {
@@ -34,32 +40,41 @@ export namespace em$template {
     }
 
     export function isOutput(): bool_t {
-        return false
+        return true
     }
 
     export function makeInput(): void {
+        e$`GPIOn->outen_clr = mask`
+        e$`GPIOn->en0_set = mask`
     }
 
     export function makeOutput(): void {
+        e$`GPIOn->outen_set = mask`
+        e$`GPIOn->en0_set = mask`
     }
 
     export function pinId(): i16 {
-        return pn
+        return pid
     }
 
     export function reset(): void {
+
     }
 
     export function set(): void {
+        e$`GPIOn->out_set = mask`
     }
 
     export function setInternalPulldown(enable: bool_t): void {
+
     }
 
     export function setInternalPullup(enable: bool_t): void {
+
     }
 
     export function toggle(): void {
+        e$`GPIOn->out ^= mask`
     }
 }
 

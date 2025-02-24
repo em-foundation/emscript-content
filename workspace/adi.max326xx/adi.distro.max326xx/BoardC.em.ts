@@ -31,6 +31,7 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     AppLed.Pin.$$ = AppLedPin
+    AppLed.active_low.$$ = true
     AppLedPin.pin_num.$$ = 0x013 // P0.19
     AppOutPin.pin_num.$$ = 0x207 // P2.7
     BoardController.Led.$$ = SysLed
@@ -41,6 +42,7 @@ export function em$configure(): void {
     Common.Mcu.$$ = Mcu
     Common.Uptimer.$$ = Uptimer
     Common.UsCounter.$$ = UsCounter
+    ConsoleUart.TxPin.$$ = AppOutPin
     DbgA.pin_num.$$ = 0x106 // P1.6
     DbgB.pin_num.$$ = 0x107 // P1.7
     DbgC.pin_num.$$ = 0x108 // P1.8
@@ -51,5 +53,6 @@ export function em$configure(): void {
     Debug.DbgD.$$ = DbgD
     Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
+    SysLed.active_low.$$ = true
     SysLedPin.pin_num.$$ = 0x012 // P0.18
 }

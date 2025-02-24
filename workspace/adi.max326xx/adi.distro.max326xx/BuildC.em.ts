@@ -105,7 +105,7 @@ export function em$generate() {
     out.close()
     //
     out = $outfile('load.sh', 0o755)
-    out.addText(`cp .out/main.out /d\n`)
+    out.addText(`cp -f .out/main.out.hex /d\n`)
     out.close()
 }
 
