@@ -13,11 +13,19 @@ export function em$startup(): void {
 }
 
 export function off(): void {
-    if (active_low.$$) { Pin.$$.set() } else { Pin.$$.clear() }
+    if (active_low.$$) {
+        Pin.$$.set()
+    } else {
+        Pin.$$.clear()
+    }
 }
 
 export function on(): void {
-    if (active_low.$$) { Pin.$$.clear() } else { Pin.$$.set() }
+    if (active_low.$$) {
+        Pin.$$.clear()
+    } else {
+        Pin.$$.set()
+    }
 }
 
 export function toggle(): void {

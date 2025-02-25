@@ -5,7 +5,6 @@ import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export namespace em$meta {
-
     export function em$construct() {
         IntrVec.em$meta.useIntr('CPUIRQ0')
     }

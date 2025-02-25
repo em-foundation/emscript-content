@@ -30,5 +30,4 @@ function blinkFB(a: arg_t) {
     AppLed.$$.off()
     Common.BusyWait.$$.wait(250_000)
     blinkF.$$.$$.post()
-
 }

@@ -42,7 +42,6 @@ export function em$run() {
     // $['%%a']
     // Console.wrU32(ptr.$cur())
 
-
     // for (let i = 0; i < buf.$len; i++) {
     //     buf[i] = i + 10
     // }
@@ -66,5 +65,4 @@ export function em$run() {
     // Console.wrU8(buf[0])
     // em.$reg32[0xAA] = ptr.$$
     // ptr.$inc()
-
 }

@@ -8,5 +8,5 @@ export namespace em$meta {
 }
 
 export function em$run() {
-    em.$reg32[0xAA] = c
+    em.$reg32[0xaa] = c
 }
