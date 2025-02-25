@@ -24,6 +24,14 @@ const app_ticker = $config<TickerMgr.Obj>()
 const sys_ticker = $config<TickerMgr.Obj>()
 const print_ticker = $config<TickerMgr.Obj>()
 
+export namespace em$meta {
+    export function em$construct() {
+        app_ticker.$$ = TickerMgr.em$meta.create()
+        sys_ticker.$$ = TickerMgr.em$meta.create()
+        print_ticker.$$ = TickerMgr.em$meta.create()
+    }
+}
+
 // initial state vector
 let divided_by = 1
 let sys_count = 0
@@ -36,14 +44,6 @@ let prints_after_rate_change = 0
 
 let expected_app_count: u32
 let expected_sys_count: u32
-
-export namespace em$meta {
-    export function em$construct() {
-        app_ticker.$$ = TickerMgr.em$meta.create()
-        sys_ticker.$$ = TickerMgr.em$meta.create()
-        print_ticker.$$ = TickerMgr.em$meta.create()
-    }
-}
 
 export function em$run() {
     printf`\nEx01_TickerP program startup\n\n`()
