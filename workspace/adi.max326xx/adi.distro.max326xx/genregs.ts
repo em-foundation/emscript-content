@@ -48,7 +48,7 @@ function readXmlFile(xfile: string): any {
 // ---- main ---- //
 
 meta.addText(`import em from '@$$emscript'\n`)
-meta.addText(`export const em$_U = em.$declare('COMPOSITE')\n`)
+meta.addText(`export const $U = em.$declare('COMPOSITE')\n`)
 meta.addText(`
 export function em$generate() {
     let out = $outfile('adi.distro.max326xx/REGS.hpp')

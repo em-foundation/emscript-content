@@ -108,11 +108,3 @@ export function em$generate() {
     out.addText(`cp -f .out/main.out.hex /d\n`)
     out.close()
 }
-
-declare global {
-    // const $R: typeof REGS
-}
-
-Object.assign(globalThis, {
-    // $R: REGS
-})
