@@ -23,7 +23,7 @@ type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
 const maxElems = $config<u16>(0)
 
 let curHead_c = $config<ref_t<Elem>>()
-var curHead: ref_t<Elem>
+let curHead: ref_t<Elem>
 
 export namespace em$meta {
     export function em$construct() {
@@ -265,7 +265,7 @@ function valCalc(pval: ref_t<i16>): i16 {
     let flag = val & 0x7
     let vtype = (val >> 3) & 0xf
     vtype |= vtype << 4
-    var ret: u16
+    let ret: u16
     switch (flag) {
         case 0:
             ret = Bench0.run(<i16>vtype)

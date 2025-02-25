@@ -11,9 +11,9 @@ type matres_t = i32
 
 const dimN = $config<u8>(0)
 
-var matA = $table<matdat_t>('rw')
-var matB = $table<matdat_t>('rw')
-var matC = $table<matres_t>('rw')
+let matA = $table<matdat_t>('rw')
+let matB = $table<matdat_t>('rw')
+let matC = $table<matres_t>('rw')
 
 export namespace em$meta {
     export function em$construct() {

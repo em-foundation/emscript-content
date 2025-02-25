@@ -41,7 +41,6 @@ export default [...compat.extends(
         "@typescript-eslint/no-namespace": "off",
         "no-empty": "off",
         "no-irregular-whitespace": "off",
-        "no-var": "off",
         "prefer-const": "off",
         "prettier/prettier": "error",
     },

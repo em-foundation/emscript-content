@@ -13,8 +13,8 @@ export namespace em$meta {
     }
 }
 
-var cur_arg: arg_t
-var cur_fxn: Handler = $null
+let cur_arg: arg_t
+let cur_fxn: Handler = $null
 
 export function disable() {
     cur_fxn = $null

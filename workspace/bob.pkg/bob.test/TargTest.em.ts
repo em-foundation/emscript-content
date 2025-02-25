@@ -6,7 +6,7 @@ import Mod from '@bob.test/Mod.em'
 namespace em$targ {
     // export type MyInt = u32
     // export const MAX: MyInt = (123 + 456)
-    var x: typeof Mod.MyInt
+    let x: typeof Mod.MyInt
 
     function fxn(x: typeof Mod.MyInt = 20) {
         if (x < Mod.MAX) {

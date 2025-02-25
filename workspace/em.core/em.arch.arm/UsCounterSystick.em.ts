@@ -7,7 +7,7 @@ export const MHZ = $config<u16>(48)
 
 const MAX = <u32>0x00ff_ffff
 
-var cur_thresh = <u32>0
+let cur_thresh = <u32>0
 
 export function set(time_us: u32) {
     cur_thresh = MAX - time_us * MHZ.$$

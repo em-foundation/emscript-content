@@ -31,7 +31,7 @@ export namespace em$meta {
     }
 }
 
-var cur_alarm = <Obj>$null
+let cur_alarm = <Obj>$null
 
 function dispatch(delta: Secs24p8) {
     WakeupTimer.$$.disable()

@@ -20,7 +20,7 @@ export namespace em$meta {
     }
 }
 
-var cur_pause_only = false
+let cur_pause_only = false
 
 export function em$startup() {
     $['%%b+']

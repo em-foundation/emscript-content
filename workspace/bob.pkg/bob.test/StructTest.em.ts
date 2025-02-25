@@ -11,7 +11,7 @@ import * as Types from '@bob.test/Types.em'
 let pair_tab = $table<Types.Pair>('rw')
 
 export namespace em$meta {
-    var p = Types.Pair.$make()
+    let p = Types.Pair.$make()
     pair_tab.$add(p)
 
     // interface factory_t<T> {

@@ -14,7 +14,7 @@ export type Handler = cb_t<[]>
 
 const RES_BITS = <u8>20
 
-var cur_hlr = <Handler>$null
+let cur_hlr = <Handler>$null
 
 export function em$startup() {
     $R.CKMD.LFINCOVR.$$ = 0x8000_0000 + (1 << RES_BITS)

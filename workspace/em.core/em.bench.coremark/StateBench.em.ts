@@ -31,7 +31,7 @@ const errPatLen = $config<u16>(0)
 
 const StateCnt = $array($u32(), NUM_STATES)
 
-var membuf = $table<u8>('rw')
+let membuf = $table<u8>('rw')
 
 export namespace em$meta {
     export function em$init() {
