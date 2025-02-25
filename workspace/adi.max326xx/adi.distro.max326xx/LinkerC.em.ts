@@ -59,9 +59,9 @@ export function em$generate() {
     } else { // use_sram
         out.addFrag(`
             |-> MEMORY {
-            |->     DMEM : ORIGIN = 0x20005000, LENGTH = 0x00004000
-            |->     IMEM : ORIGIN = 0x20000000, LENGTH = 0x00005000
-            |->     LMEM : ORIGIN = 0x00000000, LENGTH = 0x00080000
+            |->     DMEM : ORIGIN = 0x20008000, LENGTH = 0x00008000
+            |->     IMEM : ORIGIN = 0x2001C000, LENGTH = 0x00004000
+            |->     LMEM : ORIGIN = 0x10000000, LENGTH = 0x00080000
             |-> }
             |-> 
             |-> SECTIONS {

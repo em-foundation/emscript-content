@@ -55,4 +55,5 @@ export function em$configure(): void {
     SysLed.Pin.$$ = SysLedPin
     SysLed.active_low.$$ = true
     SysLedPin.pin_num.$$ = 0x012 // P0.18
+    UsCounter.MHZ.$$ = 60
 }
