@@ -5,30 +5,23 @@ export const Args = $array($u32(), 2)
 export const NumBuf = $array($u8(), 10)
 
 export namespace em$meta {
+
     let num_buf = NumBuf.$make()
-    let OUT = new Array<number>()
+    let OUT = new Array<number>
 
     function addOut(buf: em.ArrayLike<u8>) {
         for (let i = 0; i < buf.$len; i++) OUT.push(buf[i])
     }
 
-    function c2d(ch: u8): u8 {
-        return ch - c$`0`
-    }
+    function c2d(ch: u8): u8 { return ch - c$`0` }
 
-    function formatNum(
-        buf: frame_t<u8>,
-        num: u32,
-        base: u8,
-        width: i8,
-        pad: u8
-    ): frame_t<u8> {
+    function formatNum(buf: frame_t<u8>, num: u32, base: u8, width: i8, pad: u8): frame_t<u8> {
         let HEXDIGS = t$`0123456789ABCDEF`
         let idx = buf.$len
-        for (;;) {
+        for (; ;) {
             width -= 1
             idx -= 1
-            buf[idx] = HEXDIGS[num % base]
+            buf[idx] = HEXDIGS[(num % base)]
             num = Math.floor(num / base)
             if (num == 0) break
         }
@@ -76,19 +69,23 @@ export namespace em$meta {
                 }
                 let nb = formatNum(num_buf, <u32>dn, 10, width, pad)
                 addOut(nb)
-            } else if (ch == c$`x`) {
+            }
+            else if (ch == c$`x`) {
                 let xn = <u32>argp.$$
                 argp.$inc()
                 let nb = formatNum(num_buf, xn, 16, width, pad)
                 addOut(nb)
-            } else if (ch == c$`c`) {
+            }
+            else if (ch == c$`c`) {
                 let cn = argp.$$
                 OUT.push(cn)
-            } else if (ch == c$`s`) {
-                let sb = <text_t>(<unknown>argp.$$)
+            }
+            else if (ch == c$`s`) {
+                let sb = <text_t><unknown>argp.$$
                 argp.$inc()
                 addOut(sb)
-            } else {
+            }
+            else {
                 OUT.push(ch)
             }
         }

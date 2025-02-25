@@ -2,6 +2,7 @@ import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
 export namespace em$meta {
+
     type MyInt = i16
 
     class Pair extends $struct {

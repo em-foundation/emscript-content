@@ -4,14 +4,16 @@ export const $U = em.$declare('MODULE')
 import Mod from '@bob.test/Mod.em'
 
 namespace em$targ {
+
     // export type MyInt = u32
     // export const MAX: MyInt = (123 + 456)
-    let x: typeof Mod.MyInt
+    var x: typeof Mod.MyInt
 
     function fxn(x: typeof Mod.MyInt = 20) {
         if (x < Mod.MAX) {
             x += 10
-        } else if (x > Mod.MAX) {
+        }
+        else if (x > Mod.MAX) {
             x -= 20
         }
     }

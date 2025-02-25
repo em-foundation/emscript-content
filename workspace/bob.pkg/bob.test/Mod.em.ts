@@ -8,7 +8,7 @@ namespace em$meta {}
 namespace em$targ {
     type MyInt_t = u32
     export let MyInt: MyInt_t
-    export const MAX: MyInt_t = 123 + 456
+    export const MAX: MyInt_t = (123 + 456)
 }
 
 export default {

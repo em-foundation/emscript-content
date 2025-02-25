@@ -9,4 +9,5 @@ export namespace em$meta {
     }
 }
 
-export function em$run() {}
+export function em$run() {
+}

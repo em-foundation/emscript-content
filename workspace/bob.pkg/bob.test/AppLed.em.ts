@@ -6,11 +6,12 @@ import * as LedI from '@em.hal/LedI.em'
 import Poller from '@em.mcu/Poller.em'
 
 namespace em$template {
+
     export const $U = em.$declare('MODULE')
 
     const em$_C = {
         Pin: $proxy<GpioI.$I>(),
-        active_low: $config<bool_t>(false),
+        active_low: $config<bool_t>(false)
     }
 
     namespace em$meta {
@@ -29,19 +30,11 @@ namespace em$template {
         }
 
         export function off(): void {
-            if (active_low) {
-                Pin.set()
-            } else {
-                Pin.clear()
-            }
+            if (active_low) { Pin.set() } else { Pin.clear() }
         }
 
         export function on(): void {
-            if (active_low) {
-                Pin.clear()
-            } else {
-                Pin.set()
-            }
+            if (active_low) { Pin.clear() } else { Pin.set() }
         }
 
         export function toggle(): void {
