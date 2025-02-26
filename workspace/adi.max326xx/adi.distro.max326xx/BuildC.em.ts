@@ -2,34 +2,16 @@ import em from '@$$emscript'
 export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
-import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+import * as BoardC from '@adi.distro.max326xx/BoardC.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
-import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
-import * as REGS from '@ti.distro.cc23xx/REGS.em'
-import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
+import * as LinkerC from '@adi.distro.max326xx/LinkerC.em'
+import * as REGS from '@adi.distro.max326xx/REGS.em'
+import * as StartupC from '@adi.distro.max326xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
 
-const NVIC_INTRS = [
-    'CPUIRQ0',
-    'CPUIRQ1',
-    'CPUIRQ2',
-    'CPUIRQ3',
-    'CPUIRQ4',
-    'GPIO_COMB',
-    'LRFD_IRQ0',
-    'LRFD_IRQ1',
-    'DMA_DONE_COMB',
-    'AES_COMB',
-    'SPI0_COMB',
-    'UART0_COMB',
-    'I2C0_IRQ',
-    'LGPT0_COMB',
-    'LGPT1_COMB',
-    'ADC0_COMB',
-    'CPUIRQ16',
-    'LGPT2_COMB',
-    'LGPT3_COMB',
-]
+// const NVIC_INTRS = [
+// 
+// ]
 
 export function em$configure() {
     $using(ArmStartupC)
@@ -39,7 +21,7 @@ export function em$configure() {
     $using(REGS)
     $using(StartupC)
     $using(TargC)
-    for (let name of NVIC_INTRS) IntrVec.em$meta.addIntr(name)
+    // for (let name of NVIC_INTRS) IntrVec.em$meta.addIntr(name)
 }
 
 export function em$generate() {
@@ -69,12 +51,13 @@ export function em$generate() {
         |->     -D__EM_BOOT__=0 \\
         |->     -D__EM_BOOT_FLASH__=0 \\
         |->     -D__EM_COMPILER_segger__ \\
-        |->     -D__EM_CPU_cortex_m0plus__ \\
+        |->     -D__EM_CPU_cortex_m4__ \\
         |->     -D__EM_MCU_null__ \\
         |->     -D__EM_LANG__=1 \\
+        |->     -D__GNUC__ \\
         |->     --std=c++14 \\
         |->     -triple thumbv6m-none-eabi \\
-        |->     -target-cpu cortex-m0plus \\
+        |->     -target-cpu cortex-m4 \\
         |->     -ffunction-sections \\
         |->     -fdata-sections \\
         |->     -fno-threadsafe-statics \\
@@ -121,15 +104,7 @@ export function em$generate() {
     `)
     out.close()
     //
-    const dslite =
-        process.platform === 'win32'
-            ? 'dslite.bat'
-            : process.platform === 'linux'
-                ? 'dslite-Cortex_M0P.sh'
-                : 'dslite.sh'
     out = $outfile('load.sh', 0o755)
-    out.addText(
-        `${tools}/ti-uniflash/${dslite} -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n`
-    )
+    out.addText(`cp -f .out/main.out.hex /d\n`)
     out.close()
 }

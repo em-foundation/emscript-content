@@ -1,6 +1,8 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
+import * as $R from '@ti.distro.cc23xx/REGS.em'
+
 import * as EdgeI from '@em.hal/EdgeI.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -28,7 +30,7 @@ export function em$startup() {
 export function GPIO_COMB_isr$$() {
     let mis = $R.GPIO.MIS.$$
     for (let hi of handler_info_tab) {
-        if (mis & hi.mask && hi.handler != $null) {
+        if ((mis & hi.mask) && hi.handler != $null) {
             hi.handler()
         }
     }

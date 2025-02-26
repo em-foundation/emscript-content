@@ -25,6 +25,7 @@ const sys_ticker = $config<TickerMgr.Obj>()
 const print_ticker = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
+
     export function em$construct() {
         app_ticker.$$ = TickerMgr.em$meta.create()
         sys_ticker.$$ = TickerMgr.em$meta.create()
@@ -105,10 +106,10 @@ function printStatus() {
 function printTickCb() {
     print_count += 1
     prints_after_rate_change++
-    const this_app_count = app_count - last_app_count
-    const this_sys_count = sys_count - last_sys_count
-    const this_app_error = countError(this_app_count, expected_app_count)
-    const this_sys_error = countError(this_sys_count, expected_sys_count)
+    let this_app_count = app_count - last_app_count
+    let this_sys_count = sys_count - last_sys_count
+    let this_app_error = countError(this_app_count, expected_app_count)
+    let this_sys_error = countError(this_sys_count, expected_sys_count)
     if (prints_after_rate_change > 2 && (this_app_error || this_sys_error)) {
         this_app_error && total_errors++
         this_sys_error && total_errors++
