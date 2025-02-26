@@ -5,6 +5,12 @@
             "@$$emscript": [
                 "./workspace/em.core/em.lang/emscript"
             ],
+            "@adi.distro.max326xx/*": [
+                "./workspace/adi.max326xx/adi.distro.max326xx/*"
+            ],
+            "@adi.mcu.max326xx/*": [
+                "./workspace/adi.max326xx/adi.mcu.max326xx/*"
+            ],
             "@bob.gist/*": [
                 "./workspace/bob.pkg/bob.gist/*"
             ],
@@ -45,7 +51,7 @@
                 "./workspace/ti.cc23xx/ti.mcu.cc23xx/*"
             ],
             "@$distro/*": [
-                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
+                "./workspace/adi.max326xx/adi.distro.max326xx/*"
             ]
         }
     }

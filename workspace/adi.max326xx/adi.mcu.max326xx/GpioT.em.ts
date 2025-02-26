@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $T = em.$declare('TEMPLATE')
 
-import * as $R from '@ti.distro.cc23xx/REGS.em'
+import * as $R from '@adi.distro.max326xx/REGS.em'
 
 import * as GpioI from '@em.hal/GpioI.em'
 
@@ -18,71 +18,63 @@ export namespace em$template {
         }
     }
 
-    const pn = pin_num.$$
-    const mask = 1 << pn
+    const pid = pin_num.$$ & 0xFF
+    const pn = <u8>(pin_num.$$ >> 8)
+    const mask = 1 << pid
 
     export function clear(): void {
-        $R.GPIO.DOUTCLR31_0.$$ = mask
+        $R.GPIO[pn].OUT_CLR.$$ = mask
     }
 
     export function functionSelect(select: u8): void {
-        $R.IOC.IOC0.$[pn].$$ = select
+        $R.GPIO[pn].EN0_CLR.$$ = mask
+        $R.GPIO[pn].EN1_SET.$$ = mask
     }
 
     export function get(): bool_t {
-        return isInput() ? (($R.GPIO.DIN31_0.$$ & mask) != 0) : (($R.GPIO.DOUT31_0.$$ & mask) != 0)
+        return false
     }
 
     export function isInput(): bool_t {
-        return ($R.GPIO.DOE31_0.$$ & mask) == 0
+        return false
     }
 
     export function isOutput(): bool_t {
-        return ($R.GPIO.DOE31_0.$$ & mask) != 0
+        return true
     }
 
     export function makeInput(): void {
-        $R.GPIO.DOECLR31_0.$$ = mask
-        $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_INPEN
-
+        $R.GPIO[pn].OUTEN_CLR.$$ = mask
+        $R.GPIO[pn].EN0_SET.$$ = mask
     }
 
     export function makeOutput(): void {
-        $R.GPIO.DOESET31_0.$$ = mask
-        $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_INPEN
+        $R.GPIO[pn].OUTEN_SET.$$ = mask
+        $R.GPIO[pn].EN0_SET.$$ = mask
     }
 
     export function pinId(): i16 {
-        return pn
+        return pid
     }
 
     export function reset(): void {
-        $R.GPIO.DOECLR31_0.$$ = mask
-        $R.IOC.IOC0.$[pn].$$ = 0
+
     }
 
     export function set(): void {
-        $R.GPIO.DOUTSET31_0.$$ = mask
+        $R.GPIO[pn].OUT_SET.$$ = mask
     }
 
     export function setInternalPulldown(enable: bool_t): void {
-        if (enable) {
-            $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_PULLCTL_PULL_DOWN
-        } else {
-            $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_PULLCTL_PULL_DOWN
-        }
+
     }
 
     export function setInternalPullup(enable: bool_t): void {
-        if (enable) {
-            $R.IOC.IOC0.$[pn].$$ |= $R.IOC_IOC0_PULLCTL_PULL_UP
-        } else {
-            $R.IOC.IOC0.$[pn].$$ &= ~$R.IOC_IOC0_PULLCTL_PULL_UP
-        }
+
     }
 
     export function toggle(): void {
-        $R.GPIO.DOUTTGL31_0.$$ = mask
+        $R.GPIO[pn].OUT.$$ ^= mask
     }
 }
 
