@@ -51,7 +51,7 @@
                 "./workspace/ti.cc23xx/ti.mcu.cc23xx/*"
             ],
             "@$distro/*": [
-                "./workspace/adi.max326xx/adi.distro.max326xx/*"
+                "./workspace/ti.cc23xx/ti.distro.cc23xx/*"
             ]
         }
     }
