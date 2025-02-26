@@ -14,7 +14,6 @@ export class HandlerInfo extends $struct {
 const handler_info_tab = $table<HandlerInfo>('ro')
 
 export namespace em$meta {
-
     export function em$construct() {
         IntrVec.em$meta.useIntr('GPIO_COMB')
     }
