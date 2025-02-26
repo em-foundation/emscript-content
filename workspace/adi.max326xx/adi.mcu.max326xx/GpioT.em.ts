@@ -1,6 +1,8 @@
 import em from '@$$emscript'
 export const $T = em.$declare('TEMPLATE')
 
+import * as $R from '@adi.distro.max326xx/REGS.em'
+
 import * as GpioI from '@em.hal/GpioI.em'
 
 export namespace em$template {
@@ -17,18 +19,16 @@ export namespace em$template {
     }
 
     const pid = pin_num.$$ & 0xFF
-    const port = <u8>(pin_num.$$ >> 8)
+    const pn = <u8>(pin_num.$$ >> 8)
     const mask = 1 << pid
 
-    const GPIOn = e$`MXC_GPIO_GET_GPIO(port)`
-
     export function clear(): void {
-        e$`GPIOn->out_clr = mask`
+        $R.GPIO[pn].OUT_CLR.$$ = mask
     }
 
     export function functionSelect(select: u8): void {
-        e$`GPIOn->en0_clr = mask`
-        e$`GPIOn->en1_set = mask`
+        $R.GPIO[pn].EN0_CLR.$$ = mask
+        $R.GPIO[pn].EN1_SET.$$ = mask
     }
 
     export function get(): bool_t {
@@ -44,13 +44,13 @@ export namespace em$template {
     }
 
     export function makeInput(): void {
-        e$`GPIOn->outen_clr = mask`
-        e$`GPIOn->en0_set = mask`
+        $R.GPIO[pn].OUTEN_CLR.$$ = mask
+        $R.GPIO[pn].EN0_SET.$$ = mask
     }
 
     export function makeOutput(): void {
-        e$`GPIOn->outen_set = mask`
-        e$`GPIOn->en0_set = mask`
+        $R.GPIO[pn].OUTEN_SET.$$ = mask
+        $R.GPIO[pn].EN0_SET.$$ = mask
     }
 
     export function pinId(): i16 {
@@ -62,7 +62,7 @@ export namespace em$template {
     }
 
     export function set(): void {
-        e$`GPIOn->out_set = mask`
+        $R.GPIO[pn].OUT_SET.$$ = mask
     }
 
     export function setInternalPulldown(enable: bool_t): void {
@@ -74,7 +74,7 @@ export namespace em$template {
     }
 
     export function toggle(): void {
-        e$`GPIOn->out ^= mask`
+        $R.GPIO[pn].OUT.$$ ^= mask
     }
 }
 

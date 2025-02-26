@@ -1895,3 +1895,5 @@ export const LPGCR = {} as LPGCR_t
 export const RTC = {} as RTC_t
 export const UART0 = {} as UART_t
 export const UART3 = {} as UART_t
+export const GPIO = [] as GPIO_t[]
+export const UART = [] as UART_t[]

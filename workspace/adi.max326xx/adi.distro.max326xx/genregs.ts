@@ -94,8 +94,16 @@ const PERI_CLS_MAP = new Map<string, string>([
     ['UART3', 'UART'],
 ])
 
+const CLS_IDX_SET = new Set<string>([
+    'GPIO',
+    'UART',
+])
+
 meta.genTitle('INSTANCES')
 for (const [peri, cls] of PERI_CLS_MAP) {
     meta.print('export const %1 = {} as %2_t\n', peri, cls)
+}
+for (const cls of CLS_IDX_SET) {
+    meta.print('export const %1 = [] as %1_t[]\n', cls)
 }
 meta.close()
