@@ -9,8 +9,8 @@ import * as McuI from '@em.hal/McuI.em'
 export namespace em$meta {}
 
 export function startup(): void {
-    $R.ICC0.CTRL.$$ |= $R.ICC_CTRL_EN
-    $R.GCR.PCLKDIS0.$$ &= ~($R.GCR_PCLKDIS0_GPIO0 | $R.GCR_PCLKDIS0_GPIO1)
+    $R.ICC0.CTRL.$$ |= $R.F_ICC_CTRL_EN
+    $R.GCR.PCLKDIS0.$$ &= ~($R.F_GCR_PCLKDIS0_GPIO0 | $R.F_GCR_PCLKDIS0_GPIO1)
     Debug.startup()
     $['%%a:'](2)
 }

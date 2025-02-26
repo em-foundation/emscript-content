@@ -22,19 +22,23 @@ export namespace em$meta {
 }
 
 export function em$startup() {
-    $R.LPGCR.PCLKDIS.$$ &= ~($R.LPGCR_PCLKDIS_UART3 | $R.LPGCR_PCLKDIS_GPIO2)
+    $R.LPGCR.PCLKDIS.$$ &= ~($R.F_LPGCR_PCLKDIS_UART3 | $R.F_LPGCR_PCLKDIS_GPIO2)
     TxPin.$$.makeOutput()
     TxPin.$$.functionSelect(2)
-    $R.GCR.CLKCTRL.$$ |= $R.GCR_CLKCTRL_IBRO_EN
+    $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_IBRO_EN
     e$`MXC_SETFIELD(MXC_UART3->ctrl, MXC_F_UART_CTRL_CHAR_SIZE, MXC_S_UART_CTRL_CHAR_SIZE_8BITS)`
     $R.UART3.OSR.$$ = 5
     $R.UART3.CLKDIV.$$ = clkdiv.$$
-    e$`MXC_UART3->ctrl |= (MXC_S_UART_CTRL_BCLKSRC_PERIPHERAL_CLOCK | MXC_F_UART_CTRL_BCLKEN | MXC_F_UART_CTRL_UCAGM)`
-    //    $R.UART3.CTRL.$$ |= ($R.UART_CTRL_BCLKSRC_PERIPHERAL_CLOCK | $R.UART_CTRL_BCLKEN | $R.UART_CTRL_UCAGM)
+    $R.UART3.CTRL.$$ |= (
+        $R.S_UART_CTRL_CHAR_SIZE_8BITS |
+        $R.S_UART_CTRL_BCLKSRC_PERIPHERAL_CLOCK |
+        $R.F_UART_CTRL_BCLKEN |
+        $R.F_UART_CTRL_UCAGM
+    )
 }
 
 export function flush(): void {
-    while (($R.UART3.STATUS.$$ & $R.UART_STATUS_TX_EM) == 0) {}
+    while (($R.UART3.STATUS.$$ & $R.F_UART_STATUS_TX_EM) == 0) {}
 }
 
 export function put(data: u8): void {

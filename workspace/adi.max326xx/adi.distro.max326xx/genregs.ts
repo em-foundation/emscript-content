@@ -22,7 +22,6 @@ function genPeri(peri: any, periCls: string) {
         const desc = reg.description[0] as string
         meta.addText(desc.replace("\n", "\n\n"))
         meta.addText("*/\n")
-
         if (reg.fields == undefined) continue
         const fldArr = reg.fields[0].field as Array<any>
         for (const fld of fldArr) {
@@ -32,9 +31,20 @@ function genPeri(peri: any, periCls: string) {
             meta.addText(desc.replace("\n", "\n\n"))
             meta.addText("*/\n")
             const fldLab = `${periCls}_${regName}_${fldName}`
-            meta.print("export const %1: any = '%2'\n", fldLab, fld.bitWidth)
-            meta.print("export const %1_M: any = '%2'\n", fldLab, fld.bitWidth)
-            meta.print("export const %1_S: any = '%2'\n", fldLab, fld.bitWidth)
+            meta.print("export const F_%1: any = '%2'\n", fldLab, fld.bitWidth)
+            meta.print("export const F_%1_POS: any = '%2'\n", fldLab, fld.bitWidth)
+            if (fld.enumeratedValues == undefined) continue
+            const valArr = fld.enumeratedValues[0].enumeratedValue as Array<any>
+            for (const val of valArr) {
+                const valName = (val.name[0] as string).toUpperCase()
+                // meta.addText("/**\n")
+                // const desc = val.description[0] as string
+                // meta.addText(desc.replace("\n", "\n\n"))
+                // meta.addText("*/\n")
+                const valLab = `${periCls}_${regName}_${fldName}_${valName}`
+                meta.print("export const S_%1: any = '%2'\n", valLab, val.value)
+                meta.print("export const V_%1: any = '%2'\n", valLab, val.value)
+            }
         }
     }
 }
