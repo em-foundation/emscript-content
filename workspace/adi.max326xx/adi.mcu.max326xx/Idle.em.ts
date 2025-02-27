@@ -9,8 +9,6 @@ export function em$startup() {
     $['%%b+']
 }
 
-export function exec() {
-}
+export function exec() {}
 
-export function wakeup() {
-}
+export function wakeup() {}

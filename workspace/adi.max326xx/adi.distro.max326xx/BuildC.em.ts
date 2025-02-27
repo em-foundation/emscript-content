@@ -10,7 +10,7 @@ import * as StartupC from '@adi.distro.max326xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
 
 // const NVIC_INTRS = [
-// 
+//
 // ]
 
 export function em$configure() {
