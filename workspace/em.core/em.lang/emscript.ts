@@ -127,9 +127,9 @@ namespace em {
     // #region
 
     export const $bkpt = e$`asm volatile("asm")`
-    
-    export function fail() { }
-    export function halt() { }
+
+    export function fail() {}
+    export function halt() {}
 
     export const $ = {
         '%%>': (val: any) => null as null,
