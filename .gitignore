@@ -4,6 +4,7 @@ node_modules/
 /tools/
 .vscode/
 workspace/.emscript
+workspace/emscript.ini
 workspace/emscript-local.ini
 .DS_Store
 tsconfig.json
