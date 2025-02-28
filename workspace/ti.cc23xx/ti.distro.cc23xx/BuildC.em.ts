@@ -125,8 +125,8 @@ export function em$generate() {
         process.platform === 'win32'
             ? 'dslite.bat'
             : process.platform === 'linux'
-                ? 'dslite-Cortex_M0P.sh'
-                : 'dslite.sh'
+              ? 'dslite-Cortex_M0P.sh'
+              : 'dslite.sh'
     out = $outfile('load.sh', 0o755)
     out.addText(
         `${tools}/ti-uniflash/${dslite} -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n`
