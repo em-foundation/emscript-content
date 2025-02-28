@@ -25,6 +25,7 @@ const sys_ticker = $config<TickerMgr.Obj>()
 const print_ticker = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
+
     export function em$construct() {
         app_ticker.$$ = TickerMgr.em$meta.create()
         sys_ticker.$$ = TickerMgr.em$meta.create()

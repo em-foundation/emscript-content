@@ -6,3 +6,4 @@ node_modules/
 workspace/.emscript
 workspace/emscript-local.ini
 .DS_Store
+tsconfig.json
