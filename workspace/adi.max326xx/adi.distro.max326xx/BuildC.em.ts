@@ -109,22 +109,20 @@ export function em$generate() {
     const getDriveLetter = (driveLabel: string) => {
       try {
         const stdout = execSync(`wmic logicaldisk where volumename="${driveLabel}" get caption /value`).toString()
-        const lines = stdout.trim().split('\r\n');
+        const lines = stdout.trim().split('\r\n')
         console.log(JSON.stringify(lines))
-        if (lines.length > 1 && lines[0].startsWith('Caption=')) {
-          return lines[0].split('=')[1].trim();
+        if (lines.length && lines[0].startsWith('Caption=')) {
+          return lines[0].split('=')[1].trim()
         }
-        return null;
+        return null
       } catch (error) {
-        console.error('Error:', error);
-        return null;
+        console.error('Error:', error)
+        return null
       }
     }
     const load_folder =
       process.platform === 'win32'
-        // TODO: This only works if the DAPLINK USB disk mounts as D: on the windows system
-        // figure out how to get the mounted volume labeled DAPLINK
-        ? `/${getDriveLetter('DAPLINK')}`
+        ? `/${getDriveLetter('DAPLINK')?.toLowerCase().replace(':', '') || 'd'}`
         : process.platform === 'linux'
           ? `/media/${userInfo().username}/DAPLINK/`
           : '/Volumes/daplink'
