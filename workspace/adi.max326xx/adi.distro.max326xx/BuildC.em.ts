@@ -110,7 +110,6 @@ export function em$generate() {
       try {
         const stdout = execSync(`wmic logicaldisk where volumename="${driveLabel}" get caption /value`).toString()
         const lines = stdout.trim().split('\r\n')
-        console.log(JSON.stringify(lines))
         if (lines.length && lines[0].startsWith('Caption=')) {
           return lines[0].split('=')[1].trim()
         }
