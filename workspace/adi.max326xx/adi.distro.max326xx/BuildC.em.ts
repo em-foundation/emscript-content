@@ -105,15 +105,26 @@ export function em$generate() {
     `)
     out.close()
     //
-    const load_folder =
-      process.platform === 'win32'
-        // TODO: This only works if the DAPLINK USB disk mounts as D: on the windows system
-        // figure out how to get the mounted volume labeled DAPLINK
-        ? '/d'
-        : process.platform === 'linux'
-          ? `/media/${userInfo().username}/DAPLINK/`
-          : '/Volumes/daplink'
     out = $outfile('load.sh', 0o755)
-    out.addText(`cp -f .out/main.out.hex ${load_folder}\n`)
+    const openocd = `${tools}/openocd`
+    const exec = `${openocd}/openocd.exe`
+    const scripts = `${openocd}/scripts`
+    const inter = 'interface/cmsis-dap.cfg'
+    const targ = 'target/max32655.cfg'
+    out.addText(`${exec} -s ${scripts} -f ${inter} -f ${targ} -c "program ./.out/main.out verify reset exit"`)
     out.close()
+    // openocd -f interface/cmsis-dap.cfg -f target/max32655.cfg -c "program your_firmware.elf verify reset exit"
+
+
+    // const load_folder =
+    //   process.platform === 'win32'
+    //     // TODO: This only works if the DAPLINK USB disk mounts as D: on the windows system
+    //     // figure out how to get the mounted volume labeled DAPLINK
+    //     ? '/d'
+    //     : process.platform === 'linux'
+    //       ? `/media/${userInfo().username}/DAPLINK/`
+    //       : '/Volumes/daplink'
+    // out = $outfile('load.sh', 0o755)
+    // out.addText(`cp -f .out/main.out.hex ${load_folder}\n`)
+    // out.close()
 }
