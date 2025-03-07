@@ -5,6 +5,7 @@ import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@adi.mcu.max326xx/BusyWait.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
+// import * as ConsoleUart from '@adi.mcu.max326xx/ConsoleUart0.em'
 import * as ConsoleUart from '@adi.mcu.max326xx/ConsoleUart3.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
@@ -33,6 +34,7 @@ export function em$configure(): void {
     AppLed.Pin.$$ = AppLedPin
     AppLed.active_low.$$ = true
     AppLedPin.pin_num.$$ = 0x013 // P0.19
+    // AppOutPin.pin_num.$$ = 0x001 // P0.1
     AppOutPin.pin_num.$$ = 0x207 // P2.7
     BoardController.Led.$$ = SysLed
     Common.BusyWait.$$ = BusyWait
