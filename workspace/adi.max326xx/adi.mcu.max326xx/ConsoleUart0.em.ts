@@ -27,11 +27,6 @@ export function em$startup() {
     $R.GCR.PCLKDIS0.$$ &= ~$R.F_GCR_PCLKDIS0_UART0
     $R.UART0.OSR.$$ = 5
     $R.UART0.CLKDIV.$$ = clkdiv.$$
-    $R.UART0.CTRL.$$ |=
-        $R.S_UART_CTRL_CHAR_SIZE_8BITS |
-        $R.S_UART_CTRL_BCLKSRC_PERIPHERAL_CLOCK |
-        $R.F_UART_CTRL_BCLKEN |
-        $R.F_UART_CTRL_UCAGM
 }
 
 export function flush(): void {
@@ -39,6 +34,11 @@ export function flush(): void {
 }
 
 export function put(data: u8): void {
+    $R.UART0.CTRL.$$ |= // TODO -- doesn't work in startup
+        $R.S_UART_CTRL_CHAR_SIZE_8BITS |
+        $R.S_UART_CTRL_BCLKSRC_CLK2 |
+        $R.F_UART_CTRL_BCLKEN |
+        $R.F_UART_CTRL_UCAGM
     $R.UART0.FIFO.$$ = data
     flush()
 }

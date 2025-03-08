@@ -15,22 +15,36 @@ export namespace em$meta {
     }
 }
 
-export function em$run() {
+export function em$startup() {
     TxPin.$$.makeOutput()
     TxPin.$$.functionSelect(1)
     $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_IBRO_EN
     $R.GCR.PCLKDIS0.$$ &= ~$R.F_GCR_PCLKDIS0_UART0
     $R.UART0.OSR.$$ = 5
     $R.UART0.CLKDIV.$$ = clkdiv.$$
-    $R.UART0.CTRL.$$ |=
-        $R.S_UART_CTRL_CHAR_SIZE_8BITS |
-        $R.S_UART_CTRL_BCLKSRC_CLK2 |
-        $R.F_UART_CTRL_BCLKEN |
-        $R.F_UART_CTRL_UCAGM
-    //
-    put(0x65)
-    put(0x66)
-    put(0x67)
+    // $R.UART0.CTRL.$$ |=
+    //     $R.S_UART_CTRL_CHAR_SIZE_8BITS |
+    //     $R.S_UART_CTRL_BCLKSRC_CLK2 |
+    //     $R.F_UART_CTRL_BCLKEN |
+    //     $R.F_UART_CTRL_UCAGM
+}
+
+export function em$run() {
+    // TxPin.$$.makeOutput()
+    // TxPin.$$.functionSelect(1)
+    // $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_IBRO_EN
+    // $R.GCR.PCLKDIS0.$$ &= ~$R.F_GCR_PCLKDIS0_UART0
+    // $R.UART0.OSR.$$ = 5
+    // // $R.UART0.CLKDIV.$$ = clkdiv.$$
+    // $R.UART0.CTRL.$$ |=
+    //     $R.S_UART_CTRL_CHAR_SIZE_8BITS |
+    //     $R.S_UART_CTRL_BCLKSRC_CLK2 |
+    //     $R.F_UART_CTRL_BCLKEN |
+    //     $R.F_UART_CTRL_UCAGM
+
+    put(c$`j`)
+    put(c$`k`)
+    put(c$`l`)
 }
 
 export function flush(): void {
@@ -38,6 +52,11 @@ export function flush(): void {
 }
 
 export function put(data: u8): void {
+    $R.UART0.CTRL.$$ |=
+        $R.S_UART_CTRL_CHAR_SIZE_8BITS |
+        $R.S_UART_CTRL_BCLKSRC_CLK2 |
+        $R.F_UART_CTRL_BCLKEN |
+        $R.F_UART_CTRL_UCAGM
     $R.UART0.FIFO.$$ = data
     flush()
 }
