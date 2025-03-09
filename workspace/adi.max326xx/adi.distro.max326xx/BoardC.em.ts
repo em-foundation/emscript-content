@@ -29,8 +29,8 @@ export const SysLed = $clone(LedT)
 export const SysLedPin = $clone(GpioT)
 
 export const DEFAULTS = {
-    activeLowLeds: false,
-    useLpUart: false,
+    /** setting applies to {app,com,sys}Led pins */ activeLowLeds: false,
+    /** use UART3 for appOut if true */ useLpUart: false,
     pins: {
         appBut: <i16>-1,
         appLed: <i16>-1,

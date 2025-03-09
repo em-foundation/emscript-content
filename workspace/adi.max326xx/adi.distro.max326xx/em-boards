@@ -1,18 +1,3 @@
-$DEFAULTS:
-    $inherits:      $DEFAULTS      ## non-circular inheritance relation terminating here
-    $overrides:     false          ## designates this local board definition overrides the platform
-    activeLowLeds:  false          ## setting applies to {app,com,sys}Led pins
-    useLpUart:      false          ## using UART3 for appOut if true
-    pins:
-        appBut:     -1
-        appLed:     -1
-        appOut:     -1
-        sysDbgA:    -1  
-        sysDbgB:    -1  
-        sysDbgC:    -1  
-        sysDbgD:    -1
-        sysLed:     -1
-
 MAX32655FTHR:
     activeLowLeds:  true
     pins:
