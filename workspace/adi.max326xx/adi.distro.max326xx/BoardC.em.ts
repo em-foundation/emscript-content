@@ -28,10 +28,10 @@ export const DbgD = $clone(GpioT)
 export const SysLed = $clone(LedT)
 export const SysLedPin = $clone(GpioT)
 
-class Board {
-    activeLowLeds: boolean = false
-    useLpUart: boolean = false
-    pins = {
+export const DEFAULTS = {
+    activeLowLeds: false,
+    useLpUart: false,
+    pins: {
         appBut: <i16>-1,
         appLed: <i16>-1,
         appOut: <i16>-1,
@@ -41,24 +41,10 @@ class Board {
         sysDbgD: <i16>-1,
         sysLed: <i16>-1,
     }
-    static DEFAULTS = new Board()
-    constructor(init?: Partial<Board>) {
-        if (init) {
-            Object.assign(this, init)
-            if (init.pins) {
-                for (const key in Board.DEFAULTS.pins) {
-                    const k = key as keyof Board['pins']
-                    if (init.pins[k] === undefined) {
-                        init.pins[k] = Board.DEFAULTS.pins[k]
-                    }
-                }
-            }
-        }
-    }
 }
 
 export function em$configure(): void {
-    const brd = $board(Board)
+    const brd = $board(DEFAULTS)
     const ConsoleUart = brd.useLpUart ? ConsoleUart3 : ConsoleUart0
     $using(BoardController)
     $using(Console)

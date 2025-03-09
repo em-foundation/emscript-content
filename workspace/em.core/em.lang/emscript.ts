@@ -79,12 +79,28 @@ namespace em {
     const __BOARDS__ = null
     // #region
 
-    export function $board<C extends new (...args: any[]) => any>(cls: C): InstanceType<C> {
+
+    function deepAssign<T extends object>(target: T, source: Partial<T>): T {
+        for (const key in source) {
+            if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+                target[key] = deepAssign(
+                    (target[key] as object) ?? {},
+                    source[key] as object
+                ) as T[typeof key]
+            } else {
+                target[key] = source[key] as T[typeof key]
+            }
+        }
+        return target
+    }
+
+    export function $board<T extends Object>(proto: T): T {
         const path = Path.join($property('em.lang.Distro', '').replace('://', '/'), 'em-boards')
         const brd: string = $property('em.lang.BoardKind', '')
         const yobj = Yaml.load(String(Fs.readFileSync(path))) as Object
-        const bobj = (yobj as Record<string, Object>)[brd]
-        return new cls(bobj)
+        const bobj = (yobj as Record<string, Object>)[brd] as T
+        let res = clone(proto) as T
+        return deepAssign(res, bobj)
     }
 
     // #endregion
