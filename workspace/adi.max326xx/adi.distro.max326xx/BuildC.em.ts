@@ -117,7 +117,7 @@ export function em$generate() {
     let dst: string
     switch (process.platform) {
         case 'win32': {
-            dst = `/${getDriveLetter('DAPLINK')}`
+            dst = findDrive('DAPLINK')
             break
         }
         case 'linux': {
@@ -135,10 +135,11 @@ export function em$generate() {
     out.close()
 }
 
-import * as ChildProcess from 'child_process'
+import * as ChildProc from 'child_process'
 
-function getDriveLetter(label: string) {
-    const stdout = String(ChildProcess.execSync(`wmic logicaldisk where "VolumeName='${label}'" get DeviceID`))
+function findDrive(label: string): string {
+    const cmd = `wmic logicaldisk where "VolumeName='${label}'" get DeviceID`
+    const stdout = String(ChildProc.execSync(cmd, { stdio: ['pipe', 'pipe', 'ignore'] }))
     const lines = stdout.trim().split('\n')
-    return lines[1].slice(0, 1)
+    return lines.length < 2 ? '/dev/null' : `/${lines[1].slice(0, 1)}`
 }
