@@ -106,35 +106,7 @@ export function em$generate() {
     `)
     out.close()
     //
-    const getDriveLetter = (driveLabel: string) => {
-        try {
-            const stdout = execSync(`wmic logicaldisk where volumename="${driveLabel}" get caption /value`).toString()
-            const lines = stdout.trim().split('\r\n')
-            if (lines.length && lines[0].startsWith('Caption=')) {
-                return lines[0].split('=')[1].trim()
-            }
-            console.warn(`Warn: No ${driveLabel} drive label found.`)
-            return null
-        } catch (error) {
-            console.warn(`Warn: No ${driveLabel} drive label found.`, error)
-            return null
-        }
-    }
-    const load_folder =
-        process.platform === 'win32'
-            ? `/${getDriveLetter('DAPLINK')?.toLowerCase().replace(':', '') || 'd'}`
-            : process.platform === 'linux'
-                ? `/media/${userInfo().username}/DAPLINK/`
-                : '/Volumes/daplink'
     out = $outfile('load.sh', 0o755)
-
-    // const openocd = `${tools}/openocd`
-    // const exec = `${openocd}/openocd.exe`
-    // const scripts = `${openocd}/scripts`
-    // const inter = 'interface/cmsis-dap.cfg'
-    // const targ = 'target/max32655.cfg'
-    // out.addText(`${exec} -s ${scripts} -f ${inter} -f ${targ} -c "program ./.out/main.out verify reset exit"`)
-
     let dst: string
     switch (process.platform) {
         case 'win32': {
