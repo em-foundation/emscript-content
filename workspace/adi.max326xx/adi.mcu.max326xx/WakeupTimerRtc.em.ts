@@ -26,5 +26,5 @@ export function secsAligned(secs: Secs24p8): Secs24p8 {
 }
 
 export function secsToThresh(secs: Secs24p8): Thresh {
-    return Rtc.toThresh(secs << 12)
+    return Rtc.toThresh(secs << 4)
 }

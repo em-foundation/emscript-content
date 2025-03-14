@@ -3,6 +3,8 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@adi.distro.max326xx/REGS.em'
 
+import * as Common from '@em.mcu/Common.em'
+
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
@@ -24,17 +26,23 @@ export function em$startup() {
     $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_WR_EN
     while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
     $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_EN | $R.F_RTC_CTRL_RD_EN | $R.F_RTC_CTRL_WR_EN
+    $R.GCR.PM.$$ |= $R.F_GCR_PM_RTC_WE
     IntrVec.NVIC_enable(e$`RTC_IRQn`)
 }
 
 export function disable() {
     cur_hlr = $null
-    $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_SSEC_ALARM_IE
+    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
+    $R.RTC.CTRL.$$ &= ~($R.F_RTC_CTRL_SSEC_ALARM_IE | $R.F_RTC_CTRL_SSEC_ALARM)
+    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
+    $R.RTC.SSECA.$$ = 0
 }
 
 export function enable(thresh: u32, handler: Handler) {
     cur_hlr = handler
+    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
     $R.RTC.SSECA.$$ = thresh
+    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
     $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_SSEC_ALARM_IE
 }
 
@@ -58,6 +66,8 @@ export function toThresh(ticks: u32): u32 {
 }
 
 export function RTC_isr$$() {
+    const hlr = cur_hlr
     IntrVec.NVIC_clear(e$`RTC_IRQn`)
     disable()
+    if (hlr != $null) hlr()
 }
