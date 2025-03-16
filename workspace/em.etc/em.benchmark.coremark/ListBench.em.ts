@@ -1,8 +1,8 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as Crc from '@em.bench.coremark/Crc.em'
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as Crc from '@em.benchmark.coremark/Crc.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 export const memsize = $config<u16>(666)
 
@@ -255,8 +255,8 @@ function unremove(removed: ref_t<Elem>, modified: ref_t<Elem>) {
 
 // ---- ValComparator ----
 
-import * as Bench0 from '@em.bench.coremark/StateBench.em'
-import * as Bench1 from '@em.bench.coremark/MatrixBench.em'
+import * as Bench0 from '@em.benchmark.coremark/StateBench.em'
+import * as Bench1 from '@em.benchmark.coremark/MatrixBench.em'
 
 function valCalc(pval: ref_t<i16>): i16 {
     let val = <u16>pval.$$

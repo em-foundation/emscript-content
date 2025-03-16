@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as CoreBench from '@em.bench.coremark/CoreBench.em'
+import * as CoreBench from '@em.benchmark.coremark/CoreBench.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'

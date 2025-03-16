@@ -1395,6 +1395,384 @@ Low Power Comparator Clock Disable.*/
 export const F_LPGCR_PCLKDIS_LPCOMP: any = '1'
 export const F_LPGCR_PCLKDIS_LPCOMP_POS: any = '1'
 
+// -------- PERIPHERAL MCR -------- //
+
+export interface MCR_t {
+    ECCEN: em.$Reg
+    IPO_MTRIM: em.$Reg
+    OUTEN: em.$Reg
+    CMP_CTRL: em.$Reg
+    CTRL: em.$Reg
+    GPIO3_CTRL: em.$Reg
+}
+
+// -------- REGISTER ECCEN -------- //
+
+/**
+ECC Enable Register*/
+/**
+ECC System RAM0 Enable.*/
+export const F_MCR_ECCEN_RAM0: any = '1'
+export const F_MCR_ECCEN_RAM0_POS: any = '1'
+export const S_MCR_ECCEN_RAM0_DIS: any = '0'
+export const V_MCR_ECCEN_RAM0_DIS: any = '0'
+export const S_MCR_ECCEN_RAM0_EN: any = '1'
+export const V_MCR_ECCEN_RAM0_EN: any = '1'
+
+// -------- REGISTER IPO_MTRIM -------- //
+
+/**
+IPO Manual Register*/
+/**
+Manual Trim Value.*/
+export const F_MCR_IPO_MTRIM_MTRIM: any = '8'
+export const F_MCR_IPO_MTRIM_MTRIM_POS: any = '8'
+/**
+Trim Range Select.*/
+export const F_MCR_IPO_MTRIM_TRIM_RANGE: any = '1'
+export const F_MCR_IPO_MTRIM_TRIM_RANGE_POS: any = '1'
+
+// -------- REGISTER OUTEN -------- //
+
+/**
+Output Enable Register*/
+/**
+Square Wave Output Enable.*/
+export const F_MCR_OUTEN_SQWOUT_EN: any = '1'
+export const F_MCR_OUTEN_SQWOUT_EN_POS: any = '1'
+/**
+Power Down Output Enable.*/
+export const F_MCR_OUTEN_PDOWN_OUT_EN: any = '1'
+export const F_MCR_OUTEN_PDOWN_OUT_EN_POS: any = '1'
+
+// -------- REGISTER CMP_CTRL -------- //
+
+/**
+Comparator Control Register.*/
+/**
+Comparator Enable.*/
+export const F_MCR_CMP_CTRL_EN: any = '1'
+export const F_MCR_CMP_CTRL_EN_POS: any = '1'
+/**
+Polarity Select*/
+export const F_MCR_CMP_CTRL_POL: any = '1'
+export const F_MCR_CMP_CTRL_POL_POS: any = '1'
+/**
+IRQ Enable.*/
+export const F_MCR_CMP_CTRL_INT_EN: any = '1'
+export const F_MCR_CMP_CTRL_INT_EN_POS: any = '1'
+/**
+Comparator Output State.*/
+export const F_MCR_CMP_CTRL_OUT: any = '1'
+export const F_MCR_CMP_CTRL_OUT_POS: any = '1'
+/**
+IRQ Flag*/
+export const F_MCR_CMP_CTRL_INT_FL: any = '1'
+export const F_MCR_CMP_CTRL_INT_FL_POS: any = '1'
+
+// -------- REGISTER CTRL -------- //
+
+/**
+Miscellaneous Control Register.*/
+/**
+INRO Enable.*/
+export const F_MCR_CTRL_INRO_EN: any = '1'
+export const F_MCR_CTRL_INRO_EN_POS: any = '1'
+/**
+ERTCO Enable.*/
+export const F_MCR_CTRL_ERTCO_EN: any = '1'
+export const F_MCR_CTRL_ERTCO_EN_POS: any = '1'
+/**
+SIMO Clock Scaling Enable.*/
+export const F_MCR_CTRL_SIMO_CLKSCL_EN: any = '1'
+export const F_MCR_CTRL_SIMO_CLKSCL_EN_POS: any = '1'
+/**
+SIMO System Reset Disable.*/
+export const F_MCR_CTRL_SIMO_RSTD: any = '1'
+export const F_MCR_CTRL_SIMO_RSTD_POS: any = '1'
+
+// -------- REGISTER GPIO3_CTRL -------- //
+
+/**
+GPIO3 Pin Control Register.*/
+/**
+GPIO3 Pin 0 Data Output.*/
+export const F_MCR_GPIO3_CTRL_P30_DO: any = '1'
+export const F_MCR_GPIO3_CTRL_P30_DO_POS: any = '1'
+/**
+GPIO3 Pin 0 Output Enable.*/
+export const F_MCR_GPIO3_CTRL_P30_OE: any = '1'
+export const F_MCR_GPIO3_CTRL_P30_OE_POS: any = '1'
+/**
+GPIO3 Pin 0 Pull-up Enable.*/
+export const F_MCR_GPIO3_CTRL_P30_PE: any = '1'
+export const F_MCR_GPIO3_CTRL_P30_PE_POS: any = '1'
+/**
+GPIO3 Pin 0 Input Status.*/
+export const F_MCR_GPIO3_CTRL_P30_IN: any = '1'
+export const F_MCR_GPIO3_CTRL_P30_IN_POS: any = '1'
+/**
+GPIO3 Pin 1 Data Output.*/
+export const F_MCR_GPIO3_CTRL_P31_DO: any = '1'
+export const F_MCR_GPIO3_CTRL_P31_DO_POS: any = '1'
+/**
+GPIO3 Pin 1 Output Enable.*/
+export const F_MCR_GPIO3_CTRL_P31_OE: any = '1'
+export const F_MCR_GPIO3_CTRL_P31_OE_POS: any = '1'
+/**
+GPIO3 Pin 1 Pull-up Enable.*/
+export const F_MCR_GPIO3_CTRL_P31_PE: any = '1'
+export const F_MCR_GPIO3_CTRL_P31_PE_POS: any = '1'
+/**
+GPIO3 Pin 1 Input Status.*/
+export const F_MCR_GPIO3_CTRL_P31_IN: any = '1'
+export const F_MCR_GPIO3_CTRL_P31_IN_POS: any = '1'
+
+// -------- PERIPHERAL PWRSEQ -------- //
+
+export interface PWRSEQ_t {
+    LPCN: em.$Reg
+    LPWKST0: em.$Reg
+    LPWKEN0: em.$Reg
+    LPWKST1: em.$Reg
+    LPWKEN1: em.$Reg
+    LPWKST2: em.$Reg
+    LPWKEN2: em.$Reg
+    LPWKST3: em.$Reg
+    LPWKEN3: em.$Reg
+    LPPWST: em.$Reg
+    LPPWEN: em.$Reg
+    VBTLEPD: em.$Reg
+    GP0: em.$Reg
+    GP1: em.$Reg
+}
+
+// -------- REGISTER LPCN -------- //
+
+/**
+Low Power Control Register.*/
+/**
+System RAM retention in BACKUP mode. These two bits are used in conjuction with RREGEN bit. */
+export const F_PWRSEQ_LPCN_RAMRET0: any = '1'
+export const F_PWRSEQ_LPCN_RAMRET0_POS: any = '1'
+export const S_PWRSEQ_LPCN_RAMRET0_DIS: any = '0'
+export const V_PWRSEQ_LPCN_RAMRET0_DIS: any = '0'
+export const S_PWRSEQ_LPCN_RAMRET0_EN: any = '1'
+export const V_PWRSEQ_LPCN_RAMRET0_EN: any = '1'
+/**
+System RAM retention in BACKUP mode. These two bits are used in conjuction with RREGEN bit. */
+export const F_PWRSEQ_LPCN_RAMRET1: any = '1'
+export const F_PWRSEQ_LPCN_RAMRET1_POS: any = '1'
+export const S_PWRSEQ_LPCN_RAMRET1_DIS: any = '0'
+export const V_PWRSEQ_LPCN_RAMRET1_DIS: any = '0'
+export const S_PWRSEQ_LPCN_RAMRET1_EN: any = '1'
+export const V_PWRSEQ_LPCN_RAMRET1_EN: any = '1'
+/**
+System RAM retention in BACKUP mode. These two bits are used in conjuction with RREGEN bit. */
+export const F_PWRSEQ_LPCN_RAMRET2: any = '1'
+export const F_PWRSEQ_LPCN_RAMRET2_POS: any = '1'
+export const S_PWRSEQ_LPCN_RAMRET2_DIS: any = '0'
+export const V_PWRSEQ_LPCN_RAMRET2_DIS: any = '0'
+export const S_PWRSEQ_LPCN_RAMRET2_EN: any = '1'
+export const V_PWRSEQ_LPCN_RAMRET2_EN: any = '1'
+/**
+System RAM retention in BACKUP mode. These two bits are used in conjuction with RREGEN bit. */
+export const F_PWRSEQ_LPCN_RAMRET3: any = '1'
+export const F_PWRSEQ_LPCN_RAMRET3_POS: any = '1'
+export const S_PWRSEQ_LPCN_RAMRET3_DIS: any = '0'
+export const V_PWRSEQ_LPCN_RAMRET3_DIS: any = '0'
+export const S_PWRSEQ_LPCN_RAMRET3_EN: any = '1'
+export const V_PWRSEQ_LPCN_RAMRET3_EN: any = '1'
+/**
+Low Power Mode APB Clock Select.*/
+export const F_PWRSEQ_LPCN_LPMCLKSEL: any = '1'
+export const F_PWRSEQ_LPCN_LPMCLKSEL_POS: any = '1'
+/**
+Low Power Mode Clock Select.*/
+export const F_PWRSEQ_LPCN_LPMFAST: any = '1'
+export const F_PWRSEQ_LPCN_LPMFAST_POS: any = '1'
+/**
+Bandgap OFF. This controls the System Bandgap in DeepSleep mode.*/
+export const F_PWRSEQ_LPCN_BG_DIS: any = '1'
+export const F_PWRSEQ_LPCN_BG_DIS_POS: any = '1'
+export const S_PWRSEQ_LPCN_BG_DIS_ON: any = '0'
+export const V_PWRSEQ_LPCN_BG_DIS_ON: any = '0'
+export const S_PWRSEQ_LPCN_BG_DIS_OFF: any = '1'
+export const V_PWRSEQ_LPCN_BG_DIS_OFF: any = '1'
+/**
+Low Power Wakeup Status Register Clear*/
+export const F_PWRSEQ_LPCN_LPWKST_CLR: any = '1'
+export const F_PWRSEQ_LPCN_LPWKST_CLR_POS: any = '1'
+
+// -------- REGISTER LPWKST0 -------- //
+
+/**
+Low Power I/O Wakeup Status Register 0. This register indicates the low power wakeup status for GPIO0.*/
+/**
+Wakeup IRQ flags (write ones to clear). One or more of these bits will be set when the corresponding dedicated GPIO pin (s) transition (s) from low to high or high to low. If GPIO wakeup source is selected, using PM.GPIOWKEN register, and the corresponding bit is also selected in LPWKEN register, an interrupt will be gnerated to wake up the CPU from a low power mode.*/
+export const F_PWRSEQ_LPWKST0_WAKEST: any = '1'
+export const F_PWRSEQ_LPWKST0_WAKEST_POS: any = '1'
+
+// -------- REGISTER LPWKEN0 -------- //
+
+/**
+Low Power I/O Wakeup Enable Register 0. This register enables low power wakeup functionality for GPIO0.*/
+/**
+Enable wakeup. These bits allow wakeup from the corresponding GPIO pin (s) on transition (s) from low to high or high to low when PM.GPIOWKEN is set. Wakeup status is indicated in PPWKST register.*/
+export const F_PWRSEQ_LPWKEN0_WAKEEN: any = '31'
+export const F_PWRSEQ_LPWKEN0_WAKEEN_POS: any = '31'
+
+// -------- REGISTER LPWKST1 -------- //
+
+/**
+Low Power I/O Wakeup Status Register 1. This register indicates the low power wakeup status for GPIO1.*/
+
+// -------- REGISTER LPWKEN1 -------- //
+
+/**
+Low Power I/O Wakeup Enable Register 1. This register enables low power wakeup functionality for GPIO1.*/
+
+// -------- REGISTER LPWKST2 -------- //
+
+/**
+Low Power I/O Wakeup Status Register 2. This register indicates the low power wakeup status for GPIO2.*/
+
+// -------- REGISTER LPWKEN2 -------- //
+
+/**
+Low Power I/O Wakeup Enable Register 2. This register enables low power wakeup functionality for GPIO2.*/
+
+// -------- REGISTER LPWKST3 -------- //
+
+/**
+Low Power I/O Wakeup Status Register 3. This register indicates the low power wakeup status for GPIO3.*/
+
+// -------- REGISTER LPWKEN3 -------- //
+
+/**
+Low Power I/O Wakeup Enable Register 3. This register enables low power wakeup functionality for GPIO3.*/
+
+// -------- REGISTER LPPWST -------- //
+
+/**
+Low Power Peripheral Wakeup Status Register.*/
+/**
+Analog Input Comparator Wakeup Flag.*/
+export const F_PWRSEQ_LPPWST_AINCOMP0: any = '1'
+export const F_PWRSEQ_LPPWST_AINCOMP0_POS: any = '1'
+/**
+Backup Mode Wakeup Flag.*/
+export const F_PWRSEQ_LPPWST_BACKUP: any = '1'
+export const F_PWRSEQ_LPPWST_BACKUP_POS: any = '1'
+/**
+Reset Detected Wakeup Flag.*/
+export const F_PWRSEQ_LPPWST_RESET: any = '1'
+export const F_PWRSEQ_LPPWST_RESET_POS: any = '1'
+
+// -------- REGISTER LPPWEN -------- //
+
+/**
+Low Power Peripheral Wakeup Enable Register.*/
+/**
+ AINCOMP0 Wakeup Enable. This bit allows wakeup from the AINCOMP0.*/
+export const F_PWRSEQ_LPPWEN_AINCOMP0: any = '1'
+export const F_PWRSEQ_LPPWEN_AINCOMP0_POS: any = '1'
+/**
+ WDT0 Wakeup Enable. This bit allows wakeup from the WDT0.*/
+export const F_PWRSEQ_LPPWEN_WDT0: any = '1'
+export const F_PWRSEQ_LPPWEN_WDT0_POS: any = '1'
+/**
+ WDT1 Wakeup Enable. This bit allows wakeup from the WDT1.*/
+export const F_PWRSEQ_LPPWEN_WDT1: any = '1'
+export const F_PWRSEQ_LPPWEN_WDT1_POS: any = '1'
+/**
+ CPU1 Wakeup Enable. This bit allows wakeup from the CPU1.*/
+export const F_PWRSEQ_LPPWEN_CPU1: any = '1'
+export const F_PWRSEQ_LPPWEN_CPU1_POS: any = '1'
+/**
+ TMR0 Wakeup Enable. This bit allows wakeup from the TMR0.*/
+export const F_PWRSEQ_LPPWEN_TMR0: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR0_POS: any = '1'
+/**
+ TMR1 Wakeup Enable. This bit allows wakeup from the TMR1.*/
+export const F_PWRSEQ_LPPWEN_TMR1: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR1_POS: any = '1'
+/**
+ TMR2 Wakeup Enable. This bit allows wakeup from the TMR2.*/
+export const F_PWRSEQ_LPPWEN_TMR2: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR2_POS: any = '1'
+/**
+ TMR3 Wakeup Enable. This bit allows wakeup from the TMR3.*/
+export const F_PWRSEQ_LPPWEN_TMR3: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR3_POS: any = '1'
+/**
+ TMR4 Wakeup Enable. This bit allows wakeup from the TMR4.*/
+export const F_PWRSEQ_LPPWEN_TMR4: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR4_POS: any = '1'
+/**
+ TMR5 Wakeup Enable. This bit allows wakeup from the TMR5.*/
+export const F_PWRSEQ_LPPWEN_TMR5: any = '1'
+export const F_PWRSEQ_LPPWEN_TMR5_POS: any = '1'
+/**
+ UART0 Wakeup Enable. This bit allows wakeup from the UART0.*/
+export const F_PWRSEQ_LPPWEN_UART0: any = '1'
+export const F_PWRSEQ_LPPWEN_UART0_POS: any = '1'
+/**
+ UART1 Wakeup Enable. This bit allows wakeup from the UART1.*/
+export const F_PWRSEQ_LPPWEN_UART1: any = '1'
+export const F_PWRSEQ_LPPWEN_UART1_POS: any = '1'
+/**
+ UART2 Wakeup Enable. This bit allows wakeup from the UART2.*/
+export const F_PWRSEQ_LPPWEN_UART2: any = '1'
+export const F_PWRSEQ_LPPWEN_UART2_POS: any = '1'
+/**
+ UART3 Wakeup Enable. This bit allows wakeup from the UART3.*/
+export const F_PWRSEQ_LPPWEN_UART3: any = '1'
+export const F_PWRSEQ_LPPWEN_UART3_POS: any = '1'
+/**
+ I2C0 Wakeup Enable. This bit allows wakeup from the I2C0.*/
+export const F_PWRSEQ_LPPWEN_I2C0: any = '1'
+export const F_PWRSEQ_LPPWEN_I2C0_POS: any = '1'
+/**
+ I2C1 Wakeup Enable. This bit allows wakeup from the I2C1.*/
+export const F_PWRSEQ_LPPWEN_I2C1: any = '1'
+export const F_PWRSEQ_LPPWEN_I2C1_POS: any = '1'
+/**
+ I2C2 Wakeup Enable. This bit allows wakeup from the I2C2.*/
+export const F_PWRSEQ_LPPWEN_I2C2: any = '1'
+export const F_PWRSEQ_LPPWEN_I2C2_POS: any = '1'
+/**
+ I2S Wakeup Enable. This bit allows wakeup from the I2S.*/
+export const F_PWRSEQ_LPPWEN_I2S: any = '1'
+export const F_PWRSEQ_LPPWEN_I2S_POS: any = '1'
+/**
+ SPI1 Wakeup Enable. This bit allows wakeup from the SPI1.*/
+export const F_PWRSEQ_LPPWEN_SPI1: any = '1'
+export const F_PWRSEQ_LPPWEN_SPI1_POS: any = '1'
+/**
+ LPCMP Wakeup Enable. This bit allows wakeup from the LPCMP.*/
+export const F_PWRSEQ_LPPWEN_LPCMP: any = '1'
+export const F_PWRSEQ_LPPWEN_LPCMP_POS: any = '1'
+
+// -------- REGISTER VBTLEPD -------- //
+
+/**
+Low-Power VBTLE Power Down Register.*/
+/**
+Power Down SIMO VREGO_D.*/
+export const F_PWRSEQ_VBTLEPD_BTLE: any = '1'
+export const F_PWRSEQ_VBTLEPD_BTLE_POS: any = '1'
+
+// -------- REGISTER GP0 -------- //
+
+/**
+General Purpose Register 0*/
+
+// -------- REGISTER GP1 -------- //
+
+/**
+General Purpose Register 1*/
+
 // -------- PERIPHERAL RTC -------- //
 
 export interface RTC_t {
@@ -2264,8 +2642,10 @@ export const GPIO2 = {} as GPIO_t
 export const GPIO3 = {} as GPIO_t
 export const ICC0 = {} as ICC_t
 export const LPGCR = {} as LPGCR_t
-export const TMR0 = {} as TMR_t
+export const MCR = {} as MCR_t
+export const PWRSEQ = {} as PWRSEQ_t
 export const RTC = {} as RTC_t
+export const TMR0 = {} as TMR_t
 export const UART0 = {} as UART_t
 export const UART3 = {} as UART_t
 export const GPIO = [] as GPIO_t[]

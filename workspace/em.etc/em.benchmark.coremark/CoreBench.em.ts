@@ -1,11 +1,11 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as Crc from '@em.bench.coremark/Crc.em'
-import * as ListBench from '@em.bench.coremark/ListBench.em'
-import * as MatrixBench from '@em.bench.coremark/MatrixBench.em'
-import * as StateBench from '@em.bench.coremark/StateBench.em'
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as Crc from '@em.benchmark.coremark/Crc.em'
+import * as ListBench from '@em.benchmark.coremark/ListBench.em'
+import * as MatrixBench from '@em.benchmark.coremark/MatrixBench.em'
+import * as StateBench from '@em.benchmark.coremark/StateBench.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 const total_data_size = $config<u16>(2000)
 const num_algs = $config<u8>(3)

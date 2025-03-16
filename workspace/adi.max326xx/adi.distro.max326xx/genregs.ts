@@ -7,6 +7,7 @@ import em from '../../em.core/em.lang/emscript'
 let meta = em.$outfile('REGS.em.ts')
 
 function genPeri(peri: any, periCls: string) {
+    console.log(`    ${periCls}`)
     meta.genTitle(`PERIPHERAL ${periCls}`)
     meta.print('export interface %1_t {\n%+', periCls)
     const regArr = peri.registers[0].register as Array<any>
@@ -95,8 +96,10 @@ const PERI_CLS_MAP = new Map<string, string>([
     ['GPIO3', 'GPIO'],
     ['ICC0', 'ICC'],
     ['LPGCR', 'LPGCR'],
-    ['TMR0', 'TMR'],
+    ['MCR', 'MCR'],
+    ['PWRSEQ', 'PWRSEQ'],
     ['RTC', 'RTC'],
+    ['TMR0', 'TMR'],
     ['UART0', 'UART'],
     ['UART3', 'UART'],
 ])

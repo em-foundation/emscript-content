@@ -224,8 +224,18 @@ export function em$generate() {
         }
     }
 
+    // out = $outfile('load.sh', 0o755)
+    // out.addText(`cp -f .out/main.out.hex ${dst}\n`)
     out = $outfile('load.sh', 0o755)
-    out.addText(`cp -f .out/main.out.hex ${dst}\n`)
+    const openocd = `${tools}/openocd`
+    const exec = `${openocd}/openocd.exe`
+    const scripts = `${openocd}/scripts`
+    const inter = 'interface/cmsis-dap.cfg'
+    const targ = 'target/max32655.cfg'
+    out.addText(`${exec} -s ${scripts} -f ${inter} -f ${targ} -c "program ./.out/main.out verify reset exit"`)
+    out.close()
+    // openocd -f interface/cmsis-dap.cfg -f target/max32655.cfg -c "program your_firmware.elf verify reset exit"
+
     out.close()
 }
 

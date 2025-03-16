@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 export type sum_t = Utils.sum_t
 

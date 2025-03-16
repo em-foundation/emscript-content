@@ -1,8 +1,8 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as Crc from '@em.bench.coremark/Crc.em'
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as Crc from '@em.benchmark.coremark/Crc.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 export const memsize = $config<u16>(0)
 

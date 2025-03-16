@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('INTERFACE')
 
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 export interface $I {
     kind(): Utils.Kind

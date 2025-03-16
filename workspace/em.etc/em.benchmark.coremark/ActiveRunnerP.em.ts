@@ -3,8 +3,8 @@ export const $U = em.$declare('MODULE')
 
 import * as BoardC from '@$distro/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
-import * as CoreBench from '@em.bench.coremark/CoreBench.em'
-import * as Utils from '@em.bench.coremark/Utils.em'
+import * as CoreBench from '@em.benchmark.coremark/CoreBench.em'
+import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 const AppLed = $delegate(BoardC.AppLed)
 
@@ -15,8 +15,9 @@ export function em$startup() {
 }
 
 export function em$run() {
+    Common.BusyWait.$$.wait(1_000_000)
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(250_000)
+    Common.BusyWait.$$.wait(1_000_000)
     AppLed.$$.off()
     Common.UsCounter.$$.start()
     $['%%d+']
@@ -26,7 +27,7 @@ export function em$run() {
     $['%%d-']
     let usecs = Common.UsCounter.$$.stop()
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(250_000)
+    Common.BusyWait.$$.wait(1_000_000)
     AppLed.$$.off()
     printf`usecs = %d\n`(usecs)
     printf`list crc = %04x\n`(Utils.getCrc(Utils.Kind.LIST))

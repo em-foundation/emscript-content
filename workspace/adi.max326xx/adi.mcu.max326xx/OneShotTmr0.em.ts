@@ -3,6 +3,7 @@ export const $U = em.$declare('MODULE', OneShotI)
 
 import * as $R from '@adi.distro.max326xx/REGS.em'
 
+import * as Idle from '@adi.mcu.max326xx/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as OneShotI from '@em.hal/OneShotI.em'
 
@@ -22,6 +23,7 @@ var cur_fxn: Handler = $null
 export function disable(): void {
     cur_fxn = $null
     $R.GCR.PCLKDIS0.$$ |= $R.F_GCR_PCLKDIS0_TMR0
+    Idle.setPauseOnly(false)
     IntrVec.NVIC_disable(e$`TMR0_IRQn`)
 }
 
@@ -36,6 +38,7 @@ export function uenable(usecs: u32, handler: OneShotI.Handler, arg: arg_t): void
 function ustart(usecs: u32, handler: OneShotI.Handler, arg: arg_t) {
     cur_fxn = handler
     cur_arg = arg
+    Idle.setPauseOnly(true)
     IntrVec.NVIC_enable(e$`TMR0_IRQn`)
     $R.GCR.PCLKDIS0.$$ &= ~$R.F_GCR_PCLKDIS0_TMR0
     $R.TMR0.CTRL0.$$ = $R.F_TMR_CTRL0_RST_A
