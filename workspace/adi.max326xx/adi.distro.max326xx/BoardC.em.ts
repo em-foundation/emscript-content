@@ -16,6 +16,7 @@ import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@adi.mcu.max326xx/Mcu.em'
 import * as OneShot from '@adi.mcu.max326xx/OneShotTmr0.em'
 import * as Poller from '@em.mcu/Poller.em'
+import * as SysOsc from '@adi.mcu.max326xx/SysOsc.em'
 import * as Uptimer from '@adi.mcu.max326xx/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 import * as WakeupTimer from '@adi.mcu.max326xx/WakeupTimerRtc.em'
@@ -32,8 +33,11 @@ export const DbgD = $clone(GpioT)
 export const SysLed = $clone(LedT)
 export const SysLedPin = $clone(GpioT)
 
+type OscSrc = 'IPO' | 'ERDO'
+
 export const DEFAULTS = {
     /** setting applies to {app,com,sys}Led pins */ activeLowLeds: false,
+    /** SYS_OSC source */ sysOscSrc: <SysOsc.em$meta.Src>'IPO',
     /** use UART3 for appOut if true */ useLpUart: false,
     pins: {
         appBut: <i16>-1,
@@ -49,6 +53,7 @@ export const DEFAULTS = {
 
 export function em$configure(): void {
     const brd = $board(DEFAULTS)
+    console.log(brd.sysOscSrc)
     const ConsoleUart = brd.useLpUart ? ConsoleUart3 : ConsoleUart0
     $using(BoardController)
     $using(Console)
@@ -79,5 +84,6 @@ export function em$configure(): void {
     SysLed.Pin.$$ = SysLedPin
     SysLed.active_low.$$ = true
     SysLedPin.pin_num.$$ = brd.pins.sysLed
-    UsCounter.MHZ.$$ = 60
+    SysOsc.use_ERFO.$$ = brd.sysOscSrc == 'ERFO'
+    UsCounter.MHZ.$$ = brd.sysOscSrc == 'ERFO' ? 32 : 60
 }
