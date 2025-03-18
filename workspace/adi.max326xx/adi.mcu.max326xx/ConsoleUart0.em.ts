@@ -16,7 +16,7 @@ export namespace em$meta {
     const IBRO_FREQ = 7372800
 
     export function em$construct() {
-        clkdiv.$$ = Math.round(IBRO_FREQ / baud.$$)
+        clkdiv.$$ = Math.round(IBRO_FREQ / baud.$$) * 4
     }
 }
 
