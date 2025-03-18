@@ -4,11 +4,13 @@ export const $U = em.$declare('COMPOSITE')
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@adi.mcu.max326xx/BusyWait.em'
+import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart0 from '@adi.mcu.max326xx/ConsoleUart0.em'
 import * as ConsoleUart3 from '@adi.mcu.max326xx/ConsoleUart3.em'
 import * as Debug from '@em.lang/Debug.em'
+import * as EdgeT from '@adi.mcu.max326xx/EdgeT.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@adi.mcu.max326xx/GpioT.em'
 import * as Idle from '@adi.mcu.max326xx/Idle.em'
@@ -23,6 +25,9 @@ import * as WakeupTimer from '@adi.mcu.max326xx/WakeupTimerRtc.em'
 
 export { OneShot }
 
+export const AppBut = $clone(ButtonT)
+export const AppButEdge = $clone(EdgeT)
+export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOutPin = $clone(GpioT)
@@ -58,6 +63,9 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
+    AppBut.Edge.$$ = AppButEdge
+    AppButEdge.Pin.$$ = AppButPin
+    AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
     AppLed.active_low.$$ = brd.activeLowLeds
     AppLedPin.pin_num.$$ = brd.pins.appLed
