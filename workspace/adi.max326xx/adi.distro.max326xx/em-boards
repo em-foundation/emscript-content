@@ -25,7 +25,7 @@ MAX32655FTHR_SAL:
 
 MAX32655_EVKIT:
     activeLowLeds:  true
-    sysOscSrc: 'INO'
+    sysOscSrc: 'IPO'
     useLpUart: false
     pins:
         appBut:     0x013   ## P0.19
