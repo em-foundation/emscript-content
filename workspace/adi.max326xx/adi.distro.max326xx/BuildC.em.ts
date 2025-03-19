@@ -5,6 +5,8 @@ export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@adi.distro.max326xx/BoardC.em'
+import * as IsrDebug from '@em.arch.arm/IsrDebug.em'
+import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@adi.distro.max326xx/LinkerC.em'
 import * as REGS from '@adi.distro.max326xx/REGS.em'
@@ -124,6 +126,7 @@ export function em$configure() {
     $using(REGS)
     $using(StartupC)
     $using(TargC)
+    IntrVec.IsrDefault.$$ = em.isBareMetal() ? IsrEmpty : IsrDebug
     for (let name of NVIC_INTRS) IntrVec.em$meta.addIntr(name)
 }
 
