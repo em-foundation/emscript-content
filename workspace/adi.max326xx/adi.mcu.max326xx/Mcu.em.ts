@@ -13,6 +13,12 @@ export function startup(): void {
     SysOsc.startup()
     $R.ICC0.CTRL.$$ |= $R.F_ICC_CTRL_EN
     $R.GCR.PCLKDIS0.$$ &= ~($R.F_GCR_PCLKDIS0_GPIO0 | $R.F_GCR_PCLKDIS0_GPIO1)
+    // $R.WDT0.RST.$$ = 0xA5
+    // $R.WDT0.RST.$$ = 0x5A
+    // $R.WDT0.CTRL.$$ = 0
+    // $R.WDT1.RST.$$ = 0xA5
+    // $R.WDT1.RST.$$ = 0x5A
+    // $R.WDT1.CTRL.$$ = 0
     Debug.startup()
     $['%%a:'](2)
 }
