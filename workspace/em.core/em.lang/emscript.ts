@@ -103,6 +103,12 @@ namespace em {
         return deepAssign(res, bobj)
     }
 
+
+    export function isBareMetal(): boolean {
+        const brd: string = $property('em.lang.BoardKind', '')
+        return brd == '<bare-metal>'
+    }
+
     // #endregion
 
     const __CB__ = null
@@ -798,8 +804,8 @@ namespace em {
             readonly uid: string,
             readonly kind: UnitKind
         ) { }
-        used() {
-            this._used = true
+        used(b?: boolean) {
+            this._used = b ?? true
         }
     }
 
