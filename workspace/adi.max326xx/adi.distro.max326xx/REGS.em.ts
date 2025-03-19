@@ -2633,6 +2633,267 @@ Wake-Up Flag for RX FIFO Threshold Met*/
 export const F_UART_WKFL_RX_THD: any = '1'
 export const F_UART_WKFL_RX_THD_POS: any = '1'
 
+// -------- PERIPHERAL WDT -------- //
+
+export interface WDT_t {
+    CTRL: em.$Reg
+    RST: em.$Reg
+    CLKSEL: em.$Reg
+    CNT: em.$Reg
+}
+
+// -------- REGISTER CTRL -------- //
+
+/**
+Watchdog Timer Control Register.*/
+/**
+Windowed Watchdog Interrupt Upper Limit. Sets the number of WDTCLK cycles until a windowed watchdog timer interrupt is generated (if enabled) if the CPU does not write the windowed watchdog reset sequence to the WWDT_RST register before the watchdog timer has counted this time period since the last timer reset.*/
+export const F_WDT_CTRL_INT_LATE_VAL: any = '4'
+export const F_WDT_CTRL_INT_LATE_VAL_POS: any = '4'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW31: any = '0'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW31: any = '0'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW30: any = '1'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW30: any = '1'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW29: any = '2'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW29: any = '2'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW28: any = '3'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW28: any = '3'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW27: any = '4'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW27: any = '4'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW26: any = '5'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW26: any = '5'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW25: any = '6'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW25: any = '6'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW24: any = '7'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW24: any = '7'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW23: any = '8'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW23: any = '8'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW22: any = '9'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW22: any = '9'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW21: any = '10'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW21: any = '10'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW20: any = '11'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW20: any = '11'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW19: any = '12'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW19: any = '12'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW18: any = '13'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW18: any = '13'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW17: any = '14'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW17: any = '14'
+export const S_WDT_CTRL_INT_LATE_VAL_WDT2POW16: any = '15'
+export const V_WDT_CTRL_INT_LATE_VAL_WDT2POW16: any = '15'
+/**
+Windowed Watchdog Reset Upper Limit. Sets the number of WDTCLK cycles until a system reset occurs (if enabled) if the CPU does not write the watchdog reset sequence to the WDT_RST register before the watchdog timer has counted this time period since the last timer reset.*/
+export const F_WDT_CTRL_RST_LATE_VAL: any = '4'
+export const F_WDT_CTRL_RST_LATE_VAL_POS: any = '4'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW31: any = '0'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW31: any = '0'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW30: any = '1'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW30: any = '1'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW29: any = '2'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW29: any = '2'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW28: any = '3'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW28: any = '3'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW27: any = '4'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW27: any = '4'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW26: any = '5'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW26: any = '5'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW25: any = '6'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW25: any = '6'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW24: any = '7'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW24: any = '7'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW23: any = '8'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW23: any = '8'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW22: any = '9'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW22: any = '9'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW21: any = '10'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW21: any = '10'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW20: any = '11'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW20: any = '11'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW19: any = '12'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW19: any = '12'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW18: any = '13'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW18: any = '13'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW17: any = '14'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW17: any = '14'
+export const S_WDT_CTRL_RST_LATE_VAL_WDT2POW16: any = '15'
+export const V_WDT_CTRL_RST_LATE_VAL_WDT2POW16: any = '15'
+/**
+Windowed Watchdog Timer Enable.*/
+export const F_WDT_CTRL_EN: any = '1'
+export const F_WDT_CTRL_EN_POS: any = '1'
+export const S_WDT_CTRL_EN_DIS: any = '0'
+export const V_WDT_CTRL_EN_DIS: any = '0'
+export const S_WDT_CTRL_EN_EN: any = '1'
+export const V_WDT_CTRL_EN_EN: any = '1'
+/**
+Windowed Watchdog Timer Interrupt Flag Too Late.*/
+export const F_WDT_CTRL_INT_LATE: any = '1'
+export const F_WDT_CTRL_INT_LATE_POS: any = '1'
+export const S_WDT_CTRL_INT_LATE_INACTIVE: any = '0'
+export const V_WDT_CTRL_INT_LATE_INACTIVE: any = '0'
+export const S_WDT_CTRL_INT_LATE_PENDING: any = '1'
+export const V_WDT_CTRL_INT_LATE_PENDING: any = '1'
+/**
+Windowed Watchdog Timer Interrupt Enable.*/
+export const F_WDT_CTRL_WDT_INT_EN: any = '1'
+export const F_WDT_CTRL_WDT_INT_EN_POS: any = '1'
+export const S_WDT_CTRL_WDT_INT_EN_DIS: any = '0'
+export const V_WDT_CTRL_WDT_INT_EN_DIS: any = '0'
+export const S_WDT_CTRL_WDT_INT_EN_EN: any = '1'
+export const V_WDT_CTRL_WDT_INT_EN_EN: any = '1'
+/**
+Windowed Watchdog Timer Reset Enable.*/
+export const F_WDT_CTRL_WDT_RST_EN: any = '1'
+export const F_WDT_CTRL_WDT_RST_EN_POS: any = '1'
+export const S_WDT_CTRL_WDT_RST_EN_DIS: any = '0'
+export const V_WDT_CTRL_WDT_RST_EN_DIS: any = '0'
+export const S_WDT_CTRL_WDT_RST_EN_EN: any = '1'
+export const V_WDT_CTRL_WDT_RST_EN_EN: any = '1'
+/**
+Windowed Watchdog Timer Interrupt Flag Too Soon.*/
+export const F_WDT_CTRL_INT_EARLY: any = '1'
+export const F_WDT_CTRL_INT_EARLY_POS: any = '1'
+export const S_WDT_CTRL_INT_EARLY_INACTIVE: any = '0'
+export const V_WDT_CTRL_INT_EARLY_INACTIVE: any = '0'
+export const S_WDT_CTRL_INT_EARLY_PENDING: any = '1'
+export const V_WDT_CTRL_INT_EARLY_PENDING: any = '1'
+/**
+Windowed Watchdog Interrupt Lower Limit. Sets the number of WDTCLK cycles that establishes the lower boundary of the watchdog window. A windowed watchdog timer interrupt is generated (if enabled) if the CPU writes the windowed watchdog reset sequence to the WWDT_RST register before the watchdog timer has counted this time period since the last timer reset.*/
+export const F_WDT_CTRL_INT_EARLY_VAL: any = '4'
+export const F_WDT_CTRL_INT_EARLY_VAL_POS: any = '4'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW31: any = '0'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW31: any = '0'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW30: any = '1'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW30: any = '1'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW29: any = '2'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW29: any = '2'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW28: any = '3'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW28: any = '3'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW27: any = '4'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW27: any = '4'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW26: any = '5'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW26: any = '5'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW25: any = '6'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW25: any = '6'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW24: any = '7'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW24: any = '7'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW23: any = '8'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW23: any = '8'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW22: any = '9'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW22: any = '9'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW21: any = '10'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW21: any = '10'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW20: any = '11'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW20: any = '11'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW19: any = '12'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW19: any = '12'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW18: any = '13'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW18: any = '13'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW17: any = '14'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW17: any = '14'
+export const S_WDT_CTRL_INT_EARLY_VAL_WDT2POW16: any = '15'
+export const V_WDT_CTRL_INT_EARLY_VAL_WDT2POW16: any = '15'
+/**
+Windowed Watchdog Reset Lower Limit. Sets the number of WDTCLK cycles that establishes the lower boundary of the watchdog window. A system reset occurs (if enabled) if the CPU writes the windowed watchdog reset sequence to the WWDT_RST register before the watchdog timer has counted this time period since the last timer reset.*/
+export const F_WDT_CTRL_RST_EARLY_VAL: any = '4'
+export const F_WDT_CTRL_RST_EARLY_VAL_POS: any = '4'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW31: any = '0'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW31: any = '0'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW30: any = '1'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW30: any = '1'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW29: any = '2'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW29: any = '2'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW28: any = '3'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW28: any = '3'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW27: any = '4'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW27: any = '4'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW26: any = '5'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW26: any = '5'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW25: any = '6'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW25: any = '6'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW24: any = '7'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW24: any = '7'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW23: any = '8'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW23: any = '8'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW22: any = '9'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW22: any = '9'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW21: any = '10'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW21: any = '10'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW20: any = '11'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW20: any = '11'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW19: any = '12'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW19: any = '12'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW18: any = '13'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW18: any = '13'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW17: any = '14'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW17: any = '14'
+export const S_WDT_CTRL_RST_EARLY_VAL_WDT2POW16: any = '15'
+export const V_WDT_CTRL_RST_EARLY_VAL_WDT2POW16: any = '15'
+/**
+Switch Ready Interrupt Enable. Fires an interrupt when it is safe to swithc the clock.*/
+export const F_WDT_CTRL_CLKRDY_IE: any = '1'
+export const F_WDT_CTRL_CLKRDY_IE_POS: any = '1'
+/**
+Clock Status.*/
+export const F_WDT_CTRL_CLKRDY: any = '1'
+export const F_WDT_CTRL_CLKRDY_POS: any = '1'
+/**
+Enables the Windowed Watchdog Function.*/
+export const F_WDT_CTRL_WIN_EN: any = '1'
+export const F_WDT_CTRL_WIN_EN_POS: any = '1'
+export const S_WDT_CTRL_WIN_EN_DIS: any = '0'
+export const V_WDT_CTRL_WIN_EN_DIS: any = '0'
+export const S_WDT_CTRL_WIN_EN_EN: any = '1'
+export const V_WDT_CTRL_WIN_EN_EN: any = '1'
+/**
+Windowed Watchdog Timer Reset Flag Too Soon.*/
+export const F_WDT_CTRL_RST_EARLY: any = '1'
+export const F_WDT_CTRL_RST_EARLY_POS: any = '1'
+export const S_WDT_CTRL_RST_EARLY_NOEVENT: any = '0'
+export const V_WDT_CTRL_RST_EARLY_NOEVENT: any = '0'
+export const S_WDT_CTRL_RST_EARLY_OCCURRED: any = '1'
+export const V_WDT_CTRL_RST_EARLY_OCCURRED: any = '1'
+/**
+Windowed Watchdog Timer Reset Flag Too Late.*/
+export const F_WDT_CTRL_RST_LATE: any = '1'
+export const F_WDT_CTRL_RST_LATE_POS: any = '1'
+export const S_WDT_CTRL_RST_LATE_NOEVENT: any = '0'
+export const V_WDT_CTRL_RST_LATE_NOEVENT: any = '0'
+export const S_WDT_CTRL_RST_LATE_OCCURRED: any = '1'
+export const V_WDT_CTRL_RST_LATE_OCCURRED: any = '1'
+
+// -------- REGISTER RST -------- //
+
+/**
+Windowed Watchdog Timer Reset Register.*/
+/**
+Writing the watchdog counter 'reset sequence' to this register resets the watchdog counter. If the watchdog count exceeds INT_PERIOD_UPPER_LIMIT then a watchdog interrupt will occur, if enabled. If the watchdog count exceeds RST_PERIOD_UPPER_LIMIT then a watchdog reset will occur, if enabled.*/
+export const F_WDT_RST_RESET: any = '8'
+export const F_WDT_RST_RESET_POS: any = '8'
+export const S_WDT_RST_RESET_SEQ0: any = '0x000000A5'
+export const V_WDT_RST_RESET_SEQ0: any = '0x000000A5'
+export const S_WDT_RST_RESET_SEQ1: any = '0x0000005A'
+export const V_WDT_RST_RESET_SEQ1: any = '0x0000005A'
+
+// -------- REGISTER CLKSEL -------- //
+
+/**
+Windowed Watchdog Timer Clock Select Register.*/
+/**
+WWDT Clock Selection Register.*/
+export const F_WDT_CLKSEL_SOURCE: any = '3'
+export const F_WDT_CLKSEL_SOURCE_POS: any = '3'
+
+// -------- REGISTER CNT -------- //
+
+/**
+Windowed Watchdog Timer Count Register.*/
+/**
+Current Value of the Windowed Watchdog Timer Counter.*/
+export const F_WDT_CNT_COUNT: any = '32'
+export const F_WDT_CNT_COUNT_POS: any = '32'
+
 // -------- INSTANCES -------- //
 
 export const GCR = {} as GCR_t
@@ -2648,5 +2909,7 @@ export const RTC = {} as RTC_t
 export const TMR0 = {} as TMR_t
 export const UART0 = {} as UART_t
 export const UART3 = {} as UART_t
+export const WDT0 = {} as WDT_t
+export const WDT1 = {} as WDT_t
 export const GPIO = [] as GPIO_t[]
 export const UART = [] as UART_t[]
