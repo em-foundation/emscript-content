@@ -1,0 +1,147 @@
+import em from '@$$emscript'
+import { userInfo } from 'os'
+import { execSync } from 'child_process'
+export const $U = em.$declare('COMPOSITE')
+
+import * as ArmStartupC from '@em.arch.arm/StartupC.em'
+import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
+import * as IntrVec from '@em.arch.arm/IntrVec.em'
+import * as LinkerC from '@nrf.distro.54lxx/LinkerC.em'
+import * as REGS from '@nrf.distro.54lxx/REGS.em'
+import * as StartupC from '@nrf.distro.54lxx/StartupC.em'
+import * as TargC from '@em.lang/TargC.em'
+
+const NVIC_INTRS = <Array<string>>[
+]
+
+export function em$configure() {
+    $using(ArmStartupC)
+    $using(IntrVec)
+    $using(LinkerC)
+    $using(REGS)
+    $using(StartupC)
+    $using(TargC)
+    IntrVec.IsrDefault.$$ = IsrEmpty
+    for (let name of NVIC_INTRS) IntrVec.em$meta.addIntr(name)
+}
+
+export function em$generate() {
+    let opt = $property('em.build.Optimize', 'Oz')
+    let tools = $property('em.build.ToolsHome', '')
+    let libflav = opt == 'Oz' ? 'small' : 'balanced'
+    let out = $outfile('build.sh', 0o755)
+    out.addFrag(`
+        |-> #!/bin/sh
+        |-> 
+        |-> set -e
+        |-> 
+        |-> TOOLS=${tools}/segger-arm
+        |-> CC=$TOOLS/bin/segger-cc
+        |-> LD=$TOOLS/gcc/arm-none-eabi/bin/ld
+        |-> OBJCOPY=$TOOLS/gcc/arm-none-eabi/bin/objcopy
+        |-> OBJDUMP=$TOOLS/gcc/arm-none-eabi/bin/objdump
+        |-> 
+        |-> OUT=.out
+        |-> 
+        |-> rm -rf $OUT
+        |-> mkdir $OUT
+        |-> 
+        |-> 
+        |-> CFLAGS="\\
+        |->     -D__EM_ARCH_arm__ \\
+        |->     -D__EM_BOOT__=0 \\
+        |->     -D__EM_BOOT_FLASH__=0 \\
+        |->     -D__EM_COMPILER_segger__ \\
+        |->     -D__EM_CPU_cortex_m33__ \\
+        |->     -D__EM_MCU_null__ \\
+        |->     -D__EM_LANG__=1 \\
+        |->     -D__GNUC__ \\
+        |->     --std=c++14 \\
+        |->     -triple thumbv6m-none-eabi \\
+        |->     -target-cpu cortex-m33 \\
+        |->     -ffunction-sections \\
+        |->     -fdata-sections \\
+        |->     -fno-threadsafe-statics \\
+        |->     -Wno-deprecated-register \\
+        |->     -Wno-invalid-noreturn \\
+        |->     -Wno-macro-redefined \\
+        |->     -Wno-switch \\
+        |->     -Wno-uninitialized \\
+        |->     -Wno-c99-designator \\
+        |->     -Wno-c++20-designator \\
+        |->     -Wpointer-to-int-cast \\
+        |->     -target-feature +strict-align -msoft-float -target-abi aapcs -mfloat-abi soft -fno-signed-char -fnative-half-type -fnative-half-arguments-and-returns \\
+        |-> "
+        |-> 
+        |-> CINCS="\\
+        |->     -I . \\
+        |->     -I $TOOLS/include \\
+        |-> "
+        |-> 
+        |-> COPTS="\\
+        |->     -${opt} \\
+        |-> "
+        |-> 
+        |-> LFLAGS="\\
+        |->     -eem__start \\
+        |->     -N \\
+        |->     --gc-sections \\
+        |-> "
+        |-> 
+        |-> LIBS="
+        |->     $TOOLS/lib/libc_v6m_t_le_eabi_${libflav}.a \\
+        |->     $TOOLS/lib/strops_v6m_t_le_eabi_${libflav}.a \\
+        |-> "
+        |-> 
+        |-> $CC -c $CFLAGS $CINCS $COPTS -x c++ main.cpp -o $OUT/main.obj
+        |-> $LD $LFLAGS -Map=$OUT/main.map -T linkcmd.ld -o $OUT/main.out $OUT/main.obj $LIBS
+        |-> $OBJCOPY -O ihex $OUT/main.out $OUT/main.out.hex
+        |-> $OBJDUMP -h -d --demangle $OUT/main.out >$OUT/main.out.dis
+        |-> $OBJDUMP -t --demangle $OUT/main.out | tail -n +5 | sed -e 's/[FO] /  /' | sed -e 's/df /   /' >$OUT/main.out.sym
+        |-> sort -k1 $OUT/main.out.sym > $OUT/main.out.syma
+        |-> sort -k5 $OUT/main.out.sym > $OUT/main.out.symn
+        |-> $OBJDUMP -h $OUT/main.out
+
+    `)
+    out.close()
+    //
+    out = $outfile('load.sh', 0o755)
+    let dst: string
+    switch (process.platform) {
+        case 'win32': {
+            dst = findDrive('DAPLINK')
+            break
+        }
+        case 'linux': {
+            dst = `/media/${userInfo().username}/DAPLINK/`
+            break
+        }
+        default: {
+            dst = 'Volumes/daplink'
+            break
+        }
+    }
+
+    // out = $outfile('load.sh', 0o755)
+    // out.addText(`cp -f .out/main.out.hex ${dst}\n`)
+    out = $outfile('load.sh', 0o755)
+    const openocd = `${tools}/openocd`
+    const exec = `${openocd}/openocd.exe`
+    const scripts = `${openocd}/scripts`
+    const inter = 'interface/cmsis-dap.cfg'
+    const targ = 'target/max32655.cfg'
+    out.addText(`${exec} -s ${scripts} -f ${inter} -f ${targ} -c "program ./.out/main.out verify reset exit"`)
+    out.close()
+    // openocd -f interface/cmsis-dap.cfg -f target/max32655.cfg -c "program your_firmware.elf verify reset exit"
+
+    out.close()
+}
+
+import * as ChildProc from 'child_process'
+
+function findDrive(label: string): string {
+    const cmd = `wmic logicaldisk where "VolumeName='${label}'" get DeviceID`
+    const stdout = String(ChildProc.execSync(cmd, { stdio: ['pipe', 'pipe', 'ignore'] }))
+    const lines = stdout.trim().split('\n')
+    return lines.length < 2 ? '/dev/null' : `/${lines[1].slice(0, 1)}`
+}

@@ -1,0 +1,10 @@
+#ifndef __REGS_M
+#define __REGS_M
+
+#include "../../nrf.54lxx/nrf.distro.54lxx/inc/nrf54l05_application.h"
+#include "../../nrf.54lxx/nrf.distro.54lxx/inc/nrf54l05_types.h"
+#include "../../nrf.54lxx/nrf.distro.54lxx/inc/nrf54l05_global.h"
+
+#include "../../em.core/em.arch.arm/inc/core_cm33.h"
+
+#endif
