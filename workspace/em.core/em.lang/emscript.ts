@@ -714,6 +714,8 @@ namespace em {
         (...args: A): void
     }
 
+    export type dim_t<T, N extends number> = T[]
+
     export interface frame_t<T> extends index_t<T> {
         $len: u16
         $frame(beg: i16, len: u16): frame_t<T>
@@ -1075,6 +1077,7 @@ declare global {
     type arg_t = em.arg_t
     type bool_t = em.bool_t
     type cb_t<A extends any[] = []> = em.cb_t<A>
+    type dim_t<T, N extends number> = em.dim_t<T, N>
     type frame_t<T> = em.frame_t<T>
     type index_t<T> = em.index_t<T>
     type i8 = em.i8

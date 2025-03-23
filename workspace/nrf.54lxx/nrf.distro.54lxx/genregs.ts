@@ -1,69 +1,85 @@
 import * as Path from 'path'
 import * as Fs from 'fs'
-import * as Xml2Js from 'xml2js'
 
 import em from '../../em.core/em.lang/emscript'
 
+const TYPE_SET = new Set<string>(['GPIO', 'UART', 'UARTE'])
+const INSTS = ['GPIO', 'UARTE']
+
 let meta = em.$outfile('REGS.em.ts')
 
-function genPeri(peri: any, periCls: string) {
-    console.log(peri)
-    meta.genTitle(`PERIPHERAL ${periCls}`)
-    meta.print('export interface %1_t {\n%+', periCls)
-    const regArr = peri.registers[0].register as Array<any>
-    if (regArr === undefined) return
-    for (const reg of regArr) {
-        const regName = reg.name[0] as string
-        meta.print('%t%1: em.$Reg\n', regName)
+function genConsts() {
+    while (true) {
+        const ln = nextLine()
+        if (ln === null) break
+        const m = ln.match(/#define\s+(\w+)\s+\((.+)\)/)
+        if (!m) continue
+        let base = m[1]
+        const k = base.indexOf('_')
+        if (k > 0) {
+            base = base.substring(0, k - 1)
+        }
+        if (!TYPE_SET.has(base)) continue
+        meta.print("export const %1: any = '%2'\n", m[1], m[2])
     }
-    meta.print('%-}\n')
-    for (const reg of regArr) {
-        const regName = reg.name[0] as string
-        meta.genTitle(`REGISTER ${regName}`)
-        meta.addText('/**\n')
-        const desc = reg.description[0] as string
-        meta.addText(desc.replace('\n', '\n\n'))
-        meta.addText('*/\n')
-        if (reg.fields == undefined) continue
-        const fldArr = reg.fields[0].field as Array<any>
-        for (const fld of fldArr) {
-            const fldName = fld.name[0] as string
-            meta.addText('/**\n')
-            const desc = fld.description[0] as string
-            meta.addText(desc.replace('\n', '\n\n'))
-            meta.addText('*/\n')
-            const fldLab = `${periCls}_${regName}_${fldName}`
-            meta.print("export const F_%1: any = '%2'\n", fldLab, fld.bitWidth)
-            meta.print(
-                "export const F_%1_POS: any = '%2'\n",
-                fldLab,
-                fld.bitWidth
-            )
-            if (fld.enumeratedValues == undefined) continue
-            const valArr = fld.enumeratedValues[0].enumeratedValue as Array<any>
-            for (const val of valArr) {
-                const valName = (val.name[0] as string).toUpperCase()
-                // meta.addText("/**\n")
-                // const desc = val.description[0] as string
-                // meta.addText(desc.replace("\n", "\n\n"))
-                // meta.addText("*/\n")
-                const valLab = `${periCls}_${regName}_${fldName}_${valName}`
-                meta.print("export const S_%1: any = '%2'\n", valLab, val.value)
-                meta.print("export const V_%1: any = '%2'\n", valLab, val.value)
-            }
+}
+
+function nextLine(): string | null {
+    return cur_idx == src_lines.length ? null : src_lines[cur_idx++]
+}
+
+function scanConsts(): Array<[string, string]> {
+    let res = new Array<[string, string]>()
+    while (true) {
+        const ln = nextLine()
+    }
+    return res
+}
+
+function scanFields(): Array<[string, string, string]> {
+    let res = new Array<[string, string, string]>()
+    while (true) {
+        const ln = nextLine()
+        if (ln?.match(/\s*typedef struct/)) {
+            break
+        }
+    }
+    while (true) {
+        const ln = nextLine()
+        if (ln?.match(/\s*}/)) {
+            break
+        }
+        const m = ln?.match(/(\w+)\s+(\w+)\s+(\w+)(\[(\d+)\])?;/)
+        if (!m) continue
+        const fname = m[3]
+        const ftype = (m[2] == 'uint32_t') ? 'em.$Reg' : m[2].replace('NRF_', '').replace('_Type', '_t')
+        const fdim = m[5] ?? ''
+        res.push([fname, ftype, fdim])
+    }
+    return res
+}
+
+function scanStruct(): string | null {
+    while (true) {
+        const ln = nextLine()
+        if (ln === null) return null
+        const m = ln.match(/==== Struct (\w+)/)
+        if (m === null) continue
+        let base = m[1]
+        const k = base.indexOf('_')
+        if (k > 0) {
+            base = base.substring(0, k - 1)
+        }
+        if (TYPE_SET.has(base)) {
+            return m[1]
         }
     }
 }
 
-function readXmlFile(xfile: string): any {
-    let xml
-    Xml2Js.parseString(Fs.readFileSync(xfile).toString(), (err, res) => {
-        xml = res
-    })
-    return xml
-}
-
 // ---- main ---- //
+
+let src_lines = Fs.readFileSync('inc/nrf54l05_types.h', 'utf-8').split('\n')
+let cur_idx = 0
 
 meta.addText(`import em from '@$$emscript'\n`)
 meta.addText(`export const $U = em.$declare('COMPOSITE')\n`)
@@ -75,32 +91,26 @@ export function em$generate() {
 }
 `)
 
-const PERI_CLS_MAP = new Map<string, string>([
-    // ['GLOBAL_P2_NS', 'GLOBAL_P2_NS'],
-])
+while (true) {
+    const sname = scanStruct()
+    if (sname === null) break
+    meta.genTitle(sname)
+    meta.print('export interface %1_t {\n%+', sname)
+    for (const [fname, ftype, fdim] of scanFields()) {
+        if (fdim) {
+            meta.print('%t%1: dim_t<%2, %3>\n', fname, ftype, fdim)
 
-let doneSet = new Set<string>()
-
-const dev = readXmlFile('./nrf54l05_application.svd').device
-const periArr = dev.peripherals[0].peripheral as Array<any>
-for (const peri of periArr) {
-    const periName = peri.name[0] as string
-    if (!PERI_CLS_MAP.has(periName)) continue
-    const periCls = periName.match(/([A-Z]+)/)![1]
-    // const fn = `./inc/${periCls.toLowerCase()}_regs.h`
-    // if (!Fs.existsSync(fn)) continue
-    if (doneSet.has(periCls)) continue
-    doneSet.add(periCls)
-    genPeri(peri, periCls)
+        } else {
+            meta.print('%t%1: %2\n', fname, ftype)
+        }
+    }
+    meta.print('%-}\n')
 }
-
-const CLS_IDX_SET = new Set<string>()
-
+cur_idx = 0
+meta.genTitle('CONSTANTS')
+genConsts()
 meta.genTitle('INSTANCES')
-for (const [peri, cls] of PERI_CLS_MAP) {
-    meta.print('export const %1 = {} as %2_t\n', peri, cls)
-}
-for (const cls of CLS_IDX_SET) {
-    meta.print('export const %1 = [] as %1_t[]\n', cls)
+for (const iname of INSTS) {
+    meta.print('export const %1 = {} as %1_t\n', iname)
 }
 meta.close()
