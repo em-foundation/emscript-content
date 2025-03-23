@@ -1347,4 +1347,11 @@ export const UARTE_FRAMETIMEOUT_COUNTERTOP_Msk: any = '0x3FFUL << UARTE_FRAMETIM
 
 // -------- INSTANCES -------- //
 
+export const P0 = {} as GPIO_t
+export const P1 = {} as GPIO_t
+export const P2 = {} as GPIO_t
 export const UARTE30 = {} as UARTE_t
+
+// -------- INDICIES -------- //
+
+export const P = [] as GPIO_t[]

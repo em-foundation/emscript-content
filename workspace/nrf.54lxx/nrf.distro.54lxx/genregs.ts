@@ -5,7 +5,13 @@ import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>(['GPIO', 'UART', 'UARTE'])
 const INSTS = [
+    ['P0', 'GPIO'],
+    ['P1', 'GPIO'],
+    ['P2', 'GPIO'],
     ['UARTE30', 'UARTE'],
+]
+const INDICIES = [
+    ['P', 'GPIO'],
 ]
 
 let meta = em.$outfile('REGS.em.ts')
@@ -114,5 +120,9 @@ genConsts()
 meta.genTitle('INSTANCES')
 for (const [iname, itype] of INSTS) {
     meta.print('export const %1 = {} as %2_t\n', iname, itype)
+}
+meta.genTitle('INDICIES')
+for (const [iname, itype] of INDICIES) {
+    meta.print('export const %1 = [] as %2_t[]\n', iname, itype)
 }
 meta.close()
