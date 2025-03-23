@@ -3,6 +3,8 @@ export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
+import * as IsrDebug from '@em.arch.arm/IsrDebug.em'
+import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
 import * as REGS from '@ti.distro.cc23xx/REGS.em'
@@ -39,6 +41,7 @@ export function em$configure() {
     $using(REGS)
     $using(StartupC)
     $using(TargC)
+    IntrVec.IsrDefault.$$ = em.isBareMetal() ? IsrEmpty : IsrDebug
     for (let name of NVIC_INTRS) IntrVec.em$meta.addIntr(name)
 }
 
@@ -125,8 +128,8 @@ export function em$generate() {
         process.platform === 'win32'
             ? 'dslite.bat'
             : process.platform === 'linux'
-              ? 'dslite-Cortex_M0P.sh'
-              : 'dslite.sh'
+                ? 'dslite-Cortex_M0P.sh'
+                : 'dslite.sh'
     out = $outfile('load.sh', 0o755)
     out.addText(
         `${tools}/ti-uniflash/${dslite} -c ../ti.cc23xx/ti.distro.cc23xx/CC2340R5.ccxml .out/main.out\n`
