@@ -6,7 +6,7 @@ import * as $R from '@nrf.distro.54lxx/REGS.em'
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-// export const TxPin = $proxy<GpioI.$I>()
+export const TxPin = $proxy<GpioI.$I>()
 
 export namespace em$meta { }
 
@@ -19,7 +19,8 @@ export function em$startup() {
     $R.UARTE30.BAUDRATE.$$ = $R.UARTE_BAUDRATE_BAUDRATE_Baud115200
     $R.UARTE30.ENABLE.$$ = $R.UARTE_ENABLE_ENABLE_Enabled
     //
-    $R.UARTE30.DMA.TX.PTR.$$ = e$`(uint32_t)&txd`
+    e$`NRF_UARTE30_S->DMA.TX.PTR = (uint32_t)&txd`
+    // $R.UARTE30.DMA.TX.PTR.$$ = e$`(uint32_t)&txd`
     $R.UARTE30.DMA.TX.MAXCNT.$$ = 1
 }
 

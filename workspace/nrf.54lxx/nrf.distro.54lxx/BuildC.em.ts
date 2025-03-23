@@ -4,6 +4,7 @@ import { execSync } from 'child_process'
 export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
+import * as BoardC from '@nrf.distro.54lxx/BoardC.em'
 import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@nrf.distro.54lxx/LinkerC.em'
@@ -16,6 +17,7 @@ const NVIC_INTRS = <Array<string>>[
 
 export function em$configure() {
     $using(ArmStartupC)
+    $using(BoardC)
     $using(IntrVec)
     $using(LinkerC)
     $using(REGS)
