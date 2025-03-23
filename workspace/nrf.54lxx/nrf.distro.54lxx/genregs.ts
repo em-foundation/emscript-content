@@ -4,7 +4,9 @@ import * as Fs from 'fs'
 import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>(['GPIO', 'UART', 'UARTE'])
-const INSTS = ['GPIO', 'UARTE']
+const INSTS = [
+    ['UARTE30', 'UARTE'],
+]
 
 let meta = em.$outfile('REGS.em.ts')
 
@@ -110,7 +112,7 @@ cur_idx = 0
 meta.genTitle('CONSTANTS')
 genConsts()
 meta.genTitle('INSTANCES')
-for (const iname of INSTS) {
-    meta.print('export const %1 = {} as %1_t\n', iname)
+for (const [iname, itype] of INSTS) {
+    meta.print('export const %1 = {} as %2_t\n', iname, itype)
 }
 meta.close()

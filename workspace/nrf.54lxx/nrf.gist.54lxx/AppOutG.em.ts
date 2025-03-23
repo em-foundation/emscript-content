@@ -6,9 +6,6 @@ import * as $R from '@nrf.distro.54lxx/REGS.em'
 var txd: u8
 
 export function em$run() {
-    e$`NRF_P0_S->DIRSET = (1 < 0)`
-    e$`NRF_P0_S->OUTSET = (1 < 0)`
-    //
     e$`NRF_UARTE30_S->PSEL.TXD = 0` // P0.0
     e$`NRF_UARTE30_S->BAUDRATE = UARTE_BAUDRATE_BAUDRATE_Baud115200`
     e$`NRF_UARTE30_S->ENABLE = UARTE_ENABLE_ENABLE_Enabled`

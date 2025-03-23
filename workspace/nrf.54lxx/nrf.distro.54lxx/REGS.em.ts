@@ -1347,5 +1347,4 @@ export const UARTE_FRAMETIMEOUT_COUNTERTOP_Msk: any = '0x3FFUL << UARTE_FRAMETIM
 
 // -------- INSTANCES -------- //
 
-export const GPIO = {} as GPIO_t
-export const UARTE = {} as UARTE_t
+export const UARTE30 = {} as UARTE_t
