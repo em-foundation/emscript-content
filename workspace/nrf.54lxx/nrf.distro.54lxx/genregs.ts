@@ -26,12 +26,12 @@ function genConsts() {
     while (true) {
         const ln = nextLine()
         if (ln === null) break
-        const m = ln.match(/#define\s+(\w+)\s+\((.+)\)/)
+        const m = ln.match(/\s*#define\s+(\w+)\s+\((.+?)\)/)
         if (!m) continue
         let base = m[1]
         const k = base.indexOf('_')
         if (k > 0) {
-            base = base.substring(0, k - 1)
+            base = base.substring(0, k)
         }
         if (!TYPE_SET.has(base)) continue
         meta.print("export const %1: any = '%2'\n", m[1], m[2])
@@ -40,14 +40,6 @@ function genConsts() {
 
 function nextLine(): string | null {
     return cur_idx == src_lines.length ? null : src_lines[cur_idx++]
-}
-
-function scanConsts(): Array<[string, string]> {
-    let res = new Array<[string, string]>()
-    while (true) {
-        const ln = nextLine()
-    }
-    return res
 }
 
 function scanFields(): Array<[string, string, string]> {
