@@ -5,11 +5,13 @@ import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
     'GPIO',
+    'GRTC',
     'TIMER',
     'UART',
     'UARTE',
 ])
 const INSTS = [
+    ['GRTC', 'GRTC'],
     ['P0', 'GPIO'],
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
@@ -74,7 +76,8 @@ function scanStruct(): string | null {
         let base = m[1]
         const k = base.indexOf('_')
         if (k > 0) {
-            base = base.substring(0, k - 1)
+            console.log(base)
+            base = base.substring(0, k)
         }
         if (TYPE_SET.has(base)) {
             return m[1]
