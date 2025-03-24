@@ -511,9 +511,11 @@ namespace em {
     export type i8 = number & { __i8?: never }
     export type i16 = number & { __i16?: never }
     export type i32 = number & { __i32?: never }
+    export type i64 = number & { __i64?: never }
     export type u8 = number & { __u8?: never }
     export type u16 = number & { __u16?: never }
     export type u32 = number & { __u32?: never }
+    export type u64 = number & { __u64?: never }
 
     export class em$Scalar<T> {
         $memory: MemInfo
@@ -551,6 +553,9 @@ namespace em {
     export function $i32(val: i32 = 0): Contained<i32> & em$Scalar<i32> {
         return new em$Scalar('i32', val, 4)
     }
+    export function $i64(val: i64 = 0): Contained<i64> & em$Scalar<i64> {
+        return new em$Scalar('i64', val, 8)
+    }
     export function $u8(val: u8 = 0): Contained<u8> & em$Scalar<u8> {
         return new em$Scalar('u8', val, 1)
     }
@@ -559,6 +564,9 @@ namespace em {
     }
     export function $u32(val: u32 = 0): Contained<u32> & em$Scalar<u32> {
         return new em$Scalar('u32', val, 4)
+    }
+    export function $u64(val: u64 = 0): Contained<u64> & em$Scalar<u64> {
+        return new em$Scalar('u64', val, 8)
     }
 
     // #endregion
@@ -1083,12 +1091,14 @@ declare global {
     type i8 = em.i8
     type i16 = em.i16
     type i32 = em.i32
+    type i64 = em.i64
     type ptr_t<T> = em.ptr_t<T>
     type ref_t<T> = em.ref_t<T>
     type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
     type u32 = em.u32
+    type u64 = em.u64
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
     const $: typeof em.$
@@ -1105,6 +1115,7 @@ declare global {
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
     const $i32: typeof em.$i32
+    const $i64: typeof em.$i64
     const $null: any
     const $outfile: typeof em.$outfile
     const $config: typeof em.$config
@@ -1118,6 +1129,7 @@ declare global {
     const $u8: typeof em.$u8
     const $u16: typeof em.$u16
     const $u32: typeof em.$u32
+    const $u64: typeof em.$u64
     const $using: typeof em.$using
     const fail: typeof em.fail
     const halt: typeof em.halt
@@ -1142,6 +1154,7 @@ Object.assign(globalThis, {
     $i8: em.$i8,
     $i16: em.$i16,
     $i32: em.$i32,
+    $i64: em.$i64,
     $null: null as any,
     $outfile: em.$outfile,
     $config: em.$config,
@@ -1156,6 +1169,7 @@ Object.assign(globalThis, {
     $u8: em.$u8,
     $u16: em.$u16,
     $u32: em.$u32,
+    $u64: em.$u64,
     fail: em.fail,
     halt: em.halt,
     printf: em.printf,
