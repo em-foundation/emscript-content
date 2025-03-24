@@ -20,12 +20,13 @@ export function em$startup() {
     $R.UARTE30.ENABLE.$$ = $R.UARTE_ENABLE_ENABLE_Enabled
     //
     e$`NRF_UARTE30_S->DMA.TX.PTR = (uint32_t)&txd`
-    // $R.UARTE30.DMA.TX.PTR.$$ = e$`(uint32_t)&txd`
     $R.UARTE30.DMA.TX.MAXCNT.$$ = 1
+    $R.UARTE30.EVENTS_DMA.TX.END.$$ = 1
 }
 
 export function flush() {
     while ($R.UARTE30.EVENTS_DMA.TX.END.$$ == 0) { }
+    $R.UARTE30.EVENTS_DMA.TX.END.$$ = 1
 }
 
 export function put(data: u8) {
@@ -35,8 +36,8 @@ export function put(data: u8) {
     flush()
 }
 
-export function em$run() {
-    put(0xAA)
-    put(0xBB)
-    put(0xCC)
-}
+// export function em$run() {
+//     put(0xAA)
+//     put(0xBB)
+//     put(0xCC)
+// }

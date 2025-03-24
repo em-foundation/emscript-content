@@ -40,7 +40,11 @@ export function em$halt(): void {
     Common.GlobalInterrupts.$$.disable()
     Common.ConsoleUart.$$.put(EOT_BYTE)
     Common.ConsoleUart.$$.flush()
+    e$`asm volatile ("nop")`
+    e$`asm volatile ("nop")`
     Led.$$.on()
+    e$`asm volatile ("nop")`
+    $['%%c']
 }
 
 function blink(times: u8, usecs: u32): void {

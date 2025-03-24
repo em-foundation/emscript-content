@@ -1,5 +1,5 @@
 NRF54L15_DK :
-    activeLowLeds:  true
+    activeLowLeds:  false
     pins:
         appBut:     0x10D   ## P1.13
         appLed:     0x209   ## P2.9
