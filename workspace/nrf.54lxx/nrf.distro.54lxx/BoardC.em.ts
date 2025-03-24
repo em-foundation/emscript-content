@@ -52,7 +52,7 @@ export function em$configure(): void {
     AppOutPin.pin_num.$$ = brd.pins.appOut
     BoardController.Led.$$ = SysLed
     // BoardController.ready_delay_usecs.$$ = 1_000_000
-    BusyWait.scalar.$$ = 6
+    BusyWait.scalar.$$ = 26
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart
     Common.GlobalInterrupts.$$ = GlobalInterrupts
@@ -73,5 +73,5 @@ export function em$configure(): void {
     SysLed.Pin.$$ = SysLedPin
     SysLed.active_low.$$ = brd.activeLowLeds
     SysLedPin.pin_num.$$ = brd.pins.sysLed
-    UsCounter.MHZ.$$ = 64
+    UsCounter.MHZ.$$ = 128
 }

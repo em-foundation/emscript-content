@@ -15,7 +15,6 @@ export function em$startup() {
 }
 
 export function em$run() {
-    // Common.BusyWait.$$.wait(1_000_000)
     AppLed.$$.on()
     Common.BusyWait.$$.wait(1_000_000)
     AppLed.$$.off()
