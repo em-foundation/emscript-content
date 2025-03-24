@@ -92,7 +92,7 @@ export function em$configure(): void {
     Debug.DbgD.$$ = DbgD
     Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
-    SysLed.active_low.$$ = true
+    SysLed.active_low.$$ = brd.activeLowLeds
     SysLedPin.pin_num.$$ = brd.pins.sysLed
     SysOsc.use_ERFO.$$ = brd.sysOscSrc == 'ERFO'
     UsCounter.MHZ.$$ = brd.sysOscSrc == 'ERFO' ? 32 : 60
