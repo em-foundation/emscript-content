@@ -24,6 +24,43 @@ export interface GPIO_t {
     PIN_CNF: dim_t<em.$Reg, 32>
 }
 
+// -------- TIMER -------- //
+
+export interface TIMER_t {
+    TASKS_START: em.$Reg
+    TASKS_STOP: em.$Reg
+    TASKS_COUNT: em.$Reg
+    TASKS_CLEAR: em.$Reg
+    RESERVED: dim_t<em.$Reg, 12>
+    TASKS_CAPTURE: dim_t<em.$Reg, 8>
+    RESERVED1: dim_t<em.$Reg, 8>
+    SUBSCRIBE_START: em.$Reg
+    SUBSCRIBE_STOP: em.$Reg
+    SUBSCRIBE_COUNT: em.$Reg
+    SUBSCRIBE_CLEAR: em.$Reg
+    RESERVED2: dim_t<em.$Reg, 12>
+    SUBSCRIBE_CAPTURE: dim_t<em.$Reg, 8>
+    RESERVED3: dim_t<em.$Reg, 24>
+    EVENTS_COMPARE: dim_t<em.$Reg, 8>
+    RESERVED4: dim_t<em.$Reg, 24>
+    PUBLISH_COMPARE: dim_t<em.$Reg, 8>
+    RESERVED5: dim_t<em.$Reg, 8>
+    SHORTS: em.$Reg
+    RESERVED6: dim_t<em.$Reg, 63>
+    INTEN: em.$Reg
+    INTENSET: em.$Reg
+    INTENCLR: em.$Reg
+    RESERVED7: dim_t<em.$Reg, 126>
+    MODE: em.$Reg
+    BITMODE: em.$Reg
+    RESERVED8: em.$Reg
+    PRESCALER: em.$Reg
+    RESERVED9: dim_t<em.$Reg, 11>
+    CC: dim_t<em.$Reg, 8>
+    RESERVED10: dim_t<em.$Reg, 8>
+    ONESHOTEN: dim_t<em.$Reg, 8>
+}
+
 // -------- UARTE_TASKS_DMA_RX -------- //
 
 export interface UARTE_TASKS_DMA_RX_t {
@@ -1350,6 +1387,7 @@ export const UARTE_FRAMETIMEOUT_COUNTERTOP_Msk: any = '0x3FFUL << UARTE_FRAMETIM
 export const P0 = {} as GPIO_t
 export const P1 = {} as GPIO_t
 export const P2 = {} as GPIO_t
+export const TIMER20 = {} as TIMER_t
 export const UARTE30 = {} as UARTE_t
 
 // -------- INDICIES -------- //

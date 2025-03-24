@@ -3,11 +3,17 @@ import * as Fs from 'fs'
 
 import em from '../../em.core/em.lang/emscript'
 
-const TYPE_SET = new Set<string>(['GPIO', 'UART', 'UARTE'])
+const TYPE_SET = new Set<string>([
+    'GPIO',
+    'TIMER',
+    'UART',
+    'UARTE',
+])
 const INSTS = [
     ['P0', 'GPIO'],
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
+    ['TIMER20', 'TIMER'],
     ['UARTE30', 'UARTE'],
 ]
 const INDICIES = [
