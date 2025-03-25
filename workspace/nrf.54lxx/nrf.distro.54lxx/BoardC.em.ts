@@ -13,9 +13,8 @@ import * as Idle from '@nrf.mcu.54lxx/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@nrf.mcu.54lxx/Mcu.em'
 import * as Poller from '@em.mcu/Poller.em'
-// import * as OneShot from '@nrf.mcu.54lxx/OneShotN.em'
 import * as OneShot from '@nrf.mcu.54lxx/OneShotTimer20.em'
-import * as Uptimer from '@nrf.mcu.54lxx/UptimerN.em'
+import * as Uptimer from '@nrf.mcu.54lxx/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 
 export { OneShot }
