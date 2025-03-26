@@ -32,8 +32,8 @@ export function disable() {
 export function enable(thresh: u32, handler: Handler) {
     cur_hlr = handler
     const hi_lo = readHiLo()
-    const lo_cc = (thresh & 0xFFFFFF) << 12
-    const hi_cc = thresh >> 24
+    const lo_cc = thresh
+    const hi_cc = 0
     $R.GRTC.EVENTS_COMPARE[0].$$ = 0
     $R.GRTC.CC[0].CCL.$$ = lo_cc
     $R.GRTC.CC[0].CCH.$$ = hi_cc
@@ -44,12 +44,12 @@ export function enable(thresh: u32, handler: Handler) {
 export function getRawTime(): TimeTypes.RawTime {
     let res = TimeTypes.RawTime.$make()
     const hi_low: u64 = readHiLo()
-    res.secs = <u32>(hi_low >> 20)
-    res.subs = <u32>(((hi_low & 0xFFFFF) * 256) >> 12 << 24)
+    res.secs = <u32>(hi_low / 1_000_000)
+    res.subs = TimeTypes.UsecsToRawSubs(<u32>(hi_low % 1_000_000))
     return res
 }
 
-function readHiLo(): u64 {
+export function readHiLo(): u64 {
     let lo: u32
     let hi: u32
     while (true) {
@@ -66,15 +66,10 @@ function readHiLo(): u64 {
 }
 
 export function toThresh(delta: TimeTypes.Secs24p8): u32 {
-    const cur_64 = readHiLo()
-    const fut_64 = (cur_64 >> 12) + delta
-    const fut_32 = <u32>(fut_64 & 0xFFFFFFFF)
-    return fut_32
-    // // printf`lo = %08x\n`(<u32>cur)
-    // $['%%>'](<u32>cur)
-    // const fut_32 = <u32>(((cur >> 12) + delta) & 0xFFFFFFFF)
-    // $['%%>'](fut_32)
-    // return fut_32
+    const cur_usecs = readHiLo()
+    const del_usecs = TimeTypes.Secs24p8ToUsecs(delta)
+    const fut_usecs = cur_usecs + del_usecs
+    return <u32>fut_usecs
 }
 
 export function GRTC_0_isr$$() {
