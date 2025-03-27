@@ -16,8 +16,11 @@ export function em$generate() {
             |-> 
             |->      __boot_flag__ = 0;
             |-> 
-            |->     .text : {
+            |->     .intvec : {
             |->          KEEP(*(.intvec))
+            |->     } > IMEM
+            |-> 
+            |->     .text : {
             |->          *(.start)
             |->          *(.text .text.*)
             |->          . = ALIGN(., 4);
