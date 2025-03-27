@@ -7,7 +7,7 @@ import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@nrf.distro.54lxx/BoardC.em'
 import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
-import * as LinkerC from '@nrf.distro.54lxx/LinkerC.em'
+import * as LinkerC from '@em.build.segger/LinkerC.em'
 import * as REGS from '@nrf.distro.54lxx/REGS.em'
 import * as StartupC from '@nrf.distro.54lxx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
@@ -298,6 +298,13 @@ export function em$configure() {
 }
 
 export function em$generate() {
+    LinkerC.genScript({
+        dmem_flash: { orig: 0x20000000, len: 0x00008000 },
+        imem_flash: { orig: 0x00000000, len: 0x00008000 },
+        dmem_sram: { orig: 0x20000000, len: 0x00008000 },
+        imem_sram: { orig: 0x20008000, len: 0x00008000 },
+        lmem_sram: { orig: 0x00000000, len: 0x00008000 },
+    })
     let opt = $property('em.build.Optimize', 'Oz')
     let tools = $property('em.build.ToolsHome', '')
     let libflav = opt == 'Oz' ? 'small' : 'balanced'

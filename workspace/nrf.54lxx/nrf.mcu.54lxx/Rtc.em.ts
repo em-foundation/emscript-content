@@ -57,7 +57,7 @@ export function readHiLo(): u64 {
         const hi_reg = $R.GRTC.SYSCOUNTER[1].SYSCOUNTERH.$$
         hi = hi_reg & $R.GRTC_SYSCOUNTER_SYSCOUNTERH_VALUE_Msk
         if ((hi & $R.GRTC_SYSCOUNTER_SYSCOUNTERH_OVERFLOW_Msk) != 0) {
-            hi - + 1
+            hi -= 1
         }
         if ((hi_reg & $R.GRTC_SYSCOUNTER_SYSCOUNTERH_BUSY_Msk) == 0) break
     }

@@ -1,22 +1,43 @@
 import em from '@$$emscript'
 export const $U = em.$declare('COMPOSITE')
 
-export function em$generate() {
+type MemDesc = {
+    orig: u32
+    len: u32
+}
+
+type MemSegs = {
+    dmem_flash: MemDesc
+    imem_flash: MemDesc
+    dmem_sram: MemDesc
+    imem_sram: MemDesc
+    lmem_sram: MemDesc
+}
+
+function descToString(mem_desc: MemDesc): string {
+    return $sprintf('ORIGIN = 0x%08x, LENGTH = 0x%08x', mem_desc.orig, mem_desc.len)
+}
+
+export function genScript(mem_segs: MemSegs) {
     let out = $outfile('linkcmd.ld')
-    let use_sram = $property('em.build.BootFlash', false)
+    const use_sram = $property('em.build.BootFlash', false)
     if (!use_sram) {
+        const stack_top = $sprintf('0x%08x', mem_segs.dmem_flash.orig + mem_segs.dmem_flash.len)
         out.addFrag(`
             |-> MEMORY {
-            |->     DMEM : ORIGIN = 0x20000000, LENGTH = 0x00008000
-            |->     IMEM : ORIGIN = 0x10000000, LENGTH = 0x00008000
+            |->     DMEM : ${descToString(mem_segs.dmem_flash)}
+            |->     IMEM : ${descToString(mem_segs.imem_flash)}
             |-> }
             |-> 
             |-> SECTIONS {
             |-> 
             |->      __boot_flag__ = 0;
             |-> 
-            |->     .text : {
+            |->     .intvec : {
             |->          KEEP(*(.intvec))
+            |->     } > IMEM
+            |-> 
+            |->     .text : {
             |->          *(.start)
             |->          *(.text .text.*)
             |->          . = ALIGN(., 4);
@@ -50,18 +71,17 @@ export function em$generate() {
             |->     __data_size__ = SIZEOF(.data) / 4;
             |->     __code_load__ = ~0;
             |->     __code_size__ = ~0;
-            |->     __global_pointer__ = __data_addr__ + 0x800;
-            |->     __global_pointer$ = __global_pointer__;
-            |->     __stack_top__ = 0x20000000 + 0x00009000;
+            |->     __stack_top__ = ${stack_top};
             |-> }
         `)
     } else {
         // use_sram
+        const stack_top = $sprintf('%08x', mem_segs.dmem_sram.orig + mem_segs.dmem_sram.len)
         out.addFrag(`
             |-> MEMORY {
-            |->     DMEM : ORIGIN = 0x20008000, LENGTH = 0x00008000
-            |->     IMEM : ORIGIN = 0x2001C000, LENGTH = 0x00004000
-            |->     LMEM : ORIGIN = 0x10000000, LENGTH = 0x00080000
+            |->     DMEM : ${descToString(mem_segs.dmem_sram)}
+            |->     IMEM : ${descToString(mem_segs.imem_sram)}
+            |->     LMEM : ${descToString(mem_segs.lmem_sram)}
             |-> }
             |-> 
             |-> SECTIONS {
@@ -111,7 +131,7 @@ export function em$generate() {
             |->     __code_size__ = ((__data_load__ - __code_load__) / 4);
             |->     __global_pointer__ = __data_addr__ + 0x800;
             |->     __global_pointer$ = __global_pointer__;
-            |->     __stack_top__ = 0x20005000 + 0x00004000;
+            |->     __stack_top__ = ${stack_top};
             |-> }
         `)
     }

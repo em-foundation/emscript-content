@@ -1124,6 +1124,7 @@ declare global {
     const $range: typeof em.$range
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
+    const $sprintf: typeof sprintf
     const $struct: typeof em.$struct
     const $table: typeof em.$table
     const $u8: typeof em.$u8
@@ -1163,6 +1164,7 @@ Object.assign(globalThis, {
     $range: em.$range,
     $ref: em.$ref,
     $sizeof: em.$sizeof,
+    $sprintf: sprintf,
     $struct: em.$struct,
     $table: em.$table,
     $using: em.$using,
