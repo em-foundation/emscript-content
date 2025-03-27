@@ -6,15 +6,19 @@ import em from '../../em.core/em.lang/emscript'
 const TYPE_SET = new Set<string>([
     'GPIO',
     'GRTC',
+    'POWER',
+    'TAMPC',
     'TIMER',
     'UART',
     'UARTE',
 ])
 const INSTS = [
     ['GRTC', 'GRTC'],
+    ['POWER', 'POWER'],
     ['P0', 'GPIO'],
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
+    ['TAMPC', 'TAMPC'],
     ['TIMER20', 'TIMER'],
     ['UARTE30', 'UARTE'],
 ]
@@ -48,7 +52,7 @@ function scanFields(): Array<[string, string, string]> {
     let res = new Array<[string, string, string]>()
     while (true) {
         const ln = nextLine()
-        if (ln?.match(/\s*typedef struct/)) {
+        if (ln?.match(/\s*typedef struct/) || ln?.startsWith('  struct')) {
             break
         }
     }
@@ -76,7 +80,6 @@ function scanStruct(): string | null {
         let base = m[1]
         const k = base.indexOf('_')
         if (k > 0) {
-            console.log(base)
             base = base.substring(0, k)
         }
         if (TYPE_SET.has(base)) {
