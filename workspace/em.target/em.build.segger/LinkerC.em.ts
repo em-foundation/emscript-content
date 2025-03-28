@@ -76,7 +76,7 @@ export function genScript(mem_segs: MemSegs) {
         `)
     } else {
         // use_sram
-        const stack_top = $sprintf('%08x', mem_segs.dmem_sram.orig + mem_segs.dmem_sram.len)
+        const stack_top = $sprintf('0x%08x', mem_segs.dmem_sram.orig + mem_segs.dmem_sram.len)
         out.addFrag(`
             |-> MEMORY {
             |->     DMEM : ${descToString(mem_segs.dmem_sram)}
