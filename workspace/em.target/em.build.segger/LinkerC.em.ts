@@ -14,12 +14,32 @@ type MemSegs = {
     lmem_sram: MemDesc
 }
 
+type XtraSeg = {
+    name: string
+    sect: string
+    desc: MemDesc
+}
+
+let out = $outfile('linkcmd.ld')
+
 function descToString(mem_desc: MemDesc): string {
     return $sprintf('ORIGIN = 0x%08x, LENGTH = 0x%08x', mem_desc.orig, mem_desc.len)
 }
 
-export function genScript(mem_segs: MemSegs) {
-    let out = $outfile('linkcmd.ld')
+function genXtraMems(xtra_segs: XtraSeg[]) {
+    for (const xs of xtra_segs) {
+        out.addText(`    ${xs.name} : ${descToString(xs.desc)}\n`)
+    }
+}
+
+function genXtraSects(xtra_segs: XtraSeg[]) {
+    for (const xs of xtra_segs) {
+        out.addText(`    ${xs.sect} : { KEEP(*(${xs.sect})); } > ${xs.name}\n`)
+
+    }
+}
+
+export function genScript(mem_segs: MemSegs, xtra_segs: XtraSeg[] = []) {
     const use_sram = $property('em.build.BootFlash', false)
     if (!use_sram) {
         const stack_top = $sprintf('0x%08x', mem_segs.dmem_flash.orig + mem_segs.dmem_flash.len)
@@ -27,6 +47,9 @@ export function genScript(mem_segs: MemSegs) {
             |-> MEMORY {
             |->     DMEM : ${descToString(mem_segs.dmem_flash)}
             |->     IMEM : ${descToString(mem_segs.imem_flash)}
+        `)
+        genXtraMems(xtra_segs)
+        out.addFrag(`
             |-> }
             |-> 
             |-> SECTIONS {
@@ -62,6 +85,10 @@ export function genScript(mem_segs: MemSegs) {
             |->         *(.sbss .sbss.*)
             |->         . = ALIGN(., 4);
             |->     } > DMEM
+            |-> 
+        `)
+        genXtraSects(xtra_segs)
+        out.addFrag(`
             |-> 
             |->     __bss_addr__ = ADDR(.bss);
             |->     __bss_size__ = SIZEOF(.bss) / 4;

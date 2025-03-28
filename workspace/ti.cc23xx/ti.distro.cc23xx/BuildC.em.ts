@@ -6,7 +6,7 @@ import * as BoardC from '@ti.distro.cc23xx/BoardC.em'
 import * as IsrDebug from '@em.arch.arm/IsrDebug.em'
 import * as IsrEmpty from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
-import * as LinkerC from '@ti.distro.cc23xx/LinkerC.em'
+import * as LinkerC from '@em.build.segger/LinkerC.em'
 import * as REGS from '@ti.distro.cc23xx/REGS.em'
 import * as StartupC from '@ti.distro.cc23xx/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
@@ -46,6 +46,18 @@ export function em$configure() {
 }
 
 export function em$generate() {
+    LinkerC.genScript(
+        {
+            dmem_flash: { orig: 0x20000000, len: 0x00009000 },
+            imem_flash: { orig: 0x00000000, len: 0x00080000 },
+            dmem_sram: { orig: 0x20005000, len: 0x00004000 },
+            imem_sram: { orig: 0x20000000, len: 0x00005000 },
+            lmem_sram: { orig: 0x00000000, len: 0x00080000 },
+        },
+        [
+            { name: 'FLASH_CCFG', sect: '.ccfg', desc: { orig: 0x4e020000, len: 0x800 } }
+        ]
+    )
     let opt = $property('em.build.Optimize', 'Oz')
     let tools = $property('em.build.ToolsHome', '')
     let libflav = opt == 'Oz' ? 'small' : 'balanced'
