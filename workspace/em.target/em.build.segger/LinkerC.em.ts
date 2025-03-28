@@ -109,6 +109,9 @@ export function genScript(mem_segs: MemSegs, xtra_segs: XtraSeg[] = []) {
             |->     DMEM : ${descToString(mem_segs.dmem_sram)}
             |->     IMEM : ${descToString(mem_segs.imem_sram)}
             |->     LMEM : ${descToString(mem_segs.lmem_sram)}
+        `)
+        genXtraMems(xtra_segs)
+        out.addFrag(`
             |-> }
             |-> 
             |-> SECTIONS {
@@ -147,6 +150,9 @@ export function genScript(mem_segs: MemSegs, xtra_segs: XtraSeg[] = []) {
             |->         *(.sbss .sbss.*)
             |->         . = ALIGN(., 4);
             |->     } > DMEM
+        `)
+        genXtraSects(xtra_segs)
+        out.addFrag(`
             |->  
             |->     __bss_addr__ = ADDR(.bss);
             |->     __bss_size__ = SIZEOF(.bss) / 4;
@@ -156,8 +162,6 @@ export function genScript(mem_segs: MemSegs, xtra_segs: XtraSeg[] = []) {
             |->     __data_size__ = SIZEOF(.data) / 4;
             |->     __code_load__ = LOADADDR(.text);
             |->     __code_size__ = ((__data_load__ - __code_load__) / 4);
-            |->     __global_pointer__ = __data_addr__ + 0x800;
-            |->     __global_pointer$ = __global_pointer__;
             |->     __stack_top__ = ${stack_top};
             |-> }
         `)
