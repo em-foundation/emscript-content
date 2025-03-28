@@ -1,0 +1,20 @@
+import em from '@$$emscript'
+export const $U = em.$declare('MODULE')
+
+import * as $R from '@nrf.distro.54lxx/REGS.em'
+
+import * as BusyWait from '@nrf.mcu.54lxx/BusyWait.em'
+
+//>> ---- em$targ ---- <<//
+
+export function em$run() {
+    const mask = 1 << 14
+    const pn = 1
+    $R.P[pn].DIRSET.$$ = mask
+    $R.P[pn].OUTSET.$$ = mask
+    BusyWait.wait(5_000_000)
+    $R.P[pn].OUTCLR.$$ = mask
+    $R.P[pn].PIN_CNF[14].$$ = $R.GPIO_PIN_CNF_INPUT_Msk
+    // $R.POWER.TASKS_LOWPWR.$$ = 1
+    e$`asm volatile ("wfi")`
+}

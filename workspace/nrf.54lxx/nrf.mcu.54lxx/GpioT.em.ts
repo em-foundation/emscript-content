@@ -63,7 +63,9 @@ export namespace em$template {
         return pid
     }
 
-    export function reset(): void { }
+    export function reset(): void {
+        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_INPUT_Msk
+    }
 
     export function set(): void {
         $R.P[pn].OUTSET.$$ = mask
