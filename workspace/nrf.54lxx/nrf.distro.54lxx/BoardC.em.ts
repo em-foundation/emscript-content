@@ -4,6 +4,7 @@ export const $U = em.$declare('COMPOSITE')
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@nrf.mcu.54lxx/BusyWait.em'
+import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart from '@nrf.mcu.54lxx/ConsoleUart3.em'
@@ -22,6 +23,7 @@ import * as WakeupTimer from '@nrf.mcu.54lxx/WakeupTimerRtc.em'
 
 export { OneShot }
 
+export const AppBut = $clone(ButtonT)
 export const AppButEdge = $clone(EdgeT)
 export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
@@ -54,6 +56,7 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
+    AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
     AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
