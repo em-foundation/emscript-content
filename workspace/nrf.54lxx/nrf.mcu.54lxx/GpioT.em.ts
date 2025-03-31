@@ -40,7 +40,8 @@ export namespace em$template {
     }
 
     export function get(): bool_t {
-        return false
+        printf`get %08x\n`($R.P[pn].IN.$$)
+        return $R.P[pn].IN.$$ & mask ? true : false
     }
 
     export function isInput(): bool_t {
@@ -71,9 +72,13 @@ export namespace em$template {
         $R.P[pn].OUTSET.$$ = mask
     }
 
-    export function setInternalPulldown(enable: bool_t): void { }
+    export function setInternalPulldown(enable: bool_t): void {
+        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pulldown << $R.GPIO_PIN_CNF_PULL_Pos
+    }
 
-    export function setInternalPullup(enable: bool_t): void { }
+    export function setInternalPullup(enable: bool_t): void {
+        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pullup << $R.GPIO_PIN_CNF_PULL_Pos
+    }
 
     export function toggle(): void {
         $R.P[pn].OUT.$$ ^= mask

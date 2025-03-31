@@ -8,6 +8,7 @@ import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart from '@nrf.mcu.54lxx/ConsoleUart3.em'
 import * as Debug from '@em.lang/Debug.em'
+import * as EdgeT from '@nrf.mcu.54lxx/EdgeT.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@nrf.mcu.54lxx/GpioT.em'
 import * as Idle from '@nrf.mcu.54lxx/Idle.em'
@@ -21,6 +22,8 @@ import * as WakeupTimer from '@nrf.mcu.54lxx/WakeupTimerRtc.em'
 
 export { OneShot }
 
+export const AppButEdge = $clone(EdgeT)
+export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOutPin = $clone(GpioT)
@@ -51,6 +54,8 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
+    AppButEdge.Pin.$$ = AppButPin
+    AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
     AppLed.active_low.$$ = brd.activeLowLeds
     AppLedPin.pin_num.$$ = brd.pins.appLed

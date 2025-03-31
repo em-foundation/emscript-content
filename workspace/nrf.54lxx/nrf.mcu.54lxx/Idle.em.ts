@@ -24,7 +24,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-var cur_pause_only = false
+var cur_pause_only = true
 
 export function em$startup() {
     $['%%b+']
@@ -48,7 +48,8 @@ function doSleep() {
     $R.POWER.TASKS_LOWPWR.$$ = 1
     e$`asm volatile ("wfi")`
     Debug.startup()
-    $['%%b+']
+    $['%%b']
+    // $['%%b+']
     for (let cb of sleep_leave_tab) cb()
     IntrVec.PRIMASK_set(0)
 }

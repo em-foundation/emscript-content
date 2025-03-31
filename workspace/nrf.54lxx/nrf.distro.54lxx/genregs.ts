@@ -5,19 +5,23 @@ import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
     'GPIO',
+    'GPIOTE',
     'GRTC',
     'POWER',
+    'RRAMC',
     'TAMPC',
     'TIMER',
     'UART',
     'UARTE',
 ])
 const INSTS = [
+    ['GPIOTE20', 'GPIOTE'],
     ['GRTC', 'GRTC'],
     ['POWER', 'POWER'],
     ['P0', 'GPIO'],
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
+    ['RRAMC', 'RRAMC'],
     ['TAMPC', 'TAMPC'],
     ['TIMER20', 'TIMER'],
     ['UARTE30', 'UARTE'],

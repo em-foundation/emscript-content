@@ -17,7 +17,9 @@ export namespace em$meta {
 export function startup(): void {
     e$`NRF_OSCILLATORS_S->PLL.FREQ = 1` // 128 MHz
     unprotect()
-    if (!use_sram.$$) {
+    if (use_sram.$$) {
+        $R.RRAMC.POWER.LOWPOWERCONFIG.$$ = $R.RRAMC_POWER_LOWPOWERCONFIG_MODE_PowerOff
+    } else {
         e$`NRF_APPLICATION_ICACHE_S->ENABLE = 1`
     }
     Debug.startup()
