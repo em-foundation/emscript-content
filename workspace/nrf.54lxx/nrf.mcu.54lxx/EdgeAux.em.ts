@@ -8,7 +8,6 @@ import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
 export class HandlerInfo extends $struct {
     handler: EdgeI.Handler
-    mask: u32
 }
 
 const handler_info_tab = $table<HandlerInfo>('ro')
@@ -18,8 +17,10 @@ export namespace em$meta {
         IntrVec.em$meta.useIntr('GPIOTE20_0')
     }
 
-    export function addHandlerInfo(hi: HandlerInfo) {
+    export function addHandlerInfo(hi: HandlerInfo): u8 {
+        const chan = <u8>handler_info_tab.$len
         handler_info_tab.$add(hi)
+        return chan
     }
 }
 
@@ -28,15 +29,11 @@ export function em$startup() {
 }
 
 export function GPIOTE20_0_isr$$() {
-    halt()
-    return
-    // let intfl = $R.GPIO0.INTFL.$$
-    // // $['%%>'](intfl)
-    // // $R.GPIO0.INTFL_CLR.$$ = intfl
-    // IntrVec.NVIC_clear(e$`GPIO0_IRQn`)
-    // for (let hi of handler_info_tab) {
-    //     if (intfl & hi.mask && hi.handler != $null) {
-    //         hi.handler()
-    //     }
-    // }
+    let pc = 0
+    for (let hi of handler_info_tab) {
+        if ($R.GPIOTE20.EVENTS_IN[pc].$$ && hi.handler != $null) {
+            hi.handler()
+        }
+        pc += 1
+    }
 }

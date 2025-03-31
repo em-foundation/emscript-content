@@ -13,23 +13,24 @@ export namespace em$template {
     export const Pin = $proxy<GpioI.$I>()
     export const pin_num = $config<i16>()
 
+    const pin_chan = $config<u8>()
+
     export namespace em$meta {
         export function setDetectHandler(h: EdgeI.Handler) {
             let hi = Aux.HandlerInfo.$make()
             hi.handler = h
-            hi.mask = 1 << pin_num.$$
-            Aux.em$meta.addHandlerInfo(hi)
+            pin_chan.$$ = Aux.em$meta.addHandlerInfo(hi)
         }
     }
 
-    const chan = 0
+    const pc = pin_chan.$$
     const pid = pin_num.$$ & 0xff
     const pn = <u8>(pin_num.$$ >> 8)
     const mask = 1 << pid
-    const int_en = $R.GPIOTE_INTENSET0_PORT0SECURE_Msk | (1 << chan)
+    const int_en = $R.GPIOTE_INTENSET0_PORT0SECURE_Msk | (1 << pc)
 
     export function clearDetect(): void {
-        $R.GPIOTE20.EVENTS_IN[chan].$$ = 0
+        $R.GPIOTE20.EVENTS_IN[pc].$$ = 0
     }
 
     export function disableDetect(): void {
@@ -47,20 +48,20 @@ export namespace em$template {
     export function init(pullup: bool_t) {
         Pin.$$.makeInput()
         Pin.$$.setInternalPullup(pullup)
-        $R.GPIOTE20.CONFIG[chan].$$ =
+        $R.GPIOTE20.CONFIG[pc].$$ =
             ($R.GPIOTE_CONFIG_MODE_Event << $R.GPIOTE_CONFIG_MODE_Pos) |
             (pid << $R.GPIOTE_CONFIG_PSEL_Pos) |
             (pn << $R.GPIOTE_CONFIG_PORT_Pos)
     }
 
     export function setDetectFalling() {
-        $R.GPIOTE20.CONFIG[chan].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
-        $R.GPIOTE20.CONFIG[chan].$$ |= $R.GPIOTE_CONFIG_POLARITY_HiToLo << $R.GPIOTE_CONFIG_POLARITY_Pos
+        $R.GPIOTE20.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
+        $R.GPIOTE20.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_HiToLo << $R.GPIOTE_CONFIG_POLARITY_Pos
     }
 
     export function setDetectRising() {
-        $R.GPIOTE20.CONFIG[chan].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
-        $R.GPIOTE20.CONFIG[chan].$$ |= $R.GPIOTE_CONFIG_POLARITY_LoToHi << $R.GPIOTE_CONFIG_POLARITY_Pos
+        $R.GPIOTE20.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
+        $R.GPIOTE20.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_LoToHi << $R.GPIOTE_CONFIG_POLARITY_Pos
     }
 }
 

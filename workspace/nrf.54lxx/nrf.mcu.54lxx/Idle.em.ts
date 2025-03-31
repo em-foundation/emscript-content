@@ -24,7 +24,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-var cur_pause_only = true
+var cur_pause_only = false
 
 export function em$startup() {
     $['%%b+']
