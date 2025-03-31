@@ -24,6 +24,7 @@ export namespace em$template {
 
     const chan = 0
     const pid = pin_num.$$ & 0xff
+    const pn = <u8>(pin_num.$$ >> 8)
     const mask = 1 << pid
     const int_en = $R.GPIOTE_INTENSET0_PORT0SECURE_Msk | (1 << chan)
 
@@ -48,7 +49,8 @@ export namespace em$template {
         Pin.$$.setInternalPullup(pullup)
         $R.GPIOTE20.CONFIG[chan].$$ =
             ($R.GPIOTE_CONFIG_MODE_Event << $R.GPIOTE_CONFIG_MODE_Pos) |
-            (pid << $R.GPIOTE_CONFIG_PSEL_Pos)
+            (pid << $R.GPIOTE_CONFIG_PSEL_Pos) |
+            (pn << $R.GPIOTE_CONFIG_PORT_Pos)
     }
 
     export function setDetectFalling() {
