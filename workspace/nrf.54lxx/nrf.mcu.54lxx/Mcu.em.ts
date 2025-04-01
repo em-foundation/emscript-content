@@ -17,6 +17,13 @@ export namespace em$meta {
 export function startup(): void {
     e$`NRF_OSCILLATORS_S->PLL.FREQ = 1` // 128 MHz
     unprotect()
+    e$`SCB->NSACR |= (3UL << 10ul)`
+    // for (const i of $range($R.FICR_TRIMCNF_MaxCount)) {
+    //     const addr = $R.FICR.TRIMCNF[i].ADDR.$$
+    //     if (addr == 0xFFFFFFFF || addr == 0) break
+    //     $R.FICR.TRIMCNF[i].ADDR.$$ = $R.FICR.TRIMCNF[i].DATA.$$
+    // }
+    e$`NRF_GLITCHDET_S->CONFIG = (GLITCHDET_CONFIG_ENABLE_Disable << GLITCHDET_CONFIG_ENABLE_Pos)`
     if (use_sram.$$) {
         $R.RRAMC.POWER.LOWPOWERCONFIG.$$ = $R.RRAMC_POWER_LOWPOWERCONFIG_MODE_PowerOff
     } else {

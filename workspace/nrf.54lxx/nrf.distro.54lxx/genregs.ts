@@ -4,17 +4,20 @@ import * as Fs from 'fs'
 import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
+    'FICR',
     'GPIO',
     'GPIOTE',
     'GRTC',
     'POWER',
     'RRAMC',
+    'REGULATORS',
     'TAMPC',
     'TIMER',
     'UART',
     'UARTE',
 ])
 const INSTS = [
+    ['FICR', 'FICR'],
     ['GPIOTE20', 'GPIOTE'],
     ['GRTC', 'GRTC'],
     ['POWER', 'POWER'],
@@ -22,6 +25,7 @@ const INSTS = [
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
     ['RRAMC', 'RRAMC'],
+    ['REGULATORS', 'REGULATORS'],
     ['TAMPC', 'TAMPC'],
     ['TIMER20', 'TIMER'],
     ['UARTE30', 'UARTE'],

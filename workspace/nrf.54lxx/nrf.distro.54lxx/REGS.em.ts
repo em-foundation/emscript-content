@@ -7,6 +7,53 @@ export function em$generate() {
     out.close()
 }
 
+// -------- FICR_INFO -------- //
+
+export interface FICR_INFO_t {
+    CONFIGID: em.$Reg
+    DEVICEID: dim_t<em.$Reg, 2>
+    UUID: dim_t<em.$Reg, 4>
+    PART: em.$Reg
+    VARIANT: em.$Reg
+    PACKAGE: em.$Reg
+    RAM: em.$Reg
+    RRAM: em.$Reg
+}
+
+// -------- FICR_TRIMCNF -------- //
+
+export interface FICR_TRIMCNF_t {
+    ADDR: em.$Reg
+    DATA: em.$Reg
+}
+
+// -------- FICR_NFC -------- //
+
+export interface FICR_NFC_t {
+    TAGHEADER0: em.$Reg
+    TAGHEADER1: em.$Reg
+    TAGHEADER2: em.$Reg
+    TAGHEADER3: em.$Reg
+}
+
+// -------- FICR -------- //
+
+export interface FICR_t {
+    RESERVED: dim_t<em.$Reg, 192>
+    INFO: FICR_INFO_t
+    RESERVED1: dim_t<em.$Reg, 20>
+    ER: dim_t<em.$Reg, 4>
+    IR: dim_t<em.$Reg, 4>
+    DEVICEADDRTYPE: em.$Reg
+    DEVICEADDR: dim_t<em.$Reg, 2>
+    RESERVED2: dim_t<em.$Reg, 21>
+    TRIMCNF: dim_t<FICR_TRIMCNF_t, 64>
+    NFC: FICR_NFC_t
+    RESERVED3: dim_t<em.$Reg, 4>
+    XOSC32MTRIM: em.$Reg
+    XOSC32KTRIM: em.$Reg
+}
+
 // -------- GPIO -------- //
 
 export interface GPIO_t {
@@ -169,6 +216,25 @@ export interface POWER_t {
     GPREGRET: dim_t<em.$Reg, 2>
     RESERVED6: dim_t<em.$Reg, 6>
     CONSTLATSTAT: em.$Reg
+}
+
+// -------- REGULATORS_VREGMAIN -------- //
+
+export interface REGULATORS_VREGMAIN_t {
+    DCDCEN: em.$Reg
+    INDUCTORDET: em.$Reg
+}
+
+// -------- REGULATORS -------- //
+
+export interface REGULATORS_t {
+    RESERVED: dim_t<em.$Reg, 320>
+    SYSTEMOFF: em.$Reg
+    RESERVED1: dim_t<em.$Reg, 11>
+    POFCON: em.$Reg
+    POFSTAT: em.$Reg
+    RESERVED2: dim_t<em.$Reg, 50>
+    VREGMAIN: REGULATORS_VREGMAIN_t
 }
 
 // -------- RRAMC_BUFSTATUS -------- //
@@ -631,6 +697,140 @@ export interface UARTE_t {
 
 // -------- CONSTANTS -------- //
 
+export const FICR_INFO_CONFIGID_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_CONFIGID_HWID_Pos: any = '0UL'
+export const FICR_INFO_CONFIGID_HWID_Msk: any = '0xFFFFUL << FICR_INFO_CONFIGID_HWID_Pos'
+export const FICR_INFO_DEVICEID_MaxCount: any = '2UL'
+export const FICR_INFO_DEVICEID_MaxIndex: any = '1UL'
+export const FICR_INFO_DEVICEID_MinIndex: any = '0UL'
+export const FICR_INFO_DEVICEID_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_DEVICEID_DEVICEID_Pos: any = '0UL'
+export const FICR_INFO_DEVICEID_DEVICEID_Msk: any = '0xFFFFFFFFUL << FICR_INFO_DEVICEID_DEVICEID_Pos'
+export const FICR_INFO_UUID_MaxCount: any = '4UL'
+export const FICR_INFO_UUID_MaxIndex: any = '3UL'
+export const FICR_INFO_UUID_MinIndex: any = '0UL'
+export const FICR_INFO_UUID_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_UUID_UUID_Pos: any = '0UL'
+export const FICR_INFO_UUID_UUID_Msk: any = '0xFFFFFFFFUL << FICR_INFO_UUID_UUID_Pos'
+export const FICR_INFO_PART_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PART_PART_Pos: any = '0UL'
+export const FICR_INFO_PART_PART_Msk: any = '0xFFFFFFFFUL << FICR_INFO_PART_PART_Pos'
+export const FICR_INFO_PART_PART_Min: any = '0x54B05UL'
+export const FICR_INFO_PART_PART_Max: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PART_PART_N54L15: any = '0x00054B15UL'
+export const FICR_INFO_PART_PART_N54L10: any = '0x00054B10UL'
+export const FICR_INFO_PART_PART_N54L05: any = '0x00054B05UL'
+export const FICR_INFO_PART_PART_Unspecified: any = '0xFFFFFFFFUL'
+export const FICR_INFO_VARIANT_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_VARIANT_VARIANT_Pos: any = '0UL'
+export const FICR_INFO_VARIANT_VARIANT_Msk: any = '0xFFFFFFFFUL << FICR_INFO_VARIANT_VARIANT_Pos'
+export const FICR_INFO_VARIANT_VARIANT_Min: any = '0xFFFFFFFFUL'
+export const FICR_INFO_VARIANT_VARIANT_Max: any = '0xFFFFFFFFUL'
+export const FICR_INFO_VARIANT_VARIANT_Unspecified: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PACKAGE_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PACKAGE_PACKAGE_Pos: any = '0UL'
+export const FICR_INFO_PACKAGE_PACKAGE_Msk: any = '0xFFFFFFFFUL << FICR_INFO_PACKAGE_PACKAGE_Pos'
+export const FICR_INFO_PACKAGE_PACKAGE_Min: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PACKAGE_PACKAGE_Max: any = '0xFFFFFFFFUL'
+export const FICR_INFO_PACKAGE_PACKAGE_Unspecified: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RAM_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RAM_RAM_Pos: any = '0UL'
+export const FICR_INFO_RAM_RAM_Msk: any = '0xFFFFFFFFUL << FICR_INFO_RAM_RAM_Pos'
+export const FICR_INFO_RAM_RAM_Min: any = '0x60UL'
+export const FICR_INFO_RAM_RAM_Max: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RAM_RAM_K256: any = '0x00000100UL'
+export const FICR_INFO_RAM_RAM_K192: any = '0x000000C0UL'
+export const FICR_INFO_RAM_RAM_K96: any = '0x00000060UL'
+export const FICR_INFO_RAM_RAM_Unspecified: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RRAM_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RRAM_RRAM_Pos: any = '0UL'
+export const FICR_INFO_RRAM_RRAM_Msk: any = '0xFFFFFFFFUL << FICR_INFO_RRAM_RRAM_Pos'
+export const FICR_INFO_RRAM_RRAM_Min: any = '0x1F4UL'
+export const FICR_INFO_RRAM_RRAM_Max: any = '0xFFFFFFFFUL'
+export const FICR_INFO_RRAM_RRAM_K1524: any = '0x000005F4UL'
+export const FICR_INFO_RRAM_RRAM_K1012: any = '0x000003F4UL'
+export const FICR_INFO_RRAM_RRAM_K500: any = '0x000001F4UL'
+export const FICR_INFO_RRAM_RRAM_Unspecified: any = '0xFFFFFFFFUL'
+export const FICR_TRIMCNF_MaxCount: any = '64UL'
+export const FICR_TRIMCNF_MaxIndex: any = '63UL'
+export const FICR_TRIMCNF_MinIndex: any = '0UL'
+export const FICR_TRIMCNF_ADDR_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_TRIMCNF_ADDR_Address_Pos: any = '0UL'
+export const FICR_TRIMCNF_ADDR_Address_Msk: any = '0xFFFFFFFFUL << FICR_TRIMCNF_ADDR_Address_Pos'
+export const FICR_TRIMCNF_DATA_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_TRIMCNF_DATA_Data_Pos: any = '0UL'
+export const FICR_TRIMCNF_DATA_Data_Msk: any = '0xFFFFFFFFUL << FICR_TRIMCNF_DATA_Data_Pos'
+export const FICR_NFC_TAGHEADER0_ResetValue: any = '0xFFFFFF5FUL'
+export const FICR_NFC_TAGHEADER0_MFGID_Pos: any = '0UL'
+export const FICR_NFC_TAGHEADER0_MFGID_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER0_MFGID_Pos'
+export const FICR_NFC_TAGHEADER0_UD1_Pos: any = '8UL'
+export const FICR_NFC_TAGHEADER0_UD1_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER0_UD1_Pos'
+export const FICR_NFC_TAGHEADER0_UD2_Pos: any = '16UL'
+export const FICR_NFC_TAGHEADER0_UD2_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER0_UD2_Pos'
+export const FICR_NFC_TAGHEADER0_UD3_Pos: any = '24UL'
+export const FICR_NFC_TAGHEADER0_UD3_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER0_UD3_Pos'
+export const FICR_NFC_TAGHEADER1_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_NFC_TAGHEADER1_UD4_Pos: any = '0UL'
+export const FICR_NFC_TAGHEADER1_UD4_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER1_UD4_Pos'
+export const FICR_NFC_TAGHEADER1_UD5_Pos: any = '8UL'
+export const FICR_NFC_TAGHEADER1_UD5_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER1_UD5_Pos'
+export const FICR_NFC_TAGHEADER1_UD6_Pos: any = '16UL'
+export const FICR_NFC_TAGHEADER1_UD6_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER1_UD6_Pos'
+export const FICR_NFC_TAGHEADER1_UD7_Pos: any = '24UL'
+export const FICR_NFC_TAGHEADER1_UD7_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER1_UD7_Pos'
+export const FICR_NFC_TAGHEADER2_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_NFC_TAGHEADER2_UD8_Pos: any = '0UL'
+export const FICR_NFC_TAGHEADER2_UD8_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER2_UD8_Pos'
+export const FICR_NFC_TAGHEADER2_UD9_Pos: any = '8UL'
+export const FICR_NFC_TAGHEADER2_UD9_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER2_UD9_Pos'
+export const FICR_NFC_TAGHEADER2_UD10_Pos: any = '16UL'
+export const FICR_NFC_TAGHEADER2_UD10_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER2_UD10_Pos'
+export const FICR_NFC_TAGHEADER2_UD11_Pos: any = '24UL'
+export const FICR_NFC_TAGHEADER2_UD11_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER2_UD11_Pos'
+export const FICR_NFC_TAGHEADER3_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_NFC_TAGHEADER3_UD12_Pos: any = '0UL'
+export const FICR_NFC_TAGHEADER3_UD12_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER3_UD12_Pos'
+export const FICR_NFC_TAGHEADER3_UD13_Pos: any = '8UL'
+export const FICR_NFC_TAGHEADER3_UD13_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER3_UD13_Pos'
+export const FICR_NFC_TAGHEADER3_UD14_Pos: any = '16UL'
+export const FICR_NFC_TAGHEADER3_UD14_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER3_UD14_Pos'
+export const FICR_NFC_TAGHEADER3_UD15_Pos: any = '24UL'
+export const FICR_NFC_TAGHEADER3_UD15_Msk: any = '0xFFUL << FICR_NFC_TAGHEADER3_UD15_Pos'
+export const FICR_ER_MaxCount: any = '4UL'
+export const FICR_ER_MaxIndex: any = '3UL'
+export const FICR_ER_MinIndex: any = '0UL'
+export const FICR_ER_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_ER_ER_Pos: any = '0UL'
+export const FICR_ER_ER_Msk: any = '0xFFFFFFFFUL << FICR_ER_ER_Pos'
+export const FICR_IR_MaxCount: any = '4UL'
+export const FICR_IR_MaxIndex: any = '3UL'
+export const FICR_IR_MinIndex: any = '0UL'
+export const FICR_IR_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_IR_IR_Pos: any = '0UL'
+export const FICR_IR_IR_Msk: any = '0xFFFFFFFFUL << FICR_IR_IR_Pos'
+export const FICR_DEVICEADDRTYPE_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Pos: any = '0UL'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Msk: any = '0x1UL << FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Pos'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Min: any = '0x0UL'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Max: any = '0x1UL'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Public: any = '0x0UL'
+export const FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Random: any = '0x1UL'
+export const FICR_DEVICEADDR_MaxCount: any = '2UL'
+export const FICR_DEVICEADDR_MaxIndex: any = '1UL'
+export const FICR_DEVICEADDR_MinIndex: any = '0UL'
+export const FICR_DEVICEADDR_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_DEVICEADDR_DEVICEADDR_Pos: any = '0UL'
+export const FICR_DEVICEADDR_DEVICEADDR_Msk: any = '0xFFFFFFFFUL << FICR_DEVICEADDR_DEVICEADDR_Pos'
+export const FICR_XOSC32MTRIM_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_XOSC32MTRIM_SLOPE_Pos: any = '0UL'
+export const FICR_XOSC32MTRIM_SLOPE_Msk: any = '0x1FFUL << FICR_XOSC32MTRIM_SLOPE_Pos'
+export const FICR_XOSC32MTRIM_OFFSET_Pos: any = '16UL'
+export const FICR_XOSC32MTRIM_OFFSET_Msk: any = '0x3FFUL << FICR_XOSC32MTRIM_OFFSET_Pos'
+export const FICR_XOSC32KTRIM_ResetValue: any = '0xFFFFFFFFUL'
+export const FICR_XOSC32KTRIM_SLOPE_Pos: any = '0UL'
+export const FICR_XOSC32KTRIM_SLOPE_Msk: any = '0x1FFUL << FICR_XOSC32KTRIM_SLOPE_Pos'
+export const FICR_XOSC32KTRIM_OFFSET_Pos: any = '16UL'
+export const FICR_XOSC32KTRIM_OFFSET_Msk: any = '0x3FFUL << FICR_XOSC32KTRIM_OFFSET_Pos'
 export const GPIO_OUT_ResetValue: any = '0x00000000UL'
 export const GPIO_OUT_PIN0_Pos: any = '0UL'
 export const GPIO_OUT_PIN0_Msk: any = '0x1UL << GPIO_OUT_PIN0_Pos'
@@ -4664,6 +4864,62 @@ export const POWER_CONSTLATSTAT_STATUS_Min: any = '0x0UL'
 export const POWER_CONSTLATSTAT_STATUS_Max: any = '0x1UL'
 export const POWER_CONSTLATSTAT_STATUS_Disable: any = '0x0UL'
 export const POWER_CONSTLATSTAT_STATUS_Enable: any = '0x1UL'
+export const REGULATORS_VREGMAIN_DCDCEN_ResetValue: any = '0x00000000UL'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Pos: any = '0UL'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Msk: any = '0x1UL << REGULATORS_VREGMAIN_DCDCEN_VAL_Pos'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Min: any = '0x0UL'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Max: any = '0x1UL'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Disabled: any = '0x0UL'
+export const REGULATORS_VREGMAIN_DCDCEN_VAL_Enabled: any = '0x1UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_ResetValue: any = '0x00000000UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_Pos: any = '0UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_Msk: any = '0x1UL << REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_Pos'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_Min: any = '0x0UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_Max: any = '0x1UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_InductorNotDetected: any = '0x0UL'
+export const REGULATORS_VREGMAIN_INDUCTORDET_DETECTED_InductorDetected: any = '0x1UL'
+export const REGULATORS_SYSTEMOFF_ResetValue: any = '0x00000000UL'
+export const REGULATORS_SYSTEMOFF_SYSTEMOFF_Pos: any = '0UL'
+export const REGULATORS_SYSTEMOFF_SYSTEMOFF_Msk: any = '0x1UL << REGULATORS_SYSTEMOFF_SYSTEMOFF_Pos'
+export const REGULATORS_SYSTEMOFF_SYSTEMOFF_Min: any = '0x1UL'
+export const REGULATORS_SYSTEMOFF_SYSTEMOFF_Max: any = '0x1UL'
+export const REGULATORS_SYSTEMOFF_SYSTEMOFF_Enter: any = '0x1UL'
+export const REGULATORS_POFCON_ResetValue: any = '0x00000000UL'
+export const REGULATORS_POFCON_POF_Pos: any = '0UL'
+export const REGULATORS_POFCON_POF_Msk: any = '0x1UL << REGULATORS_POFCON_POF_Pos'
+export const REGULATORS_POFCON_POF_Min: any = '0x0UL'
+export const REGULATORS_POFCON_POF_Max: any = '0x1UL'
+export const REGULATORS_POFCON_POF_Disabled: any = '0x0UL'
+export const REGULATORS_POFCON_POF_Enabled: any = '0x1UL'
+export const REGULATORS_POFCON_THRESHOLD_Pos: any = '1UL'
+export const REGULATORS_POFCON_THRESHOLD_Msk: any = '0xFUL << REGULATORS_POFCON_THRESHOLD_Pos'
+export const REGULATORS_POFCON_THRESHOLD_Min: any = '0x0UL'
+export const REGULATORS_POFCON_THRESHOLD_Max: any = '0xBUL'
+export const REGULATORS_POFCON_THRESHOLD_V17: any = '0x0UL'
+export const REGULATORS_POFCON_THRESHOLD_V18: any = '0x1UL'
+export const REGULATORS_POFCON_THRESHOLD_V19: any = '0x2UL'
+export const REGULATORS_POFCON_THRESHOLD_V20: any = '0x3UL'
+export const REGULATORS_POFCON_THRESHOLD_V21: any = '0x4UL'
+export const REGULATORS_POFCON_THRESHOLD_V22: any = '0x5UL'
+export const REGULATORS_POFCON_THRESHOLD_V23: any = '0x6UL'
+export const REGULATORS_POFCON_THRESHOLD_V24: any = '0x7UL'
+export const REGULATORS_POFCON_THRESHOLD_V25: any = '0x8UL'
+export const REGULATORS_POFCON_THRESHOLD_V26: any = '0x9UL'
+export const REGULATORS_POFCON_THRESHOLD_V27: any = '0xAUL'
+export const REGULATORS_POFCON_THRESHOLD_V28: any = '0xBUL'
+export const REGULATORS_POFCON_EVENTDISABLE_Pos: any = '7UL'
+export const REGULATORS_POFCON_EVENTDISABLE_Msk: any = '0x1UL << REGULATORS_POFCON_EVENTDISABLE_Pos'
+export const REGULATORS_POFCON_EVENTDISABLE_Min: any = '0x0UL'
+export const REGULATORS_POFCON_EVENTDISABLE_Max: any = '0x1UL'
+export const REGULATORS_POFCON_EVENTDISABLE_Enabled: any = '0x0UL'
+export const REGULATORS_POFCON_EVENTDISABLE_Disabled: any = '0x1UL'
+export const REGULATORS_POFSTAT_ResetValue: any = '0x00000000UL'
+export const REGULATORS_POFSTAT_COMPARATOR_Pos: any = '0UL'
+export const REGULATORS_POFSTAT_COMPARATOR_Msk: any = '0x1UL << REGULATORS_POFSTAT_COMPARATOR_Pos'
+export const REGULATORS_POFSTAT_COMPARATOR_Min: any = '0x0UL'
+export const REGULATORS_POFSTAT_COMPARATOR_Max: any = '0x1UL'
+export const REGULATORS_POFSTAT_COMPARATOR_Above: any = '0x0UL'
+export const REGULATORS_POFSTAT_COMPARATOR_Below: any = '0x1UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_ResetValue: any = '0x00000000UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Pos: any = '0UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Msk: any = '0x1UL << RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Pos'
@@ -7034,6 +7290,7 @@ export const UARTE_FRAMETIMEOUT_COUNTERTOP_Msk: any = '0x3FFUL << UARTE_FRAMETIM
 
 // -------- INSTANCES -------- //
 
+export const FICR = {} as FICR_t
 export const GPIOTE20 = {} as GPIOTE_t
 export const GRTC = {} as GRTC_t
 export const POWER = {} as POWER_t
@@ -7041,6 +7298,7 @@ export const P0 = {} as GPIO_t
 export const P1 = {} as GPIO_t
 export const P2 = {} as GPIO_t
 export const RRAMC = {} as RRAMC_t
+export const REGULATORS = {} as REGULATORS_t
 export const TAMPC = {} as TAMPC_t
 export const TIMER20 = {} as TIMER_t
 export const UARTE30 = {} as UARTE_t

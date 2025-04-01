@@ -27,6 +27,7 @@ export namespace em$meta {
 var cur_pause_only = false
 
 export function em$startup() {
+    $R.REGULATORS.VREGMAIN.DCDCEN.$$ = 1
     $['%%b+']
 }
 
