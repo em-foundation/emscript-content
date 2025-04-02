@@ -26,12 +26,15 @@ export function startup(): void {
     // }
     e$`NRF_GLITCHDET_S->CONFIG = (GLITCHDET_CONFIG_ENABLE_Disable << GLITCHDET_CONFIG_ENABLE_Pos)`
     $R.RRAMC.POWER.LOWPOWERCONFIG.$$ = $R.RRAMC_POWER_LOWPOWERCONFIG_MODE_PowerOff
-    if (use_sram.$$) {
-        // $R.MEMCONF.POWER[0].CONTROL.$$ = 0
-        // $R.MEMCONF.POWER[1].CONTROL.$$ = 0
-    } else {
+    if (!use_sram.$$) {
         e$`NRF_APPLICATION_ICACHE_S->ENABLE = 1`
+        $R.MEMCONF.POWER[0].CONTROL.$$ = 0x1 // retain 32K sram
+    } else {
+        $R.MEMCONF.POWER[0].CONTROL.$$ = 0x3 // retain 64K sram
+        $R.MEMCONF.POWER[1].CONTROL.$$ = 0x0
     }
+    $R.CLOCK.LFCLK.SRC.$$ = $R.CLOCK_LFCLK_SRC_SRC_LFXO
+    $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
     Debug.startup()
     $['%%a:'](2)
 }
