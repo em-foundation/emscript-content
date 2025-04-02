@@ -50,7 +50,6 @@ function doSleep() {
     e$`asm volatile ("wfi")`
     Debug.startup()
     $['%%b']
-    // $['%%b+']
     for (let cb of sleep_leave_tab) cb()
     IntrVec.PRIMASK_set(0)
 }
