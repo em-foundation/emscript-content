@@ -2,7 +2,7 @@ import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
-import * as BoardC from '@$distro/BoardC.em'
+import * as BoardC from '@nordic.nrf5x/nordic.distro.nrf54/BoardC.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
