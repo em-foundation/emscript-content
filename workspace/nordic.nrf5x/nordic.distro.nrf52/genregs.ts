@@ -3,40 +3,15 @@ import * as Fs from 'fs'
 
 import em from '../../em.core/em.lang/emscript'
 
-const TYPE_SET = new Set<string>([
-    'CLOCK',
-    'FICR',
-    'GPIO',
-    'GPIOTE',
-    'GRTC',
-    'MEMCONF',
-    'POWER',
-    'RRAMC',
-    'REGULATORS',
-    'TAMPC',
-    'TIMER',
-    'UART',
-    'UARTE',
-])
-const INSTS = [
-    ['CLOCK', 'CLOCK'],
-    ['FICR', 'FICR'],
-    ['GPIOTE20', 'GPIOTE'],
-    ['GRTC', 'GRTC'],
-    ['MEMCONF', 'MEMCONF'],
-    ['POWER', 'POWER'],
+const TYPE_MAP = new Map<string, string>([
     ['P0', 'GPIO'],
-    ['P1', 'GPIO'],
-    ['P2', 'GPIO'],
-    ['RRAMC', 'RRAMC'],
-    ['REGULATORS', 'REGULATORS'],
-    ['TAMPC', 'TAMPC'],
-    ['TIMER20', 'TIMER'],
-    ['UARTE30', 'UARTE'],
-]
-const INDICIES = [
-    ['P', 'GPIO'],
-]
+    ['UART0', 'UART'],
+])
+
+const TYPE_SET = new Set<string>([
+    'GPIO',
+    'UART'
+])
 
 let meta = em.$outfile('REGS.em.ts')
 
@@ -87,30 +62,26 @@ function scanStruct(): string | null {
     while (true) {
         const ln = nextLine()
         if (ln === null) return null
-        const m = ln.match(/==== Struct (\w+)/)
+        const m = ln.match(/====\s+(\w+)/)
         if (m === null) continue
-        let base = m[1]
-        const k = base.indexOf('_')
-        if (k > 0) {
-            base = base.substring(0, k)
-        }
-        if (TYPE_SET.has(base)) {
-            return m[1]
+        const ti = m[1]
+        if (TYPE_MAP.has(ti)) {
+            return TYPE_MAP.get(ti)!
         }
     }
 }
 
 // ---- main ---- //
 
-let src_lines = Fs.readFileSync('inc/nrf52l05_types.h', 'utf-8').split('\n')
+let src_lines = Fs.readFileSync('inc/nrf52.h', 'utf-8').split('\n')
 let cur_idx = 0
 
 meta.addText(`import em from '@$$emscript'\n`)
 meta.addText(`export const $U = em.$declare('COMPOSITE')\n`)
 meta.addText(`
 export function em$generate() {
-    let out = $outfile('nrf.distro.54lxx/REGS.hpp')
-    out.addFile('../nrf.54lxx/nrf.distro.54lxx/REGS.hpp.txt')
+    let out = $outfile('nordic.distro.nrf52/REGS.hpp')
+    out.addFile('../nordic.nrf5x/nordic.distro.nrf52/REGS.hpp.txt')
     out.close()
 }
 `)
@@ -118,6 +89,7 @@ export function em$generate() {
 while (true) {
     const sname = scanStruct()
     if (sname === null) break
+    console.log(sname)
     meta.genTitle(sname)
     meta.print('export interface %1_t {\n%+', sname)
     for (const [fname, ftype, fdim] of scanFields()) {
@@ -130,15 +102,16 @@ while (true) {
     }
     meta.print('%-}\n')
 }
+src_lines = Fs.readFileSync('inc/nrf52_bitfields.h', 'utf-8').split('\n')
 cur_idx = 0
 meta.genTitle('CONSTANTS')
 genConsts()
 meta.genTitle('INSTANCES')
-for (const [iname, itype] of INSTS) {
-    meta.print('export const %1 = {} as %2_t\n', iname, itype)
+for (const [ti, tn] of TYPE_MAP) {
+    meta.print('export const %1 = {} as %2_t\n', ti, tn)
 }
-meta.genTitle('INDICIES')
-for (const [iname, itype] of INDICIES) {
-    meta.print('export const %1 = [] as %2_t[]\n', iname, itype)
-}
+// meta.genTitle('INDICIES')
+// for (const [iname, itype] of INDICIES) {
+//     meta.print('export const %1 = [] as %2_t[]\n', iname, itype)
+// }
 meta.close()

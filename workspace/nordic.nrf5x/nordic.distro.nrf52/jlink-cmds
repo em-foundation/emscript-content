@@ -1,4 +1,4 @@
-Device nRF54L15_M33
+Device NRF52832_XXAA
 SelectInterface SWD
 Speed 4000
 Halt
