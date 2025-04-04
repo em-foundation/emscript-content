@@ -19,11 +19,9 @@ export function em$startup() {
 export function flush() { }
 
 export function put(data: u8) {
-    $['%%d+']
     $R.UART0.TXD.$$ = data
     while ($R.UART0.EVENTS_TXDRDY.$$ == 0) { }
     $R.UART0.EVENTS_TXDRDY.$$ = 0
-    $['%%d-']
 }
 
 function sleepLeave() {
