@@ -32,7 +32,7 @@ export function em$generate() {
         dmem_flash: { orig: 0x20000000, len: 0x00008000 },
         imem_flash: { orig: 0x00000000, len: 0x00008000 },
         dmem_sram: { orig: 0x20000000, len: 0x00008000 },
-        imem_sram: { orig: 0x20008000, len: 0x00008000 },
+        imem_sram: { orig: 0x00808000, len: 0x00008000 },
         lmem_sram: { orig: 0x00000000, len: 0x00008000 },
     })
     let opt = $property('em.build.Optimize', 'Oz')
