@@ -24,10 +24,10 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-var cur_pause_only = false
+var cur_pause_only = true
 
 export function em$startup() {
-    $R.REGULATORS.VREGMAIN.DCDCEN.$$ = 1
+    // $R.REGULATORS.VREGMAIN.DCDCEN.$$ = 1
     $['%%b+']
 }
 
@@ -40,26 +40,22 @@ function doPause() {
     IntrVec.PRIMASK_set(0)
 }
 
-function doSleep() {
-    for (let cb of sleep_enter_tab) cb()
-    $['%%b:'](2)
-    $['%%b-']
-    Debug.reset()
-    IntrVec.PRIMASK_set(1)
-    $R.POWER.TASKS_LOWPWR.$$ = 1
-    e$`asm volatile ("wfi")`
-    Debug.startup()
-    $['%%b']
-    for (let cb of sleep_leave_tab) cb()
-    IntrVec.PRIMASK_set(0)
-}
+// function doSleep() {
+//     for (let cb of sleep_enter_tab) cb()
+//     $['%%b:'](2)
+//     $['%%b-']
+//     Debug.reset()
+//     IntrVec.PRIMASK_set(1)
+//     $R.POWER.TASKS_LOWPWR.$$ = 1
+//     e$`asm volatile ("wfi")`
+//     Debug.startup()
+//     $['%%b']
+//     for (let cb of sleep_leave_tab) cb()
+//     IntrVec.PRIMASK_set(0)
+// }
 
 export function exec() {
-    if (cur_pause_only) {
-        doPause()
-    } else {
-        doSleep()
-    }
+    doPause()
 }
 
 export function setPauseOnly(pause_only: bool_t) {

@@ -17,31 +17,17 @@ export namespace em$template {
     }
 
     const pid = pin_num.$$ & 0xff
-    const pn = <u8>(pin_num.$$ >> 8)
     const mask = 1 << pid
 
     export function clear(): void {
-        $R.P[pn].OUTCLR.$$ = mask
+        $R.P0.OUTCLR.$$ = mask
     }
 
     export function functionSelect(select: u8): void {
-        // switch (select) {
-        //     case 1: {
-        //         $R.GPIO[pn].EN0_CLR.$$ = mask
-        //         $R.GPIO[pn].EN1_CLR.$$ = mask
-        //         break
-        //     }
-        //     case 2: {
-        //         $R.GPIO[pn].EN0_CLR.$$ = mask
-        //         $R.GPIO[pn].EN1_SET.$$ = mask
-        //         break
-        //     }
-        // }
     }
 
     export function get(): bool_t {
-        printf`get %08x\n`($R.P[pn].IN.$$)
-        return $R.P[pn].IN.$$ & mask ? true : false
+        return $R.P0.IN.$$ & mask ? true : false
     }
 
     export function isInput(): bool_t {
@@ -53,11 +39,11 @@ export namespace em$template {
     }
 
     export function makeInput(): void {
-        $R.P[pn].DIRCLR.$$ = mask
+        $R.P0.DIRCLR.$$ = mask
     }
 
     export function makeOutput(): void {
-        $R.P[pn].DIRSET.$$ = mask
+        $R.P0.DIRSET.$$ = mask
     }
 
     export function pinId(): i16 {
@@ -65,23 +51,23 @@ export namespace em$template {
     }
 
     export function reset(): void {
-        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_INPUT_Msk
+        $R.P0.PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_INPUT_Msk
     }
 
     export function set(): void {
-        $R.P[pn].OUTSET.$$ = mask
+        $R.P0.OUTSET.$$ = mask
     }
 
     export function setInternalPulldown(enable: bool_t): void {
-        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pulldown << $R.GPIO_PIN_CNF_PULL_Pos
+        $R.P0.PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pulldown << $R.GPIO_PIN_CNF_PULL_Pos
     }
 
     export function setInternalPullup(enable: bool_t): void {
-        $R.P[pn].PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pullup << $R.GPIO_PIN_CNF_PULL_Pos
+        $R.P0.PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_PULL_Pullup << $R.GPIO_PIN_CNF_PULL_Pos
     }
 
     export function toggle(): void {
-        $R.P[pn].OUT.$$ ^= mask
+        $R.P0.OUT.$$ ^= mask
     }
 }
 
