@@ -14,35 +14,53 @@ export namespace em$meta {
     }
 }
 
+function errata(): void {
+    // #12
+    e$`*(volatile uint32_t *)0x40013540 = (*(uint32_t *)0x10000324 & 0x00001F00) >> 8`
+    // #31
+    e$`*(volatile uint32_t *)0x4000053C = ((*(volatile uint32_t *)0x10000244) & 0x0000E000) >> 13`
+    // #36
+    e$`NRF_CLOCK->EVENTS_DONE = 0`
+    e$`NRF_CLOCK->EVENTS_CTTO = 0`
+    e$`NRF_CLOCK->CTIV = 0`
+    // #66
+    e$`NRF_TEMP->A0 = NRF_FICR->TEMP.A0`
+    e$`NRF_TEMP->A1 = NRF_FICR->TEMP.A1`
+    e$`NRF_TEMP->A2 = NRF_FICR->TEMP.A2`
+    e$`NRF_TEMP->A3 = NRF_FICR->TEMP.A3`
+    e$`NRF_TEMP->A4 = NRF_FICR->TEMP.A4`
+    e$`NRF_TEMP->A5 = NRF_FICR->TEMP.A5`
+    e$`NRF_TEMP->B0 = NRF_FICR->TEMP.B0`
+    e$`NRF_TEMP->B1 = NRF_FICR->TEMP.B1`
+    e$`NRF_TEMP->B2 = NRF_FICR->TEMP.B2`
+    e$`NRF_TEMP->B3 = NRF_FICR->TEMP.B3`
+    e$`NRF_TEMP->B4 = NRF_FICR->TEMP.B4`
+    e$`NRF_TEMP->B5 = NRF_FICR->TEMP.B5`
+    e$`NRF_TEMP->T0 = NRF_FICR->TEMP.T0`
+    e$`NRF_TEMP->T1 = NRF_FICR->TEMP.T1`
+    e$`NRF_TEMP->T2 = NRF_FICR->TEMP.T2`
+    e$`NRF_TEMP->T3 = NRF_FICR->TEMP.T3`
+    e$`NRF_TEMP->T4 = NRF_FICR->TEMP.T4`
+    // #108
+    e$`*(volatile uint32_t *)0x40000EE4ul = *(volatile uint32_t *)0x10000258ul & 0x0000004Ful`
+    // #136
+    e$`if (NRF_POWER->RESETREAS & POWER_RESETREAS_RESETPIN_Msk) NRF_POWER->RESETREAS =  ~POWER_RESETREAS_RESETPIN_Msk`
+    // #182
+    e$` *(volatile uint32_t *) 0x4000173C |= (0x1 << 10)`
+}// 
+
 export function startup(): void {
-    $R.POWER.DCDCEN.$$ = 1
+    errata()
     unprotect()
     if (!use_sram.$$) {
         $R.NVMC.ICACHECNF.$$ = 1
     }
+    $R.POWER.DCDCEN.$$ = 1
     Debug.startup()
     $['%%a:'](2)
 }
 
 function unprotect() {
-    // const CLEAR: u32 = (
-    //     $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_WRITEPROTECTION_Clear << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_WRITEPROTECTION_Pos |
-    //     $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_KEY_KEY << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_KEY_Pos
-    // )
-    // const OPEN: u32 = (
-    //     $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_VALUE_High << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_VALUE_Pos |
-    //     $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_LOCK_Disabled << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_LOCK_Pos |
-    //     $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_KEY_KEY << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_KEY_Pos
-    // )
-    // $R.TAMPC.PROTECT.DOMAIN[0].DBGEN.CTRL.$$ = CLEAR
-    // $R.TAMPC.PROTECT.DOMAIN[0].DBGEN.CTRL.$$ = OPEN
-    // $R.TAMPC.PROTECT.DOMAIN[0].NIDEN.CTRL.$$ = CLEAR
-    // $R.TAMPC.PROTECT.DOMAIN[0].NIDEN.CTRL.$$ = OPEN
-    // $R.TAMPC.PROTECT.DOMAIN[0].SPIDEN.CTRL.$$ = CLEAR
-    // $R.TAMPC.PROTECT.DOMAIN[0].SPIDEN.CTRL.$$ = OPEN
-    // $R.TAMPC.PROTECT.DOMAIN[0].SPNIDEN.CTRL.$$ = CLEAR
-    // $R.TAMPC.PROTECT.DOMAIN[0].SPNIDEN.CTRL.$$ = OPEN
-    // $R.TAMPC.PROTECT.AP[0].DBGEN.CTRL.$$ = CLEAR
-    // $R.TAMPC.PROTECT.AP[0].DBGEN.CTRL.$$ = OPEN
+    // e$`NRF_APPROTECT->FORCEPROTECT = APPROTECT_FORCEPROTECT_FORCEPROTECT_Force`
 }
 
