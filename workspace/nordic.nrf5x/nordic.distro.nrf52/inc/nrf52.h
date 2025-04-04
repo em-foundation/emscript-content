@@ -2124,12 +2124,7 @@ typedef struct {                                /*!< (@ 0x4001E000) NVMC Structu
   __IM  uint32_t  READY;                        /*!< (@ 0x00000400) Ready flag                                                 */
   __IM  uint32_t  RESERVED1[64];
   __IOM uint32_t  CONFIG;                       /*!< (@ 0x00000504) Configuration register                                     */
-  
-  union {
-    __IOM uint32_t ERASEPAGE;                   /*!< (@ 0x00000508) Register for erasing a page in Code area                   */
-    __IOM uint32_t ERASEPCR1;                   /*!< (@ 0x00000508) Deprecated register - Register for erasing a
-                                                                    page in Code area. Equivalent to ERASEPAGE.                */
-  };
+  __IOM uint32_t ERASEPAGE;                     /*!< (@ 0x00000508) Register for erasing a page in Code area                   */
   __IOM uint32_t  ERASEALL;                     /*!< (@ 0x0000050C) Register for erasing all non-volatile user memory          */
   __IOM uint32_t  ERASEPCR0;                    /*!< (@ 0x00000510) Deprecated register - Register for erasing a
                                                                     page in Code area. Equivalent to ERASEPAGE.                */

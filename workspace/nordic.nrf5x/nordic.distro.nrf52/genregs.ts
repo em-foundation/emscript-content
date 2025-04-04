@@ -4,14 +4,13 @@ import * as Fs from 'fs'
 import em from '../../em.core/em.lang/emscript'
 
 const TYPE_MAP = new Map<string, string>([
+    ['NVMC', 'NVMC'],
     ['P0', 'GPIO'],
+    ['POWER', 'POWER'],
     ['UART0', 'UART'],
 ])
 
-const TYPE_SET = new Set<string>([
-    'GPIO',
-    'UART'
-])
+const TYPE_SET = new Set<string>(TYPE_MAP.values())
 
 let meta = em.$outfile('REGS.em.ts')
 
@@ -62,11 +61,23 @@ function scanStruct(): string | null {
     while (true) {
         const ln = nextLine()
         if (ln === null) return null
-        const m = ln.match(/====\s+(\w+)/)
-        if (m === null) continue
-        const ti = m[1]
-        if (TYPE_MAP.has(ti)) {
-            return TYPE_MAP.get(ti)!
+        let m = ln.match(/====\s+(\w+)/)
+        if (m === null) {
+            m = ln.match(/\@brief\s+(\w+).+\(Unspecified\)/)
+            if (m === null) continue
+        }
+        const tk = m![1]
+        if (TYPE_MAP.has(tk)) {
+            return TYPE_MAP.get(tk)!
+        }
+        let base = tk
+        const k = tk.indexOf('_')
+        if (k > 0) {
+            base = tk.substring(0, k)
+        }
+        if (TYPE_SET.has(base)) {
+            console.log(ln)
+            return tk
         }
     }
 }
@@ -89,7 +100,6 @@ export function em$generate() {
 while (true) {
     const sname = scanStruct()
     if (sname === null) break
-    console.log(sname)
     meta.genTitle(sname)
     meta.print('export interface %1_t {\n%+', sname)
     for (const [fname, ftype, fdim] of scanFields()) {

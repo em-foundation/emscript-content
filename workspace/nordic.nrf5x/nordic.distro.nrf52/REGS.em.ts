@@ -7,6 +7,49 @@ export function em$generate() {
     out.close()
 }
 
+// -------- POWER_RAM -------- //
+
+export interface POWER_RAM_t {
+    POWER: em.$Reg
+    POWERSET: em.$Reg
+    POWERCLR: em.$Reg
+    RESERVED: em.$Reg
+}
+
+// -------- POWER -------- //
+
+export interface POWER_t {
+    RESERVED: dim_t<em.$Reg, 30>
+    TASKS_CONSTLAT: em.$Reg
+    TASKS_LOWPWR: em.$Reg
+    RESERVED1: dim_t<em.$Reg, 34>
+    EVENTS_POFWARN: em.$Reg
+    RESERVED2: dim_t<em.$Reg, 2>
+    EVENTS_SLEEPENTER: em.$Reg
+    EVENTS_SLEEPEXIT: em.$Reg
+    RESERVED3: dim_t<em.$Reg, 122>
+    INTENSET: em.$Reg
+    INTENCLR: em.$Reg
+    RESERVED4: dim_t<em.$Reg, 61>
+    RESETREAS: em.$Reg
+    RESERVED5: dim_t<em.$Reg, 9>
+    RAMSTATUS: em.$Reg
+    RESERVED6: dim_t<em.$Reg, 53>
+    SYSTEMOFF: em.$Reg
+    RESERVED7: dim_t<em.$Reg, 3>
+    POFCON: em.$Reg
+    RESERVED8: dim_t<em.$Reg, 2>
+    GPREGRET: em.$Reg
+    GPREGRET2: em.$Reg
+    RAMON: em.$Reg
+    RESERVED9: dim_t<em.$Reg, 11>
+    RAMONB: em.$Reg
+    RESERVED10: dim_t<em.$Reg, 8>
+    DCDCEN: em.$Reg
+    RESERVED11: dim_t<em.$Reg, 225>
+    RAM: dim_t<POWER_RAM_t, 8>
+}
+
 // -------- GPIO -------- //
 
 export interface GPIO_t {
@@ -65,8 +108,61 @@ export interface UART_t {
     CONFIG: em.$Reg
 }
 
+// -------- NVMC -------- //
+
+export interface NVMC_t {
+    RESERVED: dim_t<em.$Reg, 256>
+    READY: em.$Reg
+    RESERVED1: dim_t<em.$Reg, 64>
+    CONFIG: em.$Reg
+    ERASEPAGE: em.$Reg
+    ERASEALL: em.$Reg
+    ERASEPCR0: em.$Reg
+    ERASEUICR: em.$Reg
+    RESERVED2: dim_t<em.$Reg, 10>
+    ICACHECNF: em.$Reg
+    RESERVED3: em.$Reg
+    IHIT: em.$Reg
+    IMISS: em.$Reg
+}
+
 // -------- CONSTANTS -------- //
 
+export const NVMC_READY_READY_Pos: any = '0UL'
+export const NVMC_READY_READY_Msk: any = '0x1UL << NVMC_READY_READY_Pos'
+export const NVMC_READY_READY_Busy: any = '0UL'
+export const NVMC_READY_READY_Ready: any = '1UL'
+export const NVMC_CONFIG_WEN_Pos: any = '0UL'
+export const NVMC_CONFIG_WEN_Msk: any = '0x3UL << NVMC_CONFIG_WEN_Pos'
+export const NVMC_CONFIG_WEN_Ren: any = '0UL'
+export const NVMC_CONFIG_WEN_Wen: any = '1UL'
+export const NVMC_CONFIG_WEN_Een: any = '2UL'
+export const NVMC_ERASEPAGE_ERASEPAGE_Pos: any = '0UL'
+export const NVMC_ERASEPAGE_ERASEPAGE_Msk: any = '0xFFFFFFFFUL << NVMC_ERASEPAGE_ERASEPAGE_Pos'
+export const NVMC_ERASEPCR1_ERASEPCR1_Pos: any = '0UL'
+export const NVMC_ERASEPCR1_ERASEPCR1_Msk: any = '0xFFFFFFFFUL << NVMC_ERASEPCR1_ERASEPCR1_Pos'
+export const NVMC_ERASEALL_ERASEALL_Pos: any = '0UL'
+export const NVMC_ERASEALL_ERASEALL_Msk: any = '0x1UL << NVMC_ERASEALL_ERASEALL_Pos'
+export const NVMC_ERASEALL_ERASEALL_NoOperation: any = '0UL'
+export const NVMC_ERASEALL_ERASEALL_Erase: any = '1UL'
+export const NVMC_ERASEPCR0_ERASEPCR0_Pos: any = '0UL'
+export const NVMC_ERASEPCR0_ERASEPCR0_Msk: any = '0xFFFFFFFFUL << NVMC_ERASEPCR0_ERASEPCR0_Pos'
+export const NVMC_ERASEUICR_ERASEUICR_Pos: any = '0UL'
+export const NVMC_ERASEUICR_ERASEUICR_Msk: any = '0x1UL << NVMC_ERASEUICR_ERASEUICR_Pos'
+export const NVMC_ERASEUICR_ERASEUICR_NoOperation: any = '0UL'
+export const NVMC_ERASEUICR_ERASEUICR_Erase: any = '1UL'
+export const NVMC_ICACHECNF_CACHEPROFEN_Pos: any = '8UL'
+export const NVMC_ICACHECNF_CACHEPROFEN_Msk: any = '0x1UL << NVMC_ICACHECNF_CACHEPROFEN_Pos'
+export const NVMC_ICACHECNF_CACHEPROFEN_Disabled: any = '0UL'
+export const NVMC_ICACHECNF_CACHEPROFEN_Enabled: any = '1UL'
+export const NVMC_ICACHECNF_CACHEEN_Pos: any = '0UL'
+export const NVMC_ICACHECNF_CACHEEN_Msk: any = '0x1UL << NVMC_ICACHECNF_CACHEEN_Pos'
+export const NVMC_ICACHECNF_CACHEEN_Disabled: any = '0UL'
+export const NVMC_ICACHECNF_CACHEEN_Enabled: any = '1UL'
+export const NVMC_IHIT_HITS_Pos: any = '0UL'
+export const NVMC_IHIT_HITS_Msk: any = '0xFFFFFFFFUL << NVMC_IHIT_HITS_Pos'
+export const NVMC_IMISS_MISSES_Pos: any = '0UL'
+export const NVMC_IMISS_MISSES_Msk: any = '0xFFFFFFFFUL << NVMC_IMISS_MISSES_Pos'
 export const GPIO_OUT_PIN31_Pos: any = '31UL'
 export const GPIO_OUT_PIN31_Msk: any = '0x1UL << GPIO_OUT_PIN31_Pos'
 export const GPIO_OUT_PIN31_Low: any = '0UL'
@@ -1251,6 +1347,203 @@ export const GPIO_PIN_CNF_DIR_Pos: any = '0UL'
 export const GPIO_PIN_CNF_DIR_Msk: any = '0x1UL << GPIO_PIN_CNF_DIR_Pos'
 export const GPIO_PIN_CNF_DIR_Input: any = '0UL'
 export const GPIO_PIN_CNF_DIR_Output: any = '1UL'
+export const POWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Pos: any = '0UL'
+export const POWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Msk: any = '0x1UL << POWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Pos'
+export const POWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Trigger: any = '1UL'
+export const POWER_TASKS_LOWPWR_TASKS_LOWPWR_Pos: any = '0UL'
+export const POWER_TASKS_LOWPWR_TASKS_LOWPWR_Msk: any = '0x1UL << POWER_TASKS_LOWPWR_TASKS_LOWPWR_Pos'
+export const POWER_TASKS_LOWPWR_TASKS_LOWPWR_Trigger: any = '1UL'
+export const POWER_EVENTS_POFWARN_EVENTS_POFWARN_Pos: any = '0UL'
+export const POWER_EVENTS_POFWARN_EVENTS_POFWARN_Msk: any = '0x1UL << POWER_EVENTS_POFWARN_EVENTS_POFWARN_Pos'
+export const POWER_EVENTS_POFWARN_EVENTS_POFWARN_NotGenerated: any = '0UL'
+export const POWER_EVENTS_POFWARN_EVENTS_POFWARN_Generated: any = '1UL'
+export const POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_Pos: any = '0UL'
+export const POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_Msk: any = '0x1UL << POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_Pos'
+export const POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_NotGenerated: any = '0UL'
+export const POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_Generated: any = '1UL'
+export const POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_Pos: any = '0UL'
+export const POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_Msk: any = '0x1UL << POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_Pos'
+export const POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_NotGenerated: any = '0UL'
+export const POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_Generated: any = '1UL'
+export const POWER_INTENSET_SLEEPEXIT_Pos: any = '6UL'
+export const POWER_INTENSET_SLEEPEXIT_Msk: any = '0x1UL << POWER_INTENSET_SLEEPEXIT_Pos'
+export const POWER_INTENSET_SLEEPEXIT_Disabled: any = '0UL'
+export const POWER_INTENSET_SLEEPEXIT_Enabled: any = '1UL'
+export const POWER_INTENSET_SLEEPEXIT_Set: any = '1UL'
+export const POWER_INTENSET_SLEEPENTER_Pos: any = '5UL'
+export const POWER_INTENSET_SLEEPENTER_Msk: any = '0x1UL << POWER_INTENSET_SLEEPENTER_Pos'
+export const POWER_INTENSET_SLEEPENTER_Disabled: any = '0UL'
+export const POWER_INTENSET_SLEEPENTER_Enabled: any = '1UL'
+export const POWER_INTENSET_SLEEPENTER_Set: any = '1UL'
+export const POWER_INTENSET_POFWARN_Pos: any = '2UL'
+export const POWER_INTENSET_POFWARN_Msk: any = '0x1UL << POWER_INTENSET_POFWARN_Pos'
+export const POWER_INTENSET_POFWARN_Disabled: any = '0UL'
+export const POWER_INTENSET_POFWARN_Enabled: any = '1UL'
+export const POWER_INTENSET_POFWARN_Set: any = '1UL'
+export const POWER_INTENCLR_SLEEPEXIT_Pos: any = '6UL'
+export const POWER_INTENCLR_SLEEPEXIT_Msk: any = '0x1UL << POWER_INTENCLR_SLEEPEXIT_Pos'
+export const POWER_INTENCLR_SLEEPEXIT_Disabled: any = '0UL'
+export const POWER_INTENCLR_SLEEPEXIT_Enabled: any = '1UL'
+export const POWER_INTENCLR_SLEEPEXIT_Clear: any = '1UL'
+export const POWER_INTENCLR_SLEEPENTER_Pos: any = '5UL'
+export const POWER_INTENCLR_SLEEPENTER_Msk: any = '0x1UL << POWER_INTENCLR_SLEEPENTER_Pos'
+export const POWER_INTENCLR_SLEEPENTER_Disabled: any = '0UL'
+export const POWER_INTENCLR_SLEEPENTER_Enabled: any = '1UL'
+export const POWER_INTENCLR_SLEEPENTER_Clear: any = '1UL'
+export const POWER_INTENCLR_POFWARN_Pos: any = '2UL'
+export const POWER_INTENCLR_POFWARN_Msk: any = '0x1UL << POWER_INTENCLR_POFWARN_Pos'
+export const POWER_INTENCLR_POFWARN_Disabled: any = '0UL'
+export const POWER_INTENCLR_POFWARN_Enabled: any = '1UL'
+export const POWER_INTENCLR_POFWARN_Clear: any = '1UL'
+export const POWER_RESETREAS_NFC_Pos: any = '19UL'
+export const POWER_RESETREAS_NFC_Msk: any = '0x1UL << POWER_RESETREAS_NFC_Pos'
+export const POWER_RESETREAS_NFC_NotDetected: any = '0UL'
+export const POWER_RESETREAS_NFC_Detected: any = '1UL'
+export const POWER_RESETREAS_DIF_Pos: any = '18UL'
+export const POWER_RESETREAS_DIF_Msk: any = '0x1UL << POWER_RESETREAS_DIF_Pos'
+export const POWER_RESETREAS_DIF_NotDetected: any = '0UL'
+export const POWER_RESETREAS_DIF_Detected: any = '1UL'
+export const POWER_RESETREAS_LPCOMP_Pos: any = '17UL'
+export const POWER_RESETREAS_LPCOMP_Msk: any = '0x1UL << POWER_RESETREAS_LPCOMP_Pos'
+export const POWER_RESETREAS_LPCOMP_NotDetected: any = '0UL'
+export const POWER_RESETREAS_LPCOMP_Detected: any = '1UL'
+export const POWER_RESETREAS_OFF_Pos: any = '16UL'
+export const POWER_RESETREAS_OFF_Msk: any = '0x1UL << POWER_RESETREAS_OFF_Pos'
+export const POWER_RESETREAS_OFF_NotDetected: any = '0UL'
+export const POWER_RESETREAS_OFF_Detected: any = '1UL'
+export const POWER_RESETREAS_LOCKUP_Pos: any = '3UL'
+export const POWER_RESETREAS_LOCKUP_Msk: any = '0x1UL << POWER_RESETREAS_LOCKUP_Pos'
+export const POWER_RESETREAS_LOCKUP_NotDetected: any = '0UL'
+export const POWER_RESETREAS_LOCKUP_Detected: any = '1UL'
+export const POWER_RESETREAS_SREQ_Pos: any = '2UL'
+export const POWER_RESETREAS_SREQ_Msk: any = '0x1UL << POWER_RESETREAS_SREQ_Pos'
+export const POWER_RESETREAS_SREQ_NotDetected: any = '0UL'
+export const POWER_RESETREAS_SREQ_Detected: any = '1UL'
+export const POWER_RESETREAS_DOG_Pos: any = '1UL'
+export const POWER_RESETREAS_DOG_Msk: any = '0x1UL << POWER_RESETREAS_DOG_Pos'
+export const POWER_RESETREAS_DOG_NotDetected: any = '0UL'
+export const POWER_RESETREAS_DOG_Detected: any = '1UL'
+export const POWER_RESETREAS_RESETPIN_Pos: any = '0UL'
+export const POWER_RESETREAS_RESETPIN_Msk: any = '0x1UL << POWER_RESETREAS_RESETPIN_Pos'
+export const POWER_RESETREAS_RESETPIN_NotDetected: any = '0UL'
+export const POWER_RESETREAS_RESETPIN_Detected: any = '1UL'
+export const POWER_RAMSTATUS_RAMBLOCK3_Pos: any = '3UL'
+export const POWER_RAMSTATUS_RAMBLOCK3_Msk: any = '0x1UL << POWER_RAMSTATUS_RAMBLOCK3_Pos'
+export const POWER_RAMSTATUS_RAMBLOCK3_Off: any = '0UL'
+export const POWER_RAMSTATUS_RAMBLOCK3_On: any = '1UL'
+export const POWER_RAMSTATUS_RAMBLOCK2_Pos: any = '2UL'
+export const POWER_RAMSTATUS_RAMBLOCK2_Msk: any = '0x1UL << POWER_RAMSTATUS_RAMBLOCK2_Pos'
+export const POWER_RAMSTATUS_RAMBLOCK2_Off: any = '0UL'
+export const POWER_RAMSTATUS_RAMBLOCK2_On: any = '1UL'
+export const POWER_RAMSTATUS_RAMBLOCK1_Pos: any = '1UL'
+export const POWER_RAMSTATUS_RAMBLOCK1_Msk: any = '0x1UL << POWER_RAMSTATUS_RAMBLOCK1_Pos'
+export const POWER_RAMSTATUS_RAMBLOCK1_Off: any = '0UL'
+export const POWER_RAMSTATUS_RAMBLOCK1_On: any = '1UL'
+export const POWER_RAMSTATUS_RAMBLOCK0_Pos: any = '0UL'
+export const POWER_RAMSTATUS_RAMBLOCK0_Msk: any = '0x1UL << POWER_RAMSTATUS_RAMBLOCK0_Pos'
+export const POWER_RAMSTATUS_RAMBLOCK0_Off: any = '0UL'
+export const POWER_RAMSTATUS_RAMBLOCK0_On: any = '1UL'
+export const POWER_SYSTEMOFF_SYSTEMOFF_Pos: any = '0UL'
+export const POWER_SYSTEMOFF_SYSTEMOFF_Msk: any = '0x1UL << POWER_SYSTEMOFF_SYSTEMOFF_Pos'
+export const POWER_SYSTEMOFF_SYSTEMOFF_Enter: any = '1UL'
+export const POWER_POFCON_THRESHOLD_Pos: any = '1UL'
+export const POWER_POFCON_THRESHOLD_Msk: any = '0xFUL << POWER_POFCON_THRESHOLD_Pos'
+export const POWER_POFCON_THRESHOLD_V17: any = '4UL'
+export const POWER_POFCON_THRESHOLD_V18: any = '5UL'
+export const POWER_POFCON_THRESHOLD_V19: any = '6UL'
+export const POWER_POFCON_THRESHOLD_V20: any = '7UL'
+export const POWER_POFCON_THRESHOLD_V21: any = '8UL'
+export const POWER_POFCON_THRESHOLD_V22: any = '9UL'
+export const POWER_POFCON_THRESHOLD_V23: any = '10UL'
+export const POWER_POFCON_THRESHOLD_V24: any = '11UL'
+export const POWER_POFCON_THRESHOLD_V25: any = '12UL'
+export const POWER_POFCON_THRESHOLD_V26: any = '13UL'
+export const POWER_POFCON_THRESHOLD_V27: any = '14UL'
+export const POWER_POFCON_THRESHOLD_V28: any = '15UL'
+export const POWER_POFCON_POF_Pos: any = '0UL'
+export const POWER_POFCON_POF_Msk: any = '0x1UL << POWER_POFCON_POF_Pos'
+export const POWER_POFCON_POF_Disabled: any = '0UL'
+export const POWER_POFCON_POF_Enabled: any = '1UL'
+export const POWER_GPREGRET_GPREGRET_Pos: any = '0UL'
+export const POWER_GPREGRET_GPREGRET_Msk: any = '0xFFUL << POWER_GPREGRET_GPREGRET_Pos'
+export const POWER_GPREGRET2_GPREGRET_Pos: any = '0UL'
+export const POWER_GPREGRET2_GPREGRET_Msk: any = '0xFFUL << POWER_GPREGRET2_GPREGRET_Pos'
+export const POWER_RAMON_OFFRAM1_Pos: any = '17UL'
+export const POWER_RAMON_OFFRAM1_Msk: any = '0x1UL << POWER_RAMON_OFFRAM1_Pos'
+export const POWER_RAMON_OFFRAM1_RAM1Off: any = '0UL'
+export const POWER_RAMON_OFFRAM1_RAM1On: any = '1UL'
+export const POWER_RAMON_OFFRAM0_Pos: any = '16UL'
+export const POWER_RAMON_OFFRAM0_Msk: any = '0x1UL << POWER_RAMON_OFFRAM0_Pos'
+export const POWER_RAMON_OFFRAM0_RAM0Off: any = '0UL'
+export const POWER_RAMON_OFFRAM0_RAM0On: any = '1UL'
+export const POWER_RAMON_ONRAM1_Pos: any = '1UL'
+export const POWER_RAMON_ONRAM1_Msk: any = '0x1UL << POWER_RAMON_ONRAM1_Pos'
+export const POWER_RAMON_ONRAM1_RAM1Off: any = '0UL'
+export const POWER_RAMON_ONRAM1_RAM1On: any = '1UL'
+export const POWER_RAMON_ONRAM0_Pos: any = '0UL'
+export const POWER_RAMON_ONRAM0_Msk: any = '0x1UL << POWER_RAMON_ONRAM0_Pos'
+export const POWER_RAMON_ONRAM0_RAM0Off: any = '0UL'
+export const POWER_RAMON_ONRAM0_RAM0On: any = '1UL'
+export const POWER_RAMONB_OFFRAM3_Pos: any = '17UL'
+export const POWER_RAMONB_OFFRAM3_Msk: any = '0x1UL << POWER_RAMONB_OFFRAM3_Pos'
+export const POWER_RAMONB_OFFRAM3_RAM3Off: any = '0UL'
+export const POWER_RAMONB_OFFRAM3_RAM3On: any = '1UL'
+export const POWER_RAMONB_OFFRAM2_Pos: any = '16UL'
+export const POWER_RAMONB_OFFRAM2_Msk: any = '0x1UL << POWER_RAMONB_OFFRAM2_Pos'
+export const POWER_RAMONB_OFFRAM2_RAM2Off: any = '0UL'
+export const POWER_RAMONB_OFFRAM2_RAM2On: any = '1UL'
+export const POWER_RAMONB_ONRAM3_Pos: any = '1UL'
+export const POWER_RAMONB_ONRAM3_Msk: any = '0x1UL << POWER_RAMONB_ONRAM3_Pos'
+export const POWER_RAMONB_ONRAM3_RAM3Off: any = '0UL'
+export const POWER_RAMONB_ONRAM3_RAM3On: any = '1UL'
+export const POWER_RAMONB_ONRAM2_Pos: any = '0UL'
+export const POWER_RAMONB_ONRAM2_Msk: any = '0x1UL << POWER_RAMONB_ONRAM2_Pos'
+export const POWER_RAMONB_ONRAM2_RAM2Off: any = '0UL'
+export const POWER_RAMONB_ONRAM2_RAM2On: any = '1UL'
+export const POWER_DCDCEN_DCDCEN_Pos: any = '0UL'
+export const POWER_DCDCEN_DCDCEN_Msk: any = '0x1UL << POWER_DCDCEN_DCDCEN_Pos'
+export const POWER_DCDCEN_DCDCEN_Disabled: any = '0UL'
+export const POWER_DCDCEN_DCDCEN_Enabled: any = '1UL'
+export const POWER_RAM_POWER_S1RETENTION_Pos: any = '17UL'
+export const POWER_RAM_POWER_S1RETENTION_Msk: any = '0x1UL << POWER_RAM_POWER_S1RETENTION_Pos'
+export const POWER_RAM_POWER_S1RETENTION_Off: any = '0UL'
+export const POWER_RAM_POWER_S1RETENTION_On: any = '1UL'
+export const POWER_RAM_POWER_S0RETENTION_Pos: any = '16UL'
+export const POWER_RAM_POWER_S0RETENTION_Msk: any = '0x1UL << POWER_RAM_POWER_S0RETENTION_Pos'
+export const POWER_RAM_POWER_S0RETENTION_Off: any = '0UL'
+export const POWER_RAM_POWER_S0RETENTION_On: any = '1UL'
+export const POWER_RAM_POWER_S1POWER_Pos: any = '1UL'
+export const POWER_RAM_POWER_S1POWER_Msk: any = '0x1UL << POWER_RAM_POWER_S1POWER_Pos'
+export const POWER_RAM_POWER_S1POWER_Off: any = '0UL'
+export const POWER_RAM_POWER_S1POWER_On: any = '1UL'
+export const POWER_RAM_POWER_S0POWER_Pos: any = '0UL'
+export const POWER_RAM_POWER_S0POWER_Msk: any = '0x1UL << POWER_RAM_POWER_S0POWER_Pos'
+export const POWER_RAM_POWER_S0POWER_Off: any = '0UL'
+export const POWER_RAM_POWER_S0POWER_On: any = '1UL'
+export const POWER_RAM_POWERSET_S1RETENTION_Pos: any = '17UL'
+export const POWER_RAM_POWERSET_S1RETENTION_Msk: any = '0x1UL << POWER_RAM_POWERSET_S1RETENTION_Pos'
+export const POWER_RAM_POWERSET_S1RETENTION_On: any = '1UL'
+export const POWER_RAM_POWERSET_S0RETENTION_Pos: any = '16UL'
+export const POWER_RAM_POWERSET_S0RETENTION_Msk: any = '0x1UL << POWER_RAM_POWERSET_S0RETENTION_Pos'
+export const POWER_RAM_POWERSET_S0RETENTION_On: any = '1UL'
+export const POWER_RAM_POWERSET_S1POWER_Pos: any = '1UL'
+export const POWER_RAM_POWERSET_S1POWER_Msk: any = '0x1UL << POWER_RAM_POWERSET_S1POWER_Pos'
+export const POWER_RAM_POWERSET_S1POWER_On: any = '1UL'
+export const POWER_RAM_POWERSET_S0POWER_Pos: any = '0UL'
+export const POWER_RAM_POWERSET_S0POWER_Msk: any = '0x1UL << POWER_RAM_POWERSET_S0POWER_Pos'
+export const POWER_RAM_POWERSET_S0POWER_On: any = '1UL'
+export const POWER_RAM_POWERCLR_S1RETENTION_Pos: any = '17UL'
+export const POWER_RAM_POWERCLR_S1RETENTION_Msk: any = '0x1UL << POWER_RAM_POWERCLR_S1RETENTION_Pos'
+export const POWER_RAM_POWERCLR_S1RETENTION_Off: any = '1UL'
+export const POWER_RAM_POWERCLR_S0RETENTION_Pos: any = '16UL'
+export const POWER_RAM_POWERCLR_S0RETENTION_Msk: any = '0x1UL << POWER_RAM_POWERCLR_S0RETENTION_Pos'
+export const POWER_RAM_POWERCLR_S0RETENTION_Off: any = '1UL'
+export const POWER_RAM_POWERCLR_S1POWER_Pos: any = '1UL'
+export const POWER_RAM_POWERCLR_S1POWER_Msk: any = '0x1UL << POWER_RAM_POWERCLR_S1POWER_Pos'
+export const POWER_RAM_POWERCLR_S1POWER_Off: any = '1UL'
+export const POWER_RAM_POWERCLR_S0POWER_Pos: any = '0UL'
+export const POWER_RAM_POWERCLR_S0POWER_Msk: any = '0x1UL << POWER_RAM_POWERCLR_S0POWER_Pos'
+export const POWER_RAM_POWERCLR_S0POWER_Off: any = '1UL'
 export const UART_TASKS_STARTRX_TASKS_STARTRX_Pos: any = '0UL'
 export const UART_TASKS_STARTRX_TASKS_STARTRX_Msk: any = '0x1UL << UART_TASKS_STARTRX_TASKS_STARTRX_Pos'
 export const UART_TASKS_STARTRX_TASKS_STARTRX_Trigger: any = '1UL'
@@ -1425,5 +1718,7 @@ export const UART_CONFIG_HWFC_Enabled: any = '1UL'
 
 // -------- INSTANCES -------- //
 
+export const NVMC = {} as NVMC_t
 export const P0 = {} as GPIO_t
+export const POWER = {} as POWER_t
 export const UART0 = {} as UART_t

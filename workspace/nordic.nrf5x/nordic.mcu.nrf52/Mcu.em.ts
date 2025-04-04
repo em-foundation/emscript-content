@@ -15,7 +15,11 @@ export namespace em$meta {
 }
 
 export function startup(): void {
+    $R.POWER.DCDCEN.$$ = 1
     unprotect()
+    if (!use_sram.$$) {
+        $R.NVMC.ICACHECNF.$$ = 1
+    }
     Debug.startup()
     $['%%a:'](2)
 }
