@@ -385,25 +385,8 @@ export function em$generate() {
     out.close()
     //
     out = $outfile('load.sh', 0o755)
-    let dst: string
-    switch (process.platform) {
-        case 'win32': {
-            dst = findDrive('DAPLINK')
-            break
-        }
-        case 'linux': {
-            dst = `/media/${userInfo().username}/DAPLINK/`
-            break
-        }
-        default: {
-            dst = 'Volumes/daplink'
-            break
-        }
-    }
-
-    out = $outfile('load.sh', 0o755)
     const exec = `${tools}/segger-jlink/JLink.exe`
-    out.addText(`${exec} -CommandFile ../nrf.54lxx/nordic.distro.nrf54/jlink-cmds`)
+    out.addText(`${exec} -CommandFile ../nordic.nrf5x/nordic.distro.nrf54/jlink-cmds`)
     out.close()
 }
 
