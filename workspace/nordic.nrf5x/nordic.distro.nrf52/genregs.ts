@@ -7,6 +7,7 @@ const TYPE_MAP = new Map<string, string>([
     ['NVMC', 'NVMC'],
     ['P0', 'GPIO'],
     ['POWER', 'POWER'],
+    ['TIMER0', 'TIMER'],
     ['UART0', 'UART'],
 ])
 
