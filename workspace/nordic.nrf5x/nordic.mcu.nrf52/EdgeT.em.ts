@@ -25,20 +25,19 @@ export namespace em$template {
 
     const pc = pin_chan.$$
     const pid = pin_num.$$ & 0xff
-    const pn = <u8>(pin_num.$$ >> 8)
     const mask = 1 << pid
-    const int_en = $R.GPIOTE_INTENSET0_PORT0SECURE_Msk | (1 << pc)
+    const int_en = 1 << pc
 
     export function clearDetect(): void {
-        $R.GPIOTE20.EVENTS_IN[pc].$$ = 0
+        $R.GPIOTE.EVENTS_IN[pc].$$ = 0
     }
 
     export function disableDetect(): void {
-        $R.GPIOTE20.INTENCLR0.$$ = int_en
+        $R.GPIOTE.INTENCLR.$$ = int_en
     }
 
     export function enableDetect(): void {
-        $R.GPIOTE20.INTENSET0.$$ = int_en
+        $R.GPIOTE.INTENSET.$$ = int_en
     }
 
     export function getState(): bool_t {
@@ -48,20 +47,19 @@ export namespace em$template {
     export function init(pullup: bool_t) {
         Pin.$$.makeInput()
         Pin.$$.setInternalPullup(pullup)
-        $R.GPIOTE20.CONFIG[pc].$$ =
+        $R.GPIOTE.CONFIG[pc].$$ =
             ($R.GPIOTE_CONFIG_MODE_Event << $R.GPIOTE_CONFIG_MODE_Pos) |
-            (pid << $R.GPIOTE_CONFIG_PSEL_Pos) |
-            (pn << $R.GPIOTE_CONFIG_PORT_Pos)
+            (pid << $R.GPIOTE_CONFIG_PSEL_Pos)
     }
 
     export function setDetectFalling() {
-        $R.GPIOTE20.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
-        $R.GPIOTE20.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_HiToLo << $R.GPIOTE_CONFIG_POLARITY_Pos
+        $R.GPIOTE.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
+        $R.GPIOTE.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_HiToLo << $R.GPIOTE_CONFIG_POLARITY_Pos
     }
 
     export function setDetectRising() {
-        $R.GPIOTE20.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
-        $R.GPIOTE20.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_LoToHi << $R.GPIOTE_CONFIG_POLARITY_Pos
+        $R.GPIOTE.CONFIG[pc].$$ &= ~$R.GPIOTE_CONFIG_POLARITY_Msk
+        $R.GPIOTE.CONFIG[pc].$$ |= $R.GPIOTE_CONFIG_POLARITY_LoToHi << $R.GPIOTE_CONFIG_POLARITY_Pos
     }
 }
 

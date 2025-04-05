@@ -108,6 +108,25 @@ export interface UART_t {
     CONFIG: em.$Reg
 }
 
+// -------- GPIOTE -------- //
+
+export interface GPIOTE_t {
+    TASKS_OUT: dim_t<em.$Reg, 8>
+    RESERVED: dim_t<em.$Reg, 4>
+    TASKS_SET: dim_t<em.$Reg, 8>
+    RESERVED1: dim_t<em.$Reg, 4>
+    TASKS_CLR: dim_t<em.$Reg, 8>
+    RESERVED2: dim_t<em.$Reg, 32>
+    EVENTS_IN: dim_t<em.$Reg, 8>
+    RESERVED3: dim_t<em.$Reg, 23>
+    EVENTS_PORT: em.$Reg
+    RESERVED4: dim_t<em.$Reg, 97>
+    INTENSET: em.$Reg
+    INTENCLR: em.$Reg
+    RESERVED5: dim_t<em.$Reg, 129>
+    CONFIG: dim_t<em.$Reg, 8>
+}
+
 // -------- TIMER -------- //
 
 export interface TIMER_t {
@@ -154,6 +173,130 @@ export interface NVMC_t {
 
 // -------- CONSTANTS -------- //
 
+export const GPIOTE_TASKS_OUT_TASKS_OUT_Pos: any = '0UL'
+export const GPIOTE_TASKS_OUT_TASKS_OUT_Msk: any = '0x1UL << GPIOTE_TASKS_OUT_TASKS_OUT_Pos'
+export const GPIOTE_TASKS_OUT_TASKS_OUT_Trigger: any = '1UL'
+export const GPIOTE_TASKS_SET_TASKS_SET_Pos: any = '0UL'
+export const GPIOTE_TASKS_SET_TASKS_SET_Msk: any = '0x1UL << GPIOTE_TASKS_SET_TASKS_SET_Pos'
+export const GPIOTE_TASKS_SET_TASKS_SET_Trigger: any = '1UL'
+export const GPIOTE_TASKS_CLR_TASKS_CLR_Pos: any = '0UL'
+export const GPIOTE_TASKS_CLR_TASKS_CLR_Msk: any = '0x1UL << GPIOTE_TASKS_CLR_TASKS_CLR_Pos'
+export const GPIOTE_TASKS_CLR_TASKS_CLR_Trigger: any = '1UL'
+export const GPIOTE_EVENTS_IN_EVENTS_IN_Pos: any = '0UL'
+export const GPIOTE_EVENTS_IN_EVENTS_IN_Msk: any = '0x1UL << GPIOTE_EVENTS_IN_EVENTS_IN_Pos'
+export const GPIOTE_EVENTS_IN_EVENTS_IN_NotGenerated: any = '0UL'
+export const GPIOTE_EVENTS_IN_EVENTS_IN_Generated: any = '1UL'
+export const GPIOTE_EVENTS_PORT_EVENTS_PORT_Pos: any = '0UL'
+export const GPIOTE_EVENTS_PORT_EVENTS_PORT_Msk: any = '0x1UL << GPIOTE_EVENTS_PORT_EVENTS_PORT_Pos'
+export const GPIOTE_EVENTS_PORT_EVENTS_PORT_NotGenerated: any = '0UL'
+export const GPIOTE_EVENTS_PORT_EVENTS_PORT_Generated: any = '1UL'
+export const GPIOTE_INTENSET_PORT_Pos: any = '31UL'
+export const GPIOTE_INTENSET_PORT_Msk: any = '0x1UL << GPIOTE_INTENSET_PORT_Pos'
+export const GPIOTE_INTENSET_PORT_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_PORT_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_PORT_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN7_Pos: any = '7UL'
+export const GPIOTE_INTENSET_IN7_Msk: any = '0x1UL << GPIOTE_INTENSET_IN7_Pos'
+export const GPIOTE_INTENSET_IN7_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN7_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN7_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN6_Pos: any = '6UL'
+export const GPIOTE_INTENSET_IN6_Msk: any = '0x1UL << GPIOTE_INTENSET_IN6_Pos'
+export const GPIOTE_INTENSET_IN6_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN6_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN6_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN5_Pos: any = '5UL'
+export const GPIOTE_INTENSET_IN5_Msk: any = '0x1UL << GPIOTE_INTENSET_IN5_Pos'
+export const GPIOTE_INTENSET_IN5_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN5_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN5_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN4_Pos: any = '4UL'
+export const GPIOTE_INTENSET_IN4_Msk: any = '0x1UL << GPIOTE_INTENSET_IN4_Pos'
+export const GPIOTE_INTENSET_IN4_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN4_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN4_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN3_Pos: any = '3UL'
+export const GPIOTE_INTENSET_IN3_Msk: any = '0x1UL << GPIOTE_INTENSET_IN3_Pos'
+export const GPIOTE_INTENSET_IN3_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN3_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN3_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN2_Pos: any = '2UL'
+export const GPIOTE_INTENSET_IN2_Msk: any = '0x1UL << GPIOTE_INTENSET_IN2_Pos'
+export const GPIOTE_INTENSET_IN2_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN2_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN2_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN1_Pos: any = '1UL'
+export const GPIOTE_INTENSET_IN1_Msk: any = '0x1UL << GPIOTE_INTENSET_IN1_Pos'
+export const GPIOTE_INTENSET_IN1_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN1_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN1_Set: any = '1UL'
+export const GPIOTE_INTENSET_IN0_Pos: any = '0UL'
+export const GPIOTE_INTENSET_IN0_Msk: any = '0x1UL << GPIOTE_INTENSET_IN0_Pos'
+export const GPIOTE_INTENSET_IN0_Disabled: any = '0UL'
+export const GPIOTE_INTENSET_IN0_Enabled: any = '1UL'
+export const GPIOTE_INTENSET_IN0_Set: any = '1UL'
+export const GPIOTE_INTENCLR_PORT_Pos: any = '31UL'
+export const GPIOTE_INTENCLR_PORT_Msk: any = '0x1UL << GPIOTE_INTENCLR_PORT_Pos'
+export const GPIOTE_INTENCLR_PORT_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_PORT_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_PORT_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN7_Pos: any = '7UL'
+export const GPIOTE_INTENCLR_IN7_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN7_Pos'
+export const GPIOTE_INTENCLR_IN7_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN7_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN7_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN6_Pos: any = '6UL'
+export const GPIOTE_INTENCLR_IN6_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN6_Pos'
+export const GPIOTE_INTENCLR_IN6_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN6_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN6_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN5_Pos: any = '5UL'
+export const GPIOTE_INTENCLR_IN5_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN5_Pos'
+export const GPIOTE_INTENCLR_IN5_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN5_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN5_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN4_Pos: any = '4UL'
+export const GPIOTE_INTENCLR_IN4_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN4_Pos'
+export const GPIOTE_INTENCLR_IN4_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN4_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN4_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN3_Pos: any = '3UL'
+export const GPIOTE_INTENCLR_IN3_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN3_Pos'
+export const GPIOTE_INTENCLR_IN3_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN3_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN3_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN2_Pos: any = '2UL'
+export const GPIOTE_INTENCLR_IN2_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN2_Pos'
+export const GPIOTE_INTENCLR_IN2_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN2_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN2_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN1_Pos: any = '1UL'
+export const GPIOTE_INTENCLR_IN1_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN1_Pos'
+export const GPIOTE_INTENCLR_IN1_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN1_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN1_Clear: any = '1UL'
+export const GPIOTE_INTENCLR_IN0_Pos: any = '0UL'
+export const GPIOTE_INTENCLR_IN0_Msk: any = '0x1UL << GPIOTE_INTENCLR_IN0_Pos'
+export const GPIOTE_INTENCLR_IN0_Disabled: any = '0UL'
+export const GPIOTE_INTENCLR_IN0_Enabled: any = '1UL'
+export const GPIOTE_INTENCLR_IN0_Clear: any = '1UL'
+export const GPIOTE_CONFIG_OUTINIT_Pos: any = '20UL'
+export const GPIOTE_CONFIG_OUTINIT_Msk: any = '0x1UL << GPIOTE_CONFIG_OUTINIT_Pos'
+export const GPIOTE_CONFIG_OUTINIT_Low: any = '0UL'
+export const GPIOTE_CONFIG_OUTINIT_High: any = '1UL'
+export const GPIOTE_CONFIG_POLARITY_Pos: any = '16UL'
+export const GPIOTE_CONFIG_POLARITY_Msk: any = '0x3UL << GPIOTE_CONFIG_POLARITY_Pos'
+export const GPIOTE_CONFIG_POLARITY_None: any = '0UL'
+export const GPIOTE_CONFIG_POLARITY_LoToHi: any = '1UL'
+export const GPIOTE_CONFIG_POLARITY_HiToLo: any = '2UL'
+export const GPIOTE_CONFIG_POLARITY_Toggle: any = '3UL'
+export const GPIOTE_CONFIG_PSEL_Pos: any = '8UL'
+export const GPIOTE_CONFIG_PSEL_Msk: any = '0x1FUL << GPIOTE_CONFIG_PSEL_Pos'
+export const GPIOTE_CONFIG_MODE_Pos: any = '0UL'
+export const GPIOTE_CONFIG_MODE_Msk: any = '0x3UL << GPIOTE_CONFIG_MODE_Pos'
+export const GPIOTE_CONFIG_MODE_Disabled: any = '0UL'
+export const GPIOTE_CONFIG_MODE_Event: any = '1UL'
+export const GPIOTE_CONFIG_MODE_Task: any = '3UL'
 export const NVMC_READY_READY_Pos: any = '0UL'
 export const NVMC_READY_READY_Msk: any = '0x1UL << NVMC_READY_READY_Pos'
 export const NVMC_READY_READY_Busy: any = '0UL'
@@ -1889,6 +2032,7 @@ export const UART_CONFIG_HWFC_Enabled: any = '1UL'
 
 // -------- INSTANCES -------- //
 
+export const GPIOTE = {} as GPIOTE_t
 export const NVMC = {} as NVMC_t
 export const P0 = {} as GPIO_t
 export const POWER = {} as POWER_t

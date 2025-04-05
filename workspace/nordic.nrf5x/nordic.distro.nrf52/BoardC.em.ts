@@ -4,12 +4,12 @@ export const $U = em.$declare('COMPOSITE')
 // import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
-// import * as ButtonT from '@em.utils/ButtonT.em'
+import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart from '@nordic.mcu.nrf52/ConsoleUart0.em'
 import * as Debug from '@em.lang/Debug.em'
-// import * as EdgeT from '@nordic.mcu.nrf52/EdgeT.em'
+import * as EdgeT from '@nordic.mcu.nrf52/EdgeT.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
 import * as GpioT from '@nordic.mcu.nrf52/GpioT.em'
 import * as Idle from '@nordic.mcu.nrf52/Idle.em'
@@ -24,9 +24,9 @@ import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 
 export { OneShot }
 
-// export const AppBut = $clone(ButtonT)
-// export const AppButEdge = $clone(EdgeT)
-// export const AppButPin = $clone(GpioT)
+export const AppBut = $clone(ButtonT)
+export const AppButEdge = $clone(EdgeT)
+export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOutPin = $clone(GpioT)
@@ -57,15 +57,14 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     // AlarmMgr.WakeupTimer.$$ = WakeupTimer
-    // AppBut.Edge.$$ = AppButEdge
-    // AppButEdge.Pin.$$ = AppButPin
-    // AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
+    AppBut.Edge.$$ = AppButEdge
+    AppButEdge.Pin.$$ = AppButPin
+    AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
     AppLed.active_low.$$ = brd.activeLowLeds
     AppLedPin.pin_num.$$ = brd.pins.appLed
     AppOutPin.pin_num.$$ = brd.pins.appOut
     BoardController.Led.$$ = SysLed
-    // BoardController.ready_delay_usecs.$$ = 1_000_000
     BusyWait.scalar.$$ = 9
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart

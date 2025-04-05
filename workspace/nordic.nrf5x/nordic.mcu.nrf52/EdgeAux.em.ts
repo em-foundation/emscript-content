@@ -14,7 +14,7 @@ const handler_info_tab = $table<HandlerInfo>('ro')
 
 export namespace em$meta {
     export function em$construct() {
-        IntrVec.em$meta.useIntr('GPIOTE20_0')
+        IntrVec.em$meta.useIntr('GPIOTE')
     }
 
     export function addHandlerInfo(hi: HandlerInfo): u8 {
@@ -25,13 +25,13 @@ export namespace em$meta {
 }
 
 export function em$startup() {
-    IntrVec.NVIC_enable(e$`GPIOTE20_0_IRQn`)
+    IntrVec.NVIC_enable(e$`GPIOTE_IRQn`)
 }
 
-export function GPIOTE20_0_isr$$() {
+export function GPIOTE_isr$$() {
     let pc = 0
     for (let hi of handler_info_tab) {
-        if ($R.GPIOTE20.EVENTS_IN[pc].$$ && hi.handler != $null) {
+        if ($R.GPIOTE.EVENTS_IN[pc].$$ && hi.handler != $null) {
             hi.handler()
         }
         pc += 1

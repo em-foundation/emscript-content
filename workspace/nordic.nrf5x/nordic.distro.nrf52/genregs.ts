@@ -4,6 +4,7 @@ import * as Fs from 'fs'
 import em from '../../em.core/em.lang/emscript'
 
 const TYPE_MAP = new Map<string, string>([
+    ['GPIOTE', 'GPIOTE'],
     ['NVMC', 'NVMC'],
     ['P0', 'GPIO'],
     ['POWER', 'POWER'],
