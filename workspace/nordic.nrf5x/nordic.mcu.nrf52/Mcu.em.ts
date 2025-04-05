@@ -56,6 +56,8 @@ export function startup(): void {
         $R.NVMC.ICACHECNF.$$ = 1
     }
     $R.POWER.DCDCEN.$$ = 1
+    $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
+    $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
     Debug.startup()
     $['%%a:'](2)
 }

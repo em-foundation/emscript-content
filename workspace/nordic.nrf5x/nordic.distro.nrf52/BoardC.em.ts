@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('COMPOSITE')
 
-// import * as AlarmMgr from '@em.utils/AlarmMgr.em'
+import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
 import * as ButtonT from '@em.utils/ButtonT.em'
@@ -17,10 +17,9 @@ import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@nordic.mcu.nrf52/Mcu.em'
 import * as OneShot from '@nordic.mcu.nrf52/OneShotTimer0.em'
 import * as Poller from '@em.mcu/Poller.em'
-// import * as Uptimer from '@nordic.mcu.nrf52/UptimerRtc.em'
-import * as Uptimer from '@em.hal/UptimerN.em'
+import * as Uptimer from '@nordic.mcu.nrf52/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
-// import * as WakeupTimer from '@nordic.mcu.nrf52/WakeupTimerRtc.em'
+import * as WakeupTimer from '@nordic.mcu.nrf52/WakeupTimerRtc.em'
 
 export { OneShot }
 
@@ -56,7 +55,7 @@ export function em$configure(): void {
     const brd = $board(DEFAULTS)
     $using(BoardController)
     $using(Console)
-    // AlarmMgr.WakeupTimer.$$ = WakeupTimer
+    AlarmMgr.WakeupTimer.$$ = WakeupTimer
     AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
     AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut

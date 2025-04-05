@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE', WakeupTimerI)
 
-import * as Rtc from '@nordic.mcu.nrf54/Rtc.em'
+import * as Rtc from '@nordic.mcu.nrf52/Rtc.em'
 import * as WakeupTimerI from '@em.hal/WakeupTimerI.em'
 
 type Handler = WakeupTimerI.Handler
