@@ -12,6 +12,7 @@ const TYPE_MAP = new Map<string, string>([
     ['RTC0', 'RTC'],
     ['TIMER0', 'TIMER'],
     ['UART0', 'UART'],
+    ['UICR', 'UICR'],
 ])
 
 const TYPE_SET = new Set<string>(TYPE_MAP.values())

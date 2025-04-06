@@ -49,7 +49,23 @@ function errata(): void {
     e$` *(volatile uint32_t *) 0x4000173C |= (0x1 << 10)`
 }// 
 
+function resetConfig(): void {
+    const RESET_PIN = 21
+    const con0 = $R.UICR.PSELRESET[0].$$ & $R.UICR_PSELRESET_CONNECT_Msk
+    const con1 = $R.UICR.PSELRESET[1].$$ & $R.UICR_PSELRESET_CONNECT_Msk
+    if (con0 == 0 && con1 == 0) return
+    $R.NVMC.CONFIG.$$ = $R.NVMC_CONFIG_WEN_Wen
+    $R.UICR.PSELRESET[0].$$ = RESET_PIN
+    while ($R.NVMC.READY.$$ == $R.NVMC_READY_READY_Busy) { }
+    $R.UICR.PSELRESET[1].$$ = RESET_PIN
+    $R.NVMC.CONFIG.$$ = $R.NVMC_CONFIG_WEN_Ren
+    e$`NVIC_SystemReset()`
+}
+
 export function startup(): void {
+    resetConfig()
+    Debug.startup()
+    $['%%a:'](2)
     errata()
     unprotect()
     if (!use_sram.$$) {
@@ -58,8 +74,6 @@ export function startup(): void {
     $R.POWER.DCDCEN.$$ = 1
     $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
-    Debug.startup()
-    $['%%a:'](2)
 }
 
 function unprotect() {

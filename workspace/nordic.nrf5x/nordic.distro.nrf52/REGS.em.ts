@@ -16,6 +16,19 @@ export interface POWER_RAM_t {
     RESERVED: em.$Reg
 }
 
+// -------- UICR -------- //
+
+export interface UICR_t {
+    RESERVED: dim_t<em.$Reg, 5>
+    NRFFW: dim_t<em.$Reg, 15>
+    NRFHW: dim_t<em.$Reg, 12>
+    CUSTOMER: dim_t<em.$Reg, 32>
+    RESERVED1: dim_t<em.$Reg, 64>
+    PSELRESET: dim_t<em.$Reg, 2>
+    APPROTECT: em.$Reg
+    NFCPINS: em.$Reg
+}
+
 // -------- CLOCK -------- //
 
 export interface CLOCK_t {
@@ -2396,6 +2409,27 @@ export const UART_CONFIG_HWFC_Pos: any = '0UL'
 export const UART_CONFIG_HWFC_Msk: any = '0x1UL << UART_CONFIG_HWFC_Pos'
 export const UART_CONFIG_HWFC_Disabled: any = '0UL'
 export const UART_CONFIG_HWFC_Enabled: any = '1UL'
+export const UICR_NRFFW_NRFFW_Pos: any = '0UL'
+export const UICR_NRFFW_NRFFW_Msk: any = '0xFFFFFFFFUL << UICR_NRFFW_NRFFW_Pos'
+export const UICR_NRFHW_NRFHW_Pos: any = '0UL'
+export const UICR_NRFHW_NRFHW_Msk: any = '0xFFFFFFFFUL << UICR_NRFHW_NRFHW_Pos'
+export const UICR_CUSTOMER_CUSTOMER_Pos: any = '0UL'
+export const UICR_CUSTOMER_CUSTOMER_Msk: any = '0xFFFFFFFFUL << UICR_CUSTOMER_CUSTOMER_Pos'
+export const UICR_PSELRESET_CONNECT_Pos: any = '31UL'
+export const UICR_PSELRESET_CONNECT_Msk: any = '0x1UL << UICR_PSELRESET_CONNECT_Pos'
+export const UICR_PSELRESET_CONNECT_Connected: any = '0UL'
+export const UICR_PSELRESET_CONNECT_Disconnected: any = '1UL'
+export const UICR_PSELRESET_PIN_Pos: any = '0UL'
+export const UICR_PSELRESET_PIN_Msk: any = '0x3FUL << UICR_PSELRESET_PIN_Pos'
+export const UICR_APPROTECT_PALL_Pos: any = '0UL'
+export const UICR_APPROTECT_PALL_Msk: any = '0xFFUL << UICR_APPROTECT_PALL_Pos'
+export const UICR_APPROTECT_PALL_Enabled: any = '0x00UL'
+export const UICR_APPROTECT_PALL_HwDisabled: any = '0x5AUL'
+export const UICR_APPROTECT_PALL_Disabled: any = '0xFFUL'
+export const UICR_NFCPINS_PROTECT_Pos: any = '0UL'
+export const UICR_NFCPINS_PROTECT_Msk: any = '0x1UL << UICR_NFCPINS_PROTECT_Pos'
+export const UICR_NFCPINS_PROTECT_Disabled: any = '0UL'
+export const UICR_NFCPINS_PROTECT_NFC: any = '1UL'
 
 // -------- INSTANCES -------- //
 
@@ -2407,3 +2441,4 @@ export const POWER = {} as POWER_t
 export const RTC0 = {} as RTC_t
 export const TIMER0 = {} as TIMER_t
 export const UART0 = {} as UART_t
+export const UICR = {} as UICR_t
