@@ -5,8 +5,16 @@ import * as $R from '@nordic.distro.nrf52/REGS.em'
 
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
+import * as Idle from '@nordic.mcu.nrf52/Idle.em'
 
 export const TxPin = $proxy<GpioI.$I>()
+
+export namespace em$meta {
+    export function em$construct() {
+        Idle.em$meta.addSleepEnter($cb(sleepEnter))
+        Idle.em$meta.addSleepLeave($cb(sleepLeave))
+    }
+}
 
 //>> ---- em$targ ---- <<//
 
