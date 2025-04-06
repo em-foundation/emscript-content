@@ -16,7 +16,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-const SUBS_Cnt = 6
+const SUBS_Cnt = 8
 const SUBS_Msk = (1 << SUBS_Cnt) - 1
 const PRE = (1 << (15 - SUBS_Cnt)) - 1
 
@@ -36,6 +36,9 @@ export function disable() {
 
 export function enable(thresh: u32, handler: Handler) {
     cur_hlr = handler
+    // const ctr = $R.RTC0.COUNTER.$$
+    // $['%%>'](ctr)
+    // $['%%>'](thresh)
     $R.RTC0.CC[0].$$ = thresh
     $R.RTC0.INTENSET.$$ = $R.RTC_INTENSET_COMPARE0_Msk
 }

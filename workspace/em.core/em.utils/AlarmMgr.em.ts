@@ -55,14 +55,24 @@ function dispatch(delta: Secs24p8) {
         }
     }
     cur_alarm = nxt_alarm // $null if no candidates found
-    if (cur_alarm)
+    if (cur_alarm) {
+        const id = <arg_t>cur_alarm
+        $['%%>'](<u8>id)
         WakeupTimer.$$.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
+    }
 }
 
 function setup(alarm: Obj, delta: Secs24p8) {
     alarm.$$._thresh = WakeupTimer.$$.secsToThresh(delta)
     alarm.$$._dt_secs = delta
-    dispatch(0)
+    if (cur_alarm == $null || cur_alarm.$$._dt_secs > delta) {
+        //        if (cur_alarm) {
+        //            $['%%>'](<u8>0xAA)
+        //            $['%%>'](cur_alarm.$$._dt_secs)
+        //            $['%%>'](delta)
+        //        }
+        dispatch(0)
+    }
 }
 
 function wakeupHandler() {
