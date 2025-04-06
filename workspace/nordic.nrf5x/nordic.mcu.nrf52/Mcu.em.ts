@@ -67,7 +67,7 @@ export function startup(): void {
     Debug.startup()
     $['%%a:'](2)
     errata()
-    unprotect()
+    e$`NRF_APPROTECT->DISABLE = NRF_UICR->APPROTECT`
     if (!use_sram.$$) {
         $R.NVMC.ICACHECNF.$$ = 1
     }
@@ -75,8 +75,3 @@ export function startup(): void {
     $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
 }
-
-function unprotect() {
-    // e$`NRF_APPROTECT->FORCEPROTECT = APPROTECT_FORCEPROTECT_FORCEPROTECT_Force`
-}
-
