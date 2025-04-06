@@ -71,6 +71,10 @@ export function startup(): void {
     if (!use_sram.$$) {
         $R.NVMC.ICACHECNF.$$ = 1
     }
+    // $R.POWER.RAM[2].POWER.$$ = 0
+    // $R.POWER.RAM[3].POWER.$$ = 0
+    // $R.POWER.RAM[6].POWER.$$ = 0
+    // $R.POWER.RAM[7].POWER.$$ = 0
     $R.POWER.DCDCEN.$$ = 1
     $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
