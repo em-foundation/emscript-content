@@ -586,7 +586,6 @@ export namespace em$meta {
     ]
 
     export function em$construct() {
-        phy.$$ = RadioConfig.phy.$$
         //
         for (const w of LRF_MCE_binary_genfsk) LRF_MCE_patch_genfsk.$add(w)
         for (const w of LRF_PBE_binary_generic) LRF_PBE_patch_generic.$add(w)
@@ -598,8 +597,6 @@ export namespace em$meta {
     }
 }
 
-const phy = $config<RadioConfig.Phy>()
-
 //>> ---- em$targ ---- <<//
 
 var loaded = false
@@ -607,7 +604,7 @@ var loaded = false
 export function loadAll() {
     if (loaded) return
     loaded = true
-    switch (phy.$$) {
+    switch (RadioConfig.getPhy()) {
         case RadioConfig.Phy.BLE_1M:
             loadPatch($R.LRFD_MCERAM_BASE, LRF_MCE_patch_ble5.$frame(0))
             loadPatch($R.LRFD_PBERAM_BASE, LRF_PBE_patch_ble5.$frame(0))
