@@ -16,7 +16,9 @@ export namespace em$meta {
 }
 
 export function em$run() {
-    for (let v of my_tab) printf`%d\n`(v)
+    // for (let v of my_tab) printf`%d\n`(v)
+    const p = my_tab.$ptr()
+    printf`%x\n`(p)
     // for (let i = 0; i < my_tab.$len; i++) printf`%d\n`(my_tab[i])
     // for (let i = 0; i < my_tab.$len; i++) Common.ConsoleUart.$$.put(my_tab[i])
     //for (let i = 0; i < tab.$len; i++) tab[i] += 50

@@ -326,10 +326,7 @@ namespace em {
     class em$ptr<T> implements ptr_t<T> {
         [index: number]: T
         __em$class = 'em$ptr'
-        constructor(
-            private arr: T[],
-            private idx: u16 = 0
-        ) {
+        constructor(private arr: T[], private idx: u16 = 0) {
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === 'string' && !isNaN(Number(prop))) {

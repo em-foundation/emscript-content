@@ -1,6 +1,7 @@
 #ifndef emscript__M
 #define emscript__M
 
+#include <cstring>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -122,8 +123,9 @@ namespace em {
         T $$[N];
         static constexpr u16 $len = N;
         inline const T &operator[](u16 index) const { return $$[index]; }
-        const frame_t<T> $frame(i16 beg, u16 len = 0) const { return frame_t<T>::create($$, $len, beg, len); }
+        const frame_t<T> $frame(i16 beg, u16 len = 0) const { return frame_t<T>::create((T*)$$, $len, beg, len); }
         operator frame_t<T>() const { return $frame(0, 0); }
+        ptr_t<T> $ptr() const { return ptr_t<T>((T*)$$); }
         struct Iterator {
             const T *current;
             constexpr Iterator(const T *ptr) : current(ptr) {}
