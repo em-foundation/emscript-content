@@ -747,9 +747,11 @@ namespace em {
 
     export interface $Reg {
         $$: number
+        $h: number
         $: $Reg[]
     }
 
+    export let $reg16: index_t<u16>
     export let $reg32: index_t<u32>
 
     export type ArrayLike<T> = index_t<T> & { $len: u16 }

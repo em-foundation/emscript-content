@@ -24,6 +24,7 @@
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_lrfdrfe32.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_memmap.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_pmctl.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_pmud.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_rtc.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_uart.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_vims.h"

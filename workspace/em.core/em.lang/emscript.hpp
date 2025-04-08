@@ -189,6 +189,10 @@ namespace em {
 
     template <typename T> using volatile_t = volatile T;
 
+    static inline volatile u16 *$reg16(u32 addr) {
+        return (volatile u16 *)addr;
+    }
+
     static inline volatile u32 *$reg32(u32 addr) {
         return (volatile u32 *)addr;
     }
