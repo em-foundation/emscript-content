@@ -32,11 +32,23 @@ var cur_state = State.IDLE
 var rx_timeout = false
 
 export function disable() {
-
+    setState(State.IDLE)
+    RfCtrl.disable()
+    RfXtal.disable()
 }
 
 export function enable() {
+    setState(State.SETUP)
+    RfXtal.enable()
+    RfCtrl.enableClocks()
+    RfPatch.loadAll();
+    RfXtal.waitReady();
+    // RfRegs.setup();
+}
 
+function setState(s: State) {
+    // em.@"%%[a:]"(@intFromEnum(s));
+    cur_state = s
 }
 
 
