@@ -631,7 +631,3 @@ function loadPatch(dsta: u32, src: frame_t<u32>) {
         dsta += 4
     }
 }
-
-export function em$run() {
-    loadAll()
-}

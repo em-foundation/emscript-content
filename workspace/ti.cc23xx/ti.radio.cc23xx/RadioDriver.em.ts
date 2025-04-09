@@ -41,9 +41,9 @@ export function enable() {
     setState(State.SETUP)
     RfXtal.enable()
     RfCtrl.enableClocks()
-    RfPatch.loadAll();
-    RfXtal.waitReady();
-    // RfRegs.setup();
+    RfPatch.loadAll()
+    RfXtal.waitReady()
+    RfRegs.setup()
 }
 
 function setState(s: State) {
