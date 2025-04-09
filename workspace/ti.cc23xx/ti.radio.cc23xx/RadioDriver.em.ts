@@ -1,6 +1,8 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
+import * as $R from '@ti.distro.cc23xx/REGS.em'
+
 import * as Common from '@em.mcu/Common.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
@@ -44,6 +46,9 @@ export function enable() {
     RfPatch.loadAll()
     RfXtal.waitReady()
     RfRegs.setup()
+    em.$reg32[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSI] = 127
+    em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_FIFOCMDADD] = <u16>(($R.LRFDPBE_BASE + $R.LRFDPBE_O_FCMD) & 0x0FFF) >> 2
+    RfTrim.apply()
 }
 
 function setState(s: State) {
