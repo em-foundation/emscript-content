@@ -808,11 +808,15 @@ namespace em {
     type UnitKind = 'MODULE' | 'INTERFACE' | 'COMPOSITE' | 'TEMPLATE'
 
     export class Unit {
+        private _aux_c: boolean = false
+        private _aux_h: boolean = false
         private _used: boolean = false
         constructor(
             readonly uid: string,
             readonly kind: UnitKind
         ) { }
+        auxC() { this._aux_c = true }
+        auxH() { this._aux_h = true }
         used(b?: boolean) {
             this._used = b ?? true
         }
