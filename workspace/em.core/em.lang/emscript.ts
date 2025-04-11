@@ -373,14 +373,17 @@ namespace em {
     }
 
     class em$frame<T> implements frame_t<T> {
+        __em$class = 'em$frame'
+        __$type: string
         private items: T[]
         $start: u16
         $len: number;
         [index: number]: T
-        constructor(arr: T[], start: u16, len: u16 = 0) {
+        constructor(arr: T[], start: u16, len: u16, $type: string = '') {
             this.items = arr
             this.$start = start
             this.$len = len
+            this.__$type = $type
             return new globalThis.Proxy(this, {
                 get(target, prop) {
                     if (typeof prop === 'string' && !isNaN(Number(prop))) {
@@ -416,6 +419,10 @@ namespace em {
         $frame(beg: i16, len: u16 = 0): frame_t<T> {
             return frame$create<T>(this.items, this.$start, beg, len)
         }
+    }
+
+    export function $frame<T>(arr: T[], $type?: never): frame_t<T> {
+        return new em$frame<T>(arr, 0, 0, <string>($type as unknown))
     }
 
     function frame$create<T>(
@@ -1114,6 +1121,7 @@ declare global {
     const $clone: typeof em.$clone
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
+    const $frame: typeof em.$frame
     const $implements: typeof em.$implements
     const $i8: typeof em.$i8
     const $i16: typeof em.$i16
@@ -1154,6 +1162,7 @@ Object.assign(globalThis, {
     $clone: em.$clone,
     $delegate: em.$delegate,
     $factory: em.$factory,
+    $frame: em.$frame,
     $implements: em.$implements,
     $i8: em.$i8,
     $i16: em.$i16,

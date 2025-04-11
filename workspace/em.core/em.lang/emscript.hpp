@@ -42,6 +42,7 @@ namespace em {
         T* $start;
         u16 $len;
         constexpr frame_t(T* start, u16 len) : $start (start), $len (len) {}
+        constexpr frame_t() : $start (null), $len (0) {}
         T &operator[](u16 index) { return *($start + index); }
         const T &operator[](u16 index) const { return *($start + index); }
         frame_t<T> $frame(i16 beg, u16 len = 0) { return create($start, $len, beg, len); }
@@ -52,8 +53,8 @@ namespace em {
             Iterator &operator++() { ++current; return *this; }
             bool operator!=(const Iterator &other) const { return current != other.current; }
         };
-        constexpr Iterator begin() { return Iterator($start); }
-        constexpr Iterator end() { return Iterator($start + $len); }
+        constexpr Iterator begin() const { return Iterator($start); }
+        constexpr Iterator end() const { return Iterator($start + $len); }
 
     };
 
