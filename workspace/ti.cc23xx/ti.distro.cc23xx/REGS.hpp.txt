@@ -26,6 +26,7 @@
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_pmctl.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_pmud.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_rtc.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_systim.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_uart.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_vims.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/pbe_ble5_ram_regs.h"
