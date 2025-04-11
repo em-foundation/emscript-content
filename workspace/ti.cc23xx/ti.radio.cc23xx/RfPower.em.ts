@@ -4,3 +4,7 @@ export const $U = em.$declare('MODULE')
 export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
+
+export function program(level: i8) {
+
+}

@@ -5,11 +5,7 @@ import * as $R from '@ti.distro.cc23xx/REGS.em'
 
 import * as RfTemp from '@ti.radio.cc23xx/RfTemp.em'
 
-export namespace em$meta {
-    export function em$construct() {
-        $U.auxH()
-    }
-}
+export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
@@ -31,23 +27,23 @@ const RFE_SPARE1_AGC_VALUE_BM = <u32>0x000FF
 const RFE_SPARE1_AGC_VALUE = 0
 
 export function apply() {
-    $R.LRFDRFE.PA0.$$ |= e$`TRIMS->trim0.pa0`
-    $R.LRFDRFE.ATSTREFH.$$ |= e$`TRIMS->trim0.atstRefH`
-    $R.LRFDRFE.LNA.$$ |= e$`TRIMS->trim1.lna`
-    $R.LRFDRFE.IFAMPRFLDO.$$ |= e$`TRIMS->trim1.ifampRfLdo`
-    $R.LRFDRFE.DCOLDO0.$$ |= e$`TRIMS->trim2.dcoLdo0`
-    $R.LRFDRFE.IFADCALDO.$$ |= e$`TRIMS->trim2.ifadcAldo`
-    $R.LRFDRFE.IFADCDLDO.$$ |= e$`TRIMS->trim2.ifadcDldo`
-    $R.LRFDMDM.DEMIQMC0.$$ |= e$`TRIMS->trim4.demIQMC0`
+    $R.LRFDRFE.PA0.$$ |= e$`LRF_TRIMS->trim0.pa0`
+    $R.LRFDRFE.ATSTREFH.$$ |= e$`LRF_TRIMS->trim0.atstRefH`
+    $R.LRFDRFE.LNA.$$ |= e$`LRF_TRIMS->trim1.lna`
+    $R.LRFDRFE.IFAMPRFLDO.$$ |= e$`LRF_TRIMS->trim1.ifampRfLdo`
+    $R.LRFDRFE.DCOLDO0.$$ |= e$`LRF_TRIMS->trim2.dcoLdo0`
+    $R.LRFDRFE.IFADCALDO.$$ |= e$`LRF_TRIMS->trim2.ifadcAldo`
+    $R.LRFDRFE.IFADCDLDO.$$ |= e$`LRF_TRIMS->trim2.ifadcDldo`
+    $R.LRFDMDM.DEMIQMC0.$$ |= e$`LRF_TRIMS->trim4.demIQMC0`
     em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_IFAMPRFLDODEFAULT] = em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_IFAMPRFLDO] & <u16>$R.LRFDRFE_IFAMPRFLDO_TRIM_M
     // common: bwIndex = 0, bwIndexDither = 1
-    $R.LRFDRFE.IFADCQUANT.$$ |= e$`TRIMS->trimVariant[0].ifadcQuant`
-    $R.LRFDRFE.IFADC0.$$ |= e$`TRIMS->trimVariant[0].ifadc0`
-    $R.LRFDRFE.IFADC1.$$ |= e$`TRIMS->trimVariant[0].ifadc1`
-    $R.LRFDRFE.IFADCLF.$$ |= e$`TRIMS->trimVariant[0].ifadclf`
-    $R.LRFDRFE.IFAMPRFLDO.$$ |= e$`TRIMS->trim4.ifamprfldo[0]`
+    $R.LRFDRFE.IFADCQUANT.$$ |= e$`LRF_TRIMS->trimVariant[0].ifadcQuant`
+    $R.LRFDRFE.IFADC0.$$ |= e$`LRF_TRIMS->trimVariant[0].ifadc0`
+    $R.LRFDRFE.IFADC1.$$ |= e$`LRF_TRIMS->trimVariant[0].ifadc1`
+    $R.LRFDRFE.IFADCLF.$$ |= e$`LRF_TRIMS->trimVariant[0].ifadclf`
+    $R.LRFDRFE.IFAMPRFLDO.$$ |= e$`LRF_TRIMS->trim4.ifamprfldo[0]`
     $R.LRFDRFE.IFADC0.$$ &= ~($R.LRFDRFE_IFADC0_DITHEREN_M | $R.LRFDRFE_IFADC0_DITHERTRIM_M) |
-        (e$`TRIMS->trimVariant[1].ifadc0` & ($R.LRFDRFE_IFADC0_DITHEREN_M | $R.LRFDRFE_IFADC0_DITHERTRIM_M))
+        (e$`LRF_TRIMS->trimVariant[1].ifadc0` & ($R.LRFDRFE_IFADC0_DITHEREN_M | $R.LRFDRFE_IFADC0_DITHERTRIM_M))
 
     // temperature
     em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_DIVLDOF] &= ~(<u16>$R.RFE_COMMON_RAM_DIVLDOF_VOUTTRIM_M)
@@ -85,7 +81,7 @@ function temperatureCompensateTrim() {
     let agcValOffset: i32 = 0
 
     const temperature = RfTemp.getTemperature()
-    const tempLdoRtrim = e$`TRIMS->trim3.lrfdrfeExtTrim1.tempLdoRtrim`
+    const tempLdoRtrim = e$`LRF_TRIMS->trim3.lrfdrfeExtTrim1.tempLdoRtrim`
     const tempThreshLow = TEMPERATURE_MIN + <i16><u16>tempLdoRtrim.tThrl * (1 << EXTTRIM1_TEMPERATURE_SCALE_EXP)
     const tempThreshHigh = TEMPERATURE_MAX - <i16><u16>tempLdoRtrim.tThrh * (1 << EXTTRIM1_TEMPERATURE_SCALE_EXP)
     if (temperature < tempThreshLow) {
@@ -99,10 +95,10 @@ function temperatureCompensateTrim() {
         tdcLdoTempOffset = findExtTrim1TrimAdjustment(temperatureDiff, tempLdoRtrim.tThrh, TDCLDO_HIGH_TEMP_ADJ_FACTOR * <u32>tempLdoRtrim.tdcLdoMaxOffset)
         rtrimTempOffset = findExtTrim1TrimAdjustment(temperatureDiff, tempLdoRtrim.tThrh, RTRIM_HIGH_TEMP_ADJ_FACTOR * <u32>tempLdoRtrim.rtrimMaxOffset)
     }
-    rssiTempOffset = findExtTrim0TrimAdjustment(temperature, e$`TRIMS->trim3.lrfdrfeExtTrim0.rssiTcomp`, 0)
+    rssiTempOffset = findExtTrim0TrimAdjustment(temperature, e$`LRF_TRIMS->trim3.lrfdrfeExtTrim0.rssiTcomp`, 0)
     // std AGC
-    agcValOffset = findExtTrim0TrimAdjustment(temperature, e$`TRIMS->trim3.lrfdrfeExtTrim0.magnTcomp`, e$`TRIMS->trim3.lrfdrfeExtTrim0.magnOffset`)
-    let divLdoVoutTrim: u32 = e$`TRIMS->trim1.divLdo.voutTrim`
+    agcValOffset = findExtTrim0TrimAdjustment(temperature, e$`LRF_TRIMS->trim3.lrfdrfeExtTrim0.magnTcomp`, e$`LRF_TRIMS->trim3.lrfdrfeExtTrim0.magnOffset`)
+    let divLdoVoutTrim: u32 = e$`LRF_TRIMS->trim1.divLdo.voutTrim`
     divLdoVoutTrim ^= 0x40
     divLdoVoutTrim += divLdoTempOffset
     const DIV_ONES = ($R.LRFDRFE_DIVLDO_VOUTTRIM_ONES >> $R.LRFDRFE_DIVLDO_VOUTTRIM_S)
@@ -110,7 +106,7 @@ function temperatureCompensateTrim() {
     em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_DIVLDOF] |= (divLdoVoutTrim ^ 0x40) << $R.RFE_COMMON_RAM_DIVLDOF_VOUTTRIM_S
     divLdoVoutTrim += em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_DIVLDOIOFF]
     if (divLdoVoutTrim > DIV_ONES) divLdoVoutTrim = DIV_ONES
-    let tdcLdoVoutTrim: u32 = e$`TRIMS->trim1.tdcLdo.voutTrim`
+    let tdcLdoVoutTrim: u32 = e$`LRF_TRIMS->trim1.tdcLdo.voutTrim`
     if (tdcLdoTempOffset > 0) {
         tdcLdoVoutTrim ^= 0x40
         tdcLdoVoutTrim += tdcLdoTempOffset
@@ -119,7 +115,7 @@ function temperatureCompensateTrim() {
         tdcLdoVoutTrim ^= 0x40
     }
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_TDCLDO] |= (tdcLdoVoutTrim << $R.LRFDRFE_TDCLDO_VOUTTRIM_S)
-    let rtrim: u32 = e$`TRIMS->trim2.dco.tailresTrim`
+    let rtrim: u32 = e$`LRF_TRIMS->trim2.dco.tailresTrim`
     if (rtrim < DEFAULT_RTRIM_MAX) {
         rtrim += rtrimTempOffset
         rtrim += em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_RTRIMOFF]
@@ -128,8 +124,8 @@ function temperatureCompensateTrim() {
     const minRtrim: u32 = em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_RTRIMMIN]
     if (rtrim < minRtrim) rtrim = minRtrim
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_DCO] |= (rtrim << $R.LRFDRFE_DCO_TAILRESTRIM_S)
-    let rssiOffset: i32 = <i32>e$`TRIMS->trim4.rssiOffset`
-    if (e$`TRIMS->revision` == 4 && rssiOffset <= -4) rssiOffset += 5
+    let rssiOffset: i32 = <i32>e$`LRF_TRIMS->trim4.rssiOffset`
+    if (e$`LRF_TRIMS->revision` == 4 && rssiOffset <= -4) rssiOffset += 5
     rssiOffset += rssiTempOffset
     rssiOffset += em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_PHYRSSIOFFSET]
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSIOFFSET] = rssiOffset

@@ -16,6 +16,8 @@ import * as RfRegs from '@ti.radio.cc23xx/RfRegs.em'
 import * as RfTrim from '@ti.radio.cc23xx/RfTrim.em'
 import * as RfXtal from '@ti.radio.cc23xx/RfXtal.em'
 
+import * as LRF from '@ti.radio.cc23xx/LRF.em'
+
 export type Handler = cb_t<[]>
 
 enum State {
@@ -25,7 +27,6 @@ enum State {
 export namespace em$meta {
     export function em$construct() {
         IntrVec.em$meta.useIntr('LRFD_IRQ0')
-        $U.auxH()
     }
 }
 
@@ -119,6 +120,32 @@ export function startCs(chan: u8, timeout: u16) {
     $R.LRFDPBE.API.$$ = $R.PBE_GENERIC_REGDEF_API_OP_RX
 }
 
+export function startCw(chan: u8, power: i8) {
+    setState(State.CW)
+    RfPower.program(power)
+    RfCtrl.enableImages()
+    const cfg_val: u32 =
+        (1 << $R.PBE_GENERIC_RAM_OPCFG_TXINFINITE_S) |
+        (1 << $R.PBE_GENERIC_RAM_OPCFG_TXPATTERN_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_TXFCMD_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_START_S) |
+        // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_NOCAL_S) |
+        // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_KEEPON_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_RXREPEATOK_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_NEXTOP_S) |
+        (1 << $R.PBE_GENERIC_RAM_OPCFG_SINGLE_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_IFSPERIOD_S) |
+        (0 << $R.PBE_GENERIC_RAM_OPCFG_RFINTERVAL_S)
+    em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_OPCFG] = <u16>cfg_val
+    em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_NESB] = ($R.PBE_GENERIC_RAM_NESB_NESBMODE_OFF)
+    em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_PATTERN] = 0
+    $R.LRFDMDM.MODCTRL.$$ |= $R.LRFDMDM_MODCTRL_TONEINSERT_M
+    RfFreq.program(freqFromChan(chan))
+    $R.LRFDDBELL.IMASK0.$$ |= e$`LRF_EventOpDone` | e$`LRF_EventOpError`
+    while (em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_MSGBOX] == 0) { }
+    $R.SYSTIM.CH2CC.$$ = $R.SYSTIM.TIME250N.$$
+    $R.LRFDPBE.API.$$ = $R.PBE_GENERIC_REGDEF_API_OP_TX
+}
 
 export function LRFD_IRQ0_isr$$() {
     const mis = $R.LRFDDBELL.MIS0.$$
