@@ -1,5 +1,41 @@
 #include <stdint.h>
 
+#include <../em.core/em.lang/emscript.hpp>
+
+const auto LRF_EventNone                  = (0U << 0U);   /*!< No events */
+const auto LRF_EventOpDone                = (1U << 0U);   /*!< The PBE operation has finished */
+const auto LRF_EventPingRsp               = (1U << 1U);   /*!< When receiving a CMD_PING, PBE responds with a PINGRSP. */
+const auto LRF_EventRxCtrl                = (1U << 2U);   /*!< LL control packet received correctly */
+const auto LRF_EventRxCtrlAck             = (1U << 3U);   /*!< LL control packet received with CRC OK, not to be ignored, then acknowledgement sent */
+const auto LRF_EventRxNok                 = (1U << 4U);   /*!< Packet received with CRC error */
+const auto LRF_EventRxIgnored             = (1U << 5U);   /*!< Packet received, but may be ignored by MCU */
+const auto LRF_EventRxEmpty               = (1U << 6U);   /*!< Empty packet received */
+const auto LRF_EventRxBufFull             = (1U << 7U);   /*!< Packet received which did not fit in the RX FIFO and was not to be discarded.  */
+const auto LRF_EventRxOk                  = (1U << 8U);   /*!< Packet received with CRC OK and not to be ignored by the MCU */
+const auto LRF_EventTxCtrl                = (1U << 9U);   /*!< Transmitted LL control packet */
+const auto LRF_EventTxCtrlAckAck          = (1U << 10U);  /*!< Acknowledgement received on a transmitted LL control packet, and acknowledgement transmitted for that packet */
+const auto LRF_EventTxRetrans             = (1U << 11U);  /*!< Packet retransmitted with same SN */
+const auto LRF_EventTxAck                 = (1U << 12U);  /*!< Acknowledgement transmitted, or acknowledgement received on a transmitted packet. */
+const auto LRF_EventTxDone                = (1U << 13U);  /*!< Packet transmitted */
+const auto LRF_EventTxCtrlAck             = (1U << 14U);  /*!< Acknowledgement received on a transmitted LL control packet */
+const auto LRF_EventOpError               = (1U << 15U);  /*!< Something went awfully wrong, the reason is indicated in RAM-based register BLE_ENDCAUSE. */
+const auto LRF_EventRxfifo                = (1U << 16U);  /*!< Event from fifo, triggered when crossing threshold. Normal use for rxfifo is to generate IRQ when crossing threshold upwards (filling fifo). But downwards is also possible to configure, could be use case for using both fifos for TX or both for RX */
+const auto LRF_EventTxfifo                = (1U << 17U);  /*!< Event from fifo, triggered when crossing threshold. Normal use for txfifo is to generate IRQ when crossing threshold downwards (emptying fifo). But upwards is also possible to configure, could be use case for using both fifos for TX or both for RX */
+const auto LRF_EventLossOfLock            = (1U << 18U);  /*!< LOSS_OF_LOCK event */
+const auto LRF_EventLock                  = (1U << 19U);  /*!< LOCK event */
+const auto LRF_EventRfesoft0              = (1U << 20U);  /*!< RFESOFT0 event */
+const auto LRF_EventRfesoft1              = (1U << 21U);  /*!< RFESOFT1 event */
+const auto LRF_EventRfedone               = (1U << 22U);  /*!< RFEDONE event */
+const auto LRF_EventMdmsoft0              = (1U << 23U);  /*!< MDMSOFT event */
+const auto LRF_EventMdmsoft1              = (1U << 24U);  /*!< MDMSOFT1 event */
+const auto LRF_EventMdmsoft2              = (1U << 25U);  /*!< MDMSOFT event */
+const auto LRF_EventMdmout                = (1U << 26U);  /*!< MDMOUT event */
+const auto LRF_EventMdmin                 = (1U << 27U);  /*!< MDMIN event */
+const auto LRF_EventMdmdone               = (1U << 28U);  /*!< MDMDONE event */
+const auto LRF_EventSystim0               = (1U << 29U);  /*!< SYSTIM0 event */
+const auto LRF_EventSystim1               = (1U << 30U);  /*!< SYSTIM1 event */
+const auto LRF_EventSystim2               = (1U << 31U);  /*!< SYSTIM2 event */
+
 struct LRF_Trim0 {
     uint16_t pa0;
     uint16_t atstRefH;
@@ -92,36 +128,46 @@ struct LRF_TrimDef {
 
 const auto LRF_TRIMS = (LRF_TrimDef *volatile)0x4E000330;
 
-const auto LRF_EventNone                  = (0U << 0U);   /*!< No events */
-const auto LRF_EventOpDone                = (1U << 0U);   /*!< The PBE operation has finished */
-const auto LRF_EventPingRsp               = (1U << 1U);   /*!< When receiving a CMD_PING, PBE responds with a PINGRSP. */
-const auto LRF_EventRxCtrl                = (1U << 2U);   /*!< LL control packet received correctly */
-const auto LRF_EventRxCtrlAck             = (1U << 3U);   /*!< LL control packet received with CRC OK, not to be ignored, then acknowledgement sent */
-const auto LRF_EventRxNok                 = (1U << 4U);   /*!< Packet received with CRC error */
-const auto LRF_EventRxIgnored             = (1U << 5U);   /*!< Packet received, but may be ignored by MCU */
-const auto LRF_EventRxEmpty               = (1U << 6U);   /*!< Empty packet received */
-const auto LRF_EventRxBufFull             = (1U << 7U);   /*!< Packet received which did not fit in the RX FIFO and was not to be discarded.  */
-const auto LRF_EventRxOk                  = (1U << 8U);   /*!< Packet received with CRC OK and not to be ignored by the MCU */
-const auto LRF_EventTxCtrl                = (1U << 9U);   /*!< Transmitted LL control packet */
-const auto LRF_EventTxCtrlAckAck          = (1U << 10U);  /*!< Acknowledgement received on a transmitted LL control packet, and acknowledgement transmitted for that packet */
-const auto LRF_EventTxRetrans             = (1U << 11U);  /*!< Packet retransmitted with same SN */
-const auto LRF_EventTxAck                 = (1U << 12U);  /*!< Acknowledgement transmitted, or acknowledgement received on a transmitted packet. */
-const auto LRF_EventTxDone                = (1U << 13U);  /*!< Packet transmitted */
-const auto LRF_EventTxCtrlAck             = (1U << 14U);  /*!< Acknowledgement received on a transmitted LL control packet */
-const auto LRF_EventOpError               = (1U << 15U);  /*!< Something went awfully wrong, the reason is indicated in RAM-based register BLE_ENDCAUSE. */
-const auto LRF_EventRxfifo                = (1U << 16U);  /*!< Event from fifo, triggered when crossing threshold. Normal use for rxfifo is to generate IRQ when crossing threshold upwards (filling fifo). But downwards is also possible to configure, could be use case for using both fifos for TX or both for RX */
-const auto LRF_EventTxfifo                = (1U << 17U);  /*!< Event from fifo, triggered when crossing threshold. Normal use for txfifo is to generate IRQ when crossing threshold downwards (emptying fifo). But upwards is also possible to configure, could be use case for using both fifos for TX or both for RX */
-const auto LRF_EventLossOfLock            = (1U << 18U);  /*!< LOSS_OF_LOCK event */
-const auto LRF_EventLock                  = (1U << 19U);  /*!< LOCK event */
-const auto LRF_EventRfesoft0              = (1U << 20U);  /*!< RFESOFT0 event */
-const auto LRF_EventRfesoft1              = (1U << 21U);  /*!< RFESOFT1 event */
-const auto LRF_EventRfedone               = (1U << 22U);  /*!< RFEDONE event */
-const auto LRF_EventMdmsoft0              = (1U << 23U);  /*!< MDMSOFT event */
-const auto LRF_EventMdmsoft1              = (1U << 24U);  /*!< MDMSOFT1 event */
-const auto LRF_EventMdmsoft2              = (1U << 25U);  /*!< MDMSOFT event */
-const auto LRF_EventMdmout                = (1U << 26U);  /*!< MDMOUT event */
-const auto LRF_EventMdmin                 = (1U << 27U);  /*!< MDMIN event */
-const auto LRF_EventMdmdone               = (1U << 28U);  /*!< MDMDONE event */
-const auto LRF_EventSystim0               = (1U << 29U);  /*!< SYSTIM0 event */
-const auto LRF_EventSystim1               = (1U << 30U);  /*!< SYSTIM1 event */
-const auto LRF_EventSystim2               = (1U << 31U);  /*!< SYSTIM2 event */
+namespace ti_radio_cc23xx_LRF {
+
+struct PowerTableEntry  {
+    struct {
+        uint8_t fraction: 1;
+        int8_t dBm: 7;
+    } power;
+    uint8_t tempCoeff;
+    union {
+        struct {
+            uint16_t reserved: 5;
+            uint16_t ib: 6;
+            uint16_t gain: 3;
+            uint16_t mode: 1;
+            uint16_t noIfampRfLdoBypass: 1;
+        } bits;
+        uint16_t raw;
+    } value;
+};
+
+const PowerTableEntry POWER_TABLE_ENTRIES[] = {
+    { .power = { .fraction = 0, .dBm = -20 }, .tempCoeff = 0, .value = { .bits = { .reserved = 0, .ib = 18, .gain = 0, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = -16 }, .tempCoeff = 0, .value = { .bits = { .reserved = 0, .ib = 20, .gain = 1, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = -12 }, .tempCoeff = 5, .value = { .bits = { .reserved = 0, .ib = 17, .gain = 3, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = -8 }, .tempCoeff = 12, .value = { .bits = { .reserved = 0, .ib = 17, .gain = 4, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = -4 }, .tempCoeff = 25, .value = { .bits = { .reserved = 0, .ib = 17, .gain = 5, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 0 }, .tempCoeff = 40, .value = { .bits = { .reserved = 0, .ib = 19, .gain = 6, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 1 }, .tempCoeff = 65, .value = { .bits = { .reserved = 0, .ib = 30, .gain = 6, .mode = 0, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 2 }, .tempCoeff = 41, .value = { .bits = { .reserved = 0, .ib = 39, .gain = 4, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 3 }, .tempCoeff = 43, .value = { .bits = { .reserved = 0, .ib = 31, .gain = 5, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 4 }, .tempCoeff = 50, .value = { .bits = { .reserved = 0, .ib = 37, .gain = 5, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 5 }, .tempCoeff = 55, .value = { .bits = { .reserved = 0, .ib = 27, .gain = 6, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 6 }, .tempCoeff = 75, .value = { .bits = { .reserved = 0, .ib = 38, .gain = 6, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 7 }, .tempCoeff = 80, .value = { .bits = { .reserved = 0, .ib = 25, .gain = 7, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+    { .power = { .fraction = 0, .dBm = 8 }, .tempCoeff = 180, .value = { .bits = { .reserved = 0, .ib = 63, .gain = 7, .mode = 1, .noIfampRfLdoBypass = 0 } } },
+};
+
+const auto POWER_TABLE_$len = sizeof(POWER_TABLE_ENTRIES) / sizeof(PowerTableEntry);
+
+const auto POWER_TABLE = em::frame_t<const PowerTableEntry>(POWER_TABLE_ENTRIES, POWER_TABLE_$len);
+
+
+};

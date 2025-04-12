@@ -3,12 +3,12 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@ti.distro.cc23xx/REGS.em'
 
+export const TXPOWER_REFERENCE_TEMPERATURE: i16 = 25
+export const TXPOWER_TEMPERATURE_SCALING: i16 = 0x100
+
 export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
-
-const TXPOWER_REFERENCE_TEMPERATURE: i16 = 25
-const TXPOWER_TEMPERATURE_SCALING: i16 = 0x100
 
 export function getTemperature(): i16 {
     let temperature: i32 = $R.PMUD.TEMP.$$
