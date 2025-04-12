@@ -113,7 +113,7 @@ export function startCs(chan: u8, timeout: u16) {
     em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_RXTIMEOUT] = timeout * 4
     em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_FIRSTRXTIMEOUT] = timeout * 4
     RfFreq.program(freqFromChan(chan))
-    $R.LRFDDBELL.IMASK0.$$ |= e$`LRF_EventOpDone` | e$`LRF_EventOpError`
+    $R.LRFDDBELL.IMASK0.$$ |= LRF.EventOpDone | LRF.EventOpError
     IntrVec.NVIC_enable(e$`LRFD_IRQ0_IRQn`)
     while (em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_MSGBOX] == 0) { }
     $R.SYSTIM.CH2CC.$$ = $R.SYSTIM.TIME250N.$$
@@ -141,10 +141,122 @@ export function startCw(chan: u8, power: i8) {
     em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_PATTERN] = 0
     $R.LRFDMDM.MODCTRL.$$ |= $R.LRFDMDM_MODCTRL_TONEINSERT_M
     RfFreq.program(freqFromChan(chan))
-    $R.LRFDDBELL.IMASK0.$$ |= e$`LRF_EventOpDone` | e$`LRF_EventOpError`
+    $R.LRFDDBELL.IMASK0.$$ |= LRF.EventOpDone | LRF.EventOpError
     while (em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_MSGBOX] == 0) { }
     $R.SYSTIM.CH2CC.$$ = $R.SYSTIM.TIME250N.$$
     $R.LRFDPBE.API.$$ = $R.PBE_GENERIC_REGDEF_API_OP_TX
+}
+
+export function startRx(chan: u8, timeout: u16) {
+    setState(State.RX)
+    RfFifo.prepareRX()
+    RfCtrl.enableImages()
+    rx_timeout = false
+    const whiten_init = chan | 0x40
+    let op = 0
+    switch (RadioConfig.getPhy()) {
+        case RadioConfig.Phy.BLE_1M:
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_MAXLEN] = 37
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0 << $R.PBE_BLE5_RAM_OPCFG_REPEAT_S
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = whiten_init
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRL] = 0xDDDD
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRM] = 0xEEEE
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRH] = 0xFFFF
+
+            // reg($R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA).* = 0x8E89_BED6 ^ (em.as(u32, whiten_init) << 24)
+
+            // reg($R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA).* = 0x7176_4129
+            // var demc1be0 = reg($R.LRFDMDM_BASE + $R.LRFDMDM_O_DEMC1BE0).*
+            // var demc1be2 = reg($R.LRFDMDM_BASE + $R.LRFDMDM_O_DEMC1BE2).*
+            // demc1be0 |= $R.LRFDMDM_DEMC1BE0_MASKA_M | $R.LRFDMDM_DEMC1BE0_MASKB_M
+            // demc1be2 = (demc1be2 & ~$R.LRFDMDM_DEMC1BE2_THRESHOLDC_M) | (0x7F << $R.LRFDMDM_DEMC1BE2_THRESHOLDC_S)
+            // reg($R.LRFDMDM_BASE + $R.LRFDMDM_O_DEMC1BE0).* = demc1be0
+            // reg($R.LRFDMDM_BASE + $R.LRFDMDM_O_DEMC1BE2).* = demc1be2
+            op = $R.PBE_BLE5_REGDEF_API_OP_RXRAW
+            break
+        case RadioConfig.Phy.PROP_1M:
+        case RadioConfig.Phy.PROP_250K:
+            const cfg_val: u32 =
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_RXFILTEROP_S) |
+                (1 << $R.PBE_GENERIC_RAM_OPCFG_RXINCLUDEHDR_S) |
+                (1 << $R.PBE_GENERIC_RAM_OPCFG_RXREPEATNOK_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_START_S) |
+                // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_NOCAL_S) |
+                // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_KEEPON_S) |
+                (1 << $R.PBE_GENERIC_RAM_OPCFG_NEXTOP_S) |
+                (1 << $R.PBE_GENERIC_RAM_OPCFG_SINGLE_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_IFSPERIOD_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_RXREPEATOK_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_RFINTERVAL_S)
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_OPCFG] = <u16>cfg_val
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_NESB] = $R.PBE_GENERIC_RAM_NESB_NESBMODE_OFF
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_MAXLEN] = 256 // TODO
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_RXTIMEOUT] = 0
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_FIRSTRXTIMEOUT] = 0
+            let demc1be1 = $R.LRFDMDM.DEMC1BE1.$$
+            demc1be1 = (demc1be1 & ~$R.LRFDMDM_DEMC1BE1_THRESHOLDB_M) | (0x7F << $R.LRFDMDM_DEMC1BE1_THRESHOLDB_S)
+            $R.LRFDMDM.DEMC1BE1.$$ = demc1be1
+            op = $R.PBE_GENERIC_REGDEF_API_OP_RX
+            break
+    }
+    RfFreq.program(freqFromChan(chan))
+    $R.LRFDDBELL.IMASK0.$$ |= LRF.EventOpError | LRF.EventRxNok | LRF.EventRxOk | LRF.EventSystim1
+    IntrVec.NVIC_enable(e$`LRFD_IRQ0_IRQn`)
+    while (em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_MSGBOX] == 0) { }
+    $R.SYSTIM.CH2CC.$$ = $R.SYSTIM.TIME250N.$$ + 1000
+    if (timeout > 0) {
+        $R.LRFDDBELL.ICLR0.$$ = $R.LRFDDBELL_ICLR0_SYSTIM1_M
+        $R.SYSTIM.CH3CC.$$ = $R.SYSTIM.TIME250N.$$ + (<u32>timeout * 4000)
+    }
+    $R.LRFDPBE.API.$$ = op
+}
+
+export function startTx(pkt: frame_t<u8>, chan: u8, power: i8) {
+    setState(State.TX)
+    // _ = pkt
+    RfFifo.writePkt(pkt)
+    // reg($R.LRFDPBE_BASE + $R.LRFDPBE_O_FCMD).* = ($R.LRFDPBE_FCMD_DATA_TXFIFO_RETRY >> $R.LRFDPBE_FCMD_DATA_S)
+    RfPower.program(power)
+    RfCtrl.enableImages()
+    let op = 0
+    switch (RadioConfig.getPhy()) {
+        case RadioConfig.Phy.BLE_1M:
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = chan | 0x40
+            op = $R.PBE_BLE5_REGDEF_API_OP_TXRAW
+            break
+        case RadioConfig.Phy.PROP_1M:
+        case RadioConfig.Phy.PROP_250K:
+            const cfg_val =
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_TXINFINITE_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_TXPATTERN_S) |
+                (2 << $R.PBE_GENERIC_RAM_OPCFG_TXFCMD_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_START_S) |
+                // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_NOCAL_S) |
+                // (1 << $R.PBE_GENERIC_RAM_OPCFG_FS_KEEPON_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_RXREPEATOK_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_NEXTOP_S) |
+                (1 << $R.PBE_GENERIC_RAM_OPCFG_SINGLE_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_IFSPERIOD_S) |
+                (0 << $R.PBE_GENERIC_RAM_OPCFG_RFINTERVAL_S)
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_OPCFG] = <u16>cfg_val
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_GENERIC_RAM_O_NESB] = $R.PBE_GENERIC_RAM_NESB_NESBMODE_OFF
+            break
+    }
+    RfFreq.program(freqFromChan(chan))
+    $R.LRFDDBELL.IMASK0.$$ |= LRF.EventOpDone | LRF.EventOpError
+    IntrVec.NVIC_enable(e$`LRFD_IRQ0_IRQn`)
+    while (em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_MSGBOX] == 0) { }
+    $R.SYSTIM.CH2CC.$$ = $R.SYSTIM.TIME250N.$$
+    $R.LRFDPBE.API.$$ = op
+}
+
+export function waitReady() {
+    Idle.setPauseOnly(true)
+    while (cur_state != State.READY) {
+        Idle.exec()
+    }
+    Idle.setPauseOnly(false)
 }
 
 export function LRFD_IRQ0_isr$$() {
@@ -152,11 +264,11 @@ export function LRFD_IRQ0_isr$$() {
     $R.LRFDDBELL.ICLR0.$$ = mis
     // em.@"%%[>]"(mis)
     // em.@"%%[a]"()
-    if ((mis & e$`LRF_EventOpError`) != 0) {
+    if ((mis & LRF.EventOpError) != 0) {
         $['%%>'](em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_ENDCAUSE])
         fail()
     }
-    if ((mis & e$`LRF_EventSystim1`) != 0) {
+    if ((mis & LRF.EventSystim1) != 0) {
         rx_timeout = true
     }
     // if ((mis & $R.LRF_EventRxOk) != 0) {

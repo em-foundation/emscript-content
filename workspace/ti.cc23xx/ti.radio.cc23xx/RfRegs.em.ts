@@ -55,7 +55,7 @@ export namespace em$meta {
                 this.cur_hwmod = hwmod
                 this.cur_desc.off = addr
                 this.cur_desc.cnt = 0
-                this.cur_desc.inc = hwmod.endsWith('_RAM') ? 1 : 2
+                this.cur_desc.inc = hwmod.endsWith('_RAM') ? 2 : 4
                 this.cur_addr = this.prev_addr = addr
             }
             if (this.cur_addr != addr) {
@@ -108,7 +108,7 @@ export function setup() {
         const base = (desc.inc == 1) ? PBE_RAM_BASE_ADDR : LRF_BASE_ADDR
         let dst = base + desc.off
         for (const _ of $range(desc.cnt)) {
-            em.$reg32[dst] = src.$$
+            em.$reg16[dst] = src.$$
             src.$inc()
             dst += desc.inc
         }
