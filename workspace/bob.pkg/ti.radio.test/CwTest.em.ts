@@ -28,7 +28,6 @@ export function em$run() {
 
 function hailFB(a: arg_t) {
     RadioDriver.enable()
-    $bkpt
     RadioDriver.startCw(17, 5)
     AppLed.$$.on()
     RadioDriver.waitReady()

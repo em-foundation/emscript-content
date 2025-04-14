@@ -39,63 +39,6 @@ export namespace em$meta {
         Encoder.finalize()
     }
 
-    /*
-    
-        const Encoder = struct {
-            var cur_desc: Desc = undefined;
-            var cur_hwmod: []const u8 = "";
-            var cur_addr: u16 = 0;
-            var cur_val: u16 = 0;
-            var cur_serial: u16 = 0;
-            var prev_addr: u16 = 0;
-            pub fn addM(addr: u16, hwmod: []const u8, bits: []const u8, val: u16) void {
-                if (!em.std.mem.eql(u8, cur_hwmod, hwmod)) {
-                    if (cur_hwmod.len != 0) {
-                        flush();
-                        desc_tab.addM(cur_desc);
-                    }
-                    cur_hwmod = hwmod;
-                    cur_desc.off = addr;
-                    cur_desc.cnt = 0;
-                    cur_desc.inc = if (em.std.mem.endsWith(u8, hwmod, "_RAM")) 1 else 2;
-                    cur_addr = addr;
-                    prev_addr = addr;
-                }
-                if (cur_addr != addr) {
-                    if (cur_addr != 0) flush();
-                    prev_addr = cur_addr;
-                    cur_addr = addr;
-                }
-                const idx = em.std.mem.indexOf(u8, bits, ":");
-                const hi_bit = em.as(u4, if (idx == null) parseDec(bits) else parseDec(bits[0..idx.?]));
-                const lo_bit = em.as(u4, if (idx == null) hi_bit else parseDec(bits[idx.? + 1 ..]));
-                cur_val |= (val << lo_bit);
-            }
-            pub fn finalize() void {
-                flush();
-                desc_tab.addM(cur_desc);
-            }
-    
-            fn flush() void {
-                const diff = (cur_addr - prev_addr) >> em.as(u4, cur_desc.inc);
-                if (diff > 1) {
-                    for (1..diff) |_| {
-                        cur_serial += 1;
-                        val_tab.addM(0);
-                        cur_desc.cnt += 1;
-                    }
-                }
-                //em.print("[{d}] @{X:0>4} = {X:0>4} ({d})", .{ cur_serial, cur_addr, cur_val, diff });
-                cur_serial += 1;
-                val_tab.addM(cur_val);
-                cur_val = 0;
-                cur_desc.cnt += 1;
-            }
-        };
-    
-    
-    */
-
     const Encoder = new class {
         private cur_desc: Desc = Desc.$make()
         private cur_hwmod: string = ''
@@ -162,7 +105,7 @@ const PBE_RAM_BASE_ADDR = <u32>0x4009_0000
 export function setup() {
     let src = val_tab.$ptr()
     for (const desc of desc_tab) {
-        const base = (desc.inc == 1) ? PBE_RAM_BASE_ADDR : LRF_BASE_ADDR
+        const base = (desc.inc == 2) ? PBE_RAM_BASE_ADDR : LRF_BASE_ADDR
         let dst = base + desc.off
         for (const _ of $range(desc.cnt)) {
             em.$reg16[dst] = src.$$
