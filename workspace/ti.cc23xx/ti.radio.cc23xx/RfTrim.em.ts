@@ -129,6 +129,9 @@ function temperatureCompensateTrim() {
     rssiOffset += rssiTempOffset
     rssiOffset += em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_PHYRSSIOFFSET]
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSIOFFSET] = rssiOffset
+    /// **** quick hack
+    em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSIOFFSET] = 0x57
+    /// ****
     const spare0Val: u32 = em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_SPARE0SHADOW]
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_SPARE0] = spare0Val
     let spare1Val: u32 = em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_SPARE1SHADOW]
@@ -141,6 +144,8 @@ function temperatureCompensateTrim() {
         spare1Val = (spare1Val & ~RFE_SPARE1_AGC_VALUE_BM) | <u32>(agcVal << RFE_SPARE1_AGC_VALUE)
     }
     em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_SPARE1] = spare1Val
+    /// **** quick hack
+    em.$reg16[$R.LRFDRFE_BASE + $R.LRFDRFE_O_SPARE1] = 0x2E
 }
 
 export function em$run() {
