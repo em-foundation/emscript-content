@@ -11,8 +11,10 @@ export const AppLed = $delegate(BoardC.AppLed)
 const hailF = $config<FiberMgr.Obj>()
 
 export namespace em$meta {
-    export function em$construct() {
+    export function em$configure() {
         RadioConfig.phy.$$ = RadioConfig.Phy.PROP_250K
+    }
+    export function em$construct() {
         hailF.$$ = FiberMgr.em$meta.create($cb(hailFB))
     }
 }
@@ -26,6 +28,7 @@ export function em$run() {
 
 function hailFB(a: arg_t) {
     RadioDriver.enable()
+    $bkpt
     RadioDriver.startCw(17, 5)
     AppLed.$$.on()
     RadioDriver.waitReady()
