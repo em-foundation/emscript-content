@@ -197,10 +197,6 @@ function programPQ(pllMBase: u32): u32 {
 function programShape(shape: Shape, invSynthFreq: u32) {
     const NUM_TAPS = 24
     e$`union { em::u8 b[NUM_TAPS]; em::u32 w[NUM_TAPS/4]; } filterCoeff`
-    // var filterCoeff = union {
-    //     b: [NUM_TX_FILTER_TAPS]u8,
-    //     w: [NUM_TX_FILTER_TAPS / 4]u32,
-    // }{ .b = undefined }
     const deviation = shape.freqdev
     const deviationFactor1: u32 =
         ((deviation >> 12) * invSynthFreq) + (((deviation & 0x0FFF) * invSynthFreq) >> 12)
@@ -214,7 +210,7 @@ function programShape(shape: Shape, invSynthFreq: u32) {
         e$`filterCoeff.b[i] = 0`
     }
     for (const i of $range(NUM_TAPS - startCoeff)) {
-        const c = <u8>(((deviationFactor2 * shape.coeff[i]) + (1 << 18 + shapeGain))) >> (19 + shapeGain)
+        const c = <u8>(((deviationFactor2 * shape.coeff[i]) + (1 << (18 + shapeGain))) >> (19 + shapeGain))
         e$`filterCoeff.b[i + startCoeff] = c`
     }
     for (const i of $range(NUM_TAPS / 4)) {

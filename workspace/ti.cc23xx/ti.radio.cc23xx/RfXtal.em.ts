@@ -42,7 +42,7 @@ export function disable() {
 }
 
 export function enable() {
-    $['%%c+']
+    // $['%%c+']
     // PowerCC23X0_startHFXT()
     $R.CKMD.LDOCTL.$$ =
         $R.CKMD_LDOCTL_SWOVR | $R.CKMD_LDOCTL_STARTCTL | $R.CKMD_LDOCTL_START | $R.CKMD_LDOCTL_EN
@@ -84,7 +84,7 @@ export function waitReady() {
     $R.PMCTL.RSTCTL.$$ |= $R.PMCTL_RSTCTL_LFLOSS_ARMED
     $R.CKMD.ICLR.$$ = $R.CKMD_ICLR_AMPSETTLED | $R.CKMD_ICLR_LFCLKGOOD
     $R.CKMD.HFTRACKCTL.$$ |= $R.CKMD_HFTRACKCTL_EN_M
-    $['%%c-']
+    // $['%%c-']
 }
 
 export function CPUIRQ3_isr$$() {
