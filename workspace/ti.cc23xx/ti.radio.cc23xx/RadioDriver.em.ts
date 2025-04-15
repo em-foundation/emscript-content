@@ -263,8 +263,8 @@ export function waitReady() {
 export function LRFD_IRQ0_isr$$() {
     const mis = $R.LRFDDBELL.MIS0.$$
     $R.LRFDDBELL.ICLR0.$$ = mis
-    // $['%%a']
-    // $['%%>'](mis)
+    $['%%a']
+    $['%%>'](mis)
     if ((mis & LRF.EventOpError) != 0) {
         $['%%>'](em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_ENDCAUSE])
         fail()

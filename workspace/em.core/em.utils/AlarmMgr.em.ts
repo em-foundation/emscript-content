@@ -57,7 +57,7 @@ function dispatch(delta: Secs24p8) {
     cur_alarm = nxt_alarm // $null if no candidates found
     if (cur_alarm) {
         const id = <arg_t>cur_alarm
-        $['%%>'](<u8>id)
+        // $['%%>'](<u8>id)
         WakeupTimer.$$.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
     }
 }
