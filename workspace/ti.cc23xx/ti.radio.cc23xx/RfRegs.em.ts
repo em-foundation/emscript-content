@@ -82,6 +82,7 @@ export namespace em$meta {
                 }
             }
             this.cur_serial += 1
+            // if (this.cur_addr > 0x6000) console.log($sprintf('[%04x] = %04x (%d)', this.cur_addr, this.cur_val, this.cur_val))
             val_tab.$add(this.cur_val)
             this.cur_val = 0
             this.cur_desc.cnt += 1

@@ -32,7 +32,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-var cur_state = State.IDLE
+var cur_state: volatile_t<State> = State.IDLE
 var rx_timeout = false
 
 export function disable() {
@@ -88,7 +88,7 @@ function freqFromChan(chan: u32): u32 {
 
 
 function setState(s: State) {
-    // em.@"%%[a:]"(@intFromEnum(s))
+    // $['%%c:'](s)
     cur_state = s
 }
 
@@ -221,12 +221,13 @@ export function startTx(pkt: frame_t<u8>, chan: u8, power: i8) {
     let op = 0
     switch (RadioConfig.getPhy()) {
         case RadioConfig.Phy.BLE_1M:
+            op = $R.PBE_BLE5_REGDEF_API_OP_TXRAW
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = chan | 0x40
-            op = $R.PBE_BLE5_REGDEF_API_OP_TXRAW
             break
         case RadioConfig.Phy.PROP_1M:
         case RadioConfig.Phy.PROP_250K:
+            op = $R.PBE_GENERIC_REGDEF_API_OP_TX
             const cfg_val =
                 (0 << $R.PBE_GENERIC_RAM_OPCFG_TXINFINITE_S) |
                 (0 << $R.PBE_GENERIC_RAM_OPCFG_TXPATTERN_S) |
@@ -262,8 +263,8 @@ export function waitReady() {
 export function LRFD_IRQ0_isr$$() {
     const mis = $R.LRFDDBELL.MIS0.$$
     $R.LRFDDBELL.ICLR0.$$ = mis
-    // em.@"%%[>]"(mis)
-    // em.@"%%[a]"()
+    // $['%%a']
+    // $['%%>'](mis)
     if ((mis & LRF.EventOpError) != 0) {
         $['%%>'](em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_ENDCAUSE])
         fail()
