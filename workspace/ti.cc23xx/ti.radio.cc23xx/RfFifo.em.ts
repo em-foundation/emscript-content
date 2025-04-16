@@ -10,7 +10,11 @@ export namespace em$meta { }
 //>> ---- em$targ ---- <<//
 
 export function prepareRX() {
-
+    $R.LRFDPBE.FCMD.$$ = $R.LRFDPBE_FCMD_DATA_RXFIFO_RESET >> $R.LRFDPBE_FCMD_DATA_S
+    let rxcfg = $R.LRFDPBE.FCFG0.$$
+    rxcfg &= ~(<u32>($R.LRFDPBE_FCFG0_RXADEAL_M | $R.LRFDPBE_FCFG0_RXACOM_M))
+    $R.LRFDPBE.FCFG0.$$ = rxcfg
+    $R.LRFDPBE.RXFSRP.$$ = 256
 }
 
 export function prepareTX() {
@@ -20,6 +24,34 @@ export function prepareTX() {
     txcfg |= $R.LRFDPBE_FCFG0_TXACOM_M
     $R.LRFDPBE.FCFG0.$$ = txcfg
 }
+
+export function readPkt(pkt: frame_t<u8>): u8 {
+    let addr = <u32>($R.LRFD_BUFRAM_BASE + <u32>(($R.LRFDPBE.FCFG3.$$ << 2)))
+    var word = em.$reg32[addr]
+    // printf`w = %08x\n`(word)
+    addr += 4
+    word = em.$reg32[addr]
+    printf`w = %08x\n`(word)
+    addr += 4
+    word >>= 16
+    const sz = <u8>(word & 0xff) + 1
+    // printf`h = %04x, sz = %d\n`(word, sz)
+    let cnt: u8 = 2
+    for (const i of $range(sz)) {
+        if (cnt == 0) {
+            cnt = 4
+            word = em.$reg32[addr]
+            // em.print("w[{d}] = {x:0>8}\n", .{ i, word })
+            addr += 4
+        }
+        pkt[i] = <u8>(word & 0xff)
+        word >>= 8
+        cnt -= 1
+    }
+    return sz
+}
+
+
 
 export function writePkt(pkt: frame_t<u8>) {
     prepareTX()

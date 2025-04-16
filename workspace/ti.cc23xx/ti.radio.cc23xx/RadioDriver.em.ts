@@ -43,7 +43,9 @@ export function disable() {
 
 export function enable() {
     setState(State.SETUP)
+    $['%%d+']
     RfXtal.enable()
+    $['%%d-']
     RfCtrl.enableClocks()
     RfPatch.loadAll()
     RfXtal.waitReady()
@@ -86,6 +88,11 @@ function freqFromChan(chan: u32): u32 {
                         0
 }
 
+export function readPkt(pkt: frame_t<u8>): u8 {
+    if (rx_timeout) return 0
+    const sz = RfFifo.readPkt(pkt);
+    return sz
+}
 
 function setState(s: State) {
     // $['%%c:'](s)
