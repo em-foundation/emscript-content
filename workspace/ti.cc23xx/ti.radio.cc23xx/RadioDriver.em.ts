@@ -164,7 +164,7 @@ export function startRx(chan: u8, timeout: u16) {
     switch (RadioConfig.getPhy()) {
         case RadioConfig.Phy.BLE_1M:
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_MAXLEN] = 37
-            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0 << $R.PBE_BLE5_RAM_OPCFG_REPEAT_S
+            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 1 << $R.PBE_BLE5_RAM_OPCFG_REPEAT_S
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = whiten_init
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRL] = 0xDDDD
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRM] = 0xEEEE

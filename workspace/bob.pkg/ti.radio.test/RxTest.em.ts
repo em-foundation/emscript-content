@@ -15,7 +15,7 @@ var pktbuf = $table<u8>('rw')
 
 export namespace em$meta {
     export function em$configure() {
-        RadioConfig.phy.$$ = RadioConfig.Phy.PROP_250K
+        RadioConfig.phy.$$ = RadioConfig.Phy.BLE_1M
     }
     export function em$construct() {
         rx_fiberF.$$ = FiberMgr.em$meta.create($cb(rxFiberFB))
@@ -34,7 +34,7 @@ export function em$run() {
 
 function rxFiberFB(a: arg_t) {
     RadioDriver.enable()
-    RadioDriver.startRx(17, 500)
+    RadioDriver.startRx(17, 0)
     RadioDriver.waitReady()
     const sz = RadioDriver.readPkt(pktbuf.$frame(0))
     if (sz == 0) {

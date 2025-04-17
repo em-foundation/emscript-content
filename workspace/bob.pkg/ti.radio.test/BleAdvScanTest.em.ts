@@ -10,38 +10,37 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-const tx_ticker = $config<TickerMgr.Obj>()
+const ticker = $config<TickerMgr.Obj>()
 
-let pktbuf = $table<u8>('rw')
+let adv_pkt = $table<u8>('rw')
 
 export namespace em$meta {
     export function em$configure() {
         RadioConfig.phy.$$ = RadioConfig.Phy.BLE_1M
     }
     export function em$construct() {
-        tx_ticker.$$ = TickerMgr.em$meta.create()
-        for (const _ of $range(5)) pktbuf.$add(0)
+        ticker.$$ = TickerMgr.em$meta.create()
+        let bytes = [0x22, 14, 0xCC, 0xCC, 0xBB, 0xBB, 0xAA, 0xAA, 4, 0x08, c$`E`, c$`M`, c$`S`, 2, 0x01, 0x06]
+        for (const b of bytes) {
+            adv_pkt.$add(b)
+        }
     }
 }
 
 //>> ---- em$targ ---- <<//
 
-let dat = <u8>0
-
 export function em$run() {
-    pktbuf[0] = <u8>pktbuf.$len - 1
-    tx_ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(txTickCb))
+    ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(250), $cb(tickCb))
     FiberMgr.run()
 }
 
-function txTickCb() {
+function tickCb() {
     AppLed.$$.wink(5);
     RadioDriver.enable()
-    for (const i of $range(pktbuf.$len, <u16>1)) {
-        pktbuf[i] = dat
-        dat += 1
-    }
-    RadioDriver.startTx(pktbuf.$frame(0), 17, 5)
+    RadioDriver.startTx(adv_pkt.$frame(0), 17, 5)
+    RadioDriver.waitReady()
+    RadioDriver.startRx(17, 0)
     RadioDriver.waitReady()
     RadioDriver.disable()
+    halt()
 }
