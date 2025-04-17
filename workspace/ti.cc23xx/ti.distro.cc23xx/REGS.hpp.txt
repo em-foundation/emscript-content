@@ -9,6 +9,7 @@
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/cc23x0r5.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_ckmd.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_clkctl.h"
+#include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_dma.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_evtsvt.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_evtull.h"
 #include "../../ti.cc23xx/ti.distro.cc23xx/inc/hw_gpio.h"

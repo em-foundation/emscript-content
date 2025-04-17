@@ -1526,6 +1526,126 @@ export const CLKCTL_IDLECFG_MODE_LDO_ON: any = '0x00000000U'
 
 export const CLKCTL = { } as CLKCTL_t
 
+// -------- DMA TYPE -------- //
+
+export interface DMA_t {
+    STATUS: em.$Reg // offset 0x00000000U
+    CFG: em.$Reg // offset 0x00000004U
+    CTRL: em.$Reg // offset 0x00000008U
+    ALTCTRL: em.$Reg // offset 0x0000000CU
+    WAITONREQ: em.$Reg // offset 0x00000010U
+    SOFTREQ: em.$Reg // offset 0x00000014U
+    SETBURST: em.$Reg // offset 0x00000018U
+    CLEARBURST: em.$Reg // offset 0x0000001CU
+    SETREQMASK: em.$Reg // offset 0x00000020U
+    CLEARREQMASK: em.$Reg // offset 0x00000024U
+    SETCHANNELEN: em.$Reg // offset 0x00000028U
+    CLEARCHANNELEN: em.$Reg // offset 0x0000002CU
+    SETCHNLPRIALT: em.$Reg // offset 0x00000030U
+    CLEARCHNLPRIALT: em.$Reg // offset 0x00000034U
+    SETCHNLPRIORITY: em.$Reg // offset 0x00000038U
+    CLEARCHNLPRIORITY: em.$Reg // offset 0x0000003CU
+    ERROR: em.$Reg // offset 0x0000004CU
+    REQDONE: em.$Reg // offset 0x00000504U
+    DONEMASK: em.$Reg // offset 0x00000520U
+}
+export const DMA_O_STATUS: any = '0x00000000U'
+export const DMA_O_CFG: any = '0x00000004U'
+export const DMA_O_CTRL: any = '0x00000008U'
+export const DMA_O_ALTCTRL: any = '0x0000000CU'
+export const DMA_O_WAITONREQ: any = '0x00000010U'
+export const DMA_O_SOFTREQ: any = '0x00000014U'
+export const DMA_O_SETBURST: any = '0x00000018U'
+export const DMA_O_CLEARBURST: any = '0x0000001CU'
+export const DMA_O_SETREQMASK: any = '0x00000020U'
+export const DMA_O_CLEARREQMASK: any = '0x00000024U'
+export const DMA_O_SETCHANNELEN: any = '0x00000028U'
+export const DMA_O_CLEARCHANNELEN: any = '0x0000002CU'
+export const DMA_O_SETCHNLPRIALT: any = '0x00000030U'
+export const DMA_O_CLEARCHNLPRIALT: any = '0x00000034U'
+export const DMA_O_SETCHNLPRIORITY: any = '0x00000038U'
+export const DMA_O_CLEARCHNLPRIORITY: any = '0x0000003CU'
+export const DMA_O_ERROR: any = '0x0000004CU'
+export const DMA_O_REQDONE: any = '0x00000504U'
+export const DMA_O_DONEMASK: any = '0x00000520U'
+export const DMA_STATUS_TEST_W: any = '4U'
+export const DMA_STATUS_TEST_M: any = '0xF0000000U'
+export const DMA_STATUS_TEST_S: any = '28U'
+export const DMA_STATUS_TOTALCHANNELS_W: any = '5U'
+export const DMA_STATUS_TOTALCHANNELS_M: any = '0x001F0000U'
+export const DMA_STATUS_TOTALCHANNELS_S: any = '16U'
+export const DMA_STATUS_STATE_W: any = '4U'
+export const DMA_STATUS_STATE_M: any = '0x000000F0U'
+export const DMA_STATUS_STATE_S: any = '4U'
+export const DMA_STATUS_MASTERENABLE: any = '0x00000001U'
+export const DMA_STATUS_MASTERENABLE_M: any = '0x00000001U'
+export const DMA_STATUS_MASTERENABLE_S: any = '0U'
+export const DMA_STATUS_MASTERENABLE_EN: any = '0x00000001U'
+export const DMA_STATUS_MASTERENABLE_DIS: any = '0x00000000U'
+export const DMA_CFG_PRTOCTRL_W: any = '3U'
+export const DMA_CFG_PRTOCTRL_M: any = '0x000000E0U'
+export const DMA_CFG_PRTOCTRL_S: any = '5U'
+export const DMA_CFG_MASTERENABLE: any = '0x00000001U'
+export const DMA_CFG_MASTERENABLE_M: any = '0x00000001U'
+export const DMA_CFG_MASTERENABLE_S: any = '0U'
+export const DMA_CFG_MASTERENABLE_EN: any = '0x00000001U'
+export const DMA_CFG_MASTERENABLE_DIS: any = '0x00000000U'
+export const DMA_CTRL_BASEPTR_W: any = '24U'
+export const DMA_CTRL_BASEPTR_M: any = '0xFFFFFF00U'
+export const DMA_CTRL_BASEPTR_S: any = '8U'
+export const DMA_ALTCTRL_BASEPTR_W: any = '32U'
+export const DMA_ALTCTRL_BASEPTR_M: any = '0xFFFFFFFFU'
+export const DMA_ALTCTRL_BASEPTR_S: any = '0U'
+export const DMA_WAITONREQ_CHNLSTATUS_W: any = '8U'
+export const DMA_WAITONREQ_CHNLSTATUS_M: any = '0x000000FFU'
+export const DMA_WAITONREQ_CHNLSTATUS_S: any = '0U'
+export const DMA_SOFTREQ_CHNLS_W: any = '8U'
+export const DMA_SOFTREQ_CHNLS_M: any = '0x000000FFU'
+export const DMA_SOFTREQ_CHNLS_S: any = '0U'
+export const DMA_SETBURST_CHNLS_W: any = '8U'
+export const DMA_SETBURST_CHNLS_M: any = '0x000000FFU'
+export const DMA_SETBURST_CHNLS_S: any = '0U'
+export const DMA_CLEARBURST_CHNLS_W: any = '8U'
+export const DMA_CLEARBURST_CHNLS_M: any = '0x000000FFU'
+export const DMA_CLEARBURST_CHNLS_S: any = '0U'
+export const DMA_SETREQMASK_CHNLS_W: any = '8U'
+export const DMA_SETREQMASK_CHNLS_M: any = '0x000000FFU'
+export const DMA_SETREQMASK_CHNLS_S: any = '0U'
+export const DMA_CLEARREQMASK_CHNLS_W: any = '8U'
+export const DMA_CLEARREQMASK_CHNLS_M: any = '0x000000FFU'
+export const DMA_CLEARREQMASK_CHNLS_S: any = '0U'
+export const DMA_SETCHANNELEN_CHNLS_W: any = '8U'
+export const DMA_SETCHANNELEN_CHNLS_M: any = '0x000000FFU'
+export const DMA_SETCHANNELEN_CHNLS_S: any = '0U'
+export const DMA_CLEARCHANNELEN_CHNLS_W: any = '8U'
+export const DMA_CLEARCHANNELEN_CHNLS_M: any = '0x000000FFU'
+export const DMA_CLEARCHANNELEN_CHNLS_S: any = '0U'
+export const DMA_SETCHNLPRIALT_CHNLS_W: any = '8U'
+export const DMA_SETCHNLPRIALT_CHNLS_M: any = '0x000000FFU'
+export const DMA_SETCHNLPRIALT_CHNLS_S: any = '0U'
+export const DMA_CLEARCHNLPRIALT_CHNLS_W: any = '8U'
+export const DMA_CLEARCHNLPRIALT_CHNLS_M: any = '0x000000FFU'
+export const DMA_CLEARCHNLPRIALT_CHNLS_S: any = '0U'
+export const DMA_SETCHNLPRIORITY_CHNLS_W: any = '8U'
+export const DMA_SETCHNLPRIORITY_CHNLS_M: any = '0x000000FFU'
+export const DMA_SETCHNLPRIORITY_CHNLS_S: any = '0U'
+export const DMA_CLEARCHNLPRIORITY_CHNLS_W: any = '8U'
+export const DMA_CLEARCHNLPRIORITY_CHNLS_M: any = '0x000000FFU'
+export const DMA_CLEARCHNLPRIORITY_CHNLS_S: any = '0U'
+export const DMA_ERROR_STATUS: any = '0x00000001U'
+export const DMA_ERROR_STATUS_M: any = '0x00000001U'
+export const DMA_ERROR_STATUS_S: any = '0U'
+export const DMA_REQDONE_CHNLS_W: any = '8U'
+export const DMA_REQDONE_CHNLS_M: any = '0x000000FFU'
+export const DMA_REQDONE_CHNLS_S: any = '0U'
+export const DMA_DONEMASK_CHNLS_W: any = '8U'
+export const DMA_DONEMASK_CHNLS_M: any = '0x000000FFU'
+export const DMA_DONEMASK_CHNLS_S: any = '0U'
+
+// -------- DMA INSTANCES -------- //
+
+export const DMA = { } as DMA_t
+
 // -------- EVTSVT TYPE -------- //
 
 export interface EVTSVT_t {
