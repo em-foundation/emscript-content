@@ -43,13 +43,12 @@ export function disable() {
 
 export function enable() {
     setState(State.SETUP)
-    $['%%d+']
     RfXtal.enable()
-    $['%%d-']
     RfCtrl.enableClocks()
     RfPatch.loadAll()
-    RfXtal.waitReady()
+    // RfXtal.waitReady()
     RfRegs.setup()
+    // RfXtal.waitReady()
     em.$reg32[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSI] = 127
     em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_FIFOCMDADD] = <u16>(($R.LRFDPBE_BASE + $R.LRFDPBE_O_FCMD) & 0x0FFF) >> 2
     RfTrim.apply()
@@ -74,6 +73,7 @@ export function enable() {
             em.$reg32[$R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA] = 0x7B8A_D0C9 // scramble(0x930B_51DE)
             break
     }
+    RfXtal.waitReady()
     setState(State.READY)
 }
 
