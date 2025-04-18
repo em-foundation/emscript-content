@@ -857,11 +857,16 @@ namespace em {
         return val
     }
 
+    export function $range(stop: number): Iterable<number>
+    export function $range(start: number, stop: number, step?: number): Iterable<number>
     export function* $range(
-        stop: number,
-        start: number = 0,
-        step: number = 1
+        a: number,
+        b?: number,
+        c?: number
     ): Iterable<number> {
+        const start = (b === undefined) ? 0 : a
+        const stop = (b === undefined) ? a : b
+        const step = (c === undefined) ? 1 : c
         if (step > 0) {
             for (let i = start; i < stop; i += step) yield i
         } else {

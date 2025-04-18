@@ -99,7 +99,11 @@ namespace em {
     };
 
     template <typename T>
-    range_t<T>$range(T stop, T start = 0, T step = 1) {
+    range_t<T>$range(T stop) {
+        return range_t<T>(stop, 0, 1);
+    }
+    template <typename T>
+    range_t<T>$range(T start, T stop, T step = 1) {
         return range_t<T>(stop, start, step);
     }
 
