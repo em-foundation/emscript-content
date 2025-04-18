@@ -37,7 +37,7 @@ export function em$run() {
 function txTickCb() {
     AppLed.$$.wink(5);
     RadioDriver.enable()
-    for (const i of $range(pktbuf.$len, <u16>1)) {
+    for (const i of $range(1, pktbuf.$len)) {
         pktbuf[i] = dat
         dat += 1
     }

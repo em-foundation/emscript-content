@@ -75,7 +75,7 @@ export namespace em$meta {
         private flush() {
             const diff = (this.cur_addr - this.prev_addr) >> (this.cur_desc.inc / 2)
             if (diff > 1) {
-                for (const _ of $range(diff, 1)) {
+                for (const _ of $range(1, diff)) {
                     this.cur_serial += 1
                     val_tab.$add(0)
                     this.cur_desc.cnt += 1
