@@ -4,11 +4,11 @@ export const $U = em.$declare('MODULE')
 import * as BoardC from '@$distro/BoardC.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as RadioConfig from '@em.rf.driver/Config.em'
-import * as RadioDriver from '@nordic.radio.nrf52/RadioDriver.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
+export const RadioDriver = $delegate(BoardC.RadioDriver)
 
 const ticker = $config<TickerMgr.Obj>()
 
@@ -36,10 +36,10 @@ export function em$run() {
 
 function tickCb() {
     AppLed.$$.wink(5);
-    RadioDriver.enable()
+    RadioDriver.$$.enable()
     $['%%d+']
-    RadioDriver.startTx(adv_pkt.$frame(0), 37)
-    RadioDriver.waitReady()
+    RadioDriver.$$.startTx(adv_pkt.$frame(0), 17)
+    RadioDriver.$$.waitReady()
     $['%%d-']
-    RadioDriver.disable()
+    RadioDriver.$$.disable()
 }

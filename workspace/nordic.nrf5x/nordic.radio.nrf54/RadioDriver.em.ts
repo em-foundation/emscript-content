@@ -24,7 +24,9 @@ var cur_state: volatile_t<State> = State.IDLE
 
 export function disable() {
     IntrVec.NVIC_disable(e$`RADIO_0_IRQn`)
-    $R.RADIO.TASKS_DISABLE.$$ = 1
+    if ($R.RADIO.STATE.$$ != $R.RADIO_STATE_STATE_Disabled) {
+        $R.RADIO.TASKS_DISABLE.$$ = 1
+    }
     setState(State.IDLE)
 }
 
@@ -85,7 +87,7 @@ export function startTx(pkt: frame_t<u8>, chan: u8) {
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
     $R.RADIO.DATAWHITE.$$ = chan | $R.RADIO_DATAWHITE_ResetValue
     $R.RADIO.TXADDRESS.$$ = 0
-    $R.RADIO.INTENSET00.$$ = $R.RADIO_INTENSET00_PHYEND_Msk
+    $R.RADIO.INTENSET00.$$ = $R.RADIO_INTENSET00_DISABLED_Msk
     IntrVec.NVIC_enable(e$`RADIO_0_IRQn`)
     $R.RADIO.TASKS_TXEN.$$ = 1
 }
@@ -104,6 +106,6 @@ export function RADIO_0_isr$$() {
     // $['%%>'](<u16>$R.RADIO.INTENSET.$$)
     IntrVec.NVIC_clear(e$`RADIO_0_IRQn`)
     $R.RADIO.INTENCLR00.$$ = $R.RADIO.INTENSET00.$$
-    $R.RADIO.EVENTS_PHYEND.$$ = 0
+    $R.RADIO.EVENTS_DISABLED.$$ = 0
     setState(State.READY)
 }

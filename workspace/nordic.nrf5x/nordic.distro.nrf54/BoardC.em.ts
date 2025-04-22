@@ -15,13 +15,14 @@ import * as GpioT from '@nordic.mcu.nrf54/GpioT.em'
 import * as Idle from '@nordic.mcu.nrf54/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@nordic.mcu.nrf54/Mcu.em'
-import * as Poller from '@em.mcu/Poller.em'
 import * as OneShot from '@nordic.mcu.nrf54/OneShotTimer20.em'
+import * as Poller from '@em.mcu/Poller.em'
+import * as RadioDriver from '@nordic.radio.nrf54/RadioDriver.em'
 import * as Uptimer from '@nordic.mcu.nrf54/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 import * as WakeupTimer from '@nordic.mcu.nrf54/WakeupTimerRtc.em'
 
-export { OneShot }
+export { OneShot, RadioDriver }
 
 export const AppBut = $clone(ButtonT)
 export const AppButEdge = $clone(EdgeT)

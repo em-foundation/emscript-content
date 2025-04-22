@@ -3,10 +3,9 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@ti.distro.cc23xx/REGS.em'
 
-import * as Common from '@em.mcu/Common.em'
+import * as Config from '@em.rf.driver/Config.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
-import * as RadioConfig from '@ti.radio.cc23xx/RadioConfig.em'
 import * as RfCtrl from '@ti.radio.cc23xx/RfCtrl.em'
 import * as RfFifo from '@ti.radio.cc23xx/RfFifo.em'
 import * as RfFreq from '@ti.radio.cc23xx/RfFreq.em'
@@ -52,8 +51,8 @@ export function enable() {
     em.$reg32[$R.LRFDRFE_BASE + $R.LRFDRFE_O_RSSI] = 127
     em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_COMMON_RAM_O_FIFOCMDADD] = <u16>(($R.LRFDPBE_BASE + $R.LRFDPBE_O_FCMD) & 0x0FFF) >> 2
     RfTrim.apply()
-    switch (RadioConfig.getPhy()) {
-        case RadioConfig.Phy.BLE_1M:
+    switch (Config.getPhy()) {
+        case Config.Phy.BLE_1M:
             em.$reg32[$R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA] = 0x8E89_BED6
             em.$reg32[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_CRCINITL] = (0x555555 << 8)
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_EXTRABYTES] = 6 // stat + rssi + timestamp
@@ -68,8 +67,8 @@ export function enable() {
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_FL2MASK] = 0
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0
             break
-        case RadioConfig.Phy.PROP_1M:
-        case RadioConfig.Phy.PROP_250K:
+        case Config.Phy.PROP_1M:
+        case Config.Phy.PROP_250K:
             em.$reg32[$R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA] = 0x7B8A_D0C9 // scramble(0x930B_51DE)
             break
     }
@@ -161,8 +160,8 @@ export function startRx(chan: u8, timeout: u16) {
     rx_timeout = false
     const whiten_init = chan | 0x40
     let op = 0
-    switch (RadioConfig.getPhy()) {
-        case RadioConfig.Phy.BLE_1M:
+    switch (Config.getPhy()) {
+        case Config.Phy.BLE_1M:
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_MAXLEN] = 37
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 1 << $R.PBE_BLE5_RAM_OPCFG_REPEAT_S
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = whiten_init
@@ -181,8 +180,8 @@ export function startRx(chan: u8, timeout: u16) {
             // reg($R.LRFDMDM_BASE + $R.LRFDMDM_O_DEMC1BE2).* = demc1be2
             op = $R.PBE_BLE5_REGDEF_API_OP_RXRAW
             break
-        case RadioConfig.Phy.PROP_1M:
-        case RadioConfig.Phy.PROP_250K:
+        case Config.Phy.PROP_1M:
+        case Config.Phy.PROP_250K:
             const cfg_val: u32 =
                 (0 << $R.PBE_GENERIC_RAM_OPCFG_RXFILTEROP_S) |
                 (1 << $R.PBE_GENERIC_RAM_OPCFG_RXINCLUDEHDR_S) |
@@ -218,22 +217,22 @@ export function startRx(chan: u8, timeout: u16) {
     $R.LRFDPBE.API.$$ = op
 }
 
-export function startTx(pkt: frame_t<u8>, chan: u8, power: i8) {
+export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
     // _ = pkt
     RfFifo.writePkt(pkt)
     // reg($R.LRFDPBE_BASE + $R.LRFDPBE_O_FCMD).* = ($R.LRFDPBE_FCMD_DATA_TXFIFO_RETRY >> $R.LRFDPBE_FCMD_DATA_S)
-    RfPower.program(power)
+    RfPower.program(Config.getTxPwr())
     RfCtrl.enableImages()
     let op = 0
-    switch (RadioConfig.getPhy()) {
-        case RadioConfig.Phy.BLE_1M:
+    switch (Config.getPhy()) {
+        case Config.Phy.BLE_1M:
             op = $R.PBE_BLE5_REGDEF_API_OP_TXRAW
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 0
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = chan | 0x40
             break
-        case RadioConfig.Phy.PROP_1M:
-        case RadioConfig.Phy.PROP_250K:
+        case Config.Phy.PROP_1M:
+        case Config.Phy.PROP_250K:
             op = $R.PBE_GENERIC_REGDEF_API_OP_TX
             const cfg_val =
                 (0 << $R.PBE_GENERIC_RAM_OPCFG_TXINFINITE_S) |
