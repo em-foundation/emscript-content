@@ -3,6 +3,8 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@nordic.distro.nrf52/REGS.em'
 
+import * as BleChan from '@em.rf.driver/BleChan.em'
+import * as Config from '@em.rf.driver/Config.em'
 import * as Idle from '@nordic.mcu.nrf52/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -21,18 +23,35 @@ export namespace em$meta {
 var cur_state: volatile_t<State> = State.IDLE
 
 export function disable() {
+    IntrVec.NVIC_disable(e$`RADIO_IRQn`)
     $R.RADIO.TASKS_DISABLE.$$ = 1
     setState(State.IDLE)
 }
 
 export function enable() {
-    $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Enabled | $R.RADIO_SHORTS_END_DISABLE_Enabled
-    $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
-    $R.RADIO.BASE0.$$ = 0xABABABAB
-    $R.RADIO.PREFIX0.$$ = 0xAB
-    $R.RADIO.PCNF0.$$ = (8 << $R.RADIO_PCNF0_LFLEN_Pos)
-    $R.RADIO.PCNF1.$$ = (240 << $R.RADIO_PCNF1_MAXLEN_Pos)
-        | (2 << $R.RADIO_PCNF1_BALEN_Pos) | $R.RADIO_PCNF1_ENDIAN_Big | $R.RADIO_PCNF1_WHITEEN_Disabled
+    switch (Config.getPhy()) {
+        case Config.Phy.PROP_1M: {
+            $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
+            $R.RADIO.PCNF0.$$ = (8 << $R.RADIO_PCNF0_LFLEN_Pos)
+            $R.RADIO.PCNF1.$$ = (240 << $R.RADIO_PCNF1_MAXLEN_Pos) | (3 << $R.RADIO_PCNF1_BALEN_Pos) | $R.RADIO_PCNF1_WHITEEN_Msk
+            $R.RADIO.BASE0.$$ = 0xAAAABBBB
+            $R.RADIO.PREFIX0.$$ = 0xCC
+            break
+        }
+        case Config.Phy.BLE_1M: {
+            $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Ble_1Mbit
+            $R.RADIO.PCNF0.$$ = (8 << $R.RADIO_PCNF0_LFLEN_Pos) | (1 << $R.RADIO_PCNF0_S0LEN_Pos) | $R.RADIO_PCNF0_S1INCL_Msk
+            $R.RADIO.PCNF1.$$ = (37 << $R.RADIO_PCNF1_MAXLEN_Pos) | (3 << $R.RADIO_PCNF1_BALEN_Pos) | $R.RADIO_PCNF1_WHITEEN_Msk
+            $R.RADIO.BASE0.$$ = 0x89bed600
+            $R.RADIO.PREFIX0.$$ = 0x8e
+            $R.RADIO.CRCCNF.$$ = (3 << $R.RADIO_CRCCNF_LEN_Pos) | $R.RADIO_CRCCNF_SKIPADDR_Msk
+            $R.RADIO.CRCPOLY.$$ = 0x65b
+            $R.RADIO.CRCINIT.$$ = 0x555555
+            break
+        }
+        default: fail()
+    }
+    $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_END_DISABLE_Msk
     setState(State.READY)
 }
 
@@ -43,7 +62,6 @@ function setState(s: State) {
 
 export function startCw(chan: u8, power: i8) {
     setState(State.CW)
-    $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Enabled
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_Pos4dBm
     $R.RADIO.FREQUENCY.$$ = 40
     $R.RADIO.TASKS_TXEN.$$ = 1
@@ -52,22 +70,24 @@ export function startCw(chan: u8, power: i8) {
 export function startRx(pkt: frame_t<u8>, chan: u8) {
     setState(State.RX)
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
-    $R.RADIO.FREQUENCY.$$ = 40
+    $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
+    $R.RADIO.DATAWHITEIV.$$ = chan
     $R.RADIO.RXADDRESSES.$$ = $R.RADIO_RXADDRESSES_ADDR0_Msk
     $R.RADIO.INTENSET.$$ = $R.RADIO_INTENSET_END_Msk
     $R.RADIO.TASKS_RXEN.$$ = 1
     IntrVec.NVIC_enable(e$`RADIO_IRQn`)
 }
 
-export function startTx(pkt: frame_t<u8>, chan: u8, power: i8) {
+export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_Pos4dBm
-    $R.RADIO.FREQUENCY.$$ = 40
+    $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
+    $R.RADIO.DATAWHITEIV.$$ = chan
     $R.RADIO.TXADDRESS.$$ = 0
     $R.RADIO.INTENSET.$$ = $R.RADIO_INTENSET_END_Msk
-    $R.RADIO.TASKS_TXEN.$$ = 1
     IntrVec.NVIC_enable(e$`RADIO_IRQn`)
+    $R.RADIO.TASKS_TXEN.$$ = 1
 }
 
 export function waitReady() {
@@ -84,5 +104,6 @@ export function RADIO_isr$$() {
     // $['%%>'](<u16>$R.RADIO.INTENSET.$$)
     IntrVec.NVIC_clear(e$`RADIO_IRQn`)
     $R.RADIO.INTENCLR.$$ = $R.RADIO.INTENSET.$$
+    $R.RADIO.EVENTS_END.$$ = 0
     setState(State.READY)
 }
