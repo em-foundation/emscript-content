@@ -55,11 +55,12 @@ function doSleep() {
 }
 
 export function exec() {
-    if (cur_pause_only) {
-        doPause()
-    } else {
-        doSleep()
-    }
+    doPause()
+    // if (cur_pause_only) {
+    //     doPause()
+    // } else {
+    //     doSleep()
+    // }
 }
 
 export function setPauseOnly(pause_only: bool_t) {
