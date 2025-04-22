@@ -11,6 +11,7 @@ const TYPE_SET = new Set<string>([
     'GRTC',
     'MEMCONF',
     'POWER',
+    'RADIO',
     'RRAMC',
     'REGULATORS',
     'TAMPC',
@@ -28,6 +29,7 @@ const INSTS = [
     ['P0', 'GPIO'],
     ['P1', 'GPIO'],
     ['P2', 'GPIO'],
+    ['RADIO', 'RADIO'],
     ['RRAMC', 'RRAMC'],
     ['REGULATORS', 'REGULATORS'],
     ['TAMPC', 'TAMPC'],
@@ -109,8 +111,8 @@ meta.addText(`import em from '@$$emscript'\n`)
 meta.addText(`export const $U = em.$declare('COMPOSITE')\n`)
 meta.addText(`
 export function em$generate() {
-    let out = $outfile('nrf.distro.54lxx/REGS.hpp')
-    out.addFile('../nrf.54lxx/nrf.distro.54lxx/REGS.hpp.txt')
+    let out = $outfile('nordic.distro.nrf54/REGS.hpp')
+    out.addFile('../nordic.nrf5x/nordic.distro.nrf54/REGS.hpp.txt')
     out.close()
 }
 `)
