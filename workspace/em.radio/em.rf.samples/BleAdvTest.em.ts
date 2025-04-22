@@ -29,6 +29,8 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
+const CHAN = 17
+
 export function em$run() {
     ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(250), $cb(tickCb))
     FiberMgr.run()
@@ -38,7 +40,7 @@ function tickCb() {
     AppLed.$$.wink(5);
     RadioDriver.$$.enable()
     $['%%d+']
-    RadioDriver.$$.startTx(adv_pkt.$frame(0), 17)
+    RadioDriver.$$.startTx(adv_pkt.$frame(0), CHAN)
     RadioDriver.$$.waitReady()
     $['%%d-']
     RadioDriver.$$.disable()
