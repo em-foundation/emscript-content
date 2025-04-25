@@ -12,6 +12,5 @@ export namespace em$meta { }
 
 export function em$run() {
     BusyWait.wait(1_000_000)
-    Idle.setPauseOnly(false)
     Idle.exec()
 }

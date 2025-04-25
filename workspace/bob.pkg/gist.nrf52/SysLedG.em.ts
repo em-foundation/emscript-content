@@ -12,15 +12,26 @@ export namespace em$meta { }
 export function em$run() {
     resetConfig()
     errata()
+    e$`NRF_APPROTECT->DISABLE = NRF_UICR->APPROTECT`
+    $R.NVMC.ICACHECNF.$$ = 1
     $R.POWER.DCDCEN.$$ = 1
+    $R.POWER.RAM[2].POWER.$$ = 0
+    // $R.POWER.RAM[3].POWER.$$ = 0
+    // $R.POWER.RAM[4].POWER.$$ = 0
+    // $R.POWER.RAM[7].POWER.$$ = 0
     $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
     // $R.CLOCK.TASKS_HFCLKSTART.$$ = 1
-    const mask = 1 << 20
+    const pid = 20
+    const mask = 1 << pid
     $R.P0.DIRSET.$$ = mask
     $R.P0.OUTCLR.$$ = mask
     BusyWait.wait(2000000)
     $R.P0.OUTSET.$$ = mask
+    $R.P0.PIN_CNF[pid].$$ = $R.GPIO_PIN_CNF_INPUT_Msk
+    // $R.POWER.TASKS_LOWPWR.$$ = 1
+    e$`asm volatile ("isb")`
+    e$`asm volatile ("dsb sy")`
     e$`asm volatile ("wfi")`
 }
 
