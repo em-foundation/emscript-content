@@ -78,5 +78,5 @@ export function startup(): void {
     $R.POWER.DCDCEN.$$ = 1
     $R.CLOCK.LFCLKSRC.$$ = $R.CLOCK_LFCLKSRCCOPY_SRC_Xtal
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
-    $R.CLOCK.TASKS_HFCLKSTART.$$ = 1
+    // $R.CLOCK.TASKS_HFCLKSTART.$$ = 1
 }

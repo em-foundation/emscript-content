@@ -45,7 +45,7 @@ function doSleep() {
     $['%%b-']
     Debug.reset()
     IntrVec.PRIMASK_set(1)
-    $R.POWER.TASKS_LOWPWR.$$ = 1
+    // $R.POWER.TASKS_LOWPWR.$$ = 1
     e$`asm volatile ("wfi")`
     Debug.startup()
     $['%%b']

@@ -79,8 +79,8 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
     $R.RADIO.DATAWHITE.$$ = chan | $R.RADIO_DATAWHITE_ResetValue
     $R.RADIO.RXADDRESSES.$$ = $R.RADIO_RXADDRESSES_ADDR0_Msk
     $R.RADIO.INTENSET00.$$ = $R.RADIO_INTENSET00_PHYEND_Msk
-    $R.RADIO.TASKS_RXEN.$$ = 1
     IntrVec.NVIC_enable(e$`RADIO_0_IRQn`)
+    $R.RADIO.TASKS_RXEN.$$ = 1
 }
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
