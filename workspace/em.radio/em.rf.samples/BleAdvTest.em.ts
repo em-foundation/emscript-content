@@ -38,8 +38,8 @@ export function em$run() {
 
 function tickCb() {
     AppLed.$$.wink(5)
-    RadioDriver.$$.enable()
     $['%%d+']
+    RadioDriver.$$.enable()
     RadioDriver.$$.startTx(adv_pkt.$frame(0), CHAN)
     RadioDriver.$$.waitReady()
     $['%%d-']

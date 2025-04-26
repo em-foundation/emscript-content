@@ -56,9 +56,7 @@ export function enable() {
         default: fail()
     }
     $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_END_DISABLE_Msk
-    $['%%c+']
     HfXtal.wait()
-    $['%%c-']
     setState(State.READY)
 }
 
