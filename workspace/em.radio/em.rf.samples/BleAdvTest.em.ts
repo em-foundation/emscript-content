@@ -29,7 +29,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-const CHAN = 17
+const CHAN = 37
 
 export function em$run() {
     ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(250), $cb(tickCb))

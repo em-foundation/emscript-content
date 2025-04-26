@@ -5,6 +5,7 @@ import * as $R from '@nordic.distro.nrf52/REGS.em'
 
 import * as BleChan from '@em.rf.driver/BleChan.em'
 import * as Config from '@em.rf.driver/Config.em'
+import * as HfXtal from '@nordic.mcu.nrf52/HfXtal.em'
 import * as Idle from '@nordic.mcu.nrf52/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -25,10 +26,12 @@ var cur_state: volatile_t<State> = State.IDLE
 export function disable() {
     IntrVec.NVIC_disable(e$`RADIO_IRQn`)
     $R.RADIO.TASKS_DISABLE.$$ = 1
+    HfXtal.stop()
     setState(State.IDLE)
 }
 
 export function enable() {
+    HfXtal.start()
     switch (Config.getPhy()) {
         case Config.Phy.PROP_1M: {
             $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
@@ -53,6 +56,7 @@ export function enable() {
         default: fail()
     }
     $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_END_DISABLE_Msk
+    HfXtal.wait()
     setState(State.READY)
 }
 
