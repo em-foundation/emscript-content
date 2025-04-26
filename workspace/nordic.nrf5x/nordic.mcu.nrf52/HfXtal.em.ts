@@ -13,6 +13,7 @@ export function start() {
 
 export function stop() {
     $R.CLOCK.TASKS_HFCLKSTOP.$$ = 1
+    $R.CLOCK.EVENTS_HFCLKSTARTED.$$ = 0
 }
 
 export function wait() {
