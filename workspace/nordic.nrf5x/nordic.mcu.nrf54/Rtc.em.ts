@@ -73,7 +73,6 @@ export function toThresh(delta: TimeTypes.Secs24p8): u32 {
 }
 
 export function GRTC_0_isr$$() {
-    $['%%a']
     IntrVec.NVIC_clear(e$`GRTC_0_IRQn`)
     const hlr = cur_hlr
     disable()

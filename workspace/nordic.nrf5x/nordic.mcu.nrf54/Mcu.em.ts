@@ -35,7 +35,6 @@ export function startup(): void {
     $R.MEMCONF.POWER[1].CONTROL.$$ = 0x0
     $R.CLOCK.LFCLK.SRC.$$ = $R.CLOCK_LFCLK_SRC_SRC_LFXO
     $R.CLOCK.TASKS_LFCLKSTART.$$ = 1
-    $R.CLOCK.TASKS_XOSTART.$$ = 1
     Debug.startup()
     $['%%a:'](2)
 }
