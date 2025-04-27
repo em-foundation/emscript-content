@@ -87,15 +87,15 @@ export function em$startup() {
     e$`SCB->VTOR = (uint32_t)(&__vector_table)`
 }
 
-export function NVIC_clear(irqN: u8) {
+export function NVIC_clear(irqN: u16) {
     e$`NVIC_ClearPendingIRQ((IRQn_Type)irqN)`
 }
 
-export function NVIC_disable(irqN: u8) {
+export function NVIC_disable(irqN: u16) {
     e$`NVIC_DisableIRQ((IRQn_Type)irqN)`
 }
 
-export function NVIC_enable(irqN: u8) {
+export function NVIC_enable(irqN: u16) {
     e$`NVIC_EnableIRQ((IRQn_Type)irqN)`
 }
 
