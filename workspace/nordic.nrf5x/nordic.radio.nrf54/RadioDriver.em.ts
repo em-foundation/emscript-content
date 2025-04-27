@@ -5,6 +5,7 @@ import * as $R from '@nordic.distro.nrf54/REGS.em'
 
 import * as BleChan from '@em.rf.driver/BleChan.em'
 import * as Config from '@em.rf.driver/Config.em'
+import * as HfXtal from '@nordic.mcu.nrf54/HfXtal.em'
 import * as Idle from '@nordic.mcu.nrf54/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
@@ -22,6 +23,10 @@ export namespace em$meta {
 
 var cur_state: volatile_t<State> = State.IDLE
 
+export function em$startup() {
+    HfXtal.start()
+}
+
 export function disable() {
     IntrVec.NVIC_disable(e$`RADIO_0_IRQn`)
     if ($R.RADIO.STATE.$$ != $R.RADIO_STATE_STATE_Disabled) {
@@ -29,10 +34,12 @@ export function disable() {
         $R.RADIO.TASKS_DISABLE.$$ = 1
         while ($R.RADIO.EVENTS_DISABLED.$$ == 0) { }
     }
+    HfXtal.stop()
     setState(State.IDLE)
 }
 
 export function enable() {
+    HfXtal.start()
     switch (Config.getPhy()) {
         case Config.Phy.PROP_1M: {
             $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
@@ -85,6 +92,7 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
+    HfXtal.wait()
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_Pos4dBm
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
