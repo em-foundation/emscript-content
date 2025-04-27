@@ -88,7 +88,7 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
-    Common.BusyWait.$$.wait(10)
+    Common.BusyWait.$$.wait(10) // TODO: needed for SRAM setup
     HfXtal.wait()
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_0dBm
