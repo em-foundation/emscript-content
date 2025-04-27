@@ -4,6 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as $R from '@nordic.distro.nrf52/REGS.em'
 
 import * as BleChan from '@em.rf.driver/BleChan.em'
+import * as Common from '@em.mcu/Common.em'
 import * as Config from '@em.rf.driver/Config.em'
 import * as HfXtal from '@nordic.mcu.nrf52/HfXtal.em'
 import * as Idle from '@nordic.mcu.nrf52/Idle.em'
@@ -23,6 +24,10 @@ export namespace em$meta {
 
 var cur_state: volatile_t<State> = State.IDLE
 
+export function em$startup() {
+    HfXtal.start()
+}
+
 export function disable() {
     IntrVec.NVIC_disable(e$`RADIO_IRQn`)
     $R.RADIO.TASKS_DISABLE.$$ = 1
@@ -31,7 +36,6 @@ export function disable() {
 }
 
 export function enable() {
-    HfXtal.start()
     switch (Config.getPhy()) {
         case Config.Phy.PROP_1M: {
             $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
@@ -56,7 +60,6 @@ export function enable() {
         default: fail()
     }
     $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_END_DISABLE_Msk
-    HfXtal.wait()
     setState(State.READY)
 }
 
@@ -85,6 +88,8 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
+    Common.BusyWait.$$.wait(10)
+    HfXtal.wait()
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_0dBm
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
