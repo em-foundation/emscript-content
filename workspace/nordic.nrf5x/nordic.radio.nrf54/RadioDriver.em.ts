@@ -28,18 +28,16 @@ export function em$startup() {
 }
 
 export function disable() {
-    IntrVec.NVIC_disable(e$`RADIO_0_IRQn`)
-    if ($R.RADIO.STATE.$$ != $R.RADIO_STATE_STATE_Disabled) {
-        $R.RADIO.EVENTS_DISABLED.$$ = 0
-        $R.RADIO.TASKS_DISABLE.$$ = 1
-        while ($R.RADIO.EVENTS_DISABLED.$$ == 0) { }
-    }
     HfXtal.stop()
+    IntrVec.NVIC_disable(e$`RADIO_0_IRQn`)
+    $R.RADIO.TASKS_DISABLE.$$ = 1
+    $['%%a+']
+    while ($R.RADIO.EVENTS_DISABLED.$$ == 0) { }
+    $['%%a-']
     setState(State.IDLE)
 }
 
 export function enable() {
-    HfXtal.start()
     switch (Config.getPhy()) {
         case Config.Phy.PROP_1M: {
             $R.RADIO.MODE.$$ = $R.RADIO_MODE_MODE_Nrf_1Mbit
