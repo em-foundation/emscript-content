@@ -31,9 +31,7 @@ export function disable() {
     HfXtal.stop()
     IntrVec.NVIC_disable(e$`RADIO_0_IRQn`)
     $R.RADIO.TASKS_DISABLE.$$ = 1
-    $['%%a+']
-    while ($R.RADIO.EVENTS_DISABLED.$$ == 0) { }
-    $['%%a-']
+    while ($R.RADIO.EVENTS_DISABLED.$$ == 0) { } // TODO -- remove
     setState(State.IDLE)
 }
 

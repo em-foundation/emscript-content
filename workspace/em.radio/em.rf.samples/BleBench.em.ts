@@ -36,7 +36,7 @@ export function em$run() {
 
 function tickCb() {
     RadioDriver.$$.enable()
-    for (const chan of $range(37, 40)) {
+    for (const chan of $range(37, 38)) {
         RadioDriver.$$.startTx(adv_pkt.$frame(0), chan)
         RadioDriver.$$.waitReady()
     }
