@@ -58,8 +58,9 @@ export function enable() {
         }
         default: fail()
     }
-    // $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_PHYEND_DISABLE_Msk
-    $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk
+    $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_PHYEND_DISABLE_Msk
+    // $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk
+    HfXtal.wait()
     setState(State.READY)
 }
 
@@ -88,7 +89,6 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
-    HfXtal.wait()
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_Pos4dBm
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
@@ -110,7 +110,6 @@ export function waitReady() {
 export function RADIO_0_isr$$() {
     // $['%%a']
     // $['%%>'](<u8>$R.RADIO.STATE.$$)
-    // $['%%>'](<u16>$R.RADIO.INTENSET.$$)
     IntrVec.NVIC_clear(e$`RADIO_0_IRQn`)
     $R.RADIO.INTENCLR00.$$ = $R.RADIO.INTENSET00.$$
     $R.RADIO.EVENTS_PHYEND.$$ = 0
