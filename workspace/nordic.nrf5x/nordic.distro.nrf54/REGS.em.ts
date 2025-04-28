@@ -528,6 +528,13 @@ export interface REGULATORS_t {
     VREGMAIN: REGULATORS_VREGMAIN_t
 }
 
+// -------- RESET -------- //
+
+export interface RESET_t {
+    RESERVED: dim_t<em.$Reg, 384>
+    RESETREAS: em.$Reg
+}
+
 // -------- RRAMC_BUFSTATUS -------- //
 
 export interface RRAMC_BUFSTATUS_t {
@@ -8322,6 +8329,91 @@ export const REGULATORS_POFSTAT_COMPARATOR_Min: any = '0x0UL'
 export const REGULATORS_POFSTAT_COMPARATOR_Max: any = '0x1UL'
 export const REGULATORS_POFSTAT_COMPARATOR_Above: any = '0x0UL'
 export const REGULATORS_POFSTAT_COMPARATOR_Below: any = '0x1UL'
+export const RESET_RESETREAS_ResetValue: any = '0x00000000UL'
+export const RESET_RESETREAS_RESETPIN_Pos: any = '0UL'
+export const RESET_RESETREAS_RESETPIN_Msk: any = '0x1UL << RESET_RESETREAS_RESETPIN_Pos'
+export const RESET_RESETREAS_RESETPIN_Min: any = '0x0UL'
+export const RESET_RESETREAS_RESETPIN_Max: any = '0x1UL'
+export const RESET_RESETREAS_RESETPIN_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_RESETPIN_Detected: any = '0x1UL'
+export const RESET_RESETREAS_DOG0_Pos: any = '1UL'
+export const RESET_RESETREAS_DOG0_Msk: any = '0x1UL << RESET_RESETREAS_DOG0_Pos'
+export const RESET_RESETREAS_DOG0_Min: any = '0x0UL'
+export const RESET_RESETREAS_DOG0_Max: any = '0x1UL'
+export const RESET_RESETREAS_DOG0_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_DOG0_Detected: any = '0x1UL'
+export const RESET_RESETREAS_DOG1_Pos: any = '2UL'
+export const RESET_RESETREAS_DOG1_Msk: any = '0x1UL << RESET_RESETREAS_DOG1_Pos'
+export const RESET_RESETREAS_DOG1_Min: any = '0x0UL'
+export const RESET_RESETREAS_DOG1_Max: any = '0x1UL'
+export const RESET_RESETREAS_DOG1_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_DOG1_Detected: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPSOFT_Pos: any = '3UL'
+export const RESET_RESETREAS_CTRLAPSOFT_Msk: any = '0x1UL << RESET_RESETREAS_CTRLAPSOFT_Pos'
+export const RESET_RESETREAS_CTRLAPSOFT_Min: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPSOFT_Max: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPSOFT_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPSOFT_Detected: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPHARD_Pos: any = '4UL'
+export const RESET_RESETREAS_CTRLAPHARD_Msk: any = '0x1UL << RESET_RESETREAS_CTRLAPHARD_Pos'
+export const RESET_RESETREAS_CTRLAPHARD_Min: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPHARD_Max: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPHARD_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPHARD_Detected: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPPIN_Pos: any = '5UL'
+export const RESET_RESETREAS_CTRLAPPIN_Msk: any = '0x1UL << RESET_RESETREAS_CTRLAPPIN_Pos'
+export const RESET_RESETREAS_CTRLAPPIN_Min: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPPIN_Max: any = '0x1UL'
+export const RESET_RESETREAS_CTRLAPPIN_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_CTRLAPPIN_Detected: any = '0x1UL'
+export const RESET_RESETREAS_SREQ_Pos: any = '6UL'
+export const RESET_RESETREAS_SREQ_Msk: any = '0x1UL << RESET_RESETREAS_SREQ_Pos'
+export const RESET_RESETREAS_SREQ_Min: any = '0x0UL'
+export const RESET_RESETREAS_SREQ_Max: any = '0x1UL'
+export const RESET_RESETREAS_SREQ_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_SREQ_Detected: any = '0x1UL'
+export const RESET_RESETREAS_LOCKUP_Pos: any = '7UL'
+export const RESET_RESETREAS_LOCKUP_Msk: any = '0x1UL << RESET_RESETREAS_LOCKUP_Pos'
+export const RESET_RESETREAS_LOCKUP_Min: any = '0x0UL'
+export const RESET_RESETREAS_LOCKUP_Max: any = '0x1UL'
+export const RESET_RESETREAS_LOCKUP_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_LOCKUP_Detected: any = '0x1UL'
+export const RESET_RESETREAS_OFF_Pos: any = '8UL'
+export const RESET_RESETREAS_OFF_Msk: any = '0x1UL << RESET_RESETREAS_OFF_Pos'
+export const RESET_RESETREAS_OFF_Min: any = '0x0UL'
+export const RESET_RESETREAS_OFF_Max: any = '0x1UL'
+export const RESET_RESETREAS_OFF_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_OFF_Detected: any = '0x1UL'
+export const RESET_RESETREAS_LPCOMP_Pos: any = '9UL'
+export const RESET_RESETREAS_LPCOMP_Msk: any = '0x1UL << RESET_RESETREAS_LPCOMP_Pos'
+export const RESET_RESETREAS_LPCOMP_Min: any = '0x0UL'
+export const RESET_RESETREAS_LPCOMP_Max: any = '0x1UL'
+export const RESET_RESETREAS_LPCOMP_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_LPCOMP_Detected: any = '0x1UL'
+export const RESET_RESETREAS_DIF_Pos: any = '10UL'
+export const RESET_RESETREAS_DIF_Msk: any = '0x1UL << RESET_RESETREAS_DIF_Pos'
+export const RESET_RESETREAS_DIF_Min: any = '0x0UL'
+export const RESET_RESETREAS_DIF_Max: any = '0x1UL'
+export const RESET_RESETREAS_DIF_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_DIF_Detected: any = '0x1UL'
+export const RESET_RESETREAS_GRTC_Pos: any = '11UL'
+export const RESET_RESETREAS_GRTC_Msk: any = '0x1UL << RESET_RESETREAS_GRTC_Pos'
+export const RESET_RESETREAS_GRTC_Min: any = '0x0UL'
+export const RESET_RESETREAS_GRTC_Max: any = '0x1UL'
+export const RESET_RESETREAS_GRTC_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_GRTC_Detected: any = '0x1UL'
+export const RESET_RESETREAS_NFC_Pos: any = '12UL'
+export const RESET_RESETREAS_NFC_Msk: any = '0x1UL << RESET_RESETREAS_NFC_Pos'
+export const RESET_RESETREAS_NFC_Min: any = '0x0UL'
+export const RESET_RESETREAS_NFC_Max: any = '0x1UL'
+export const RESET_RESETREAS_NFC_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_NFC_Detected: any = '0x1UL'
+export const RESET_RESETREAS_SECTAMPER_Pos: any = '13UL'
+export const RESET_RESETREAS_SECTAMPER_Msk: any = '0x1UL << RESET_RESETREAS_SECTAMPER_Pos'
+export const RESET_RESETREAS_SECTAMPER_Min: any = '0x0UL'
+export const RESET_RESETREAS_SECTAMPER_Max: any = '0x1UL'
+export const RESET_RESETREAS_SECTAMPER_NotDetected: any = '0x0UL'
+export const RESET_RESETREAS_SECTAMPER_Detected: any = '0x1UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_ResetValue: any = '0x00000000UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Pos: any = '0UL'
 export const RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Msk: any = '0x1UL << RRAMC_BUFSTATUS_WRITEBUFEMPTY_EMPTY_Pos'
@@ -10704,6 +10796,7 @@ export const P2 = {} as GPIO_t
 export const RADIO = {} as RADIO_t
 export const RRAMC = {} as RRAMC_t
 export const REGULATORS = {} as REGULATORS_t
+export const RESET = {} as RESET_t
 export const TAMPC = {} as TAMPC_t
 export const TIMER20 = {} as TIMER_t
 export const UARTE30 = {} as UARTE_t
