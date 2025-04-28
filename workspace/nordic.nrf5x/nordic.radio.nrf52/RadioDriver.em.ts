@@ -60,6 +60,8 @@ export function enable() {
         default: fail()
     }
     $R.RADIO.SHORTS.$$ = $R.RADIO_SHORTS_READY_START_Msk | $R.RADIO_SHORTS_END_DISABLE_Msk
+    // Common.BusyWait.$$.wait(10) // TODO: needed for SRAM setup
+    HfXtal.wait()
     setState(State.READY)
 }
 
@@ -88,8 +90,6 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
-    Common.BusyWait.$$.wait(10) // TODO: needed for SRAM setup
-    HfXtal.wait()
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
     $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_0dBm
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
