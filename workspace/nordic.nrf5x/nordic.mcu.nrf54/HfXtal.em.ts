@@ -25,6 +25,7 @@ export function start() {
     ready = false
     // $R.CLOCK.INTENSET.$$ = $R.CLOCK_INTENSET_XOTUNED_Set
     $R.CLOCK.EVENTS_XOTUNED.$$ = 0
+    $R.CLOCK.TASKS_PLLSTART.$$ = 1
     $R.CLOCK.TASKS_XOSTART.$$ = 1
     $R.CLOCK.TASKS_XOTUNE.$$ = 1
 }
