@@ -23,7 +23,6 @@ export function em$startup() {
 
 export function start() {
     ready = false
-    // $R.CLOCK.INTENSET.$$ = $R.CLOCK_INTENSET_XOTUNED_Set
     $R.CLOCK.EVENTS_XOTUNED.$$ = 0
     $R.CLOCK.TASKS_PLLSTART.$$ = 1
     $R.CLOCK.TASKS_XOSTART.$$ = 1
@@ -39,12 +38,9 @@ export function stop() {
 
 export function wait() {
     $['%%c+']
-    Idle.setPauseOnly(true)
     while (!ready) {
         ready = $R.CLOCK.EVENTS_XOTUNED.$$ != 0
-        // Idle.exec()
     }
-    Idle.setPauseOnly(false)
     $['%%c-']
 }
 
