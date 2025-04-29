@@ -90,7 +90,7 @@ export function startRx(pkt: frame_t<u8>, chan: u8) {
 export function startTx(pkt: frame_t<u8>, chan: u8) {
     setState(State.TX)
     $R.RADIO.PACKETPTR.$$ = <u32>(e$`&pkt[0]`)
-    $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_Pos4dBm
+    $R.RADIO.TXPOWER.$$ = $R.RADIO_TXPOWER_TXPOWER_0dBm
     $R.RADIO.FREQUENCY.$$ = BleChan.getFreqOff(chan)
     $R.RADIO.DATAWHITE.$$ = chan | $R.RADIO_DATAWHITE_ResetValue
     $R.RADIO.TXADDRESS.$$ = 0
