@@ -23,7 +23,7 @@ export function em$startup() {
 
 export function start() {
     ready = false
-    $R.CLOCK.INTENSET.$$ = $R.CLOCK_INTENSET_XOTUNED_Set
+    // $R.CLOCK.INTENSET.$$ = $R.CLOCK_INTENSET_XOTUNED_Set
     $R.CLOCK.EVENTS_XOTUNED.$$ = 0
     $R.CLOCK.TASKS_XOSTART.$$ = 1
     $R.CLOCK.TASKS_XOTUNE.$$ = 1
@@ -32,6 +32,7 @@ export function start() {
 export function stop() {
     $R.CLOCK.TASKS_XOTUNEABORT.$$ = 1
     $R.CLOCK.TASKS_XOSTOP.$$ = 1
+    $R.CLOCK.TASKS_PLLSTOP.$$ = 1
     $R.CLOCK.EVENTS_XOTUNED.$$ = 0
 }
 
