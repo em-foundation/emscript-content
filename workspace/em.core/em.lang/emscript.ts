@@ -12,6 +12,8 @@ namespace em {
     const __ARRAY__ = null
     // #region
 
+    // TODO -- remove $array
+
     export function $array<T>(proto: T, len: number): em$ArrayProto<T> {
         return new em$ArrayProto(proto, len)
     }
