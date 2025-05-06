@@ -29,7 +29,7 @@ const fltPatLen = $config<u16>(0)
 const sciPatLen = $config<u16>(0)
 const errPatLen = $config<u16>(0)
 
-const StateCnt = $array($u32(), NUM_STATES)
+class StateCnt extends $vector<u32> { $len = NUM_STATES }
 
 let membuf = $table<u8>('rw')
 
