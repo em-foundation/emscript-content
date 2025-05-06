@@ -152,6 +152,16 @@ namespace em {
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
     };
 
+    template <typename T, u16 N = 0> struct vec_t {
+        T $$[N];
+        static constexpr u16 $len = N;
+        inline T &operator[](u16 index) { return $$[index]; }
+        inline const T &operator[](u16 index) const { return $$[index]; }
+        frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
+        operator frame_t<T>() { return $frame(0, 0); }
+        ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
+    };
+
     template <typename T, u16 N> struct factory {
         T $$[N];
         static constexpr u16 $len = N;

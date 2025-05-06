@@ -843,7 +843,7 @@ namespace em {
     // #endregion
 
     const __UTILS__ = null
-    // #
+    // #region
 
     export function e$(sa: TemplateStringsArray): any {
         return 0
@@ -1094,7 +1094,31 @@ namespace em {
     }
 
     // #endregion
+
+    const __VECTOR__ = null
+    // #region
+
+    export class vec_t<T> {
+        constructor(readonly len: number) { }
+    }
+
+    export abstract class $vector<T> {
+        abstract $len: u16
+        _defval: T
+        _elems: T[]
+        static $make<T>(this: { new(): T }): T {
+            let o = new this() as any
+            o._elems = Array.from({ length: o.$len })
+            for (let i = 0; i < o.$len; i++) {
+                o._elems[i] = clone(o._defval)
+            }
+            return o
+        }
+    }
+
+    // #endregion
 }
+
 
 declare global {
     type arg_t = em.arg_t
@@ -1115,6 +1139,7 @@ declare global {
     type u32 = em.u32
     type u64 = em.u64
     type text_t = em.text_t
+    type vec_t<T, N extends number> = typeof em.vec_t
     type volatile_t<T> = em.volatile_t<T>
     const $: typeof em.$
     const $array: typeof em.$array
@@ -1148,6 +1173,7 @@ declare global {
     const $u32: typeof em.$u32
     const $u64: typeof em.$u64
     const $using: typeof em.$using
+    const $vector: typeof em.$vector
     const fail: typeof em.fail
     const halt: typeof em.halt
     const printf: typeof em.printf
@@ -1185,6 +1211,7 @@ Object.assign(globalThis, {
     $struct: em.$struct,
     $table: em.$table,
     $using: em.$using,
+    $vector: em.$vector,
     $u8: em.$u8,
     $u16: em.$u16,
     $u32: em.$u32,
@@ -1195,6 +1222,7 @@ Object.assign(globalThis, {
     c$: em.c$,
     e$: em.e$,
     t$: em.t$,
+    vec_t: em.vec_t
 })
 
 export default em
