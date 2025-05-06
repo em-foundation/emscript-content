@@ -5,7 +5,7 @@ export const $U = em.$declare('COMPOSITE')
 
 import * as ArmStartupC from '@em.arch.arm/StartupC.em'
 import * as BoardC from '@nordic.distro.nrf54/BoardC.em'
-import * as IsrDefault from '@em.arch.arm/IsrDebug.em'
+import * as IsrDefault from '@em.arch.arm/IsrEmpty.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
 import * as LinkerC from '@em.build.segger/LinkerC.em'
 import * as REGS from '@nordic.distro.nrf54/REGS.em'

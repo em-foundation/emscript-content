@@ -1,9 +1,9 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as BoardC from '@nordic.nrf5x/nordic.distro.nrf54/BoardC.em'
+import * as BoardC from '@nordic.distro.nrf54/BoardC.em'
 import * as Common from '@em.mcu/Common.em'
-import * as Idle from '@nordic.nrf5x/nordic.mcu.nrf54/Idle.em'
+import * as Idle from '@nordic.mcu.nrf54/Idle.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 

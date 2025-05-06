@@ -1,9 +1,9 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as $R from '@nordic.nrf5x/nordic.distro.nrf54/REGS.em'
+import * as $R from '@nordic.distro.nrf54/REGS.em'
 
-import * as BusyWait from '@nordic.nrf5x/nordic.mcu.nrf54/BusyWait.em'
+import * as BusyWait from '@nordic.mcu.nrf54/BusyWait.em'
 
 //>> ---- em$targ ---- <<//
 
