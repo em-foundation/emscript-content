@@ -13,6 +13,8 @@ class Pkt extends $struct {
     adr: Adr
 }
 
+let adr: Adr
+
 // class Pkt extends $struct {
 //     kind: u8
 //     buf: vec_t<u8, 16>
@@ -22,11 +24,11 @@ class Pkt extends $struct {
 export namespace em$meta {
     export function em$construct() {
         // console.log($sizeof<Adr>())
-        let adr = Adr.$make()
+        adr = Adr.$make()
         for (const i of $range(adr.$len)) {
-            adr._elems[i].x = i
+            adr[i].x = i
         }
-        console.log(adr)
+        for (const e of adr.$frame(0)) console.log(e.$$.x)
         // let pkt = Pkt.$make()
         // console.log(pkt.adr)
     }

@@ -29,7 +29,7 @@ namespace em {
     }
     class em$ArrayVal<T> implements frame_t<T> {
         $len: number
-        private items: globalThis.Array<T>;
+        private items: globalThis.Array<T>
         [index: number]: T
         constructor(len: number, defaultVal: T) {
             this.$len = len
@@ -1102,17 +1102,57 @@ namespace em {
         constructor(readonly len: number) { }
     }
 
-    export abstract class $vector<T> {
-        abstract $len: u16
-        _defval: T
-        _elems: T[]
+    export class $vector<T> implements frame_t<T> {
+        $len: u16
+        [index: number]: T
+        private _defval: T
+        private items: globalThis.Array<T>
         static $make<T>(this: { new(): T }): T {
-            let o = new this() as any
-            o._elems = Array.from({ length: o.$len })
-            for (let i = 0; i < o.$len; i++) {
-                o._elems[i] = clone(o._defval)
+            const handler = {
+                get(targ: any, prop: string | symbol) {
+                    if (typeof prop == 'symbol') return targ[prop]
+                    const idx = Number(prop)
+                    if (!isNaN(idx)) return targ.items[idx]
+                    switch (prop) {
+                        default:
+                            return targ[prop]
+                    }
+                },
+                set(targ: any, prop: string | symbol, val: any) {
+                    const idx = Number(prop)
+                    if (isNaN(idx)) return false
+                    targ.items[idx] = val
+                    return true
+                },
             }
-            return o
+            let o = new this() as any
+            o.items = Array.from({ length: o.$len })
+            for (let i = 0; i < o.$len; i++) {
+                o.items[i] = clone(o._defval)
+            }
+            return new globalThis.Proxy(o, handler)
+        }
+        [Symbol.iterator](): Iterator<ref_t<T>> {
+            // TODO combine with FRAME
+            let idx = 0
+            let items = this.items
+            return {
+                next(): IteratorResult<ref_t<T>> {
+                    if (idx < items.length) {
+                        let cur = idx
+                        idx += 1
+                        return { value: new em$ptr<T>(items, cur), done: false }
+                    } else {
+                        return { value: undefined as any, done: true }
+                    }
+                },
+            }
+        }
+        $frame(beg: i16, len: u16 = 0) {
+            return frame$create<T>(this.items, 0, beg, len)
+        }
+        $ptr(): ptr_t<T> {
+            return new em$ptr<T>(this.items)
         }
     }
 
