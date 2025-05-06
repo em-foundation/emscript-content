@@ -160,6 +160,7 @@ namespace em {
         frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
         operator frame_t<T>() { return $frame(0, 0); }
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
+        static vec_t $make() { return vec_t(); }
     };
 
     template <typename T, u16 N> struct factory {
