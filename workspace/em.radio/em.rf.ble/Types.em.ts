@@ -1,6 +1,8 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
+import * as Dev from '@em.rf.core/Dev.em'
+
 export const ADV_CHAN = 37
 export const ADV_CHAN_MAX = 39
 
@@ -16,7 +18,7 @@ export const ADV_EXT_IND = 0x07
 export class AdvHdr extends $struct {
     advType: u8
     pduLen: u8
-    // advA: Dev.Addr
+    advA: Dev.Addr
     flagsLen: u8
     flagsCode: u8
     flagsVal: u8
