@@ -2,10 +2,17 @@ import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
 import * as Dev from '@em.rf.core/Dev.em'
+import * as RadioDriverI from '@em.rf.core/RadioDriverI.em'
 import * as Registry from '@em.rf.core/Registry.em'
 import * as Types from '@em.rf.ble/Types.em'
 
-export namespace em$meta { }
+export const RadioDriver = $proxy<RadioDriverI.$I>()
+
+export namespace em$meta {
+    export function em$construct() {
+        RadioDriver.$$.em$meta.bindHandler($cb(radioHandler))
+    }
+}
 
 //>> ---- em$targ ---- <<//
 
@@ -60,12 +67,19 @@ function controller() {
     }
 }
 
-function radioOff() {
+function doAdvScan() {
+}
 
+function radioHandler() {
+    controller()
+}
+
+function radioOff() {
+    RadioDriver.$$.disable()
 }
 
 function radioOn() {
-
+    RadioDriver.$$.enable()
 }
 
 function setState(s: State) {

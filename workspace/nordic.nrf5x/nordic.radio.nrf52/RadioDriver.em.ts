@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', RadioDriverI)
 
 import * as $R from '@nordic.distro.nrf52/REGS.em'
 
@@ -9,6 +9,7 @@ import * as Config from '@em.rf.driver/Config.em'
 import * as HfXtal from '@nordic.mcu.nrf52/HfXtal.em'
 import * as Idle from '@nordic.mcu.nrf52/Idle.em'
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
+import * as RadioDriverI from '@em.rf.core/RadioDriverI.em'
 
 enum State {
     IDLE, SETUP, READY, RX, TX, CS, CW
