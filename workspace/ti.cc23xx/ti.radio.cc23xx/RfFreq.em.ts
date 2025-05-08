@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@ti.distro.cc23xx/REGS.em'
 
-import * as RadioConfig from '@ti.radio.cc23xx/RadioConfig.em'
+import * as Config from '@em.rf.driver/Config.em'
 
 class Shape extends $struct {
     scale: u32
@@ -119,9 +119,9 @@ export function program(frequency: u32) {
     em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_RXIF] = <u16>findFoff(0, invSynthFreq) // rxFreqOff
     em.$reg16[$R.LRFD_RFERAM_BASE + $R.RFE_COMMON_RAM_O_TXIF] = <u16>findFoff(1_000_000, invSynthFreq) // txFreqOff
     programCMixN(1_000_000, invSynthFreq) // rxIntFreq
-    switch (RadioConfig.getPhy()) {
-        case RadioConfig.Phy.BLE_1M:
-        case RadioConfig.Phy.PROP_1M:
+    switch (Config.getPhy()) {
+        case Config.Phy.BLE_1M:
+        case Config.Phy.PROP_1M:
             programShape(BLE_1M_SHAPE.$$, invSynthFreq << 4)
             break
     }

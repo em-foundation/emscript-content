@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@ti.distro.cc23xx/REGS.em'
 
-import * as RadioConfig from '@ti.radio.cc23xx/RadioConfig.em'
+import * as Config from '@em.rf.driver/Config.em'
 
 const LRF_MCE_patch_genfsk = $table<u32>('ro')
 const LRF_PBE_patch_generic = $table<u32>('ro')
@@ -604,23 +604,23 @@ var loaded = false
 export function loadAll() {
     if (loaded) return
     loaded = true
-    switch (RadioConfig.getPhy()) {
-        case RadioConfig.Phy.BLE_1M:
+    switch (Config.getPhy()) {
+        case Config.Phy.BLE_1M:
             loadPatch($R.LRFD_MCERAM_BASE, LRF_MCE_patch_ble5.$frame(0))
             loadPatch($R.LRFD_PBERAM_BASE, LRF_PBE_patch_ble5.$frame(0))
             loadPatch($R.LRFD_RFERAM_BASE, LRF_RFE_patch_ble5.$frame(0))
             break
-        case RadioConfig.Phy.PROP_1M:
+        case Config.Phy.PROP_1M:
             loadPatch($R.LRFD_MCERAM_BASE, LRF_MCE_patch_ble5.$frame(0))
             loadPatch($R.LRFD_PBERAM_BASE, LRF_PBE_patch_generic.$frame(0))
             loadPatch($R.LRFD_RFERAM_BASE, LRF_RFE_patch_ble5.$frame(0))
             break
-        case RadioConfig.Phy.PROP_250K:
+        case Config.Phy.PROP_250K:
             loadPatch($R.LRFD_MCERAM_BASE, LRF_MCE_patch_genfsk.$frame(0))
             loadPatch($R.LRFD_PBERAM_BASE, LRF_PBE_patch_generic.$frame(0))
             loadPatch($R.LRFD_RFERAM_BASE, LRF_RFE_patch_genfsk.$frame(0))
             break
-        case RadioConfig.Phy.NONE:
+        case Config.Phy.NONE:
             break
     }
 }

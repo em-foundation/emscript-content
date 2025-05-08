@@ -2,20 +2,19 @@ import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
 import * as BoardC from '@$distro/BoardC.em'
+import * as Config from '@em.rf.driver/Config.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
-import * as RadioConfig from '@ti.radio.cc23xx/RadioConfig.em'
 import * as RadioDriver from '@ti.radio.cc23xx/RadioDriver.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
 const rx_fiberF = $config<FiberMgr.Obj>()
 
-var pktbuf = $table<u8>('rw')
-// const PktBuf = $array($u8(), 240)
+var pktbuf = $table<u8>('rw', 16)
 
 export namespace em$meta {
     export function em$configure() {
-        RadioConfig.phy.$$ = RadioConfig.Phy.BLE_1M
+        Config.phy.$$ = Config.Phy.BLE_1M
     }
     export function em$construct() {
         rx_fiberF.$$ = FiberMgr.em$meta.create($cb(rxFiberFB))

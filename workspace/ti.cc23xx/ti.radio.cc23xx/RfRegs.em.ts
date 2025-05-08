@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as RadioConfig from '@ti.radio.cc23xx/RadioConfig.em'
+import * as Config from '@em.rf.driver/Config.em'
 
 class Desc extends $struct {
     off: u16
@@ -17,7 +17,7 @@ import * as Fs from 'fs'
 export namespace em$meta {
 
     export function em$construct() {
-        const phy_name = RadioConfig.Phy[RadioConfig.phy.$$].toLowerCase()
+        const phy_name = Config.Phy[Config.phy.$$].toLowerCase()
         if (phy_name == 'none') return
         const regs = Fs.readFileSync(`ti.cc23xx/ti.radio.cc23xx/regs_${phy_name}.txt`, 'utf-8')
         let pre_flag = true
