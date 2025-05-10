@@ -31,9 +31,10 @@ export function readPkt(pkt: frame_t<u8>): u8 {
     // printf`w = %08x\n`(word)
     addr += 4
     word = em.$reg32[addr]
-    printf`w = %08x\n`(word)
+    // printf`w = %08x\n`(word)
     addr += 4
     word >>= 16
+    // TODO: per-PHY length field
     const sz = <u8>(word & 0xff) + 1
     // printf`h = %04x, sz = %d\n`(word, sz)
     let cnt: u8 = 2

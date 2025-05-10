@@ -163,9 +163,14 @@ export function startRx(chan: u8, timeout: u16) {
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_MAXLEN] = 37
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OPCFG] = 1 << $R.PBE_BLE5_RAM_OPCFG_REPEAT_S
             em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_WHITEINIT] = whiten_init
-            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRL] = 0xDDDD
-            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRM] = 0xEEEE
-            em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRH] = 0xFFFF
+            // em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRL] = 0xDDDD
+            // em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRM] = 0xEEEE
+            // em.$reg16[$R.LRFD_BUFRAM_BASE + $R.PBE_BLE5_RAM_O_OWNADRH] = 0xFFFF
+
+            // hal_setup_sync_found_cap
+            $R.LRFDMDM.SYSTIMEVTMUX0.$$ = (21 << $R.LRFDMDM_SYSTIMEVTMUX0_SEL0_S)
+            $R.LRFDDBELL.SYSTIMOEV.$$ = $R.LRFDDBELL_SYSTIMOEV_SRC2_MCESYSTIM0
+            $R.SYSTIM.CH4CFG.$$ |= $R.SYSTIM_CH4CFG_INP_RISE | $R.SYSTIM_CH4CFG_MODE_CAPT | $R.SYSTIM_CH4CFG_REARM_EN;
 
             // reg($R.LRFDPBE32_BASE + $R.LRFDPBE32_O_MDMSYNCA).* = 0x8E89_BED6 ^ (em.as(u32, whiten_init) << 24)
 
