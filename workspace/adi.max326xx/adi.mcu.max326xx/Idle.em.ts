@@ -50,10 +50,9 @@ function doSleep() {
     $R.MCR.CTRL.$$ |= $R.F_MCR_CTRL_ERTCO_EN
 
     // !!!! BEWARE OF THE FOLLOWING LINE !!!!
-    // $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
-
+    $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
     e$`SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk`
-    // $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_STANDBY
+    $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_STANDBY
     e$`asm volatile ("wfi")`
     Debug.startup()
     $['%%b+']

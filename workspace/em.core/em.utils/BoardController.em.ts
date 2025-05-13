@@ -17,11 +17,11 @@ export function em$reset(): void {
 }
 
 export function em$ready(): void {
+    Led.$$.off()
+    blink(2, BLINK_RATE)
     if (ready_delay_usecs.$$) {
         Common.BusyWait.$$.wait(ready_delay_usecs.$$)
     }
-    Led.$$.off()
-    blink(2, BLINK_RATE)
     Common.ConsoleUart.$$.flush()
     Common.ConsoleUart.$$.put(0x00)
     Common.ConsoleUart.$$.put(0x00)
