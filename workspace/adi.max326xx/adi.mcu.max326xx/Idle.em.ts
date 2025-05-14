@@ -47,10 +47,8 @@ function doSleep() {
     $['%%b-']
     Debug.reset()
     IntrVec.PRIMASK_set(1)
-    $R.MCR.CTRL.$$ |= $R.F_MCR_CTRL_ERTCO_EN
-
-    // !!!! BEWARE OF THE FOLLOWING LINE !!!!
     $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
+    $R.MCR.CTRL.$$ |= $R.F_MCR_CTRL_ERTCO_EN
     e$`SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk`
     $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_STANDBY
     e$`asm volatile ("wfi")`
@@ -61,11 +59,12 @@ function doSleep() {
 }
 
 export function exec() {
-    if (cur_pause_only) {
-        doPause()
-    } else {
-        doSleep()
-    }
+    doPause()
+    //     if (cur_pause_only) {
+    //         doPause()
+    //     } else {
+    //         doSleep()
+    //     }
 }
 
 export function setPauseOnly(pause_only: bool_t) {

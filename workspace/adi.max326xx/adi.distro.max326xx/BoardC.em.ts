@@ -59,7 +59,6 @@ export const DEFAULTS = {
 export function em$configure(): void {
     if (em.isBareMetal()) return
     const brd = $board(DEFAULTS)
-    // console.log(brd.sysOscSrc)
     const ConsoleUart = brd.useLpUart ? ConsoleUart3 : ConsoleUart0
     $using(BoardController)
     $using(Console)
@@ -73,7 +72,7 @@ export function em$configure(): void {
     AppOutPin.pin_num.$$ = brd.pins.appOut
     BoardController.Led.$$ = SysLed
     BoardController.ready_delay_usecs.$$ = 5_000_000
-    BusyWait.scalar.$$ = 10
+    BusyWait.scalar.$$ = 17
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart
     Common.GlobalInterrupts.$$ = GlobalInterrupts

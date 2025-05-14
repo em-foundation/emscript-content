@@ -13,19 +13,17 @@ export const baud = $config<u32>(115200)
 const clkdiv = $config<u32>()
 
 export namespace em$meta {
-    const IBRO_FREQ = 7372800
+    const PCLK_FREQ = 50_000_000
 
     export function em$construct() {
-        clkdiv.$$ = Math.round(IBRO_FREQ / baud.$$) * 4
+        clkdiv.$$ = Math.round(PCLK_FREQ / baud.$$)
     }
 }
 
 export function em$startup() {
     TxPin.$$.makeOutput()
     TxPin.$$.functionSelect(1)
-    $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_IBRO_EN
     $R.GCR.PCLKDIS0.$$ &= ~$R.F_GCR_PCLKDIS0_UART0
-    $R.UART0.OSR.$$ = 5
     $R.UART0.CLKDIV.$$ = clkdiv.$$
     $R.UART0.CTRL.$$ |=
         $R.S_UART_CTRL_CHAR_SIZE_8BITS |

@@ -19,6 +19,11 @@ export function startup() {
         $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERFO_EN
         while (($R.GCR.CLKCTRL.$$ & $R.F_GCR_CLKCTRL_ERFO_RDY) == 0) { }
         $R.GCR.CLKCTRL.$$ |= $R.S_GCR_CLKCTRL_SYSCLK_SEL_ERFO
+    } else {
+        $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_IPO_EN
+        while (($R.GCR.CLKCTRL.$$ & $R.F_GCR_CLKCTRL_IPO_RDY) == 0) { }
+        $R.GCR.CLKCTRL.$$ |= $R.S_GCR_CLKCTRL_SYSCLK_SEL_IPO
+        $R.GCR.CLKCTRL.$$ |= $R.S_GCR_CLKCTRL_SYSCLK_DIV_DIV1
     }
 }
 
