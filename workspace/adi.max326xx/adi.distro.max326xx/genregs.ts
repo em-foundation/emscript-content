@@ -32,12 +32,9 @@ function genPeri(peri: any, periCls: string) {
             meta.addText(desc.replace('\n', '\n\n'))
             meta.addText('*/\n')
             const fldLab = `${periCls}_${regName}_${fldName}`
-            meta.print("export const F_%1: any = '%2'\n", fldLab, fld.bitWidth)
-            meta.print(
-                "export const F_%1_POS: any = '%2'\n",
-                fldLab,
-                fld.bitWidth
-            )
+            meta.print("export const F_%1_POS = %2\n", fldLab, fld.bitOffset)
+            const mask = Math.pow(2, fld.bitWidth) - 1
+            meta.print("export const F_%1 = 0x%2 << F_%1_POS\n", fldLab, mask.toString(16))
             if (fld.enumeratedValues == undefined) continue
             const valArr = fld.enumeratedValues[0].enumeratedValue as Array<any>
             for (const val of valArr) {
@@ -47,8 +44,8 @@ function genPeri(peri: any, periCls: string) {
                 // meta.addText(desc.replace("\n", "\n\n"))
                 // meta.addText("*/\n")
                 const valLab = `${periCls}_${regName}_${fldName}_${valName}`
-                meta.print("export const S_%1: any = '%2'\n", valLab, val.value)
-                meta.print("export const V_%1: any = '%2'\n", valLab, val.value)
+                meta.print("export const V_%1 = %2\n", valLab, val.value)
+                meta.print("export const S_%1 = %2 << F_%3_POS\n", valLab, val.value, fldLab)
             }
         }
     }
