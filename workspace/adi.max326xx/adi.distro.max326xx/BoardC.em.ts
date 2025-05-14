@@ -3,7 +3,7 @@ export const $U = em.$declare('COMPOSITE')
 
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
-import * as BusyWait from '@adi.mcu.max326xx/BusyWait.em'
+import * as BusyWait from '@em.utils/BusyWait.em'
 import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Console from '@em.lang/Console.em'
 import * as Common from '@em.mcu/Common.em'
