@@ -1948,6 +1948,267 @@ RTC 32kHz Square Wave Output*/
 export const F_RTC_OSCCTRL_SQW_32K_POS = 5
 export const F_RTC_OSCCTRL_SQW_32K = 0x1 << F_RTC_OSCCTRL_SQW_32K_POS
 
+// -------- PERIPHERAL SIMO -------- //
+
+export interface SIMO_t {
+    VREGO_A: em.$Reg
+    VREGO_B: em.$Reg
+    VREGO_C: em.$Reg
+    VREGO_D: em.$Reg
+    IPKA: em.$Reg
+    IPKB: em.$Reg
+    MAXTON: em.$Reg
+    ILOAD_A: em.$Reg
+    ILOAD_B: em.$Reg
+    ILOAD_C: em.$Reg
+    ILOAD_D: em.$Reg
+    BUCK_ALERT_THR_A: em.$Reg
+    BUCK_ALERT_THR_B: em.$Reg
+    BUCK_ALERT_THR_C: em.$Reg
+    BUCK_ALERT_THR_D: em.$Reg
+    BUCK_OUT_READY: em.$Reg
+    ZERO_CROSS_CAL_A: em.$Reg
+    ZERO_CROSS_CAL_B: em.$Reg
+    ZERO_CROSS_CAL_C: em.$Reg
+    ZERO_CROSS_CAL_D: em.$Reg
+}
+
+// -------- REGISTER VREGO_A -------- //
+
+/**
+Buck Voltage Regulator A Control Register*/
+/**
+Regulator Output Voltage Setting*/
+export const F_SIMO_VREGO_A_VSETA_POS = 0
+export const F_SIMO_VREGO_A_VSETA = 0x7f << F_SIMO_VREGO_A_VSETA_POS
+/**
+Regulator Output Range Set*/
+export const F_SIMO_VREGO_A_RANGEA_POS = 7
+export const F_SIMO_VREGO_A_RANGEA = 0x1 << F_SIMO_VREGO_A_RANGEA_POS
+export const V_SIMO_VREGO_A_RANGEA_LOW = 0
+export const S_SIMO_VREGO_A_RANGEA_LOW = 0 << F_SIMO_VREGO_A_RANGEA_POS
+export const V_SIMO_VREGO_A_RANGEA_HIGH = 1
+export const S_SIMO_VREGO_A_RANGEA_HIGH = 1 << F_SIMO_VREGO_A_RANGEA_POS
+
+// -------- REGISTER VREGO_B -------- //
+
+/**
+Buck Voltage Regulator B Control Register*/
+/**
+Regulator Output Voltage Setting*/
+export const F_SIMO_VREGO_B_VSETB_POS = 0
+export const F_SIMO_VREGO_B_VSETB = 0x7f << F_SIMO_VREGO_B_VSETB_POS
+/**
+Regulator Output Range Set*/
+export const F_SIMO_VREGO_B_RANGEB_POS = 7
+export const F_SIMO_VREGO_B_RANGEB = 0x1 << F_SIMO_VREGO_B_RANGEB_POS
+export const V_SIMO_VREGO_B_RANGEB_LOW = 0
+export const S_SIMO_VREGO_B_RANGEB_LOW = 0 << F_SIMO_VREGO_B_RANGEB_POS
+export const V_SIMO_VREGO_B_RANGEB_HIGH = 1
+export const S_SIMO_VREGO_B_RANGEB_HIGH = 1 << F_SIMO_VREGO_B_RANGEB_POS
+
+// -------- REGISTER VREGO_C -------- //
+
+/**
+Buck Voltage Regulator C Control Register*/
+/**
+Regulator Output Voltage Setting*/
+export const F_SIMO_VREGO_C_VSETC_POS = 0
+export const F_SIMO_VREGO_C_VSETC = 0x7f << F_SIMO_VREGO_C_VSETC_POS
+/**
+Regulator Output Range Set*/
+export const F_SIMO_VREGO_C_RANGEC_POS = 7
+export const F_SIMO_VREGO_C_RANGEC = 0x1 << F_SIMO_VREGO_C_RANGEC_POS
+export const V_SIMO_VREGO_C_RANGEC_LOW = 0
+export const S_SIMO_VREGO_C_RANGEC_LOW = 0 << F_SIMO_VREGO_C_RANGEC_POS
+export const V_SIMO_VREGO_C_RANGEC_HIGH = 1
+export const S_SIMO_VREGO_C_RANGEC_HIGH = 1 << F_SIMO_VREGO_C_RANGEC_POS
+
+// -------- REGISTER VREGO_D -------- //
+
+/**
+Buck Voltage Regulator D Control Register*/
+/**
+Regulator Output Voltage Setting*/
+export const F_SIMO_VREGO_D_VSETD_POS = 0
+export const F_SIMO_VREGO_D_VSETD = 0x7f << F_SIMO_VREGO_D_VSETD_POS
+/**
+Regulator Output Range Set*/
+export const F_SIMO_VREGO_D_RANGED_POS = 7
+export const F_SIMO_VREGO_D_RANGED = 0x1 << F_SIMO_VREGO_D_RANGED_POS
+export const V_SIMO_VREGO_D_RANGED_LOW = 0
+export const S_SIMO_VREGO_D_RANGED_LOW = 0 << F_SIMO_VREGO_D_RANGED_POS
+export const V_SIMO_VREGO_D_RANGED_HIGH = 1
+export const S_SIMO_VREGO_D_RANGED_HIGH = 1 << F_SIMO_VREGO_D_RANGED_POS
+
+// -------- REGISTER IPKA -------- //
+
+/**
+High Side FET Peak Current VREGO_A/VREGO_B Register*/
+/**
+Voltage Regulator Peak Current Setting*/
+export const F_SIMO_IPKA_IPKSETA_POS = 0
+export const F_SIMO_IPKA_IPKSETA = 0xf << F_SIMO_IPKA_IPKSETA_POS
+/**
+Voltage Regulator Peak Current Setting*/
+export const F_SIMO_IPKA_IPKSETB_POS = 4
+export const F_SIMO_IPKA_IPKSETB = 0xf << F_SIMO_IPKA_IPKSETB_POS
+
+// -------- REGISTER IPKB -------- //
+
+/**
+High Side FET Peak Current VREGO_C/VREGO_D Register*/
+/**
+Voltage Regulator Peak Current Setting*/
+export const F_SIMO_IPKB_IPKSETC_POS = 0
+export const F_SIMO_IPKB_IPKSETC = 0xf << F_SIMO_IPKB_IPKSETC_POS
+/**
+Voltage Regulator Peak Current Setting*/
+export const F_SIMO_IPKB_IPKSETD_POS = 4
+export const F_SIMO_IPKB_IPKSETD = 0xf << F_SIMO_IPKB_IPKSETD_POS
+
+// -------- REGISTER MAXTON -------- //
+
+/**
+Maximum High Side FET Time On Register*/
+/**
+Sets the maximum on time for the high side FET, each increment represents 500ns*/
+export const F_SIMO_MAXTON_TONSET_POS = 0
+export const F_SIMO_MAXTON_TONSET = 0xf << F_SIMO_MAXTON_TONSET_POS
+
+// -------- REGISTER ILOAD_A -------- //
+
+/**
+Buck Cycle Count VREGO_A Register*/
+/**
+Number of buck cycles that occur within the cycle clock*/
+export const F_SIMO_ILOAD_A_ILOADA_POS = 0
+export const F_SIMO_ILOAD_A_ILOADA = 0xff << F_SIMO_ILOAD_A_ILOADA_POS
+
+// -------- REGISTER ILOAD_B -------- //
+
+/**
+Buck Cycle Count VREGO_B Register*/
+/**
+Number of buck cycles that occur within the cycle clock*/
+export const F_SIMO_ILOAD_B_ILOADB_POS = 0
+export const F_SIMO_ILOAD_B_ILOADB = 0xff << F_SIMO_ILOAD_B_ILOADB_POS
+
+// -------- REGISTER ILOAD_C -------- //
+
+/**
+Buck Cycle Count VREGO_C Register*/
+/**
+Number of buck cycles that occur within the cycle clock*/
+export const F_SIMO_ILOAD_C_ILOADC_POS = 0
+export const F_SIMO_ILOAD_C_ILOADC = 0xff << F_SIMO_ILOAD_C_ILOADC_POS
+
+// -------- REGISTER ILOAD_D -------- //
+
+/**
+Buck Cycle Count VREGO_D Register*/
+/**
+Number of buck cycles that occur within the cycle clock*/
+export const F_SIMO_ILOAD_D_ILOADD_POS = 0
+export const F_SIMO_ILOAD_D_ILOADD = 0xff << F_SIMO_ILOAD_D_ILOADD_POS
+
+// -------- REGISTER BUCK_ALERT_THR_A -------- //
+
+/**
+Buck Cycle Count Alert VERGO_A Register*/
+/**
+Threshold for ILOADA to generate the BUCK_ALERT*/
+export const F_SIMO_BUCK_ALERT_THR_A_BUCKTHRA_POS = 0
+export const F_SIMO_BUCK_ALERT_THR_A_BUCKTHRA = 0xff << F_SIMO_BUCK_ALERT_THR_A_BUCKTHRA_POS
+
+// -------- REGISTER BUCK_ALERT_THR_B -------- //
+
+/**
+Buck Cycle Count Alert VERGO_B Register*/
+/**
+Threshold for ILOADB to generate the BUCK_ALERT*/
+export const F_SIMO_BUCK_ALERT_THR_B_BUCKTHRB_POS = 0
+export const F_SIMO_BUCK_ALERT_THR_B_BUCKTHRB = 0xff << F_SIMO_BUCK_ALERT_THR_B_BUCKTHRB_POS
+
+// -------- REGISTER BUCK_ALERT_THR_C -------- //
+
+/**
+Buck Cycle Count Alert VERGO_C Register*/
+/**
+Threshold for ILOADC to generate the BUCK_ALERT*/
+export const F_SIMO_BUCK_ALERT_THR_C_BUCKTHRC_POS = 0
+export const F_SIMO_BUCK_ALERT_THR_C_BUCKTHRC = 0xff << F_SIMO_BUCK_ALERT_THR_C_BUCKTHRC_POS
+
+// -------- REGISTER BUCK_ALERT_THR_D -------- //
+
+/**
+Buck Cycle Count Alert VERGO_D Register*/
+/**
+Threshold for ILOADD to generate the BUCK_ALERT*/
+export const F_SIMO_BUCK_ALERT_THR_D_BUCKTHRD_POS = 0
+export const F_SIMO_BUCK_ALERT_THR_D_BUCKTHRD = 0xff << F_SIMO_BUCK_ALERT_THR_D_BUCKTHRD_POS
+
+// -------- REGISTER BUCK_OUT_READY -------- //
+
+/**
+Buck Regulator Output Ready Register*/
+/**
+When set, indicates that the output voltage has reached its regulated value*/
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_POS = 0
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYA = 0x1 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_POS
+export const V_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_NOTRDY = 0
+export const S_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_NOTRDY = 0 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_POS
+export const V_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_RDY = 1
+export const S_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_RDY = 1 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYA_POS
+/**
+When set, indicates that the output voltage has reached its regulated value*/
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYB_POS = 1
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYB = 0x1 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYB_POS
+/**
+When set, indicates that the output voltage has reached its regulated value*/
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYC_POS = 2
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYC = 0x1 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYC_POS
+/**
+When set, indicates that the output voltage has reached its regulated value*/
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYD_POS = 3
+export const F_SIMO_BUCK_OUT_READY_BUCKOUTRDYD = 0x1 << F_SIMO_BUCK_OUT_READY_BUCKOUTRDYD_POS
+
+// -------- REGISTER ZERO_CROSS_CAL_A -------- //
+
+/**
+Zero Cross Calibration VERGO_A Register*/
+/**
+Zero Cross Calibrartion Value VREGO_A*/
+export const F_SIMO_ZERO_CROSS_CAL_A_ZXCALA_POS = 0
+export const F_SIMO_ZERO_CROSS_CAL_A_ZXCALA = 0xf << F_SIMO_ZERO_CROSS_CAL_A_ZXCALA_POS
+
+// -------- REGISTER ZERO_CROSS_CAL_B -------- //
+
+/**
+Zero Cross Calibration VERGO_B Register*/
+/**
+Zero Cross Calibrartion Value VREGO_B*/
+export const F_SIMO_ZERO_CROSS_CAL_B_ZXCALB_POS = 0
+export const F_SIMO_ZERO_CROSS_CAL_B_ZXCALB = 0xf << F_SIMO_ZERO_CROSS_CAL_B_ZXCALB_POS
+
+// -------- REGISTER ZERO_CROSS_CAL_C -------- //
+
+/**
+Zero Cross Calibration VERGO_C Register*/
+/**
+Zero Cross Calibrartion Value VREGO_C*/
+export const F_SIMO_ZERO_CROSS_CAL_C_ZXCALC_POS = 0
+export const F_SIMO_ZERO_CROSS_CAL_C_ZXCALC = 0xf << F_SIMO_ZERO_CROSS_CAL_C_ZXCALC_POS
+
+// -------- REGISTER ZERO_CROSS_CAL_D -------- //
+
+/**
+Zero Cross Calibration VERGO_D Register*/
+/**
+Zero Cross Calibrartion Value VREGO_D*/
+export const F_SIMO_ZERO_CROSS_CAL_D_ZXCALD_POS = 0
+export const F_SIMO_ZERO_CROSS_CAL_D_ZXCALD = 0xf << F_SIMO_ZERO_CROSS_CAL_D_ZXCALD_POS
+
 // -------- PERIPHERAL TMR -------- //
 
 export interface TMR_t {
@@ -2906,6 +3167,7 @@ export const LPGCR = {} as LPGCR_t
 export const MCR = {} as MCR_t
 export const PWRSEQ = {} as PWRSEQ_t
 export const RTC = {} as RTC_t
+export const SIMO = {} as SIMO_t
 export const TMR0 = {} as TMR_t
 export const UART0 = {} as UART_t
 export const UART3 = {} as UART_t

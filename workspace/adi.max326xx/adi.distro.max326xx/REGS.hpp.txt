@@ -9,6 +9,7 @@
 #include "../../adi.max326xx/adi.distro.max326xx/inc/mcr_regs.h"
 #include "../../adi.max326xx/adi.distro.max326xx/inc/pwrseq_regs.h"
 #include "../../adi.max326xx/adi.distro.max326xx/inc/rtc_regs.h"
+#include "../../adi.max326xx/adi.distro.max326xx/inc/simo_regs.h"
 #include "../../adi.max326xx/adi.distro.max326xx/inc/tmr_regs.h"
 #include "../../adi.max326xx/adi.distro.max326xx/inc/uart_regs.h"
 #include "../../adi.max326xx/adi.distro.max326xx/inc/wdt_regs.h"
