@@ -16,13 +16,10 @@ const clkdiv = $config<u32>()
 export namespace em$meta {
     const PCLK_FREQ = 50_000_000
 
-    export function em$configure() {
-        Idle.em$meta.addSleepEnter($cb(sleepEnter))
-        Idle.em$meta.addSleepLeave($cb(sleepLeave))
-    }
-
     export function em$construct() {
         clkdiv.$$ = Math.round(PCLK_FREQ / baud.$$)
+        Idle.em$meta.addSleepEnter($cb(sleepEnter))
+        Idle.em$meta.addSleepLeave($cb(sleepLeave))
     }
 }
 
