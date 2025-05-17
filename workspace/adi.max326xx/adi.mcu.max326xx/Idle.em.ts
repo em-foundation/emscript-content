@@ -32,6 +32,32 @@ export function em$startup() {
     $['%%b+']
 }
 
+export function exec() {
+    if (cur_pause_only) {
+        doPause()
+    } else {
+        doSleep()
+    }
+}
+
+export function setPauseOnly(pause_only: bool_t) {
+    cur_pause_only = pause_only
+}
+
+export function wakeup() { }
+
+function disablePins() {
+    const mask = 0xffffffff
+    $R.GPIO0.PADCTRL0.$$ = mask
+    $R.GPIO0.PADCTRL1.$$ = mask
+    $R.GPIO0.VSSEL.$$ = ~mask
+    $R.GPIO0.OUTEN_SET.$$ = mask
+    $R.GPIO0.EN0_SET.$$ = mask
+    $R.GPIO0.EN1_CLR.$$ = mask
+    $R.GPIO0.EN2_CLR.$$ = mask
+    $R.GPIO0.OUT_SET.$$ = mask
+}
+
 function doPause() {
     $['%%b:'](1)
     $['%%b-']
@@ -46,11 +72,12 @@ function doSleep() {
     $['%%b:'](2)
     $['%%b-']
     Debug.reset()
+    disablePins()
     IntrVec.PRIMASK_set(1)
     $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
     $R.MCR.CTRL.$$ |= $R.F_MCR_CTRL_ERTCO_EN
     e$`SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk`
-    $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_STANDBY
+    $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_UPM
     e$`asm volatile ("wfi")`
     Debug.startup()
     $['%%b+']
@@ -58,16 +85,3 @@ function doSleep() {
     IntrVec.PRIMASK_set(0)
 }
 
-export function exec() {
-    if (cur_pause_only) {
-        doPause()
-    } else {
-        doSleep()
-    }
-}
-
-export function setPauseOnly(pause_only: bool_t) {
-    cur_pause_only = pause_only
-}
-
-export function wakeup() { }
