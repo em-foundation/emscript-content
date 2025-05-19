@@ -22,6 +22,8 @@ const NVIC_INTRS = [
     'TMR0',
     'TMR1',
     'TMR2',
+    'TMR3',
+    'TMR4',
     'TMR5',
     'RSV11',
     'RSV12',

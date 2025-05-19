@@ -21,13 +21,13 @@ export namespace em$meta {
 var cur_hlr = <Handler>$null
 
 export function em$startup() {
-    $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
-    $R.RTC.CTRL.$$ = 0
-    $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_WR_EN
-    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
-    $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_EN | $R.F_RTC_CTRL_RD_EN | $R.F_RTC_CTRL_WR_EN
-    $R.GCR.PM.$$ |= $R.F_GCR_PM_RTC_WE
-    IntrVec.NVIC_enable(e$`RTC_IRQn`)
+    // $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
+    // $R.RTC.CTRL.$$ = 0
+    // $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_WR_EN
+    // while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
+    // $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_EN | $R.F_RTC_CTRL_RD_EN | $R.F_RTC_CTRL_WR_EN
+    // $R.GCR.PM.$$ |= $R.F_GCR_PM_RTC_WE
+    // IntrVec.NVIC_enable(e$`RTC_IRQn`)
 }
 
 export function disable() {
