@@ -102,6 +102,7 @@ const PERI_CLS_MAP = new Map<string, string>([
     ['UART3', 'UART'],
     ['WDT0', 'WDT'],
     ['WDT1', 'WDT'],
+    ['WUT', 'WUT'],
 ])
 
 const CLS_IDX_SET = new Set<string>(['GPIO', 'UART'])

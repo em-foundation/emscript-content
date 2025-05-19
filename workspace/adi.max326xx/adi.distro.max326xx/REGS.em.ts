@@ -3155,6 +3155,149 @@ Current Value of the Windowed Watchdog Timer Counter.*/
 export const F_WDT_CNT_COUNT_POS = 0
 export const F_WDT_CNT_COUNT = 0xffffffff << F_WDT_CNT_COUNT_POS
 
+// -------- PERIPHERAL WUT -------- //
+
+export interface WUT_t {
+    CNT: em.$Reg
+    CMP: em.$Reg
+    INTR: em.$Reg
+    CTRL: em.$Reg
+    NOLCMP: em.$Reg
+    PRESET: em.$Reg
+    RELOAD: em.$Reg
+    SNAPSHOT: em.$Reg
+}
+
+// -------- REGISTER CNT -------- //
+
+/**
+Count.  This register stores the current timer count.*/
+/**
+Timer Count Value. */
+export const F_WUT_CNT_COUNT_POS = 0
+export const F_WUT_CNT_COUNT = 0xffffffff << F_WUT_CNT_COUNT_POS
+
+// -------- REGISTER CMP -------- //
+
+/**
+Compare.  This register stores the compare value, which is used to set the maximum count value to initiate a reload of the timer to 0x0001.*/
+/**
+Timer Compare Value.*/
+export const F_WUT_CMP_COMPARE_POS = 0
+export const F_WUT_CMP_COMPARE = 0xffffffff << F_WUT_CMP_COMPARE_POS
+
+// -------- REGISTER INTR -------- //
+
+/**
+Clear Interrupt. Writing a value (0 or 1) to a bit in this register clears the associated interrupt.*/
+/**
+Clear Interrupt.*/
+export const F_WUT_INTR_IRQ_CLR_POS = 0
+export const F_WUT_INTR_IRQ_CLR = 0x1 << F_WUT_INTR_IRQ_CLR_POS
+
+// -------- REGISTER CTRL -------- //
+
+/**
+Timer Control Register.*/
+/**
+Timer Mode.*/
+export const F_WUT_CTRL_TMODE_POS = 0
+export const F_WUT_CTRL_TMODE = 0x7 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_ONESHOT = 0
+export const S_WUT_CTRL_TMODE_ONESHOT = 0 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_CONTINUOUS = 1
+export const S_WUT_CTRL_TMODE_CONTINUOUS = 1 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_COUNTER = 2
+export const S_WUT_CTRL_TMODE_COUNTER = 2 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_CAPTURE = 4
+export const S_WUT_CTRL_TMODE_CAPTURE = 4 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_COMPARE = 5
+export const S_WUT_CTRL_TMODE_COMPARE = 5 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_GATED = 6
+export const S_WUT_CTRL_TMODE_GATED = 6 << F_WUT_CTRL_TMODE_POS
+export const V_WUT_CTRL_TMODE_CAPTURECOMPARE = 7
+export const S_WUT_CTRL_TMODE_CAPTURECOMPARE = 7 << F_WUT_CTRL_TMODE_POS
+/**
+Prescaler.  Set the Timer's prescaler value. The prescaler divides the PCLK input to the timer and sets the Timer's Count Clock, F_CNT_CLK = PCLK(HZ)/prescaler. The Timer's prescaler setting is a 4-bit value with pres3:pres[2:0].*/
+export const F_WUT_CTRL_PRES_POS = 3
+export const F_WUT_CTRL_PRES = 0x7 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV1 = 0
+export const S_WUT_CTRL_PRES_DIV1 = 0 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV2 = 1
+export const S_WUT_CTRL_PRES_DIV2 = 1 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV4 = 2
+export const S_WUT_CTRL_PRES_DIV4 = 2 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV8 = 3
+export const S_WUT_CTRL_PRES_DIV8 = 3 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV16 = 4
+export const S_WUT_CTRL_PRES_DIV16 = 4 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV32 = 5
+export const S_WUT_CTRL_PRES_DIV32 = 5 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV64 = 6
+export const S_WUT_CTRL_PRES_DIV64 = 6 << F_WUT_CTRL_PRES_POS
+export const V_WUT_CTRL_PRES_DIV128 = 7
+export const S_WUT_CTRL_PRES_DIV128 = 7 << F_WUT_CTRL_PRES_POS
+/**
+Timer input/output polarity bit.*/
+export const F_WUT_CTRL_TPOL_POS = 6
+export const F_WUT_CTRL_TPOL = 0x1 << F_WUT_CTRL_TPOL_POS
+export const V_WUT_CTRL_TPOL_ACTIVEHI = 0
+export const S_WUT_CTRL_TPOL_ACTIVEHI = 0 << F_WUT_CTRL_TPOL_POS
+export const V_WUT_CTRL_TPOL_ACTIVELO = 1
+export const S_WUT_CTRL_TPOL_ACTIVELO = 1 << F_WUT_CTRL_TPOL_POS
+/**
+Timer Enable.*/
+export const F_WUT_CTRL_TEN_POS = 7
+export const F_WUT_CTRL_TEN = 0x1 << F_WUT_CTRL_TEN_POS
+export const V_WUT_CTRL_TEN_DIS = 0
+export const S_WUT_CTRL_TEN_DIS = 0 << F_WUT_CTRL_TEN_POS
+export const V_WUT_CTRL_TEN_EN = 1
+export const S_WUT_CTRL_TEN_EN = 1 << F_WUT_CTRL_TEN_POS
+/**
+MSB of prescaler value.*/
+export const F_WUT_CTRL_PRES3_POS = 8
+export const F_WUT_CTRL_PRES3 = 0x1 << F_WUT_CTRL_PRES3_POS
+
+// -------- REGISTER NOLCMP -------- //
+
+/**
+Timer Non-Overlapping Compare Register.*/
+/**
+Non-overlapping Low Compare.  The 8-bit timer count value of non-overlapping time between falling edge of PWM output 0A and next rising edge of PWM output 0A'.*/
+export const F_WUT_NOLCMP_NOLLCMP_POS = 0
+export const F_WUT_NOLCMP_NOLLCMP = 0xff << F_WUT_NOLCMP_NOLLCMP_POS
+/**
+Non-overlapping High Compare.  The 8-bit timer count value of non-overlapping time between falling edge of PWM output 0A' and next rising edge of PWM output 0A.*/
+export const F_WUT_NOLCMP_NOLHCMP_POS = 8
+export const F_WUT_NOLCMP_NOLHCMP = 0xff << F_WUT_NOLCMP_NOLHCMP_POS
+
+// -------- REGISTER PRESET -------- //
+
+/**
+Preset register.*/
+/**
+Preset Value.*/
+export const F_WUT_PRESET_PRESET_POS = 0
+export const F_WUT_PRESET_PRESET = 0xffffffff << F_WUT_PRESET_PRESET_POS
+
+// -------- REGISTER RELOAD -------- //
+
+/**
+Reload register.*/
+/**
+Rerload Value.*/
+export const F_WUT_RELOAD_RELOAD_POS = 0
+export const F_WUT_RELOAD_RELOAD = 0xffffffff << F_WUT_RELOAD_RELOAD_POS
+
+// -------- REGISTER SNAPSHOT -------- //
+
+/**
+Snapshot register.*/
+/**
+Snapshot Value.*/
+export const F_WUT_SNAPSHOT_SNAPSHOT_POS = 0
+export const F_WUT_SNAPSHOT_SNAPSHOT = 0xffffffff << F_WUT_SNAPSHOT_SNAPSHOT_POS
+
 // -------- INSTANCES -------- //
 
 export const GCR = {} as GCR_t
@@ -3173,5 +3316,6 @@ export const UART0 = {} as UART_t
 export const UART3 = {} as UART_t
 export const WDT0 = {} as WDT_t
 export const WDT1 = {} as WDT_t
+export const WUT = {} as WUT_t
 export const GPIO = [] as GPIO_t[]
 export const UART = [] as UART_t[]
