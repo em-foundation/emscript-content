@@ -26,7 +26,7 @@ export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
-var cur_pause_only = true
+var cur_pause_only = false
 
 export function em$startup() {
     $['%%b+']
@@ -51,10 +51,14 @@ function disablePins() {
     $R.GPIO0.PADCTRL0.$$ = mask
     $R.GPIO0.PADCTRL1.$$ = mask
     $R.GPIO0.VSSEL.$$ = ~mask
-    $R.GPIO0.OUTEN_SET.$$ = mask
+    $R.GPIO0.INEN.$$ |= mask
+    // $R.GPIO0.EN0_SET.$$ = mask
+    // $R.GPIO0.OUTEN_SET.$$ = mask
     $R.GPIO0.EN0_SET.$$ = mask
     $R.GPIO0.EN1_CLR.$$ = mask
     $R.GPIO0.EN2_CLR.$$ = mask
+    $R.GPIO0.DS0.$$ = ~mask
+    $R.GPIO0.DS1.$$ = ~mask
     $R.GPIO0.OUT_SET.$$ = mask
 }
 

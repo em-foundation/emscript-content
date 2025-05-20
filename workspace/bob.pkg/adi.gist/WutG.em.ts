@@ -15,8 +15,8 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
     $R.GCR.PM.$$ |= $R.F_GCR_PM_WUT_WE
+    $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
     $R.WUT.CMP.$$ = 1024
     $R.WUT.INTR.$$ = 1
     IntrVec.NVIC_clear(e$`WUT_IRQn`)
