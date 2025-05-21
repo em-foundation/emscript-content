@@ -114,6 +114,7 @@ namespace em {
         T& operator*() const { return *$$; }
         T* operator->() const { return $$; }
         operator arg_t() const { return (arg_t)($$); }
+        operator void*() const { return (void*)($$); }
         explicit operator bool() const { return $$ != null; }
         bool operator==(null_t) const { return $$ == null; }
         bool operator!=(null_t) const { return $$ != null; }
