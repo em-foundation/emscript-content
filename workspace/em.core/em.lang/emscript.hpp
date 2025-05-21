@@ -107,6 +107,10 @@ namespace em {
         return range_t<T>(stop, start, step);
     }
 
+    template <typename T>
+    u16 $sizeof() {
+        return sizeof(T);
+    }
 
     template <typename T> struct ref_t {
         T* $$;
