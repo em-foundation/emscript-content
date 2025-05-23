@@ -1222,6 +1222,7 @@ declare global {
     const c$: typeof em.c$
     const e$: typeof em.e$
     const t$: typeof em.t$
+    const $$units: Map<string, any>
 }
 
 Object.assign(globalThis, {
