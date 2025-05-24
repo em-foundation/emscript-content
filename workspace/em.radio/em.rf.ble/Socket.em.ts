@@ -2,6 +2,7 @@ import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
 import * as Dev from '@em.rf.core/Dev.em'
+import * as Poller from '@em.mcu/Poller.em'
 import * as RadioDriverI from '@em.rf.core/RadioDriverI.em'
 import * as Registry from '@em.rf.core/Registry.em'
 import * as Types from '@em.rf.ble/Types.em'
@@ -56,18 +57,27 @@ function controller() {
         switch (cur_state) {
             case State.ADV_PAUSE: {
                 radioOff()
+                Poller.pause(adv_inter)
                 radioOn()
                 setState(State.ADV_SCAN)
                 break
             }
             case State.ADV_SCAN: {
-                break
+                if (cur_adv_chan == NUM_ADV_CHANS) {
+                    cur_adv_chan = 0
+                    setState(State.ADV_PAUSE)
+                    continue
+                }
+                const idx = cur_adv_chan++
+                if (!(adv_mask & (1 << idx))) continue
+                doAdvScan(Types.ADV_CHAN + idx)
+                return
             }
         }
     }
 }
 
-function doAdvScan() {
+function doAdvScan(chan: u8) {
 }
 
 function radioHandler() {

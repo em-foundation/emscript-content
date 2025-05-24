@@ -15,6 +15,9 @@ export const ADV_CONNECT_IND = 0x05
 export const ADV_SCAN_IND = 0x06
 export const ADV_EXT_IND = 0x07
 
+export const MAN_ID_LO = 0x4C
+export const MAN_ID_HI = 0x0B
+
 export class AdvHdr extends $struct {
     advType: u8
     pduLen: u8
@@ -31,6 +34,27 @@ export class AdvHdr extends $struct {
     isMine: () => bool_t
 }
 
-export namespace em$meta { }
+const ADV_LEG_INIT = $config<AdvHdr>()
+
+export namespace em$meta {
+    export function em$construct() {
+        ADV_LEG_INIT.$$.flagsLen = 2
+        ADV_LEG_INIT.$$.flagsCode = 0x1
+        ADV_LEG_INIT.$$.flagsVal = 0x6 // BR_EDR_NOT_SUPPORTED | LE_GENERAL_DISC_MODE
+        ADV_LEG_INIT.$$.manLen = 3
+        ADV_LEG_INIT.$$.manCode = 0xff
+        ADV_LEG_INIT.$$.manIdLo = MAN_ID_LO
+        ADV_LEG_INIT.$$.manIdHi = MAN_ID_HI
+        ADV_LEG_INIT.$$.advA[0] = 0xaa
+        ADV_LEG_INIT.$$.advA[1] = 0xaa
+        ADV_LEG_INIT.$$.advA[2] = 0xbb
+        ADV_LEG_INIT.$$.advA[3] = 0xbb
+        ADV_LEG_INIT.$$.advA[4] = 0xcc
+        ADV_LEG_INIT.$$.advA[5] = 0xcc
+    }
+}
 
 //>> ---- em$targ ---- <<//
+
+function AdvHdr__init(self: ref_t<AdvHdr>): void {
+}
