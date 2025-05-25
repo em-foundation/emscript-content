@@ -876,8 +876,25 @@ namespace em {
         }
     }
 
-    export function $sizeof<T>(required?: undefined) {
-        return 0
+    const $sizeMap: ReadonlyMap<string, number> = new Map([
+        ['bool_t', 1],
+        ['i8', 1],
+        ['i16', 2],
+        ['i32', 4],
+        ['i64', 8],
+        ['u8', 1],
+        ['u16', 2],
+        ['u32', 4],
+        ['u64', 8],
+        ['<cb_t', 4],
+        ['<ptr_t', 4],
+        ['<ref_t', 4],
+    ])
+
+    export function $sizeof<T>($type?: never): u16 {
+        const ts = $type as unknown as string
+        if ($sizeMap.has(ts)) return $sizeMap.get(ts)!
+        return Number.NaN
     }
 
     class em$BoxedVal<T> {
