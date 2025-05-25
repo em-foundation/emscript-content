@@ -878,17 +878,17 @@ namespace em {
 
     const $sizeMap: ReadonlyMap<string, number> = new Map([
         ['bool_t', 1],
+        ['cb_t', 4],
         ['i8', 1],
         ['i16', 2],
         ['i32', 4],
         ['i64', 8],
+        ['ptr_t', 4],
+        ['ref_t', 4],
         ['u8', 1],
         ['u16', 2],
         ['u32', 4],
         ['u64', 8],
-        ['<cb_t', 4],
-        ['<ptr_t', 4],
-        ['<ref_t', 4],
     ])
 
     export function $sizeof<T>($type?: never): u16 {
