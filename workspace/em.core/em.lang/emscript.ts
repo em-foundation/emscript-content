@@ -891,9 +891,29 @@ namespace em {
         ['u64', 8],
     ])
 
-    export function $sizeof<T>($type?: never): u16 {
-        const ts = $type as unknown as string
-        if ($sizeMap.has(ts)) return $sizeMap.get(ts)!
+    export function $sizeof<T>($type?: never, $uid?: never): u16 {
+        let type = $type as unknown as string
+        let uid = $uid as unknown as string
+        if (type.match(/^\w+$/)) {
+            if ($sizeMap.has(type)) {
+                return $sizeMap.get(type)!
+            }
+            type = `@${uid}:${type}`
+        }
+        let tn: string | undefined
+        while (true) {
+            const m = type.match(/^\@(.+)\:(\w+)$/)
+            if (!m) break
+            uid = m[1]
+            tn = m[2]
+            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
+        }
+        if (type.startsWith('[') && tn) {
+            const uobj = $$units.get(uid)!
+            if (tn in uobj) {
+                return (new uobj[tn]).$len * $sizeof<T>(type.slice(1) as never, uid as never)
+            }
+        }
         return Number.NaN
     }
 

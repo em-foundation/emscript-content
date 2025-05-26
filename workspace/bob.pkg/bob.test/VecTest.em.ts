@@ -12,7 +12,7 @@ var tab = Tab.$make()
 
 export namespace em$meta {
     export function em$construct() {
-        // console.log($$tdefs)
+        console.log($$tdefs)
         console.log($sizeof<ptr_t<u8>>())
     }
 }
