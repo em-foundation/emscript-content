@@ -5,13 +5,18 @@ export const $U = em.$declare('MODULE')
 // 
 // export type Key = GlobalInterruptsI.Key
 // export type MyKey = Key
+// 
+// class Tab extends $vector<u32> { $len = 10 }
 
-class Tab extends $vector<u32> { $len = 10 }
+class S extends $struct {
+    x: u16
+    y: u8
+}
 
 export namespace em$meta {
     export function em$construct() {
         console.log($$tdefs)
-        console.log($sizeof<Tab>())
+        console.log($sizeof<S>())
     }
 }
 

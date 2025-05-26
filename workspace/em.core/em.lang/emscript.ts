@@ -577,6 +577,78 @@ namespace em {
 
     // #endregion
 
+    const __SIZEOF__ = null
+    // #region
+
+    const sizeMap: ReadonlyMap<string, number> = new Map([
+        ['bool_t', 1],
+        ['cb_t', 4],
+        ['i8', 1],
+        ['i16', 2],
+        ['i32', 4],
+        ['i64', 8],
+        ['ptr_t', 4],
+        ['ref_t', 4],
+        ['u8', 1],
+        ['u16', 2],
+        ['u32', 4],
+        ['u64', 8],
+    ])
+
+    function sizeofAux(type: string, uid: string, align: number): [number, number] {
+        if (type.match(/^\w+$/)) {
+            const sz = sizeMap.get(type)
+            if (sz) {
+                return [sz, sz]
+            }
+            type = `@${uid}:${type}`
+        }
+        let tn: string | undefined
+        while (true) {
+            const m = type.match(/^\@(.+)\:(\w+)$/)
+            if (!m) break
+            uid = m[1]
+            tn = m[2]
+            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
+        }
+        if (type.match(/^\w+$/)) {
+            return sizeofAux(type, uid, align)
+        }
+        if (type.startsWith('[') && tn) {
+            const uobj = $$units.get(uid)!
+            if (tn in uobj) {
+                const [sz, al] = sizeofAux(type.slice(1), uid, align)
+                return [(new uobj[tn]).$len * sz, al]
+            }
+        }
+        if (type.startsWith('{')) {
+            let size = 0
+            let d = 0
+            for (const ft of type.slice(1).split(',')) {
+                const [sz, al] = sizeofAux(ft, uid, align)
+                d = size % al
+                if (d != 0) {
+                    size += al - d
+                }
+                size += sz
+                align = Math.max(al, align)
+            }
+            d = size % align
+            if (d != 0) {
+                size += align - d
+            }
+            return [size, align]
+        }
+        return [Number.NaN, align]
+    }
+
+    export function $sizeof<T>($type?: never, $uid?: never): u16 {
+        const [sz, al] = sizeofAux($type as unknown as string, $uid as unknown as string, -1)
+        return sz
+    }
+
+    // #endregion
+
     const __STRUCT__ = null
     // #region
 
@@ -874,47 +946,6 @@ namespace em {
         } else {
             for (let i = start; i > stop; i += step) yield i
         }
-    }
-
-    const $sizeMap: ReadonlyMap<string, number> = new Map([
-        ['bool_t', 1],
-        ['cb_t', 4],
-        ['i8', 1],
-        ['i16', 2],
-        ['i32', 4],
-        ['i64', 8],
-        ['ptr_t', 4],
-        ['ref_t', 4],
-        ['u8', 1],
-        ['u16', 2],
-        ['u32', 4],
-        ['u64', 8],
-    ])
-
-    export function $sizeof<T>($type?: never, $uid?: never): u16 {
-        let type = $type as unknown as string
-        let uid = $uid as unknown as string
-        if (type.match(/^\w+$/)) {
-            if ($sizeMap.has(type)) {
-                return $sizeMap.get(type)!
-            }
-            type = `@${uid}:${type}`
-        }
-        let tn: string | undefined
-        while (true) {
-            const m = type.match(/^\@(.+)\:(\w+)$/)
-            if (!m) break
-            uid = m[1]
-            tn = m[2]
-            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
-        }
-        if (type.startsWith('[') && tn) {
-            const uobj = $$units.get(uid)!
-            if (tn in uobj) {
-                return (new uobj[tn]).$len * $sizeof<T>(type.slice(1) as never, uid as never)
-            }
-        }
-        return Number.NaN
     }
 
     class em$BoxedVal<T> {
