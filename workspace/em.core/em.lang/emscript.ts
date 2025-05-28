@@ -437,26 +437,38 @@ namespace em {
         len = len == 0 ? arr.length - start : len
         return new em$frame<T>(arr, start, len)
     }
-
     const __PARAM__ = null
     // #region
 
     class em$config_t<T> {
         private $$em$config: string = 'config'
-        private val: T
-        constructor(val: T) {
-            this.val = val
+        private _val: T | undefined
+        private _type: string
+        private _uid: string
+        constructor(v: T | undefined, t: string, u: string) {
+            this._val = v
+            this._type = t
+            this._uid = u
         }
+        _$$init() {
+            if (this._val == undefined) {
+                this._val = defaultAux(this._type, this._uid) as T
+            }
+        }
+
         get $$(): T {
-            return this.val
+            return this._val!
         }
         set $$(v: T) {
-            this.val = v
+            this._val = v
         }
     }
     export function $config<T>(val?: T, $type?: never, $uid?: never): em$config_t<T> & Boxed<T> {
-        const v = ($uid !== undefined) ? val! : defaultAux(val as string, $type as unknown as string) as T
-        return new em$config_t<T>(v)
+        if ($uid !== undefined) {
+            return new em$config_t<T>(val, $type as unknown as string, $uid as unknown as string)
+        } else {
+            return new em$config_t<T>(undefined, val as string, $type as unknown as string)
+        }
     }
 
     // #endregion
