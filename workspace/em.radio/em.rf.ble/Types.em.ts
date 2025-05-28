@@ -38,21 +38,22 @@ const ADV_LEG_INIT = $config<AdvHdr>()
 
 export namespace em$meta {
     export function em$construct() {
-        ADV_LEG_INIT.$$ = AdvHdr.$make()
-        ADV_LEG_INIT.$$.flagsLen = 2
-        ADV_LEG_INIT.$$.flagsCode = 0x1
-        ADV_LEG_INIT.$$.flagsVal = 0x6 // BR_EDR_NOT_SUPPORTED | LE_GENERAL_DISC_MODE
-        ADV_LEG_INIT.$$.manLen = 3
-        ADV_LEG_INIT.$$.manCode = 0xff
-        ADV_LEG_INIT.$$.manIdLo = MAN_ID_LO
-        ADV_LEG_INIT.$$.manIdHi = MAN_ID_HI
-        ADV_LEG_INIT.$$.advA = Dev.Addr.$make()
-        ADV_LEG_INIT.$$.advA[0] = 0xaa
-        ADV_LEG_INIT.$$.advA[1] = 0xaa
-        ADV_LEG_INIT.$$.advA[2] = 0xbb
-        ADV_LEG_INIT.$$.advA[3] = 0xbb
-        ADV_LEG_INIT.$$.advA[4] = 0xcc
-        ADV_LEG_INIT.$$.advA[5] = 0xcc
+        console.log(ADV_LEG_INIT.$$)
+        // ADV_LEG_INIT.$$ = AdvHdr.$make()
+        // ADV_LEG_INIT.$$.flagsLen = 2
+        // ADV_LEG_INIT.$$.flagsCode = 0x1
+        // ADV_LEG_INIT.$$.flagsVal = 0x6 // BR_EDR_NOT_SUPPORTED | LE_GENERAL_DISC_MODE
+        // ADV_LEG_INIT.$$.manLen = 3
+        // ADV_LEG_INIT.$$.manCode = 0xff
+        // ADV_LEG_INIT.$$.manIdLo = MAN_ID_LO
+        // ADV_LEG_INIT.$$.manIdHi = MAN_ID_HI
+        // ADV_LEG_INIT.$$.advA = Dev.Addr.$make()
+        // ADV_LEG_INIT.$$.advA[0] = 0xaa
+        // ADV_LEG_INIT.$$.advA[1] = 0xaa
+        // ADV_LEG_INIT.$$.advA[2] = 0xbb
+        // ADV_LEG_INIT.$$.advA[3] = 0xbb
+        // ADV_LEG_INIT.$$.advA[4] = 0xcc
+        // ADV_LEG_INIT.$$.advA[5] = 0xcc
     }
 }
 

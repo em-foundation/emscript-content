@@ -1240,6 +1240,7 @@ namespace em {
     }
 
     export class $vector<T> implements frame_t<T> {
+        __em$class = 'em$vector'
         $len: u16
         [index: number]: T
         private _elem_rtt: string
