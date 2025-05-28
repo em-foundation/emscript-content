@@ -443,19 +443,20 @@ namespace em {
 
     class em$config_t<T> {
         private $$em$config: string = 'config'
-        private val: T | null = null
-        constructor(val?: T) {
-            this.val = val === undefined ? null : val
+        private val: T
+        constructor(val: T) {
+            this.val = val
         }
         get $$(): T {
-            return this.val!
+            return this.val
         }
         set $$(v: T) {
             this.val = v
         }
     }
-    export function $config<T>(val?: T): em$config_t<T> & Boxed<T> {
-        return new em$config_t<T>(val)
+    export function $config<T>(val?: T, $type?: never, $uid?: never): em$config_t<T> & Boxed<T> {
+        const v = ($uid !== undefined) ? val! : defaultAux(val as string, $type as unknown as string) as T
+        return new em$config_t<T>(v)
     }
 
     // #endregion
@@ -506,6 +507,132 @@ namespace em {
         readonly $alignof: u16 = 4
         readonly $sizeof: u16 = 4
         constructor(public target: T | null) { }
+    }
+
+    // #endregion
+
+    const __RTT__ = null
+    // #region
+
+    const typeDefaults: ReadonlyMap<string, any> = new Map<string, any>([
+        ['bool_t', false],
+        ['cb_t', $cb$null()],
+        ['i8', 0],
+        ['i16', 0],
+        ['i32', 0],
+        ['i64', 0],
+        ['ptr_t', null],
+        ['ref_t', null],
+        ['u8', 0],
+        ['u16', 0],
+        ['u32', 0],
+        ['u64', 0],
+    ])
+
+    function defaultAux(type: string, uid: string): any {
+        if (type === 'unknown') {
+            return undefined
+        }
+        if (type.match(/^\w+$/)) {
+            const val = typeDefaults.get(type)
+            if (val !== undefined) {
+                return val
+            }
+            type = `@${uid}:${type}`
+        }
+        let tn: string | undefined
+        while (true) {
+            const m = type.match(/^\@(.+)\:(\w+)$/)
+            if (!m) break
+            uid = m[1]
+            tn = m[2]
+            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
+        }
+        if (type.match(/^\w+$/)) {
+            return defaultAux(type, uid)
+        }
+        if (type.startsWith('[')) {
+
+        }
+        if (type.match(/^\[|\{/) && tn) {
+            const uobj = $$units.get(uid)!
+            if (tn in uobj) {
+                return uobj[tn].$make()
+            }
+        }
+        return undefined
+    }
+
+
+    export function $default<T>($type?: never, $uid?: never): T {
+        return defaultAux($type as unknown as string, $uid as unknown as string) as T
+    }
+
+    const typeSizes: ReadonlyMap<string, number> = new Map([
+        ['bool_t', 1],
+        ['cb_t', 4],
+        ['i8', 1],
+        ['i16', 2],
+        ['i32', 4],
+        ['i64', 8],
+        ['ptr_t', 4],
+        ['ref_t', 4],
+        ['u8', 1],
+        ['u16', 2],
+        ['u32', 4],
+        ['u64', 8],
+    ])
+
+    function sizeofAux(type: string, uid: string, align: number): [number, number] {
+        if (type.match(/^\w+$/)) {
+            const sz = typeSizes.get(type)
+            if (sz) {
+                return [sz, sz]
+            }
+            type = `@${uid}:${type}`
+        }
+        let tn: string | undefined
+        while (true) {
+            const m = type.match(/^\@(.+)\:(\w+)$/)
+            if (!m) break
+            uid = m[1]
+            tn = m[2]
+            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
+        }
+        if (type.match(/^\w+$/)) {
+            return sizeofAux(type, uid, align)
+        }
+        if (type.startsWith('[') && tn) {
+            const uobj = $$units.get(uid)!
+            if (tn in uobj) {
+                const [sz, al] = sizeofAux(type.slice(1), uid, align)
+                return [(new uobj[tn]).$len * sz, al]
+            }
+        }
+        if (type.startsWith('{')) {
+            let size = 0
+            let d = 0
+            for (const ft of type.slice(1).split(',')) {
+                const [sz, al] = sizeofAux(ft, uid, align)
+                d = size % al
+                if (d != 0) {
+                    size += al - d
+                }
+                size += sz
+                align = Math.max(al, align)
+            }
+            d = size % align
+            if (d != 0) {
+                size += align - d
+            }
+            return [size, align]
+        }
+        return [Number.NaN, align]
+    }
+
+    export function $sizeof<T>($type?: never, $uid?: never): u16 {
+        const [sz, al] = sizeofAux($type as unknown as string, $uid as unknown as string, -1)
+        return sz
     }
 
     // #endregion
@@ -573,78 +700,6 @@ namespace em {
     }
     export function $u64(val: u64 = 0): Contained<u64> & em$Scalar<u64> {
         return new em$Scalar('u64', val, 8)
-    }
-
-    // #endregion
-
-    const __SIZEOF__ = null
-    // #region
-
-    const sizeMap: ReadonlyMap<string, number> = new Map([
-        ['bool_t', 1],
-        ['cb_t', 4],
-        ['i8', 1],
-        ['i16', 2],
-        ['i32', 4],
-        ['i64', 8],
-        ['ptr_t', 4],
-        ['ref_t', 4],
-        ['u8', 1],
-        ['u16', 2],
-        ['u32', 4],
-        ['u64', 8],
-    ])
-
-    function sizeofAux(type: string, uid: string, align: number): [number, number] {
-        if (type.match(/^\w+$/)) {
-            const sz = sizeMap.get(type)
-            if (sz) {
-                return [sz, sz]
-            }
-            type = `@${uid}:${type}`
-        }
-        let tn: string | undefined
-        while (true) {
-            const m = type.match(/^\@(.+)\:(\w+)$/)
-            if (!m) break
-            uid = m[1]
-            tn = m[2]
-            type = $$tdefs.get(type.slice(1)) ?? 'unknown'
-        }
-        if (type.match(/^\w+$/)) {
-            return sizeofAux(type, uid, align)
-        }
-        if (type.startsWith('[') && tn) {
-            const uobj = $$units.get(uid)!
-            if (tn in uobj) {
-                const [sz, al] = sizeofAux(type.slice(1), uid, align)
-                return [(new uobj[tn]).$len * sz, al]
-            }
-        }
-        if (type.startsWith('{')) {
-            let size = 0
-            let d = 0
-            for (const ft of type.slice(1).split(',')) {
-                const [sz, al] = sizeofAux(ft, uid, align)
-                d = size % al
-                if (d != 0) {
-                    size += al - d
-                }
-                size += sz
-                align = Math.max(al, align)
-            }
-            d = size % align
-            if (d != 0) {
-                size += align - d
-            }
-            return [size, align]
-        }
-        return [Number.NaN, align]
-    }
-
-    export function $sizeof<T>($type?: never, $uid?: never): u16 {
-        const [sz, al] = sizeofAux($type as unknown as string, $uid as unknown as string, -1)
-        return sz
     }
 
     // #endregion
@@ -1175,7 +1230,7 @@ namespace em {
     export class $vector<T> implements frame_t<T> {
         $len: u16
         [index: number]: T
-        private _defval: T
+        private _elem_rtt: string
         private items: globalThis.Array<T>
         static $make<T>(this: { new(): T }): T {
             const handler = {
@@ -1197,8 +1252,9 @@ namespace em {
             }
             let o = new this() as any
             o.items = Array.from({ length: o.$len })
+            const [t, u] = (o._elem_rtt as string).split('|')
             for (let i = 0; i < o.$len; i++) {
-                o.items[i] = clone(o._defval)
+                o.items[i] = defaultAux(t, u)
             }
             return new globalThis.Proxy(o, handler)
         }
@@ -1259,6 +1315,7 @@ declare global {
     const $cb: typeof em.$cb
     const $cb$null: typeof em.$cb$null
     const $clone: typeof em.$clone
+    const $default: typeof em.$default
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
     const $frame: typeof em.$frame
@@ -1303,6 +1360,7 @@ Object.assign(globalThis, {
     $cb: em.$cb,
     $cb$null: em.$cb$null,
     $clone: em.$clone,
+    $default: em.$default,
     $delegate: em.$delegate,
     $factory: em.$factory,
     $frame: em.$frame,

@@ -4,18 +4,20 @@ export const $U = em.$declare('MODULE')
 class Tab extends $vector<u8> { $len = 3 }
 
 class S extends $struct {
-    tab: Tab
+    x: u32
+    t: Tab
 }
-
-var s = S.$make()
+// 
+// const cfg = $config<bool_t>()
 
 export namespace em$meta {
     export function em$construct() {
-        console.log(s.tab[1])
+        console.log(S.$make())
     }
 }
 
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
+    em.halt()
 }
