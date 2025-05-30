@@ -726,6 +726,7 @@ namespace em {
             console.log('*** bad call to $make()')
             return new this()
         }
+        static $$ = $struct.prototype
     }
     // #endregion
 
