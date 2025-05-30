@@ -8,8 +8,15 @@ interface Obj {
     add(this: Obj, y: u8): u8
 }
 
+var obj = Obj.$make()
+
+export namespace em$meta {
+    export function em$construct() {
+        console.log(typeof obj.add)
+    }
+}
+
 export function em$run() {
-    let obj = Obj.$make()
     printf`z = %d\n`(obj.add(20))
 }
 
