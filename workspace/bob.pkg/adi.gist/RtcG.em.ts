@@ -21,14 +21,12 @@ export namespace em$meta {
 // }
 
 export function em$run() {
-    $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_WR_EN
     $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_EN
     while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { } // KEEP
     $R.RTC.SSECA.$$ = 0xffffffff - (1 << 12) // 1 SEC ALARM
     $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_SSEC_ALARM_IE
     while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { } // KEEP
     $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_EN
-    $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_WR_EN
     Common.GlobalInterrupts.$$.enable()
     Common.Idle.$$.exec()
 }
