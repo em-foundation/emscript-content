@@ -21,11 +21,15 @@ export namespace em$meta {
 var cur_hlr = <Handler>$null
 
 export function em$startup() {
+    // $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
+    // $R.GCR.PM.$$ |= $R.F_GCR_PM_RTC_WE
+    // $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_RD_EN
+    // IntrVec.NVIC_enable(e$`RTC_IRQn`)
     $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
     $R.RTC.CTRL.$$ = 0
     $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_WR_EN
     while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
-    $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_EN | $R.F_RTC_CTRL_RD_EN | $R.F_RTC_CTRL_WR_EN
+    $R.RTC.CTRL.$$ = $R.F_RTC_CTRL_EN | $R.F_RTC_CTRL_RD_EN
     $R.GCR.PM.$$ |= $R.F_GCR_PM_RTC_WE
     IntrVec.NVIC_enable(e$`RTC_IRQn`)
 }
@@ -38,9 +42,19 @@ export function disable() {
 
 export function enable(thresh: u32, handler: Handler) {
     cur_hlr = handler
+    $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_WR_EN
+    $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_EN
     $R.RTC.SSECA.$$ = thresh
-    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
     $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_SSEC_ALARM_IE
+    while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
+    $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_EN
+    $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_WR_EN
+
+    // $R.RTC.CTRL.$$ &= ~$R.F_RTC_CTRL_EN
+    // $R.RTC.SSECA.$$ = thresh
+    // $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_SSEC_ALARM_IE
+    // while ($R.RTC.CTRL.$$ & $R.F_RTC_CTRL_BUSY) { }
+    // $R.RTC.CTRL.$$ |= $R.F_RTC_CTRL_EN
 }
 
 export function getRawTime(): TimeTypes.RawTime {

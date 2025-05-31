@@ -17,19 +17,21 @@ export namespace em$meta {
 export function em$run() {
     $R.GCR.PM.$$ |= $R.F_GCR_PM_WUT_WE
     $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ERTCO_EN
-    $R.WUT.CMP.$$ = 1024
+    $R.WUT.CMP.$$ = 32780
+    $R.WUT.CNT.$$ = 1
     $R.WUT.INTR.$$ = 1
     IntrVec.NVIC_clear(e$`WUT_IRQn`)
     IntrVec.NVIC_enable(e$`WUT_IRQn`)
-    $['%%d+']
+    $['%%d']
     $R.WUT.CTRL.$$ = $R.F_WUT_CTRL_TEN
+    while ($R.WUT.CNT.$$ < 3) { }
     Common.GlobalInterrupts.$$.enable()
     Common.Idle.$$.exec()
 }
 
 export function WUT_isr$$() {
+    $['%%d']
     $R.WUT.INTR.$$ = 1
     IntrVec.NVIC_clear(e$`WUT_IRQn`)
-    $['%%d-']
     halt()
 }
