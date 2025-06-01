@@ -66,6 +66,7 @@ export function toThresh(ticks: u32): u32 {
 }
 
 export function RTC_isr$$() {
+    IntrVec.NVIC_clear(e$`RTC_IRQn`)
     const hlr = cur_hlr
     disable()
     if (hlr != $null) hlr()
