@@ -72,16 +72,10 @@ function doPause() {
 }
 
 function doSleep() {
-    // printf`GCR.CLKCTRL = %08x\n`($R.GCR.CLKCTRL.$$)
-    // printf`GCR.PM = %08x\n`($R.GCR.PM.$$)
-    // printf`MCR.CTRL = %08x\n`($R.MCR.CTRL.$$)
-    // printf`PWR.LPCN = %08x\n`($R.PWRSEQ.LPCN.$$)
-    // printf`RTC.CTRL = %08x\n`($R.RTC.CTRL.$$)
-    // halt()
     for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
-    Debug.reset()
+    // Debug.reset()
     disablePins()
     IntrVec.PRIMASK_set(1)
     $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
