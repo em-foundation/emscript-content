@@ -47,7 +47,7 @@ export function setPauseOnly(pause_only: bool_t) {
 export function wakeup() { }
 
 function disablePins() {
-    const mask = 0xffffffff
+    const mask = 0xE7F3FFF0
     $R.GPIO0.PADCTRL0.$$ = mask
     $R.GPIO0.PADCTRL1.$$ = mask
     $R.GPIO0.VSSEL.$$ = ~mask
@@ -78,10 +78,10 @@ function doSleep() {
     // printf`PWR.LPCN = %08x\n`($R.PWRSEQ.LPCN.$$)
     // printf`RTC.CTRL = %08x\n`($R.RTC.CTRL.$$)
     // halt()
-    // for (let cb of sleep_enter_tab) cb()
+    for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
-    // Debug.reset()
+    Debug.reset()
     disablePins()
     IntrVec.PRIMASK_set(1)
     $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR

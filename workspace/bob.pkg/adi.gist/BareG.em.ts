@@ -45,8 +45,8 @@ function busyWait(cnt: u32) {
 }
 
 function disablePins() {
-    // const mask = 0xE7F3FFF0
-    const mask = 0xffffffff
+    const mask = 0xE7F3FFF0
+    // const mask = 0xffffffff
     $R.GPIO0.PADCTRL0.$$ = mask
     $R.GPIO0.PADCTRL1.$$ = mask
     $R.GPIO0.VSSEL.$$ = ~mask
@@ -67,6 +67,7 @@ function enableWUT() {
     IntrVec.NVIC_clear(e$`WUT_IRQn`)
     IntrVec.NVIC_enable(e$`WUT_IRQn`)
     $R.WUT.CTRL.$$ = $R.F_WUT_CTRL_TEN
+    while ($R.WUT.CNT.$$ < 3) { }
 }
 
 function enterSleep() {
