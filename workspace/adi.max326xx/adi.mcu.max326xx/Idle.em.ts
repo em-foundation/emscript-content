@@ -52,8 +52,6 @@ function disablePins() {
     $R.GPIO0.PADCTRL1.$$ = mask
     $R.GPIO0.VSSEL.$$ = ~mask
     $R.GPIO0.INEN.$$ |= mask
-    // $R.GPIO0.EN0_SET.$$ = mask
-    // $R.GPIO0.OUTEN_SET.$$ = mask
     $R.GPIO0.EN0_SET.$$ = mask
     $R.GPIO0.EN1_CLR.$$ = mask
     $R.GPIO0.EN2_CLR.$$ = mask
