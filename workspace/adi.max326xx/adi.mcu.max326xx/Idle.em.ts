@@ -64,6 +64,7 @@ function doPause() {
     $['%%b:'](1)
     $['%%b-']
     IntrVec.PRIMASK_set(1)
+    e$`SCB->SCR &= ~SCB_SCR_SLEEPDEEP_Msk`
     e$`asm volatile ("wfi")`
     $['%%b+']
     IntrVec.PRIMASK_set(0)
@@ -73,7 +74,7 @@ function doSleep() {
     for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
-    // Debug.reset()
+    Debug.reset()
     disablePins()
     IntrVec.PRIMASK_set(1)
     $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
