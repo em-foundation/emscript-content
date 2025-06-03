@@ -941,7 +941,7 @@ namespace em {
         ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
         : T
 
-    export function clone<T extends object>(obj: T): T {
+    function clone<T extends object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
             return obj
         }
@@ -989,42 +989,6 @@ namespace em {
             console.log(sprintf(sa[0], a1, a2, a3, a4, a5, a6))
         }
         return fn
-    }
-
-    export function* range(min: number, max: number): Iterable<number> {
-        for (let i = min; i < max; i++) {
-            yield i
-        }
-    }
-
-    export function memoryof(obj: any): MemInfo {
-        if (obj === null || typeof obj !== 'object') {
-            return { size: Number.NaN, align: Number.NaN }
-        }
-        if (obj instanceof em.em$Scalar) {
-            return obj.$memory
-        }
-        let res = { size: 0, align: 0 }
-        const align = (sz: number, al: number): number => {
-            return (sz + al - 1) & ~(al - 1)
-        }
-        for (const [key, val] of Object.entries(obj as object)) {
-            const mi = memoryof(val)
-            if (Number.isNaN(mi.size))
-                throw new Error(`*** memoryof: unsized field '${key}' `)
-            if (mi.align > res.align) res.align = mi.align
-            res.size = align(res.size, mi.align) + mi.size
-        }
-        res.size = align(res.size, res.align)
-        return res
-    }
-
-    export function alignof(proto: object): number {
-        return memoryof(proto).align
-    }
-
-    export function sizeof(proto: object): number {
-        return memoryof(proto).size
     }
 
     export function $outfile(path: string, mode?: Fs.Mode): em$OutFile {
@@ -1176,7 +1140,6 @@ namespace em {
 
     // #endregion
 }
-
 
 declare global {
     type arg_t = em.arg_t
