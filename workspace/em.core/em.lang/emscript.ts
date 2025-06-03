@@ -502,27 +502,6 @@ namespace em {
 
     // #endregion
 
-    const __REF__ = null
-    // #region
-
-    export function ref<T>(): em$RefProto<T> {
-        return new em$RefProto<T>()
-    }
-
-    export class em$RefProto<T> implements Sized {
-        readonly $alignof: u16 = 4
-        readonly $sizeof: u16 = 4
-        constructor(public target: em$RefVal<T> | null = null) { }
-    }
-
-    export class em$RefVal<T> implements Sized {
-        readonly $alignof: u16 = 4
-        readonly $sizeof: u16 = 4
-        constructor(public target: T | null) { }
-    }
-
-    // #endregion
-
     const __RTT__ = null
     // #region
 
@@ -1024,9 +1003,7 @@ namespace em {
     }
 
     export type Unbox<T> =
-        T extends em$RefProto<infer RefType>
-        ? em$RefVal<Unbox<RefType>> // Force correct wrapping in `em$RefVal`
-        : T extends { $$: infer U }
+        T extends { $$: infer U }
         ? U // Boxed scalar case
         : T extends em$ArrayProto<infer Proto>
         ? em$ArrayVal<Unbox<Proto>> // Array case
@@ -1035,9 +1012,6 @@ namespace em {
         : T
 
     export function instantiate<T extends object>(proto: T): Unbox<T> {
-        if (proto instanceof em$RefProto) {
-            return new em$RefVal(null as any) as Unbox<T> // Explicit type cast
-        }
         if ('$$' in proto) {
             // Boxed scalar case
             return (proto as { $$: any }).$$ as Unbox<T>
@@ -1051,9 +1025,6 @@ namespace em {
                 len,
                 defaultVal
             ) as Unbox<T>
-        }
-        if (proto instanceof em$RefProto) {
-            return new em$RefVal<T>(null) as unknown as Unbox<T>
         }
         throw new Error('Unsupported proto type.')
     }
