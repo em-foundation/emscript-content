@@ -573,58 +573,6 @@ namespace em {
     export type u32 = number & { __u32?: never }
     export type u64 = number & { __u64?: never }
 
-    export class em$Scalar<T> {
-        $memory: MemInfo
-        $cname: string
-        private $val: T
-        constructor(name: string, val: T, sz: number) {
-            this.$cname = `em::${name}`
-            this.$val = val
-            this.$memory = { size: sz, align: sz }
-        }
-        get $alignof(): number {
-            return this.$memory.align
-        }
-        get $sizeof(): number {
-            return this.$memory.size
-        }
-        get $$(): T {
-            return this.$val
-        }
-        set $$(val: T) {
-            this.$val = val
-        }
-    }
-    export function $bool(
-        val: bool_t = false
-    ): Contained<bool_t> & em$Scalar<bool_t> {
-        return new em$Scalar('boot_t', val, 1)
-    }
-    export function $i8(val: i8 = 0): Contained<i8> & em$Scalar<i8> {
-        return new em$Scalar('i8', val, 1)
-    }
-    export function $i16(val: i16 = 0): Contained<i16> & em$Scalar<i16> {
-        return new em$Scalar('i16', val, 2)
-    }
-    export function $i32(val: i32 = 0): Contained<i32> & em$Scalar<i32> {
-        return new em$Scalar('i32', val, 4)
-    }
-    export function $i64(val: i64 = 0): Contained<i64> & em$Scalar<i64> {
-        return new em$Scalar('i64', val, 8)
-    }
-    export function $u8(val: u8 = 0): Contained<u8> & em$Scalar<u8> {
-        return new em$Scalar('u8', val, 1)
-    }
-    export function $u16(val: u16 = 0): Contained<u16> & em$Scalar<u16> {
-        return new em$Scalar('u16', val, 2)
-    }
-    export function $u32(val: u32 = 0): Contained<u32> & em$Scalar<u32> {
-        return new em$Scalar('u32', val, 4)
-    }
-    export function $u64(val: u64 = 0): Contained<u64> & em$Scalar<u64> {
-        return new em$Scalar('u64', val, 8)
-    }
-
     // #endregion
 
     const __STRUCT__ = null
@@ -1078,10 +1026,6 @@ namespace em {
     const __VECTOR__ = null
     // #region
 
-    export class vec_t<T> {
-        constructor(readonly len: number) { }
-    }
-
     export class $vector<T> implements frame_t<T> {
         __em$class = 'em$vector'
         $len: u16
@@ -1160,27 +1104,21 @@ declare global {
     type u32 = em.u32
     type u64 = em.u64
     type text_t = em.text_t
-    type vec_t<T, N extends number> = typeof em.vec_t
     type volatile_t<T> = em.volatile_t<T>
     const $: typeof em.$
     const $bkpt: typeof em.$bkpt
     const $board: typeof em.$board
-    const $bool: typeof em.$bool
     const $cb: typeof em.$cb
     const $cb$null: typeof em.$cb$null
     const $clone: typeof em.$clone
+    const $config: typeof em.$config
     const $default: typeof em.$default
     const $delegate: typeof em.$delegate
     const $factory: typeof em.$factory
     const $frame: typeof em.$frame
     const $implements: typeof em.$implements
-    const $i8: typeof em.$i8
-    const $i16: typeof em.$i16
-    const $i32: typeof em.$i32
-    const $i64: typeof em.$i64
     const $null: any
     const $outfile: typeof em.$outfile
-    const $config: typeof em.$config
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
     const $range: typeof em.$range
@@ -1189,10 +1127,6 @@ declare global {
     const $sprintf: typeof sprintf
     const $struct: typeof em.$struct
     const $table: typeof em.$table
-    const $u8: typeof em.$u8
-    const $u16: typeof em.$u16
-    const $u32: typeof em.$u32
-    const $u64: typeof em.$u64
     const $using: typeof em.$using
     const $vector: typeof em.$vector
     const fail: typeof em.fail
@@ -1209,22 +1143,17 @@ Object.assign(globalThis, {
     $: em.$,
     $bkpt: em.$bkpt,
     $board: em.$board,
-    $bool: em.$bool,
     $cb: em.$cb,
     $cb$null: em.$cb$null,
     $clone: em.$clone,
+    $config: em.$config,
     $default: em.$default,
     $delegate: em.$delegate,
     $factory: em.$factory,
     $frame: em.$frame,
     $implements: em.$implements,
-    $i8: em.$i8,
-    $i16: em.$i16,
-    $i32: em.$i32,
-    $i64: em.$i64,
     $null: null as any,
     $outfile: em.$outfile,
-    $config: em.$config,
     $property: em.$property,
     $proxy: em.$proxy,
     $range: em.$range,
@@ -1235,17 +1164,12 @@ Object.assign(globalThis, {
     $table: em.$table,
     $using: em.$using,
     $vector: em.$vector,
-    $u8: em.$u8,
-    $u16: em.$u16,
-    $u32: em.$u32,
-    $u64: em.$u64,
     fail: em.fail,
     halt: em.halt,
     printf: em.printf,
     c$: em.c$,
     e$: em.e$,
     t$: em.t$,
-    vec_t: em.vec_t
 })
 
 export default em
