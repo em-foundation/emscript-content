@@ -9,74 +9,6 @@ const PROPS = Fs.existsSync(PATH)
     : {}
 
 namespace em {
-    const __ARRAY__ = null
-    // #region
-
-    // TODO -- remove $array
-
-    export function $array<T>(proto: T, len: number): em$ArrayProto<T> {
-        return new em$ArrayProto(proto, len)
-    }
-
-    class em$ArrayProto<T> {
-        readonly $base: T
-        readonly $len: number
-        constructor(proto: T, len: number) {
-            this.$base = proto
-            this.$len = len
-        }
-        $make() {
-            return instantiate(this)
-        }
-    }
-    class em$ArrayVal<T> implements frame_t<T> {
-        $len: number
-        private items: globalThis.Array<T>
-        [index: number]: T
-        constructor(len: number, defaultVal: T) {
-            this.$len = len
-            this.items = new globalThis.Array(len).fill(defaultVal)
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        return target.items[Number(prop)]
-                    }
-                    return (target as any)[prop]
-                },
-                set(target, prop, value) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        target.items[Number(prop)] = value
-                        return true
-                    }
-                    return false
-                },
-            })
-        }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
-            // TODO combine with FRAME
-            let idx = 0
-            let items = this.items
-            return {
-                next(): IteratorResult<ref_t<T>> {
-                    if (idx < items.length) {
-                        let cur = idx
-                        idx += 1
-                        return { value: new em$ptr<T>(items, cur), done: false }
-                    } else {
-                        return { value: undefined as any, done: true }
-                    }
-                },
-            }
-        }
-        $frame(beg: i16, len: u16 = 0) {
-            return frame$create<T>(this.items, 0, beg, len)
-        }
-        $ptr(): ptr_t<T> {
-            return new em$ptr<T>(this.items)
-        }
-    }
-
-    // #endregion
 
     const __BOARDS__ = null
     // #region
@@ -1005,29 +937,9 @@ namespace em {
     export type Unbox<T> =
         T extends { $$: infer U }
         ? U // Boxed scalar case
-        : T extends em$ArrayProto<infer Proto>
-        ? em$ArrayVal<Unbox<Proto>> // Array case
         : T extends Record<string, any>
         ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
         : T
-
-    export function instantiate<T extends object>(proto: T): Unbox<T> {
-        if ('$$' in proto) {
-            // Boxed scalar case
-            return (proto as { $$: any }).$$ as Unbox<T>
-        }
-        if (proto instanceof em$ArrayProto) {
-            // Array case
-            const len = (proto as { $len: number }).$len
-            const elementProto = (proto as { $base: any }).$base
-            const defaultVal = instantiate(elementProto)
-            return new em$ArrayVal<Unbox<typeof elementProto>>(
-                len,
-                defaultVal
-            ) as Unbox<T>
-        }
-        throw new Error('Unsupported proto type.')
-    }
 
     export function clone<T extends object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
@@ -1091,11 +1003,6 @@ namespace em {
         }
         if (obj instanceof em.em$Scalar) {
             return obj.$memory
-        }
-        if (obj instanceof em$ArrayProto) {
-            let mi = memoryof(obj.$base)
-            mi.size *= obj.$len
-            return mi
         }
         let res = { size: 0, align: 0 }
         const align = (sz: number, al: number): number => {
@@ -1293,7 +1200,6 @@ declare global {
     type vec_t<T, N extends number> = typeof em.vec_t
     type volatile_t<T> = em.volatile_t<T>
     const $: typeof em.$
-    const $array: typeof em.$array
     const $bkpt: typeof em.$bkpt
     const $board: typeof em.$board
     const $bool: typeof em.$bool
@@ -1338,7 +1244,6 @@ declare global {
 
 Object.assign(globalThis, {
     $: em.$,
-    $array: em.$array,
     $bkpt: em.$bkpt,
     $board: em.$board,
     $bool: em.$bool,
