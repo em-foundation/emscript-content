@@ -13,7 +13,6 @@ namespace em {
     const __BOARDS__ = null
     // #region
 
-
     function deepAssign<T extends object>(target: T, source: Partial<T>): T {
         for (const key in source) {
             if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
@@ -36,7 +35,6 @@ namespace em {
         let res = clone(proto) as T
         return deepAssign(res, bobj)
     }
-
 
     export function isBareMetal(): boolean {
         const brd: string = $property('em.lang.BoardKind', '')
@@ -72,11 +70,6 @@ namespace em {
             }) as any
         }
     }
-
-    // class em$cb<A extends any[]> {
-    //     constructor(readonly $$: (...args: A) => void) {
-    //     }
-    // }
 
     // #endregion
 
@@ -194,7 +187,6 @@ namespace em {
             return new em$ptr<T>(this.elems)
         }
         [Symbol.iterator](): Iterator<ref_t<T>> {
-            // TODO combine with ARRAY
             let idx = 0
             let items = this.elems
             return {
@@ -209,22 +201,6 @@ namespace em {
                 },
             }
         }
-        // [Symbol.iterator](): Iterator<T> {  // TODO combine with ARRAY
-        //     let idx = 0
-        //     let items = this.elems
-        //     return {
-        //         next(): IteratorResult<T> {
-        //             if (idx < items.length) {
-        //                 let cur = idx
-        //                 idx += 1
-        //                 return { value: items[cur], done: false }
-        //             }
-        //             else {
-        //                 return { value: undefined as any, done: true }
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     export type factory_t<T extends $struct> = em$factory<T>
@@ -335,7 +311,6 @@ namespace em {
             })
         }
         [Symbol.iterator](): Iterator<ref_t<T>> {
-            // TODO combine with ARRAY
             let idx = this.$start
             let items = this.items
             return {
@@ -485,7 +460,6 @@ namespace em {
         }
         return undefined
     }
-
 
     export function $default<T>($type?: never, $uid?: never): T {
         return defaultAux($type as unknown as string, $uid as unknown as string) as T
@@ -881,13 +855,6 @@ namespace em {
             this.$$ = v
         }
     }
-
-    export type Unbox<T> =
-        T extends { $$: infer U }
-        ? U // Boxed scalar case
-        : T extends Record<string, any>
-        ? { [K in keyof T]: Unbox<T[K]> } // Struct-like case
-        : T
 
     function clone<T extends object>(obj: T): T {
         if (obj === null || typeof obj !== 'object') {
