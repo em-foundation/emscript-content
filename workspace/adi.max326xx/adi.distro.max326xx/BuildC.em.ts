@@ -223,7 +223,7 @@ export function em$generate() {
     const dst =
         process.platform === 'win32' ? findDrive('DAPLINK')
             : process.platform === 'linux' ? `/media/${Os.userInfo().username}/DAPLINK/`
-                : 'Volumes/daplink'
+                : '/Volumes/DAPLINK'
     out = $outfile('load.sh', 0o755)
     out.addText(`cp -f .out/main.out.hex ${dst}\n`)
     out.close()
