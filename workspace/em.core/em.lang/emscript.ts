@@ -386,11 +386,11 @@ namespace em {
     const __PARAM__ = null
     // #region
 
-    type em$param<T> = T & {
+    type em$param_t<T> = T & {
         $set(v: T): void
     }
 
-    export function $param<T>(initial: T): em$param<T> {
+    export function $param<T>(initial: T): em$param_t<T> {
         let value = initial
         let prx = new Proxy({} as any, {
             get(_, prop) {
