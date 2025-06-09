@@ -452,10 +452,7 @@ namespace em {
         return prx
     }
 
-    type em$proxy2_t<I> = I & {
-        $bind(d: I): void
-        $deleg(): I
-    }
+    type em$proxy2_t<I> = I & { $$: I }
 
     export function $proxy2<I extends object>(): em$proxy2_t<I> {
         let bound = false
@@ -464,17 +461,21 @@ namespace em {
         let prx = new Proxy({} as any, {
             get(_, prop) {
                 if (prop === 'bound') return bound
-                if (prop === 'prx') return del
-                if (prop === '$bind') return (d: I) => {
-                    bound = true
-                    del = d
-                    dunit = '$U' in del ? (del.$U as Unit) : null
-                }
+                if (prop === 'prx' || prop === '$$') return del
                 if (prop === '$deleg') return dunit?.uid
                 if (prop === '$$em$config') return 'proxy'
-                if (prop === 'toString') return () => '<proxy2>'
+                if (prop === 'toString') return () => dunit?.uid
                 return (del as any)[prop]
             },
+            set(_, prop, val) {
+                if (prop === '$$') {
+                    bound = true
+                    del = val
+                    dunit = '$U' in del ? (del.$U as Unit) : null
+                    return true
+                }
+                return false
+            }
         })
         Object.defineProperty(prx, '$$em$config', {
             value: 'proxy',

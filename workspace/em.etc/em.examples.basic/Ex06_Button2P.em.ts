@@ -30,7 +30,7 @@ export function em$run() {
 function blinkFB(a: arg_t) {
     $['%%d']
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(5_000)
+    Common.BusyWait.wait(5_000)
     AppLed.$$.off()
     AppButEdge.$$.enableDetect()
 }

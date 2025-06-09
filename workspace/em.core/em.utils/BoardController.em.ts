@@ -13,7 +13,7 @@ const SOT_BYTE = 0x03
 const SOT_COUNT = 13
 
 export function em$reset(): void {
-    Common.Mcu.$$.startup()
+    Common.Mcu.startup()
 }
 
 export function em$ready(): void {
@@ -22,24 +22,24 @@ export function em$ready(): void {
     if (ready_delay_usecs.$$) {
         Common.BusyWait.wait(ready_delay_usecs.$$)
     }
-    Common.ConsoleUart.$$.flush()
-    Common.ConsoleUart.$$.put(0x00)
-    Common.ConsoleUart.$$.put(0x00)
+    Common.ConsoleUart.flush()
+    Common.ConsoleUart.put(0x00)
+    Common.ConsoleUart.put(0x00)
     for (let i of $range(SOT_COUNT)) {
-        Common.ConsoleUart.$$.put(SOT_BYTE)
+        Common.ConsoleUart.put(SOT_BYTE)
     }
-    Common.ConsoleUart.$$.flush()
+    Common.ConsoleUart.flush()
 }
 
 export function em$fail(): void {
-    Common.GlobalInterrupts.$$.disable()
+    Common.GlobalInterrupts.disable()
     while (true) blink(2, BLINK_RATE)
 }
 
 export function em$halt(): void {
-    Common.GlobalInterrupts.$$.disable()
-    Common.ConsoleUart.$$.put(EOT_BYTE)
-    Common.ConsoleUart.$$.flush()
+    Common.GlobalInterrupts.disable()
+    Common.ConsoleUart.put(EOT_BYTE)
+    Common.ConsoleUart.flush()
     Led.$$.on()
 }
 

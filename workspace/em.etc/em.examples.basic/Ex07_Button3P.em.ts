@@ -18,11 +18,11 @@ function onPressedH() {
     $['%%c']
     if (AppBut.$$.isPressed()) {
         SysLed.$$.on()
-        Common.BusyWait.$$.wait(40_000)
+        Common.BusyWait.wait(40_000)
         SysLed.$$.off()
     } else {
         AppLed.$$.on()
-        Common.BusyWait.$$.wait(5_000)
+        Common.BusyWait.wait(5_000)
         AppLed.$$.off()
     }
 }

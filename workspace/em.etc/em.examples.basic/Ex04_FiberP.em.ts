@@ -26,8 +26,8 @@ function blinkFB(a: arg_t) {
     $['%%d']
     if (--count == 0) halt()
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(250_000)
+    Common.BusyWait.wait(250_000)
     AppLed.$$.off()
-    Common.BusyWait.$$.wait(250_000)
+    Common.BusyWait.wait(250_000)
     blinkF.$$.$$.post()
 }

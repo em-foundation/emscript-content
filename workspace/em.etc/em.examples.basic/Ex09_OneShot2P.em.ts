@@ -27,7 +27,7 @@ function blinkFB(a: arg_t) {
     $['%%d']
     if (--count == 0) halt()
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(5_000)
+    Common.BusyWait.wait(5_000)
     AppLed.$$.off()
     OneShot.$$.enable(100, $cb(handler), 0)
 }

@@ -8,7 +8,7 @@ export function putbuf(buf: frame_t<u8>) {
 }
 
 export function putch(ch: u8) {
-    Common.ConsoleUart.$$.put(ch)
+    Common.ConsoleUart.put(ch)
 }
 
 export function puts(sp: ptr_t<u8>) {

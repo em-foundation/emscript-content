@@ -14,8 +14,8 @@ export namespace em$template {
 
     export namespace em$meta {
         export function em$construct() {
-            Common.Idle.$$.em$meta.addSleepEnter($cb(sleepEnter))
-            Common.Idle.$$.em$meta.addSleepLeave($cb(sleepLeave))
+            Common.Idle.em$meta.addSleepEnter($cb(sleepEnter))
+            Common.Idle.em$meta.addSleepLeave($cb(sleepLeave))
         }
     }
 

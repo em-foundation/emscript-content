@@ -19,7 +19,7 @@ export function upause(time_us: u32) {
     active_flag = 1
     OneShot.$$.uenable(time_us, $cb(handler), 0)
     while (active_flag) {
-        Common.Idle.$$.exec()
+        Common.Idle.exec()
         e$`__DMB()`
     }
 }

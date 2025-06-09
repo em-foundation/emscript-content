@@ -67,7 +67,7 @@ export function em$configure(): void {
     BoardController.Led.$$ = SysLed
     // BoardController.ready_delay_usecs.$$ = 1_000_000
     BusyWait.scalar.$$ = 26
-    Common.BusyWait.$bind(BusyWait)
+    Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart
     Common.GlobalInterrupts.$$ = GlobalInterrupts
     Common.Idle.$$ = Idle

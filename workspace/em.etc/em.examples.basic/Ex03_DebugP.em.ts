@@ -14,7 +14,7 @@ export function em$run() {
     AppLed.$$.on()
     for (let cnt of $range(min_cnt.$$, max_cnt.$$)) {
         $['%%d+']
-        Common.BusyWait.$$.wait(500_000)
+        Common.BusyWait.wait(500_000)
         $['%%d-']
         AppLed.$$.toggle()
         if (!dbg_flag.$$) continue

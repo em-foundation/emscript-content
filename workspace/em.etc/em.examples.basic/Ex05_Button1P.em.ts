@@ -19,10 +19,10 @@ export function em$startup() {
 }
 
 export function em$run() {
-    Common.GlobalInterrupts.$$.enable()
+    Common.GlobalInterrupts.enable()
     while (true) {
         AppButEdge.$$.enableDetect()
-        Common.Idle.$$.exec()
+        Common.Idle.exec()
     }
 }
 
@@ -30,6 +30,6 @@ function handler() {
     $['%%c']
     AppButEdge.$$.clearDetect()
     AppLed.$$.on()
-    Common.BusyWait.$$.wait(5_000)
+    Common.BusyWait.wait(5_000)
     AppLed.$$.off()
 }

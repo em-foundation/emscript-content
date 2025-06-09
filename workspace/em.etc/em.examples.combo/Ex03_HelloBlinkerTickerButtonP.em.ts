@@ -172,7 +172,7 @@ function tickCbPrint() {
         this_app_error && total_errors++
         this_sys_error && total_errors++
     }
-    printTime(Common.Uptimer.$$.read())
+    printTime(Common.Uptimer.read())
     printf` Print tick {rate: %dx, ticks: {app: %d%s, sys: %d%s}, errors: %d}\n`(
         divided_by,
         this_count_app,

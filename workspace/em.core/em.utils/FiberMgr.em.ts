@@ -41,26 +41,26 @@ export namespace em$meta {
 function dispatch() {
     while (!ready_list.empty()) {
         let fiber = ready_list.take()
-        Common.GlobalInterrupts.$$.enable()
+        Common.GlobalInterrupts.enable()
         fiber.$$.body(fiber.$$.arg)
-        Common.GlobalInterrupts.$$.disable()
+        Common.GlobalInterrupts.disable()
     }
 }
 
 export function run() {
-    Common.Idle.$$.wakeup()
-    Common.GlobalInterrupts.$$.enable()
+    Common.Idle.wakeup()
+    Common.GlobalInterrupts.enable()
     while (true) {
-        Common.GlobalInterrupts.$$.disable()
+        Common.GlobalInterrupts.disable()
         dispatch()
-        Common.Idle.$$.exec()
+        Common.Idle.exec()
     }
 }
 
 Fiber.prototype.post = function (this: Fiber): void {
-    let key = Common.GlobalInterrupts.$$.disable()
+    let key = Common.GlobalInterrupts.disable()
     if (this.link == $null) ready_list.give($ref(this))
-    Common.GlobalInterrupts.$$.restore(key)
+    Common.GlobalInterrupts.restore(key)
 }
 
 List.prototype.empty = function (this: List): bool_t {
