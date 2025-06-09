@@ -388,22 +388,27 @@ namespace em {
 
     type em$param_t<T> = T & {
         $set(v: T): void
+        $val: T
     }
 
-    export function $param<T>(initial: T): em$param_t<T> {
-        let value = initial
+    export function $param<T>(initval?: T, $type?: never, $uid?: never): em$param_t<T> {
+        const has_uid = $uid !== undefined
+        const t = has_uid ? ($type as unknown as string) : (initval as string)
+        const u = has_uid ? ($uid as unknown as string) : ($type as unknown as string)
+        let curval = has_uid ? initval : defaultAux(t, u) as T
         let prx = new Proxy({} as any, {
             get(_, prop) {
-                if (prop === '$set') return (v: T) => { value = v }
+                if (prop === '$set') return (v: T) => { curval = v }
+                if (prop === '$val') return curval
                 if (prop === '$$em$config') return 'param'
-                if (prop === Symbol.toPrimitive) return () => value
-                if (prop === 'valueOf') return () => value
-                if (prop === 'toString') return () => String(value)
-                return (value as any)[prop]
+                if (prop === Symbol.toPrimitive) return () => curval
+                if (prop === 'valueOf') return () => curval
+                if (prop === 'toString') return () => String(curval)
+                return (curval as any)[prop]
             },
             set(_, prop, val) {
-                if (typeof value === 'object' && value !== null)
-                    return Reflect.set(value, prop, val)
+                if (typeof curval === 'object' && curval !== null)
+                    return Reflect.set(curval, prop, val)
                 return false
             }
         })

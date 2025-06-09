@@ -1,13 +1,13 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-const max = $param<u8>(0)
+const max = $param<u8>(20)
 
 export namespace em$meta {
     export function em$init() {
-        max.$set(10)
         printf`max = %d\n`(max)
-        console.log((max as any).$$em$config)
+        max.$set(max + 10)
+        printf`max = %d\n`(max)
     }
 }
 
