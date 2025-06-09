@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as Console from '@em.lang/Console.em'
 
-export const Buf = $array($u8(), 5)
+class Buf extends $vector<u8> { $len = 5 }
 
 // export namespace em$meta {
 //     let ptr = buf.$ptr()
@@ -30,7 +30,7 @@ export function em$run() {
 
     for (let i = 0; i < buf.$len; i++) {
         $['%%a']
-        Console.wrU8(ptr.$$)
+        printf`%d `(ptr.$$)
         ptr.$inc()
     }
 
