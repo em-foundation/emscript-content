@@ -395,11 +395,12 @@ namespace em {
         const has_uid = $uid !== undefined
         const t = has_uid ? ($type as unknown as string) : (initval as string)
         const u = has_uid ? ($uid as unknown as string) : ($type as unknown as string)
-        let curval = has_uid ? initval : defaultAux(t, u) as T
+        let curval = has_uid ? initval : (undefined as T)
         let prx = new Proxy({} as any, {
             get(_, prop) {
                 if (prop === '$set') return (v: T) => { curval = v }
                 if (prop === '$val') return curval
+                if (prop === '_$$init') return () => { curval = curval ?? defaultAux(t, u) }
                 if (prop === '$$em$config') return 'param'
                 if (prop === Symbol.toPrimitive) return () => curval
                 if (prop === 'valueOf') return () => curval
@@ -407,8 +408,9 @@ namespace em {
                 return (curval as any)[prop]
             },
             set(_, prop, val) {
-                if (typeof curval === 'object' && curval !== null)
+                if (typeof curval === 'object' && curval !== null) {
                     return Reflect.set(curval, prop, val)
+                }
                 return false
             }
         })
