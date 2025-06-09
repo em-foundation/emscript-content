@@ -7,7 +7,7 @@ import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 import * as Idle from '@adi.mcu.max326xx/Idle.em'
 
-export const TxPin = $proxy<GpioI.$I>()
+export const TxPin = $proxy2<GpioI.$I>()
 
 export const baud = $config<u32>(115200)
 

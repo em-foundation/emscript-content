@@ -4,10 +4,10 @@ export const $U = em.$declare('MODULE')
 import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const CS = $proxy<GpioI.$I>()
-export const CLK = $proxy<GpioI.$I>()
-export const PICO = $proxy<GpioI.$I>()
-export const POCI = $proxy<GpioI.$I>()
+export const CS = $proxy2<GpioI.$I>()
+export const CLK = $proxy2<GpioI.$I>()
+export const PICO = $proxy2<GpioI.$I>()
+export const POCI = $proxy2<GpioI.$I>()
 
 const SD_CMD = <u8>0xb9
 

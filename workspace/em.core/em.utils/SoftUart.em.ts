@@ -6,7 +6,7 @@ import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
 export const baud_rate = $config<u32>(57_600)
-export const TxPin = $proxy<GpioI.$I>()
+export const TxPin = $proxy2<GpioI.$I>()
 
 const bit_time = $config<u16>()
 

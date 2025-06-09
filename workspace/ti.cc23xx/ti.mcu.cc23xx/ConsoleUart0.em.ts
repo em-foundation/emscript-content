@@ -5,7 +5,7 @@ import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 import * as Idle from '@ti.mcu.cc23xx/Idle.em'
 
-export const TxPin = $proxy<GpioI.$I>()
+export const TxPin = $proxy2<GpioI.$I>()
 
 export namespace em$meta {
     export function em$configure() {
@@ -21,7 +21,7 @@ export function em$startup(): void {
 }
 
 export function flush(): void {
-    while ($R.UART0.FR.$$ & $R.UART_FR_BUSY) {}
+    while ($R.UART0.FR.$$ & $R.UART_FR_BUSY) { }
 }
 
 export function put(data: u8): void {
