@@ -452,6 +452,39 @@ namespace em {
         return prx
     }
 
+    type em$proxy2_t<I> = I & {
+        $bind(d: I): void
+        $deleg(): I
+    }
+
+    export function $proxy2<I extends object>(): em$proxy2_t<I> {
+        let bound = false
+        let del = isa<I>()
+        let dunit: Unit | null = null
+        let prx = new Proxy({} as any, {
+            get(_, prop) {
+                if (prop === 'bound') return bound
+                if (prop === 'prx') return del
+                if (prop === '$bind') return (d: I) => {
+                    bound = true
+                    del = d
+                    dunit = '$U' in del ? (del.$U as Unit) : null
+                }
+                if (prop === '$deleg') return dunit?.uid
+                if (prop === '$$em$config') return 'proxy'
+                if (prop === 'toString') return () => '<proxy2>'
+                return (del as any)[prop]
+            },
+        })
+        Object.defineProperty(prx, '$$em$config', {
+            value: 'proxy',
+            enumerable: false,
+            writable: false,
+            configurable: false
+        })
+        return prx
+    }
+
     // #endregion
 
     const __RTT__ = null
@@ -1134,6 +1167,7 @@ declare global {
     const $param: typeof em.$param
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
+    const $proxy2: typeof em.$proxy2
     const $range: typeof em.$range
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
@@ -1170,6 +1204,7 @@ Object.assign(globalThis, {
     $param: em.$param,
     $property: em.$property,
     $proxy: em.$proxy,
+    $proxy2: em.$proxy2,
     $range: em.$range,
     $ref: em.$ref,
     $sizeof: em.$sizeof,

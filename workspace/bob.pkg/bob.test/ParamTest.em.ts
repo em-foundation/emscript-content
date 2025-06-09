@@ -6,20 +6,22 @@ class Pair extends $struct {
     y: u8
 }
 
-export const pair = $param<Pair>()
+type PairO = ref_t<Pair>
+
+const pair = $param<PairO>()
 
 export namespace em$meta {
     export function em$init() {
-        pair.x = 10
-        pair.y = 20
         console.log(pair.$val)
+        // pair.$$.x = 10
+        // pair.$$.y = 20
     }
 }
 
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    printf`x = %d, y = %d\n`(pair.x, pair.y)
+    printf`x = %d, y = %d\n`(pair.$$.x, pair.$$.y)
 }
 
 // const max = $param<u8>(20)
