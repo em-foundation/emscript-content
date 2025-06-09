@@ -10,7 +10,7 @@ export const DbgC = $proxy<GpioI.$I>()
 export const DbgD = $proxy<GpioI.$I>()
 
 function delay() {
-    Common.BusyWait.$$.wait(1)
+    Common.BusyWait.wait(1)
 }
 
 export function mark(id: u8, val: u8) {
