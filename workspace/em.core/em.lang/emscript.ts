@@ -386,10 +386,7 @@ namespace em {
     const __PARAM__ = null
     // #region
 
-    type em$param_t<T> = T & {
-        $set(v: T): void
-        $val: T
-    }
+    type em$param_t<T> = T & { $$: T }
 
     export function $param<T>(initval?: T, $type?: never, $uid?: never): em$param_t<T> {
         const has_uid = $uid !== undefined
@@ -398,7 +395,7 @@ namespace em {
         let curval = has_uid ? initval : (undefined as T)
         let prx = new Proxy({} as any, {
             get(_, prop) {
-                if (prop === '$set') return (v: T) => { curval = v }
+                if (prop === '$$') return curval
                 if (prop === '$val') return curval
                 if (prop === '_$$init') return () => { curval = curval ?? defaultAux(t, u) }
                 if (prop === '$$em$config') return 'param'
@@ -408,6 +405,10 @@ namespace em {
                 return (curval as any)[prop]
             },
             set(_, prop, val) {
+                if (prop === '$$') {
+                    curval = val
+                    return true
+                }
                 if (typeof curval === 'object' && curval !== null) {
                     return Reflect.set(curval, prop, val)
                 }

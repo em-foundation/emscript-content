@@ -8,7 +8,7 @@ import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 const AppLed = $delegate(BoardC.AppLed)
 
-const iterations = $config<u16>(10)
+const iterations = $param<u16>(10)
 
 export namespace em$meta { }
 
@@ -24,7 +24,7 @@ export function em$run() {
     AppLed.off()
     Common.UsCounter.start()
     $['%%d+']
-    for (let _ of $range(iterations.$$)) {
+    for (let _ of $range(iterations)) {
         CoreBench.run(0)
     }
     $['%%d-']

@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Crc from '@em.benchmark.coremark/Crc.em'
 import * as Utils from '@em.benchmark.coremark/Utils.em'
 
-export const memsize = $config<u16>(0)
+export const memsize = $param<u16>()
 
 const NUM_STATES = 8
 
@@ -24,10 +24,10 @@ const fltPat = $table<text_t>('ro')
 const sciPat = $table<text_t>('ro')
 const errPat = $table<text_t>('ro')
 
-const intPatLen = $config<u16>(0)
-const fltPatLen = $config<u16>(0)
-const sciPatLen = $config<u16>(0)
-const errPatLen = $config<u16>(0)
+const intPatLen = $param<u16>()
+const fltPatLen = $param<u16>()
+const sciPatLen = $param<u16>()
+const errPatLen = $param<u16>()
 
 class StateCnt extends $vector<u32> { $len = NUM_STATES }
 
@@ -61,7 +61,7 @@ export namespace em$meta {
     }
 
     export function em$construct() {
-        for (let _ of $range(memsize.$$)) membuf.$add(0)
+        for (let _ of $range(memsize)) membuf.$add(0)
     }
 }
 
@@ -113,7 +113,7 @@ export function setup() {
     let total = 0
     let pat = t$``
     let plen = 0
-    while (total + plen + 1 < memsize.$$ - 1) {
+    while (total + plen + 1 < memsize - 1) {
         if (plen) {
             for (let i of $range(plen)) {
                 p.$$ = pat[i]
@@ -128,21 +128,21 @@ export function setup() {
             case 1:
             case 2:
                 pat = intPat[(seed >> 3) & 0x3]
-                plen = intPatLen.$$
+                plen = intPatLen
                 break
             case 3:
             case 4:
                 pat = fltPat[(seed >> 3) & 0x3]
-                plen = fltPatLen.$$
+                plen = fltPatLen
                 break
             case 5:
             case 6:
                 pat = sciPat[(seed >> 3) & 0x3]
-                plen = sciPatLen.$$
+                plen = sciPatLen
                 break
             case 7:
                 pat = errPat[(seed >> 3) & 0x3]
-                plen = errPatLen.$$
+                plen = errPatLen
                 break
         }
     }
@@ -252,7 +252,7 @@ function scan(finalCnt: index_t<u32>, transCnt: index_t<u32>) {
 }
 
 function scramble(seed: Utils.seed_t, step: u32) {
-    for (let idx = 0; idx < memsize.$$; idx += step) {
+    for (let idx = 0; idx < memsize; idx += step) {
         // TODO: use $range
         if (membuf[idx] != c$`,`) membuf[idx] ^= <u8>seed
     }

@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Crc from '@em.benchmark.coremark/Crc.em'
 import * as Utils from '@em.benchmark.coremark/Utils.em'
 
-export const memsize = $config<u16>(666)
+export const memsize = $param<u16>()
 
 export class Data extends $struct {
     val: i16
@@ -20,7 +20,7 @@ let ElemFac = $factory(Elem.$make())
 
 type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
 
-const maxElems = $config<u16>(0)
+const maxElems = $param<u16>()
 
 let curHead_c = $config<ref_t<Elem>>()
 let curHead: ref_t<Elem>
@@ -28,11 +28,11 @@ let curHead: ref_t<Elem>
 export namespace em$meta {
     export function em$construct() {
         let itemSize = 16 + $sizeof<Data>()
-        maxElems.$$ = Math.round(memsize.$$ / itemSize) - 3
+        maxElems.$$ = Math.round(memsize / itemSize) - 3
         curHead = ElemFac.$create()
         curHead.$$.data = DataFac.$create()
         let p = curHead
-        for (let _ of $range(maxElems.$$ - 1)) {
+        for (let _ of $range(maxElems - 1)) {
             let q = (p.$$.next = ElemFac.$create())
             q.$$.data = DataFac.$create()
             p = q
@@ -104,7 +104,7 @@ export function setup() {
     curHead = curHead_c.$$
     let seed = Utils.getSeed(1)
     let ki = 1
-    let kd = maxElems.$$ - 3
+    let kd = maxElems - 3
     let e = curHead
     e.$$.data.$$.idx = 0
     e.$$.data.$$.val = 0x8080
@@ -113,7 +113,7 @@ export function setup() {
         let dat = (pat << 3) | (kd & 0x7)
         e.$$.data.$$.val = <i16>((dat << 8) | dat)
         kd -= 1
-        if (ki < maxElems.$$ / 5) {
+        if (ki < maxElems / 5) {
             e.$$.data.$$.idx = ki++
         } else {
             pat = <u16>(seed ^ ki++)

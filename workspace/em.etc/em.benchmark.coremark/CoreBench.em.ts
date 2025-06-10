@@ -7,12 +7,12 @@ import * as MatrixBench from '@em.benchmark.coremark/MatrixBench.em'
 import * as StateBench from '@em.benchmark.coremark/StateBench.em'
 import * as Utils from '@em.benchmark.coremark/Utils.em'
 
-const total_data_size = $config<u16>(2000)
-const num_algs = $config<u8>(3)
+const total_data_size = $param<u16>(2000)
+const num_algs = $param<u8>(3)
 
 export namespace em$meta {
     export function em$configure() {
-        let memsize = Math.floor(total_data_size.$$ / num_algs.$$)
+        let memsize = Math.floor(total_data_size / num_algs)
         ListBench.memsize.$$ = memsize
         MatrixBench.memsize.$$ = memsize
         StateBench.memsize.$$ = memsize
