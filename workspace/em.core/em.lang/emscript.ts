@@ -428,11 +428,11 @@ namespace em {
     const __PROXY__ = null
     // #region
 
-    type em$proxy_t<I> = I & { $$: I }
+    type em$proxy_t<I> = I & { $$dlg: I }
 
     export function $delegate<U extends object>(unit: U): em$proxy_t<U> {
         const prx = $proxy<U>()
-        prx.$$ = unit
+        prx.$$dlg = unit
         return prx
     }
 
@@ -443,14 +443,13 @@ namespace em {
         let prx = new Proxy({} as any, {
             get(_, prop) {
                 if (prop === 'bound') return bound
-                if (prop === 'prx' || prop === '$$') return del
-                if (prop === '$deleg') return dunit?.uid
+                if (prop === '$$dlg') return del
                 if (prop === '$$em$config') return 'proxy'
                 if (prop === 'toString') return () => dunit?.uid
                 return (del as any)[prop]
             },
             set(_, prop, val) {
-                if (prop === '$$') {
+                if (prop === '$$dlg') {
                     bound = true
                     del = val
                     dunit = '$U' in del ? (del.$U as Unit) : null

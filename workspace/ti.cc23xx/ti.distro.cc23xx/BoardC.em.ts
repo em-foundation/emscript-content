@@ -66,40 +66,40 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     $using(ExtFlashDisabler)
-    AlarmMgr.WakeupTimer.$$ = WakeupTimer
-    AppBut.Edge.$$ = AppButEdge
-    AppButEdge.Pin.$$ = AppButPin
+    AlarmMgr.WakeupTimer.$$dlg = WakeupTimer
+    AppBut.Edge.$$dlg = AppButEdge
+    AppButEdge.Pin.$$dlg = AppButPin
     AppButEdge.pin_num.$$val = AppButPin.pin_num.$$val = brd.pins.appBut
-    AppLed.Pin.$$ = AppLedPin
+    AppLed.Pin.$$dlg = AppLedPin
     AppLedPin.pin_num.$$val = brd.pins.appLed
     AppOutPin.pin_num.$$val = brd.pins.appOut
-    BoardController.Led.$$ = SysLed
+    BoardController.Led.$$dlg = SysLed
     BusyWait.scalar.$$val = 6
-    Common.BusyWait.$$ = BusyWait
-    Common.ConsoleUart.$$ = ConsoleUart0
-    Common.GlobalInterrupts.$$ = GlobalInterrupts
-    Common.Idle.$$ = Idle
-    Common.Mcu.$$ = Mcu
-    Common.Uptimer.$$ = Uptimer
-    Common.UsCounter.$$ = UsCounter
-    ConsoleUart0.TxPin.$$ = AppOutPin
+    Common.BusyWait.$$dlg = BusyWait
+    Common.ConsoleUart.$$dlg = ConsoleUart0
+    Common.GlobalInterrupts.$$dlg = GlobalInterrupts
+    Common.Idle.$$dlg = Idle
+    Common.Mcu.$$dlg = Mcu
+    Common.Uptimer.$$dlg = Uptimer
+    Common.UsCounter.$$dlg = UsCounter
+    ConsoleUart0.TxPin.$$dlg = AppOutPin
     DbgA.pin_num.$$val = brd.pins.sysDbgA
     DbgB.pin_num.$$val = brd.pins.sysDbgB
     DbgC.pin_num.$$val = brd.pins.sysDbgC
     DbgD.pin_num.$$val = brd.pins.sysDbgD
-    Debug.DbgA.$$ = DbgA
-    Debug.DbgB.$$ = DbgB
-    Debug.DbgC.$$ = DbgC
-    Debug.DbgD.$$ = DbgD
-    ExtFlashDisabler.CLK.$$ = FlashCLK
-    ExtFlashDisabler.CS.$$ = FlashCS
-    ExtFlashDisabler.PICO.$$ = FlashPICO
-    ExtFlashDisabler.POCI.$$ = FlashPOCI
+    Debug.DbgA.$$dlg = DbgA
+    Debug.DbgB.$$dlg = DbgB
+    Debug.DbgC.$$dlg = DbgC
+    Debug.DbgD.$$dlg = DbgD
+    ExtFlashDisabler.CLK.$$dlg = FlashCLK
+    ExtFlashDisabler.CS.$$dlg = FlashCS
+    ExtFlashDisabler.PICO.$$dlg = FlashPICO
+    ExtFlashDisabler.POCI.$$dlg = FlashPOCI
     FlashCLK.pin_num.$$val = brd.pins.extFlashCLK
     FlashCS.pin_num.$$val = brd.pins.extFlashCS
     FlashPICO.pin_num.$$val = brd.pins.extFlashPICO
     FlashPOCI.pin_num.$$val = brd.pins.extFlashPOCI
-    Poller.OneShot.$$ = OneShot
-    SysLed.Pin.$$ = SysLedPin
+    Poller.OneShot.$$dlg = OneShot
+    SysLed.Pin.$$dlg = SysLedPin
     SysLedPin.pin_num.$$val = brd.pins.sysLed
 }
