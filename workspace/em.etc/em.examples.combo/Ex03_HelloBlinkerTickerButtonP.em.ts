@@ -17,9 +17,10 @@ const TICKER_RATE_CHANGE_PERIOD_MS = 1 * TimeTypes.SECONDS_PER_MINUTE * TimeType
 const TICKER_SYS_PERIOD_MS = 1500
 
 // app resources
-const button = $delegate(BoardC.AppBut)
-const led_app = $delegate(BoardC.AppLed)
-const led_sys = $delegate(BoardC.SysLed)
+const AppBut = $delegate(BoardC.AppBut)
+const AppLed = $delegate(BoardC.AppLed)
+const SysLed = $delegate(BoardC.SysLed)
+
 const ticker_app = $config<TickerMgr.Obj>()
 const ticker_print = $config<TickerMgr.Obj>()
 const ticker_rate_change = $config<TickerMgr.Obj>()
@@ -61,7 +62,7 @@ function countError(count: u32, expectedCount: u32): bool_t {
 }
 
 function onButtonPressed() {
-    if (button.$$.isPressed()) {
+    if (AppBut.isPressed()) {
         // a long press (press time > max_press_time_ms)
         printf`Long button press: Stopping app/sys tickers\n`()
         divided_by = 0
@@ -115,7 +116,7 @@ function rotateRate(fromButton: bool_t) {
 }
 
 function startButton() {
-    button.$$.onPressed(
+    AppBut.onPressed(
         $cb(onButtonPressed),
         MIN_PRESS_TIME_MS,
         MAX_PRESS_TIME_MS
@@ -158,7 +159,7 @@ function stopLedTickers() {
 
 function tickCbApp() {
     count_app += 1
-    led_app.$$.wink(10)
+    AppLed.wink(10)
 }
 
 function tickCbPrint() {
@@ -199,5 +200,5 @@ function tickCbRateChange() {
 
 function tickCbSys() {
     count_sys += 1
-    led_sys.$$.wink(10)
+    SysLed.wink(10)
 }

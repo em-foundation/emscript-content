@@ -39,7 +39,7 @@ export namespace em$meta {
 var cur_alarm = <Obj>$null
 
 function dispatch(delta: Secs24p8) {
-    WakeupTimer.$$.disable()
+    WakeupTimer.disable()
     let nxt_alarm = <Obj>$null
     let max_dt_secs = ~(<Secs24p8>0)
     for (let a of AlarmFac) {
@@ -61,12 +61,12 @@ function dispatch(delta: Secs24p8) {
     if (cur_alarm) {
         const id = <arg_t>cur_alarm
         // $['%%>'](<u8>id)
-        WakeupTimer.$$.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
+        WakeupTimer.enable(cur_alarm.$$._thresh, $cb(wakeupHandler))
     }
 }
 
 function setup(alarm: Obj, delta: Secs24p8) {
-    alarm.$$._thresh = WakeupTimer.$$.secsToThresh(delta)
+    alarm.$$._thresh = WakeupTimer.secsToThresh(delta)
     alarm.$$._dt_secs = delta
     if (cur_alarm == $null || cur_alarm.$$._dt_secs > delta) {
         //        if (cur_alarm) {
@@ -95,5 +95,5 @@ Alarm.prototype.wakeup = function (this: Alarm, delta: Secs24p8) {
 }
 
 Alarm.prototype.wakeupAligned = function (this: Alarm, delta: Secs24p8) {
-    setup($ref(this), WakeupTimer.$$.secsAligned(delta))
+    setup($ref(this), WakeupTimer.secsAligned(delta))
 }

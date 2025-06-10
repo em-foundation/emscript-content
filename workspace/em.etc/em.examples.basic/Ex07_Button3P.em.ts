@@ -10,13 +10,13 @@ export const AppLed = $delegate(BoardC.AppLed)
 export const SysLed = $delegate(BoardC.SysLed)
 
 export function em$run() {
-    AppBut.$$.onPressed($cb(onPressedH), 100, 4000)
+    AppBut.onPressed($cb(onPressedH), 100, 4000)
     FiberMgr.run()
 }
 
 function onPressedH() {
     $['%%c']
-    if (AppBut.$$.isPressed()) {
+    if (AppBut.isPressed()) {
         SysLed.on()
         Common.BusyWait.wait(40_000)
         SysLed.off()

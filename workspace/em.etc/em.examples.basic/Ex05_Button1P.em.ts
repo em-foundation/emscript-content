@@ -9,26 +9,26 @@ export const AppLed = $delegate(BoardC.AppLed)
 
 export namespace em$meta {
     export function em$construct() {
-        AppButEdge.$$.em$meta.setDetectHandler($cb(handler))
+        AppButEdge.em$meta.setDetectHandler($cb(handler))
     }
 }
 
 export function em$startup() {
-    AppButEdge.$$.init(true)
-    AppButEdge.$$.setDetectFalling()
+    AppButEdge.init(true)
+    AppButEdge.setDetectFalling()
 }
 
 export function em$run() {
     Common.GlobalInterrupts.enable()
     while (true) {
-        AppButEdge.$$.enableDetect()
+        AppButEdge.enableDetect()
         Common.Idle.exec()
     }
 }
 
 function handler() {
     $['%%c']
-    AppButEdge.$$.clearDetect()
+    AppButEdge.clearDetect()
     AppLed.on()
     Common.BusyWait.wait(5_000)
     AppLed.off()
