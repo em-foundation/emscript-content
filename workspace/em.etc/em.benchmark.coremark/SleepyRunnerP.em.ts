@@ -6,11 +6,11 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
-const ticker = $config<TickerMgr.Obj>()
+const ticker = $param<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        ticker.$$ = TickerMgr.em$meta.create()
+        ticker.$$val = TickerMgr.em$meta.create()
     }
 }
 
@@ -23,7 +23,7 @@ export function em$startup() {
 }
 
 export function em$run() {
-    ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(tickCB))
+    ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(tickCB))
     FiberMgr.run()
 }
 
@@ -34,6 +34,6 @@ function tickCB() {
     printf`crc = %04x\n`(crc)
     count -= 1
     if (count > 0) return
-    ticker.$$.$$.stop()
+    ticker.$$.stop()
     halt()
 }

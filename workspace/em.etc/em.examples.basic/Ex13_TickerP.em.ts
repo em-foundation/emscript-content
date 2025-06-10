@@ -9,19 +9,19 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 export const AppLed = $delegate(BoardC.AppLed)
 export const SysLed = $delegate(BoardC.SysLed)
 
-const app_ticker = $config<TickerMgr.Obj>()
-const sys_ticker = $config<TickerMgr.Obj>()
+const app_ticker = $param<TickerMgr.Obj>()
+const sys_ticker = $param<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        app_ticker.$$ = TickerMgr.em$meta.create()
-        sys_ticker.$$ = TickerMgr.em$meta.create()
+        app_ticker.$$val = TickerMgr.em$meta.create()
+        sys_ticker.$$val = TickerMgr.em$meta.create()
     }
 }
 
 export function em$run() {
-    app_ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(appTickCb))
-    sys_ticker.$$.$$.start(TimeTypes.Secs24p8_initMsecs(1_500), $cb(sysTickCb))
+    app_ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(appTickCb))
+    sys_ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_500), $cb(sysTickCb))
     FiberMgr.run()
 }
 

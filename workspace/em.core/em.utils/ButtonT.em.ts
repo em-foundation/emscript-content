@@ -13,11 +13,11 @@ export namespace em$template {
 
     export type Handler = ButtonI.Handler
 
-    const debounceF = $config<FiberMgr.Obj>()
+    const debounceF = $param<FiberMgr.Obj>()
 
     export namespace em$meta {
         export function em$construct() {
-            debounceF.$$ = FiberMgr.em$meta.create($cb(debounceFB))
+            debounceF.$$val = FiberMgr.em$meta.create($cb(debounceFB))
             Edge.em$meta.setDetectHandler($cb(buttonHandler))
         }
     }
@@ -34,7 +34,7 @@ export namespace em$template {
 
     function buttonHandler() {
         Edge.clearDetect()
-        if (cur_fxn != $null) debounceF.$$.$$.post()
+        if (cur_fxn != $null) debounceF.$$.post()
     }
 
     function debounceFB(a: arg_t) {

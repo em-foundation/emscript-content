@@ -21,17 +21,17 @@ const AppBut = $delegate(BoardC.AppBut)
 const AppLed = $delegate(BoardC.AppLed)
 const SysLed = $delegate(BoardC.SysLed)
 
-const ticker_app = $config<TickerMgr.Obj>()
-const ticker_print = $config<TickerMgr.Obj>()
-const ticker_rate_change = $config<TickerMgr.Obj>()
-const ticker_sys = $config<TickerMgr.Obj>()
+const ticker_app = $param<TickerMgr.Obj>()
+const ticker_print = $param<TickerMgr.Obj>()
+const ticker_rate_change = $param<TickerMgr.Obj>()
+const ticker_sys = $param<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        ticker_app.$$ = TickerMgr.em$meta.create()
-        ticker_print.$$ = TickerMgr.em$meta.create()
-        ticker_rate_change.$$ = TickerMgr.em$meta.create()
-        ticker_sys.$$ = TickerMgr.em$meta.create()
+        ticker_app.$$val = TickerMgr.em$meta.create()
+        ticker_print.$$val = TickerMgr.em$meta.create()
+        ticker_rate_change.$$val = TickerMgr.em$meta.create()
+        ticker_sys.$$val = TickerMgr.em$meta.create()
     }
 }
 
@@ -124,11 +124,11 @@ function startButton() {
 }
 
 function startLedTickers() {
-    ticker_app.$$.$$.start(
+    ticker_app.$$.start(
         TimeTypes.Secs24p8_initMsecs(TICKER_APP_PERIOD_MS) / divided_by,
         $cb(tickCbApp)
     )
-    ticker_sys.$$.$$.start(
+    ticker_sys.$$.start(
         TimeTypes.Secs24p8_initMsecs(TICKER_SYS_PERIOD_MS) / divided_by,
         $cb(tickCbSys)
     )
@@ -137,22 +137,22 @@ function startLedTickers() {
 }
 
 function startPrintTicker() {
-    ticker_print.$$.$$.start(
+    ticker_print.$$.start(
         TimeTypes.Secs24p8_initMsecs(TICKER_PRINT_PERIOD_MS),
         $cb(tickCbPrint)
     )
 }
 
 function startRateChangeTicker() {
-    ticker_rate_change.$$.$$.start(
+    ticker_rate_change.$$.start(
         TimeTypes.Secs24p8_initMsecs(TICKER_RATE_CHANGE_PERIOD_MS),
         $cb(tickCbRateChange)
     )
 }
 
 function stopLedTickers() {
-    ticker_app.$$.$$.stop()
-    ticker_sys.$$.$$.stop()
+    ticker_app.$$.stop()
+    ticker_sys.$$.stop()
     expected_count_app = 0
     expected_count_sys = 0
 }

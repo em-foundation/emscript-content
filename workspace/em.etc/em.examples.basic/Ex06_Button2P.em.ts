@@ -8,12 +8,12 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 export const AppButEdge = $delegate(BoardC.AppButEdge)
 export const AppLed = $delegate(BoardC.AppLed)
 
-const blinkF = $config<FiberMgr.Obj>()
+const blinkF = $param<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
         AppButEdge.em$meta.setDetectHandler($cb(handler))
-        blinkF.$$ = FiberMgr.em$meta.create($cb(blinkFB))
+        blinkF.$$val = FiberMgr.em$meta.create($cb(blinkFB))
     }
 }
 
@@ -38,5 +38,5 @@ function blinkFB(a: arg_t) {
 function handler() {
     $['%%c']
     AppButEdge.clearDetect()
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
 }

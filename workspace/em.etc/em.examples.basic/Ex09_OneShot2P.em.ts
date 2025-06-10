@@ -8,18 +8,18 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 export const AppLed = $delegate(BoardC.AppLed)
 export const OneShot = $delegate(BoardC.OneShot)
 
-const blinkF = $config<FiberMgr.Obj>()
+const blinkF = $param<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        blinkF.$$ = FiberMgr.em$meta.create($cb(blinkFB))
+        blinkF.$$val = FiberMgr.em$meta.create($cb(blinkFB))
     }
 }
 
 let count = 5
 
 export function em$run() {
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
     FiberMgr.run()
 }
 
@@ -34,5 +34,5 @@ function blinkFB(a: arg_t) {
 
 function handler(arg: arg_t) {
     $['%%c']
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
 }

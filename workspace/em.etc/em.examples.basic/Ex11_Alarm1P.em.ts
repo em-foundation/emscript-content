@@ -8,20 +8,20 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-const alarm = $config<AlarmMgr.Obj>()
-const blinkF = $config<FiberMgr.Obj>()
+const alarm = $param<AlarmMgr.Obj>()
+const blinkF = $param<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        blinkF.$$ = FiberMgr.em$meta.create($cb(blinkFB))
-        alarm.$$ = AlarmMgr.em$meta.create(blinkF.$$)
+        blinkF.$$val = FiberMgr.em$meta.create($cb(blinkFB))
+        alarm.$$val = AlarmMgr.em$meta.create(blinkF)
     }
 }
 
 let counter = <u32>0
 
 export function em$run() {
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
     FiberMgr.run()
 }
 
@@ -30,5 +30,5 @@ function blinkFB(a: arg_t) {
     AppLed.wink(100) // 100 ms
     counter += 1
     let msecs = (counter & 0x1) != 0 ? 2_000 : 750
-    alarm.$$.$$.wakeup(TimeTypes.Secs24p8_initMsecs(msecs))
+    alarm.$$.wakeup(TimeTypes.Secs24p8_initMsecs(msecs))
 }

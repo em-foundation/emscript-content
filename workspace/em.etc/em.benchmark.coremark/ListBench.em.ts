@@ -22,7 +22,7 @@ type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
 
 const maxElems = $param<u16>()
 
-let curHead_c = $config<ref_t<Elem>>()
+let curHead_c = $param<ref_t<Elem>>()
 let curHead: ref_t<Elem>
 
 export namespace em$meta {
@@ -39,7 +39,7 @@ export namespace em$meta {
         }
         p.$$.data = DataFac.$create()
         p.$$.next = ElemFac.$null()
-        curHead_c.$$ = curHead
+        curHead_c.$$val = curHead
     }
 }
 
@@ -101,7 +101,7 @@ export function run(arg: i16): Utils.sum_t {
 }
 
 export function setup() {
-    curHead = curHead_c.$$
+    curHead = curHead_c
     let seed = Utils.getSeed(1)
     let ki = 1
     let kd = maxElems - 3
