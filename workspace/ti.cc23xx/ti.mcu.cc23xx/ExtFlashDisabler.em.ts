@@ -1,7 +1,7 @@
 import em from '@$$emscript'
 export const $U = em.$declare('MODULE')
 
-import * as BusyWait from '@ti.mcu.cc23xx/BusyWait.em'
+import * as BusyWait from '@em.utils/BusyWait.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
 export const CS = $proxy<GpioI.$I>()
