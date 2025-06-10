@@ -59,14 +59,14 @@ export function em$configure(): void {
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
     AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
-    AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
+    AppButEdge.pin_num.$$val = AppButPin.pin_num.$$val = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
-    AppLed.active_low.$$ = brd.activeLowLeds
-    AppLedPin.pin_num.$$ = brd.pins.appLed
-    AppOutPin.pin_num.$$ = brd.pins.appOut
+    AppLed.active_low.$$val = brd.activeLowLeds
+    AppLedPin.pin_num.$$val = brd.pins.appLed
+    AppOutPin.pin_num.$$val = brd.pins.appOut
     BoardController.Led.$$ = SysLed
     // BoardController.ready_delay_usecs.$$ = 1_000_000
-    BusyWait.scalar.$$ = 26
+    BusyWait.scalar.$$val = 26
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart
     Common.GlobalInterrupts.$$ = GlobalInterrupts
@@ -75,17 +75,17 @@ export function em$configure(): void {
     Common.Uptimer.$$ = Uptimer
     Common.UsCounter.$$ = UsCounter
     ConsoleUart.TxPin.$$ = AppOutPin
-    DbgA.pin_num.$$ = brd.pins.sysDbgA
-    DbgB.pin_num.$$ = brd.pins.sysDbgB
-    DbgC.pin_num.$$ = brd.pins.sysDbgC
-    DbgD.pin_num.$$ = brd.pins.sysDbgD
+    DbgA.pin_num.$$val = brd.pins.sysDbgA
+    DbgB.pin_num.$$val = brd.pins.sysDbgB
+    DbgC.pin_num.$$val = brd.pins.sysDbgC
+    DbgD.pin_num.$$val = brd.pins.sysDbgD
     Debug.DbgA.$$ = DbgA
     Debug.DbgB.$$ = DbgB
     Debug.DbgC.$$ = DbgC
     Debug.DbgD.$$ = DbgD
     Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
-    SysLed.active_low.$$ = brd.activeLowLeds
-    SysLedPin.pin_num.$$ = brd.pins.sysLed
-    UsCounter.MHZ.$$ = 128
+    SysLed.active_low.$$val = brd.activeLowLeds
+    SysLedPin.pin_num.$$val = brd.pins.sysLed
+    UsCounter.MHZ.$$val = 128
 }

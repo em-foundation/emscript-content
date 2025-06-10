@@ -17,7 +17,7 @@ export namespace em$meta {
     const PCLK_FREQ = 50_000_000
 
     export function em$construct() {
-        clkdiv.$$ = Math.round(PCLK_FREQ / baud)
+        clkdiv.$$val = Math.round(PCLK_FREQ / baud)
         Idle.em$meta.addSleepEnter($cb(sleepEnter))
         Idle.em$meta.addSleepLeave($cb(sleepLeave))
     }

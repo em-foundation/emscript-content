@@ -22,7 +22,7 @@ export namespace em$template {
         }
     }
 
-    const pn = pin_num
+    const pn = pin_num + 0
     const mask = 1 << pn
 
     export function clearDetect(): void {

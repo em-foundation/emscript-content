@@ -28,7 +28,7 @@ let curHead: ref_t<Elem>
 export namespace em$meta {
     export function em$construct() {
         let itemSize = 16 + $sizeof<Data>()
-        maxElems.$$ = Math.round(memsize / itemSize) - 3
+        maxElems.$$val = Math.round(memsize / itemSize) - 3
         curHead = ElemFac.$create()
         curHead.$$.data = DataFac.$create()
         let p = curHead

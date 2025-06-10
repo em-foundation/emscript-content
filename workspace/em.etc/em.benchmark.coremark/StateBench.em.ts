@@ -39,25 +39,25 @@ export namespace em$meta {
         intPat.$add(t$`1234`)
         intPat.$add(t$`-874`)
         intPat.$add(t$`+122`)
-        intPatLen.$$ = intPat[0].$len
+        intPatLen.$$val = intPat[0].$len
         //
         fltPat.$add(t$`35.54400`)
         fltPat.$add(t$`.1234500`)
         fltPat.$add(t$`-110.700`)
         fltPat.$add(t$`+0.64400`)
-        fltPatLen.$$ = fltPat[0].$len
+        fltPatLen.$$val = fltPat[0].$len
         //
         sciPat.$add(t$`5.500e+3`)
         sciPat.$add(t$`-.123e-2`)
         sciPat.$add(t$`-87e+832`)
         sciPat.$add(t$`+0.6e-12`)
-        sciPatLen.$$ = sciPat[0].$len
+        sciPatLen.$$val = sciPat[0].$len
         //
         errPat.$add(t$`T0.3e-1F`)
         errPat.$add(t$`-T.T++Tq`)
         errPat.$add(t$`1T3.4e4z`)
         errPat.$add(t$`34.0e-T^`)
-        errPatLen.$$ = errPat[0].$len
+        errPatLen.$$val = errPat[0].$len
     }
 
     export function em$construct() {

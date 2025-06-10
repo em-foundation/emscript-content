@@ -19,11 +19,11 @@ export namespace em$template {
         export function setDetectHandler(h: EdgeI.Handler) {
             let hi = Aux.HandlerInfo.$make()
             hi.handler = h
-            pin_chan.$$ = Aux.em$meta.addHandlerInfo(hi)
+            pin_chan.$$val = Aux.em$meta.addHandlerInfo(hi)
         }
     }
 
-    const pc = pin_chan
+    const pc = <u8>pin_chan
     const pid = pin_num & 0xff
     const mask = 1 << pid
     const int_en = 1 << pc

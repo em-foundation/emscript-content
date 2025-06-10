@@ -13,9 +13,9 @@ const num_algs = $param<u8>(3)
 export namespace em$meta {
     export function em$configure() {
         let memsize = Math.floor(total_data_size / num_algs)
-        ListBench.memsize.$$ = memsize
-        MatrixBench.memsize.$$ = memsize
-        StateBench.memsize.$$ = memsize
+        ListBench.memsize.$$val = memsize
+        MatrixBench.memsize.$$val = memsize
+        StateBench.memsize.$$val = memsize
     }
 
     export function em$construct() {

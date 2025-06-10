@@ -69,12 +69,12 @@ export function em$configure(): void {
     AlarmMgr.WakeupTimer.$$ = WakeupTimer
     AppBut.Edge.$$ = AppButEdge
     AppButEdge.Pin.$$ = AppButPin
-    AppButEdge.pin_num.$$ = AppButPin.pin_num.$$ = brd.pins.appBut
+    AppButEdge.pin_num.$$val = AppButPin.pin_num.$$val = brd.pins.appBut
     AppLed.Pin.$$ = AppLedPin
-    AppLedPin.pin_num.$$ = brd.pins.appLed
-    AppOutPin.pin_num.$$ = brd.pins.appOut
+    AppLedPin.pin_num.$$val = brd.pins.appLed
+    AppOutPin.pin_num.$$val = brd.pins.appOut
     BoardController.Led.$$ = SysLed
-    BusyWait.scalar.$$ = 6
+    BusyWait.scalar.$$val = 6
     Common.BusyWait.$$ = BusyWait
     Common.ConsoleUart.$$ = ConsoleUart0
     Common.GlobalInterrupts.$$ = GlobalInterrupts
@@ -83,10 +83,10 @@ export function em$configure(): void {
     Common.Uptimer.$$ = Uptimer
     Common.UsCounter.$$ = UsCounter
     ConsoleUart0.TxPin.$$ = AppOutPin
-    DbgA.pin_num.$$ = brd.pins.sysDbgA
-    DbgB.pin_num.$$ = brd.pins.sysDbgB
-    DbgC.pin_num.$$ = brd.pins.sysDbgC
-    DbgD.pin_num.$$ = brd.pins.sysDbgD
+    DbgA.pin_num.$$val = brd.pins.sysDbgA
+    DbgB.pin_num.$$val = brd.pins.sysDbgB
+    DbgC.pin_num.$$val = brd.pins.sysDbgC
+    DbgD.pin_num.$$val = brd.pins.sysDbgD
     Debug.DbgA.$$ = DbgA
     Debug.DbgB.$$ = DbgB
     Debug.DbgC.$$ = DbgC
@@ -95,11 +95,11 @@ export function em$configure(): void {
     ExtFlashDisabler.CS.$$ = FlashCS
     ExtFlashDisabler.PICO.$$ = FlashPICO
     ExtFlashDisabler.POCI.$$ = FlashPOCI
-    FlashCLK.pin_num.$$ = brd.pins.extFlashCLK
-    FlashCS.pin_num.$$ = brd.pins.extFlashCS
-    FlashPICO.pin_num.$$ = brd.pins.extFlashPICO
-    FlashPOCI.pin_num.$$ = brd.pins.extFlashPOCI
+    FlashCLK.pin_num.$$val = brd.pins.extFlashCLK
+    FlashCS.pin_num.$$val = brd.pins.extFlashCS
+    FlashPICO.pin_num.$$val = brd.pins.extFlashPICO
+    FlashPOCI.pin_num.$$val = brd.pins.extFlashPOCI
     Poller.OneShot.$$ = OneShot
     SysLed.Pin.$$ = SysLedPin
-    SysLedPin.pin_num.$$ = brd.pins.sysLed
+    SysLedPin.pin_num.$$val = brd.pins.sysLed
 }

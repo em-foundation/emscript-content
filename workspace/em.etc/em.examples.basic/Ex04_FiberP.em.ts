@@ -7,18 +7,18 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-const blinkF = $config<FiberMgr.Obj>()
+const blinkF = $param<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
-        blinkF.$$ = FiberMgr.em$meta.create($cb(blinkFB))
+        blinkF.$$val = FiberMgr.em$meta.create($cb(blinkFB))
     }
 }
 
 let count = <u8>5
 
 export function em$run() {
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
     FiberMgr.run()
 }
 
@@ -29,5 +29,5 @@ function blinkFB(a: arg_t) {
     Common.BusyWait.wait(250_000)
     AppLed.off()
     Common.BusyWait.wait(250_000)
-    blinkF.$$.$$.post()
+    blinkF.$$.post()
 }
