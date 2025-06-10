@@ -10,7 +10,7 @@ export namespace em$template {
     export const $U = em.$declare('MODULE', LedI)
 
     export const Pin = $proxy<GpioI.$I>()
-    export const active_low = $config<bool_t>(false)
+    export const active_low = $param<bool_t>()
 
     export namespace em$meta {
         export function em$construct() {
@@ -26,7 +26,7 @@ export namespace em$template {
     }
 
     export function off(): void {
-        if (active_low.$$) {
+        if (active_low) {
             Pin.set()
         } else {
             Pin.clear()
@@ -34,7 +34,7 @@ export namespace em$template {
     }
 
     export function on(): void {
-        if (active_low.$$) {
+        if (active_low) {
             Pin.clear()
         } else {
             Pin.set()

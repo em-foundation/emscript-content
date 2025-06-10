@@ -5,7 +5,7 @@ import * as Common from '@em.mcu/Common.em'
 import * as LedI from '@em.hal/LedI.em'
 
 export const Led = $proxy<LedI.$I>()
-export const ready_delay_usecs = $config<u32>(0)
+export const ready_delay_usecs = $param<u32>()
 
 const BLINK_RATE = 50000
 const EOT_BYTE = 0x04
@@ -19,8 +19,8 @@ export function em$reset(): void {
 export function em$ready(): void {
     Led.off()
     blink(2, BLINK_RATE)
-    if (ready_delay_usecs.$$) {
-        Common.BusyWait.wait(ready_delay_usecs.$$)
+    if (ready_delay_usecs) {
+        Common.BusyWait.wait(ready_delay_usecs)
     }
     Common.ConsoleUart.flush()
     Common.ConsoleUart.put(0x00)

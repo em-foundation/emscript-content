@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@adi.distro.max326xx/REGS.em'
 
-export const use_ERFO = $config<bool_t>(false)
+export const use_ERFO = $param<bool_t>(false)
 
 export namespace em$meta {
     export type Src = 'ERFO' | 'IPO'
@@ -12,7 +12,7 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 export function startup() {
-    if (use_ERFO.$$) {
+    if (use_ERFO) {
         $R.GCR.BTLELDOCTRL.$$ |= $R.F_GCR_BTLELDOCTRL_LDORXEN | $R.F_GCR_BTLELDOCTRL_LDOTXEN
         $R.GCR.CLKCTRL.$$ |= $R.F_GCR_CLKCTRL_ISO_EN
         while (($R.GCR.CLKCTRL.$$ & $R.F_GCR_CLKCTRL_ISO_RDY) == 0) { }
@@ -28,6 +28,6 @@ export function startup() {
 }
 
 export function isUsingERFO(): bool_t {
-    return use_ERFO.$$
+    return use_ERFO
 }
 

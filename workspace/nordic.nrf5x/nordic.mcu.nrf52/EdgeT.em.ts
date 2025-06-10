@@ -11,9 +11,9 @@ export namespace em$template {
     export const $U = em.$declare('MODULE', EdgeI)
 
     export const Pin = $proxy<GpioI.$I>()
-    export const pin_num = $config<i16>()
+    export const pin_num = $param<i16>()
 
-    const pin_chan = $config<u8>()
+    const pin_chan = $param<u8>()
 
     export namespace em$meta {
         export function setDetectHandler(h: EdgeI.Handler) {
@@ -23,8 +23,8 @@ export namespace em$template {
         }
     }
 
-    const pc = pin_chan.$$
-    const pid = pin_num.$$ & 0xff
+    const pc = pin_chan
+    const pid = pin_num & 0xff
     const mask = 1 << pid
     const int_en = 1 << pc
 

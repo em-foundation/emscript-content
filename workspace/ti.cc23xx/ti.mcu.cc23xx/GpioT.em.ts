@@ -8,15 +8,15 @@ import * as GpioI from '@em.hal/GpioI.em'
 export namespace em$template {
     export const $U = em.$declare('MODULE', GpioI)
 
-    export const pin_num = $config<i16>(-1)
+    export const pin_num = $param<i16>(-1)
 
     export namespace em$meta {
         export function pinId(): i16 {
-            return pin_num.$$
+            return pin_num
         }
     }
 
-    const pn = pin_num.$$
+    const pn = pin_num
     const mask = 1 << pn
 
     export function clear(): void {

@@ -5,14 +5,14 @@ import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const baud_rate = $config<u32>(57_600)
+export const baud_rate = $param<u32>(57_600)
 export const TxPin = $proxy<GpioI.$I>()
 
-const bit_time = $config<u16>()
+const bit_time = $param<u16>()
 
 export namespace em$meta {
     export function em$construct() {
-        bit_time.$$ = Math.floor(1_000_000 / baud_rate.$$)
+        bit_time.$$ = Math.floor(1_000_000 / baud_rate)
     }
 }
 
@@ -28,7 +28,7 @@ export function put(data: u8): void {
     let tx_byte: u16 = (data << 1) | 0x600
     const key = Common.GlobalInterrupts.disable()
     for (let _ of $range(bit_cnt)) {
-        Common.UsCounter.set(bit_time.$$)
+        Common.UsCounter.set(bit_time)
         if (tx_byte & 0x1) {
             TxPin.set()
         } else {

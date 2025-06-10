@@ -6,7 +6,7 @@ import * as $R from '@ti.distro.cc23xx/REGS.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as McuI from '@em.hal/McuI.em'
 
-const use_sram = $config<bool_t>()
+const use_sram = $param<bool_t>()
 
 export namespace em$meta {
     export function em$construct() {
@@ -23,7 +23,7 @@ export function startup(): void {
         $R.CKMD_IMSET_HFXTFAULT |
         $R.CKMD_IMSET_TRACKREFLOSS |
         $R.CKMD_IMSET_LFCLKGOOD
-    if (use_sram.$$) {
+    if (use_sram) {
         $R.CLKCTL.IDLECFG.$$ = 1
         $R.VIMS.CCHCTRL.$$ = 0
     }

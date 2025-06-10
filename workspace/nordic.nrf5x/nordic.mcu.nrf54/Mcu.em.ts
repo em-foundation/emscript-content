@@ -6,7 +6,7 @@ import * as $R from '@nordic.distro.nrf54/REGS.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as McuI from '@em.hal/McuI.em'
 
-const use_sram = $config<bool_t>()
+const use_sram = $param<bool_t>()
 
 export namespace em$meta {
     export function em$construct() {
@@ -32,7 +32,7 @@ export function startup(): void {
     e$`SCB->NSACR |= (3UL << 10ul)`
     e$`NRF_GLITCHDET_S->CONFIG = (GLITCHDET_CONFIG_ENABLE_Disable << GLITCHDET_CONFIG_ENABLE_Pos)`
     $R.RRAMC.POWER.LOWPOWERCONFIG.$$ = $R.RRAMC_POWER_LOWPOWERCONFIG_MODE_PowerOff
-    if (!use_sram.$$) {
+    if (!use_sram) {
         e$`NRF_APPLICATION_ICACHE_S->ENABLE = 1`
         $R.MEMCONF.POWER[0].CONTROL.$$ = 0x1 // retain 32K sram
     } else {

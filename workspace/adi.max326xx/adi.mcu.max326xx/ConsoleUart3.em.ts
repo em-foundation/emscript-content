@@ -9,15 +9,15 @@ import * as Idle from '@adi.mcu.max326xx/Idle.em'
 
 export const TxPin = $proxy<GpioI.$I>()
 
-export const baud = $config<u32>(115200)
+export const baud = $param<u32>(115200)
 
-const clkdiv = $config<u32>()
+const clkdiv = $param<u32>()
 
 export namespace em$meta {
     const PCLK_FREQ = 50_000_000
 
     export function em$construct() {
-        clkdiv.$$ = Math.round(PCLK_FREQ / baud.$$)
+        clkdiv.$$ = Math.round(PCLK_FREQ / baud)
         Idle.em$meta.addSleepEnter($cb(sleepEnter))
         Idle.em$meta.addSleepLeave($cb(sleepLeave))
     }
@@ -47,7 +47,7 @@ function sleepLeave() {
     $R.LPGCR.PCLKDIS.$$ &= ~($R.F_LPGCR_PCLKDIS_UART3 | $R.F_LPGCR_PCLKDIS_GPIO2)
     TxPin.makeOutput()
     TxPin.functionSelect(2)
-    $R.UART3.CLKDIV.$$ = clkdiv.$$
+    $R.UART3.CLKDIV.$$ = clkdiv
     $R.UART3.CTRL.$$ |=
         $R.S_UART_CTRL_CHAR_SIZE_8BITS |
         $R.S_UART_CTRL_BCLKSRC_PERIPHERAL_CLOCK |
