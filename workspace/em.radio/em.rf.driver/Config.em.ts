@@ -5,8 +5,8 @@ export enum Phy {
     NONE, BLE_1M, PROP_1M, PROP_250K,
 }
 
-export const phy = $param<Phy>(Phy.NONE)
-export const tx_pwr = $param<i8>(0)
+export const phy = $config<Phy>(Phy.NONE)
+export const tx_pwr = $config<i8>(0)
 
 //>> ---- em$targ ---- <<//
 

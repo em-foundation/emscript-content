@@ -6,7 +6,7 @@ import * as $R from '@nordic.distro.nrf52/REGS.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as McuI from '@em.hal/McuI.em'
 
-const use_sram = $param<bool_t>()
+const use_sram = $config<bool_t>()
 
 export namespace em$meta {
     export function em$construct() {

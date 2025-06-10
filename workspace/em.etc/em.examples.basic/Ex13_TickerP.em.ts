@@ -9,8 +9,8 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 export const AppLed = $delegate(BoardC.AppLed)
 export const SysLed = $delegate(BoardC.SysLed)
 
-const app_ticker = $param<TickerMgr.Obj>()
-const sys_ticker = $param<TickerMgr.Obj>()
+const app_ticker = $config<TickerMgr.Obj>()
+const sys_ticker = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {

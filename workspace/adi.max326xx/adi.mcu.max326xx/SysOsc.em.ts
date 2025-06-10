@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as $R from '@adi.distro.max326xx/REGS.em'
 
-export const use_ERFO = $param<bool_t>(false)
+export const use_ERFO = $config<bool_t>(false)
 
 export namespace em$meta {
     export type Src = 'ERFO' | 'IPO'

@@ -34,7 +34,7 @@ export class AdvHdr extends $struct {
     // isMine: () => bool_t
 }
 
-const ADV_LEG_INIT = $param<AdvHdr>()
+const ADV_LEG_INIT = $config<AdvHdr>()
 
 export namespace em$meta {
     export function em$construct() {

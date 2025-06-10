@@ -5,10 +5,10 @@ import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUartI from '@em.hal/ConsoleUartI.em'
 import * as GpioI from '@em.hal/GpioI.em'
 
-export const baud_rate = $param<u32>(57_600)
+export const baud_rate = $config<u32>(57_600)
 export const TxPin = $proxy<GpioI.$I>()
 
-const bit_time = $param<u16>()
+const bit_time = $config<u16>()
 
 export namespace em$meta {
     export function em$construct() {

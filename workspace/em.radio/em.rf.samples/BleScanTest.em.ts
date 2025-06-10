@@ -10,8 +10,8 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 export const AppLed = $delegate(BoardC.AppLed)
 export const RadioDriver = $delegate(BoardC.RadioDriver)
 
-const alarm = $param<AlarmMgr.Obj>()
-const fiber = $param<FiberMgr.Obj>()
+const alarm = $config<AlarmMgr.Obj>()
+const fiber = $config<FiberMgr.Obj>()
 
 var pktbuf = $table<u8>('rw', 25)
 

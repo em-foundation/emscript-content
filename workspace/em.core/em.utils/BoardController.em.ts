@@ -5,7 +5,7 @@ import * as Common from '@em.mcu/Common.em'
 import * as LedI from '@em.hal/LedI.em'
 
 export const Led = $proxy<LedI.$I>()
-export const ready_delay_usecs = $param<u32>()
+export const ready_delay_usecs = $config<u32>()
 
 const BLINK_RATE = 50000
 const EOT_BYTE = 0x04

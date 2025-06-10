@@ -11,7 +11,7 @@ class Shape extends $struct {
     coeff: frame_t<u8>
 }
 
-const BLE_1M_SHAPE = $param<Shape>()
+const BLE_1M_SHAPE = $config<Shape>()
 
 export namespace em$meta {
     export function em$construct() {

@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Crc from '@em.benchmark.coremark/Crc.em'
 import * as Utils from '@em.benchmark.coremark/Utils.em'
 
-export const memsize = $param<u16>()
+export const memsize = $config<u16>()
 
 const NUM_STATES = 8
 
@@ -24,10 +24,10 @@ const fltPat = $table<text_t>('ro')
 const sciPat = $table<text_t>('ro')
 const errPat = $table<text_t>('ro')
 
-const intPatLen = $param<u16>()
-const fltPatLen = $param<u16>()
-const sciPatLen = $param<u16>()
-const errPatLen = $param<u16>()
+const intPatLen = $config<u16>()
+const fltPatLen = $config<u16>()
+const sciPatLen = $config<u16>()
+const errPatLen = $config<u16>()
 
 class StateCnt extends $vector<u32> { $len = NUM_STATES }
 

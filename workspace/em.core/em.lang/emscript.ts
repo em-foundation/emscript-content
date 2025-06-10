@@ -89,35 +89,41 @@ namespace em {
     const __CONFIG__ = null
     // #region
 
-    class em$config_t<T> {
-        private $$em$config: string = 'config'
-        private _val: T | undefined
-        private _type: string
-        private _uid: string
-        constructor(v: T | undefined, t: string, u: string) {
-            this._val = v
-            this._type = t
-            this._uid = u
-        }
-        _$$init() {
-            if (this._val == undefined) {
-                this._val = defaultAux(this._type, this._uid) as T
-            }
-        }
+    type em$config_t<T> = T & { $$val: T }
 
-        get $$(): T {
-            return this._val!
-        }
-        set $$(v: T) {
-            this._val = v
-        }
-    }
-    export function $config<T>(val?: T, $type?: never, $uid?: never): em$config_t<T> & Boxed<T> {
-        if ($uid !== undefined) {
-            return new em$config_t<T>(val, $type as unknown as string, $uid as unknown as string)
-        } else {
-            return new em$config_t<T>(undefined, val as string, $type as unknown as string)
-        }
+    export function $config<T>(initval?: T, $type?: never, $uid?: never): em$config_t<T> {
+        const has_uid = $uid !== undefined
+        const t = has_uid ? ($type as unknown as string) : (initval as string)
+        const u = has_uid ? ($uid as unknown as string) : ($type as unknown as string)
+        let curval = has_uid ? initval : (undefined as T)
+        let prx = new Proxy({} as any, {
+            get(_, prop) {
+                if (prop === '$$val') return curval
+                if (prop === '_$$init') return () => { curval = curval ?? defaultAux(t, u) }
+                if (prop === '$$em$config') return 'param'
+                if (prop === Symbol.toPrimitive) return () => curval
+                if (prop === 'valueOf') return () => curval
+                if (prop === 'toString') return () => String(curval)
+                return (curval as any)[prop]
+            },
+            set(_, prop, val) {
+                if (prop === '$$val') {
+                    curval = val
+                    return true
+                }
+                if (typeof curval === 'object' && curval !== null) {
+                    return Reflect.set(curval, prop, val)
+                }
+                return false
+            }
+        })
+        Object.defineProperty(prx, '$$em$config', {
+            value: 'param',
+            enumerable: false,
+            writable: false,
+            configurable: false
+        })
+        return prx
     }
 
     // #endregion
@@ -379,48 +385,6 @@ namespace em {
         start = beg < 0 ? arr.length + beg : start + beg
         len = len == 0 ? arr.length - start : len
         return new em$frame<T>(arr, start, len)
-    }
-
-    // #endregion
-
-    const __PARAM__ = null
-    // #region
-
-    type em$param_t<T> = T & { $$val: T }
-
-    export function $param<T>(initval?: T, $type?: never, $uid?: never): em$param_t<T> {
-        const has_uid = $uid !== undefined
-        const t = has_uid ? ($type as unknown as string) : (initval as string)
-        const u = has_uid ? ($uid as unknown as string) : ($type as unknown as string)
-        let curval = has_uid ? initval : (undefined as T)
-        let prx = new Proxy({} as any, {
-            get(_, prop) {
-                if (prop === '$$val') return curval
-                if (prop === '_$$init') return () => { curval = curval ?? defaultAux(t, u) }
-                if (prop === '$$em$config') return 'param'
-                if (prop === Symbol.toPrimitive) return () => curval
-                if (prop === 'valueOf') return () => curval
-                if (prop === 'toString') return () => String(curval)
-                return (curval as any)[prop]
-            },
-            set(_, prop, val) {
-                if (prop === '$$val') {
-                    curval = val
-                    return true
-                }
-                if (typeof curval === 'object' && curval !== null) {
-                    return Reflect.set(curval, prop, val)
-                }
-                return false
-            }
-        })
-        Object.defineProperty(prx, '$$em$config', {
-            value: 'param',
-            enumerable: false,
-            writable: false,
-            configurable: false
-        })
-        return prx
     }
 
     // #endregion
@@ -1146,7 +1110,6 @@ declare global {
     const $implements: typeof em.$implements
     const $null: any
     const $outfile: typeof em.$outfile
-    const $param: typeof em.$param
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
     const $range: typeof em.$range
@@ -1182,7 +1145,6 @@ Object.assign(globalThis, {
     $implements: em.$implements,
     $null: null as any,
     $outfile: em.$outfile,
-    $param: em.$param,
     $property: em.$property,
     $proxy: em.$proxy,
     $range: em.$range,

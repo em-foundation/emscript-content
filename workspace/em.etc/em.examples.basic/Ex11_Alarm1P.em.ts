@@ -8,8 +8,8 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export const AppLed = $delegate(BoardC.AppLed)
 
-const alarm = $param<AlarmMgr.Obj>()
-const blinkF = $param<FiberMgr.Obj>()
+const alarm = $config<AlarmMgr.Obj>()
+const blinkF = $config<FiberMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {

@@ -18,10 +18,10 @@ const TICKER_SYS_PERIOD_MS = 1500
 const AppLed = $delegate(BoardC.AppLed)
 const SysLed = $delegate(BoardC.SysLed)
 
-const ticker_app = $param<TickerMgr.Obj>()
-const ticker_print = $param<TickerMgr.Obj>()
-const ticker_rate_change = $param<TickerMgr.Obj>()
-const ticker_sys = $param<TickerMgr.Obj>()
+const ticker_app = $config<TickerMgr.Obj>()
+const ticker_print = $config<TickerMgr.Obj>()
+const ticker_rate_change = $config<TickerMgr.Obj>()
+const ticker_sys = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {

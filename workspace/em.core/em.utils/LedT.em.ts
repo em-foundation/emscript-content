@@ -10,7 +10,7 @@ export namespace em$template {
     export const $U = em.$declare('MODULE', LedI)
 
     export const Pin = $proxy<GpioI.$I>()
-    export const active_low = $param<bool_t>()
+    export const active_low = $config<bool_t>()
 
     export namespace em$meta {
         export function em$construct() {

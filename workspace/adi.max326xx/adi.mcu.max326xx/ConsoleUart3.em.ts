@@ -9,9 +9,9 @@ import * as Idle from '@adi.mcu.max326xx/Idle.em'
 
 export const TxPin = $proxy<GpioI.$I>()
 
-export const baud = $param<u32>(115200)
+export const baud = $config<u32>(115200)
 
-const clkdiv = $param<u32>()
+const clkdiv = $config<u32>()
 
 export namespace em$meta {
     const PCLK_FREQ = 50_000_000

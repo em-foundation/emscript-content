@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE', UsCounterI)
 
 import * as UsCounterI from '@em.hal/UsCounterI.em'
 
-export const MHZ = $param<u16>(48)
+export const MHZ = $config<u16>(48)
 
 const MAX = <u32>0x00ff_ffff
 

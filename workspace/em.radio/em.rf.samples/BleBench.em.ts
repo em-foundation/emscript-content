@@ -10,7 +10,7 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export const RadioDriver = $delegate(BoardC.RadioDriver)
 
-const ticker = $param<TickerMgr.Obj>()
+const ticker = $config<TickerMgr.Obj>()
 
 let adv_pkt = $table<u8>('rw')
 

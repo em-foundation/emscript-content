@@ -8,7 +8,7 @@ import * as Utils from '@em.benchmark.coremark/Utils.em'
 
 const AppLed = $delegate(BoardC.AppLed)
 
-const iterations = $param<u16>(10)
+const iterations = $config<u16>(10)
 
 export namespace em$meta { }
 
