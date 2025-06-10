@@ -3,7 +3,7 @@ export const $U = em.$declare('MODULE')
 
 import * as IsrI from '@em.arch.arm/IsrI.em'
 
-export const IsrDefault = $proxy2<IsrI.$I>()
+export const IsrDefault = $proxy<IsrI.$I>()
 
 export namespace em$meta {
     //

@@ -428,34 +428,15 @@ namespace em {
     const __PROXY__ = null
     // #region
 
-    class em$proxy_t<I extends object> {
-        private $$em$config: string = 'proxy'
-        private bound: boolean = false
-        private prx: I = isa<I>()
-        private dunit: Unit | null = null
-        get $$(): I {
-            return this.prx
-        }
-        set $$(delegate: I) {
-            this.prx = delegate
-            this.bound = true
-            if ('em$_U' in delegate) this.dunit = delegate.em$_U as Unit
-        }
-    }
-    export function $proxy<I extends object>(): em$proxy_t<I> & Boxed<I> {
-        return new em$proxy_t<I>()
-    }
+    type em$proxy_t<I> = I & { $$: I }
 
-    export function $delegate<U extends object>(unit: U): em$proxy2_t<U> {
-        // const prx = new em$proxy_t<U>()
-        const prx = $proxy2<U>()
+    export function $delegate<U extends object>(unit: U): em$proxy_t<U> {
+        const prx = $proxy<U>()
         prx.$$ = unit
         return prx
     }
 
-    type em$proxy2_t<I> = I & { $$: I }
-
-    export function $proxy2<I extends object>(unit?: I): em$proxy2_t<I> {
+    export function $proxy<I extends object>(unit?: I): em$proxy_t<I> {
         let bound = false
         let del = isa<I>()
         let dunit: Unit | null = null
@@ -1169,7 +1150,6 @@ declare global {
     const $param: typeof em.$param
     const $property: typeof em.$property
     const $proxy: typeof em.$proxy
-    const $proxy2: typeof em.$proxy2
     const $range: typeof em.$range
     const $ref: typeof em.$ref
     const $sizeof: typeof em.$sizeof
@@ -1206,7 +1186,6 @@ Object.assign(globalThis, {
     $param: em.$param,
     $property: em.$property,
     $proxy: em.$proxy,
-    $proxy2: em.$proxy2,
     $range: em.$range,
     $ref: em.$ref,
     $sizeof: em.$sizeof,

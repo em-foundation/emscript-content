@@ -7,7 +7,7 @@ import * as RadioDriverI from '@em.rf.core/RadioDriverI.em'
 import * as Registry from '@em.rf.core/Registry.em'
 import * as Types from '@em.rf.ble/Types.em'
 
-export const RadioDriver = $proxy2<RadioDriverI.$I>()
+export const RadioDriver = $proxy<RadioDriverI.$I>()
 
 export namespace em$meta {
     export function em$construct() {

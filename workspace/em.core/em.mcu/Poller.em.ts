@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 import * as OneShotI from '@em.hal/OneShotI.em'
 
-export const OneShot = $proxy2<OneShotI.$I>()
+export const OneShot = $proxy<OneShotI.$I>()
 
 //>> ---- em$targ ---- <<//
 
