@@ -40,12 +40,12 @@ export namespace em$template {
     }
 
     export function getState(): bool_t {
-        return Pin.$$.get()
+        return Pin.get()
     }
 
     export function init(pullup: bool_t) {
-        Pin.$$.makeInput()
-        Pin.$$.setInternalPullup(pullup)
+        Pin.makeInput()
+        Pin.setInternalPullup(pullup)
     }
 
     export function setDetectFalling() {

@@ -17,12 +17,12 @@ export function em$run() {
 function onPressedH() {
     $['%%c']
     if (AppBut.$$.isPressed()) {
-        SysLed.$$.on()
+        SysLed.on()
         Common.BusyWait.wait(40_000)
-        SysLed.$$.off()
+        SysLed.off()
     } else {
-        AppLed.$$.on()
+        AppLed.on()
         Common.BusyWait.wait(5_000)
-        AppLed.$$.off()
+        AppLed.off()
     }
 }

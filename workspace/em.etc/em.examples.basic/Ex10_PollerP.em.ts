@@ -11,6 +11,6 @@ export function em$run() {
     Common.GlobalInterrupts.enable()
     for (let _ of $range(5)) {
         Poller.upause(100_000) // 100ms
-        AppLed.$$.wink(5) // 5ms
+        AppLed.wink(5) // 5ms
     }
 }

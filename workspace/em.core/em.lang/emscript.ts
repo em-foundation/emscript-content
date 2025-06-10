@@ -446,15 +446,16 @@ namespace em {
         return new em$proxy_t<I>()
     }
 
-    export function $delegate<U extends object>(unit: U): em$proxy_t<U> {
-        const prx = new em$proxy_t<U>()
+    export function $delegate<U extends object>(unit: U): em$proxy2_t<U> {
+        // const prx = new em$proxy_t<U>()
+        const prx = $proxy2<U>()
         prx.$$ = unit
         return prx
     }
 
     type em$proxy2_t<I> = I & { $$: I }
 
-    export function $proxy2<I extends object>(): em$proxy2_t<I> {
+    export function $proxy2<I extends object>(unit?: I): em$proxy2_t<I> {
         let bound = false
         let del = isa<I>()
         let dunit: Unit | null = null

@@ -19,9 +19,9 @@ export function em$startup() {
 }
 
 export function em$run() {
-    AppLed.$$.on()
+    AppLed.on()
     Common.BusyWait.wait(1_000_000)
-    AppLed.$$.off()
+    AppLed.off()
     Common.UsCounter.start()
     $['%%d+']
     for (let _ of $range(iterations.$$)) {
@@ -29,9 +29,9 @@ export function em$run() {
     }
     $['%%d-']
     let usecs = Common.UsCounter.stop()
-    AppLed.$$.on()
+    AppLed.on()
     Common.BusyWait.wait(1_000_000)
-    AppLed.$$.off()
+    AppLed.off()
     printf`usecs = %d\n`(usecs)
     printf`list crc = %04x\n`(Utils.getCrc(Utils.Kind.LIST))
     printf`matrix crc = %04x\n`(Utils.getCrc(Utils.Kind.MATRIX))

@@ -17,8 +17,8 @@ export namespace em$meta {
 }
 
 export function em$startup(): void {
-    TxPin.$$.makeOutput()
-    TxPin.$$.set()
+    TxPin.makeOutput()
+    TxPin.set()
 }
 
 export function flush(): void { }
@@ -30,13 +30,13 @@ export function put(data: u8): void {
     for (let _ of $range(bit_cnt)) {
         Common.UsCounter.set(bit_time.$$)
         if (tx_byte & 0x1) {
-            TxPin.$$.set()
+            TxPin.set()
         } else {
-            TxPin.$$.clear()
+            TxPin.clear()
         }
         tx_byte >>= 1
         Common.UsCounter.spin()
     }
-    TxPin.$$.set()
+    TxPin.set()
     Common.GlobalInterrupts.restore(key)
 }

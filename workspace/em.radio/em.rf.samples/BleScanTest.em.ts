@@ -39,7 +39,7 @@ function fiberF(_: arg_t) {
     RadioDriver.$$.enable()
     RadioDriver.$$.startRx(pktbuf.$frame(0), CHAN)
     RadioDriver.$$.waitReady()
-    AppLed.$$.wink(5)
+    AppLed.wink(5)
     for (const b of pktbuf.$frame(0)) printf`%02x `(b)
     printf`\n`()
     RadioDriver.$$.disable()

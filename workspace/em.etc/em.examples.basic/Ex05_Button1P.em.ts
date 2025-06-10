@@ -29,7 +29,7 @@ export function em$run() {
 function handler() {
     $['%%c']
     AppButEdge.$$.clearDetect()
-    AppLed.$$.on()
+    AppLed.on()
     Common.BusyWait.wait(5_000)
-    AppLed.$$.off()
+    AppLed.off()
 }

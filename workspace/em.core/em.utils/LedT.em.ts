@@ -27,22 +27,22 @@ export namespace em$template {
 
     export function off(): void {
         if (active_low.$$) {
-            Pin.$$.set()
+            Pin.set()
         } else {
-            Pin.$$.clear()
+            Pin.clear()
         }
     }
 
     export function on(): void {
         if (active_low.$$) {
-            Pin.$$.clear()
+            Pin.clear()
         } else {
-            Pin.$$.set()
+            Pin.set()
         }
     }
 
     export function toggle(): void {
-        Pin.$$.toggle()
+        Pin.toggle()
     }
 
     export function wink(msecs: u32): void {
@@ -52,11 +52,11 @@ export namespace em$template {
     }
 
     function sleepEnter() {
-        Pin.$$.reset()
+        Pin.reset()
     }
 
     function sleepLeave() {
-        Pin.$$.makeOutput()
+        Pin.makeOutput()
         off()
     }
 }

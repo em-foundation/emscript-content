@@ -14,7 +14,7 @@ export function em$run() {
             printf` hello world %d\n`(i / 2)
         }
         Common.BusyWait.wait(500_000)
-        AppLed.$$.toggle()
+        AppLed.toggle()
     }
 }
 

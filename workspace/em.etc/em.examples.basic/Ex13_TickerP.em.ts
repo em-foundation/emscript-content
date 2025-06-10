@@ -27,10 +27,10 @@ export function em$run() {
 
 function appTickCb() {
     $['%%c']
-    AppLed.$$.wink(100)
+    AppLed.wink(100)
 }
 
 function sysTickCb() {
     $['%%d']
-    SysLed.$$.wink(100)
+    SysLed.wink(100)
 }

@@ -39,14 +39,14 @@ export function put(data: u8): void {
 }
 
 function sleepEnter() {
-    TxPin.$$.reset()
+    TxPin.reset()
     $R.LPGCR.PCLKDIS.$$ |= ($R.F_LPGCR_PCLKDIS_UART3 | $R.F_LPGCR_PCLKDIS_GPIO2)
 }
 
 function sleepLeave() {
     $R.LPGCR.PCLKDIS.$$ &= ~($R.F_LPGCR_PCLKDIS_UART3 | $R.F_LPGCR_PCLKDIS_GPIO2)
-    TxPin.$$.makeOutput()
-    TxPin.$$.functionSelect(2)
+    TxPin.makeOutput()
+    TxPin.functionSelect(2)
     $R.UART3.CLKDIV.$$ = clkdiv.$$
     $R.UART3.CTRL.$$ |=
         $R.S_UART_CTRL_CHAR_SIZE_8BITS |
