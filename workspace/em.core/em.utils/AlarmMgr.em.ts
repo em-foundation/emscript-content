@@ -24,11 +24,11 @@ interface Alarm {
     wakeupAligned(this: Alarm, delta: Secs24p8): void
 }
 
-let AlarmFac = $factory(Alarm.$make())
+var alarm_tab = $table<Alarm>()
 
 export namespace em$meta {
     export function create(fiber: FiberMgr.Obj): Obj {
-        let alarm = AlarmFac.$create()
+        let alarm = alarm_tab.$$add(Alarm.$make())
         alarm.$$._fiber = fiber
         return alarm
     }
@@ -42,7 +42,7 @@ function dispatch(delta: Secs24p8) {
     WakeupTimer.disable()
     let nxt_alarm = <Obj>$null
     let max_dt_secs = ~(<Secs24p8>0)
-    for (let a of AlarmFac) {
+    for (let a of alarm_tab) {
         // iterate through all alarms
         if (a.$$._dt_secs == 0) continue // INACTIVE state
         a.$$._dt_secs -= delta > a.$$._dt_secs ? a.$$._dt_secs : delta

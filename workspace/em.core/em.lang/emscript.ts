@@ -629,16 +629,17 @@ namespace em {
         $ptr(): ptr_t<T> {
             return new em$ptr<T>(this.elems)
         }
-        [Symbol.iterator](): Iterator<T> {
+        [Symbol.iterator](): Iterator<ref_t<T>> {
             // TODO combine with ARRAY
             let idx = 0
-            let items = this.elems
+            let elems = this.elems
+            let cn = this.cname
             return {
-                next(): IteratorResult<T> {
-                    if (idx < items.length) {
+                next(): IteratorResult<ref_t<T>> {
+                    if (idx < elems.length) {
                         let cur = idx
                         idx += 1
-                        return { value: items[cur], done: false }
+                        return { value: new em$oref<T>(elems, idx, cn), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }

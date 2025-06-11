@@ -160,6 +160,15 @@ namespace em {
         frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
         operator frame_t<T>() { return $frame(0, 0); }
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
+        struct Iterator {
+            T* ptr;
+            constexpr Iterator(T *ptr) : ptr(ptr) {}
+            ref_t<T> operator*() const { return ref_t<T>(ptr); }
+            Iterator &operator++() { ++ptr; return *this; }
+            bool operator!=(const Iterator &other) const { return ptr != other.ptr; }
+        };
+        constexpr Iterator begin() { return Iterator(&$$[0]); }
+        constexpr Iterator end() { return Iterator(&$$[$len]); }
     };
 
     template <typename T, u16 N = 0> struct vec_t {
