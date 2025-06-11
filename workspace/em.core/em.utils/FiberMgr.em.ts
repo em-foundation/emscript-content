@@ -25,13 +25,13 @@ interface List {
     take(this: List): ref_t<Fiber>
 }
 
-let FiberFac = $factory(Fiber.$make())
+var fiber_tab = $table<Fiber>()
 
-let ready_list = List.$make()
+var ready_list = List.$make()
 
 export namespace em$meta {
     export function create(body: Body, arg: arg_t = 0): Obj {
-        let fiber = FiberFac.$create()
+        let fiber = fiber_tab.$$add(Fiber.$make())
         fiber.$$.body = body
         fiber.$$.arg = arg
         return fiber

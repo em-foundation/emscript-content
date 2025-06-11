@@ -612,16 +612,19 @@ namespace em {
     class em$table_t<T> {
         private $$em$config: string = 'table'
         private elems: T[] = []
-        constructor(readonly access: TableAccess) { }
+        constructor(readonly access: TableAccess, readonly cname: string) { }
         get $len(): u16 {
             return this.elems.length
         }
-        $$add(e: T): ptr_t<T> {
+        $$add(e: T): ref_t<T> {
             this.elems.push(e)
-            return new em$ptr<T>(this.elems, this.elems.length - 1)
+            return new em$oref<T>(this.elems, this.elems.length - 1, this.cname)
         }
         $frame(beg: i16, len: u16 = 0) {
             return frame$create<T>(this.elems, 0, beg, len)
+        }
+        $null(): ref_t<T> {
+            return new em$oref<T>(this.elems, -1, this.cname)
         }
         $ptr(): ptr_t<T> {
             return new em$ptr<T>(this.elems)
@@ -643,7 +646,7 @@ namespace em {
             }
         }
     }
-    export function $table<T>(access?: never): table_t<T> {
+    export function $table<T>(access?: never, cname?: never): table_t<T> {
         const handler = {
             get(targ: any, prop: string | symbol) {
                 if (typeof prop == 'symbol') return targ[prop]
@@ -661,7 +664,9 @@ namespace em {
                 return true
             },
         }
-        return new globalThis.Proxy(new em$table_t((access as unknown as TableAccess)), handler)
+        const acc = access as unknown as TableAccess
+        const cn = cname as unknown as string
+        return new globalThis.Proxy(new em$table_t(acc, cn), handler)
     }
 
     // #endregion
