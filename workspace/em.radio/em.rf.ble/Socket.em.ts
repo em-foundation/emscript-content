@@ -11,7 +11,7 @@ export const RadioDriver = $proxy<RadioDriverI.$I>()
 
 export namespace em$meta {
     export function em$construct() {
-        RadioDriver.$$.em$meta.bindHandler($cb(radioHandler))
+        RadioDriver.em$meta.bindHandler($cb(radioHandler))
     }
 }
 
@@ -85,11 +85,11 @@ function radioHandler() {
 }
 
 function radioOff() {
-    RadioDriver.$$.disable()
+    RadioDriver.disable()
 }
 
 function radioOn() {
-    RadioDriver.$$.enable()
+    RadioDriver.enable()
 }
 
 function setState(s: State) {
