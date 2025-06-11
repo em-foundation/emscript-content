@@ -152,120 +152,6 @@ namespace em {
 
     // #endregion
 
-    const __FACTORY__ = null
-    // #region
-
-    class em$oref<T> implements ref_t<T> {
-        __em$class = 'em$oref'
-        constructor(
-            private arr: T[],
-            private idx: u16,
-            private cname: string
-        ) {
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        return target.arr[idx + Number(prop)]
-                    }
-                    return (target as any)[prop]
-                },
-                set(target, prop, value) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        target.arr[idx + Number(prop)] = value
-                        return true
-                    }
-                    return false
-                },
-            })
-        }
-        get $$() {
-            return this.arr[this.idx]
-        }
-        set $$(v: T) {
-            this.arr[this.idx] = v
-        }
-    }
-
-    class em$factory<T extends $struct> {
-        [index: number]: T
-        private $$em$config: string = 'factory'
-        private elems: T[] = []
-        constructor(
-            private proto: T,
-            private cname: string
-        ) {
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        return target.elems[Number(prop)]
-                    }
-                    return (target as any)[prop]
-                },
-            })
-        }
-        get $len(): u16 {
-            return this.elems.length
-        }
-        $add(e: T) {
-            this.elems.push(e)
-        }
-        $create(): ref_t<T> {
-            this.$add(clone(this.proto))
-            return new em$oref<T>(this.elems, this.elems.length - 1, this.cname)
-        }
-        $frame(beg: i16, len: u16 = 0) {
-            return frame$create<T>(this.elems, 0, beg, len)
-        }
-        $null(): ref_t<T> {
-            return new em$oref<T>(this.elems, -1, this.cname)
-        }
-        $ptr(): ptr_t<T> {
-            return new em$ptr<T>(this.elems)
-        }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
-            let idx = 0
-            let items = this.elems
-            return {
-                next(): IteratorResult<ref_t<T>> {
-                    if (idx < items.length) {
-                        let cur = idx
-                        idx += 1
-                        return { value: new em$ptr<T>(items, cur), done: false }
-                    } else {
-                        return { value: undefined as any, done: true }
-                    }
-                },
-            }
-        }
-    }
-
-    export type factory_t<T extends $struct> = em$factory<T>
-
-    export function $factory<T extends $struct>(
-        proto: T,
-        __cname?: string
-    ): factory_t<T> {
-        const handler = {
-            get(targ: any, prop: string | symbol) {
-                const idx = Number(prop)
-                if (!isNaN(idx)) return targ.elems[idx]
-                switch (prop) {
-                    default:
-                        return targ[prop]
-                }
-            },
-            set(targ: any, prop: string | symbol, val: any) {
-                const idx = Number(prop)
-                if (isNaN(idx)) return false
-                targ.elems[idx] = val
-                return true
-            },
-        }
-        return new globalThis.Proxy(new em$factory(proto, __cname!), handler)
-    }
-
-    // #endregion
-
     const __FRAME__ = null
     // #region
 
@@ -608,6 +494,37 @@ namespace em {
     // #region
 
     type TableAccess = 'ro' | 'rw'
+
+    class em$oref<T> implements ref_t<T> {
+        __em$class = 'em$oref'
+        constructor(
+            private arr: T[],
+            private idx: u16,
+            private cname: string
+        ) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        return target.arr[idx + Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+                set(target, prop, value) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        target.arr[idx + Number(prop)] = value
+                        return true
+                    }
+                    return false
+                },
+            })
+        }
+        get $$() {
+            return this.arr[this.idx]
+        }
+        set $$(v: T) {
+            this.arr[this.idx] = v
+        }
+    }
 
     class em$table_t<T> {
         private $$em$config: string = 'table'
@@ -1130,7 +1047,6 @@ declare global {
     const $config: typeof em.$config
     const $default: typeof em.$default
     const $delegate: typeof em.$delegate
-    const $factory: typeof em.$factory
     const $frame: typeof em.$frame
     const $implements: typeof em.$implements
     const $null: any
@@ -1166,7 +1082,6 @@ Object.assign(globalThis, {
     $config: em.$config,
     $default: em.$default,
     $delegate: em.$delegate,
-    $factory: em.$factory,
     $frame: em.$frame,
     $implements: em.$implements,
     $null: null as any,

@@ -10,13 +10,14 @@ export class Data extends $struct {
     val: i16
     idx: i16
 }
-let DataFac = $factory(Data.$make())
 
 class Elem extends $struct {
     next: ref_t<Elem>
     data: ref_t<Data>
 }
-let ElemFac = $factory(Elem.$make())
+
+var data_tab = $table<Data>()
+var elem_tab = $table<Elem>()
 
 type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
 
@@ -29,16 +30,16 @@ export namespace em$meta {
     export function em$construct() {
         let itemSize = 16 + $sizeof<Data>()
         maxElems.$$val = Math.round(memsize / itemSize) - 3
-        curHead = ElemFac.$create()
-        curHead.$$.data = DataFac.$create()
+        curHead = elem_tab.$$add(Elem.$make())
+        curHead.$$.data = data_tab.$$add(Data.$make())
         let p = curHead
         for (let _ of $range(maxElems - 1)) {
-            let q = (p.$$.next = ElemFac.$create())
-            q.$$.data = DataFac.$create()
+            let q = (p.$$.next = elem_tab.$$add(Elem.$make()))
+            q.$$.data = data_tab.$$add(Data.$make())
             p = q
         }
-        p.$$.data = DataFac.$create()
-        p.$$.next = ElemFac.$null()
+        p.$$.data = data_tab.$$add(Data.$make())
+        p.$$.next = elem_tab.$null()
         curHead_c.$$val = curHead
     }
 }
@@ -170,12 +171,12 @@ function remove(item: ref_t<Elem>): ref_t<Elem> {
     item.$$.data = ret.$$.data
     ret.$$.data = tmp
     item.$$.next = item.$$.next.$$.next
-    ret.$$.next = ElemFac.$null()
+    ret.$$.next = elem_tab.$null()
     return ret
 }
 
 function reverse(list: ref_t<Elem>): ref_t<Elem> {
-    let next = ElemFac.$null()
+    let next = elem_tab.$null()
     while (list) {
         let tmp = list.$$.next
         list.$$.next = next
@@ -191,7 +192,7 @@ function sort(list: ref_t<Elem>, cmp: Comparator): ref_t<Elem> {
     let e: ref_t<Elem>
     while (true) {
         let p = list
-        let tail = (list = ElemFac.$null())
+        let tail = (list = elem_tab.$null())
         let nmerges = <i32>0 // count number of merges we do in this pass
         while (p) {
             nmerges++ // there exists a merge to be done
@@ -240,7 +241,7 @@ function sort(list: ref_t<Elem>, cmp: Comparator): ref_t<Elem> {
             // now p has stepped `insize` places along, and q has too
             p = q
         }
-        tail.$$.next = ElemFac.$null()
+        tail.$$.next = elem_tab.$null()
         // If we have done only one merge, we're finished
         if (nmerges <= 1) break // allow for nmerges==0, the empty list case
         // Otherwise repeat, merging lists twice the size

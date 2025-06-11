@@ -140,6 +140,7 @@ namespace em {
         inline const T &operator[](u16 index) const { return $$[index]; }
         const frame_t<T> $frame(i16 beg, u16 len = 0) const { return frame_t<T>::create((T*)$$, $len, beg, len); }
         operator frame_t<T>() const { return $frame(0, 0); }
+        ref_t<T> $null() { return ref_t<T>(); }
         ptr_t<T> $ptr() const { return ptr_t<T>((T*)$$); }
         struct Iterator {
             const T *current;
@@ -159,6 +160,7 @@ namespace em {
         inline const T &operator[](u16 index) const { return $$[index]; }
         frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
         operator frame_t<T>() { return $frame(0, 0); }
+        ref_t<T> $null() { return ref_t<T>(); }
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
         struct Iterator {
             T* ptr;
@@ -181,26 +183,6 @@ namespace em {
         operator index_t<T>() { return index_t<T>(&$$[0]); }
         ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
         static vec_t $make() { return vec_t(); }
-    };
-
-    template <typename T, u16 N> struct factory {
-        T $$[N];
-        static constexpr u16 $len = N;
-        inline const T &operator[](u16 index) const { return $$[index]; }
-        inline T &operator[](u16 index) { return $$[index]; }
-        frame_t<T> $frame(i16 beg, u16 len = 0) { return frame_t<T>::create($$, $len, beg, len); }
-        operator frame_t<T>() { return $frame(0, 0); }
-        ref_t<T> $null() { return ref_t<T>(); }
-        ptr_t<T> $ptr() { return ptr_t<T>(&$$[0]); }
-        struct Iterator {
-            T* ptr;
-            constexpr Iterator(T *ptr) : ptr(ptr) {}
-            ref_t<T> operator*() const { return ref_t<T>(ptr); }
-            Iterator &operator++() { ++ptr; return *this; }
-            bool operator!=(const Iterator &other) const { return ptr != other.ptr; }
-        };
-        constexpr Iterator begin() { return Iterator(&$$[0]); }
-        constexpr Iterator end() { return Iterator(&$$[$len]); }
     };
 
     struct text_t {
