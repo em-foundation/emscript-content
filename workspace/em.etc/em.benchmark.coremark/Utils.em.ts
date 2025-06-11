@@ -14,8 +14,8 @@ export enum Kind {
 export type seed_t = em.u16
 export type sum_t = em.u16
 
-let crc_tab = $table<sum_t>('rw')
-const seed_tab = $table<seed_t>('ro')
+let crc_tab = $table<sum_t>()
+const seed_tab = $table<seed_t>()
 
 export namespace em$meta {
     export function em$init() {

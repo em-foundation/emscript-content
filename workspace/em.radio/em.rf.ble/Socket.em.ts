@@ -24,8 +24,17 @@ enum State {
     ADV_PAUSE, ADV_SCAN, CONN, CONN_PAUSE, EXCH, IDLE
 }
 
-var rx_buf = $table<u8>('rw', 40)
-var tx_buf = $table<u8>('rw', 40)
+var rx_buf = $table<u8>()
+var tx_buf = $table<u8>()
+
+export namespace em$meta {
+    export function em$init() {
+        for (const _ of $range(40)) {
+            rx_buf.$$add(0)
+            tx_buf.$$add(0)
+        }
+    }
+}
 
 var adv_con_flag: bool_t
 var adv_count: u16

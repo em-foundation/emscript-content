@@ -13,9 +13,12 @@ export const RadioDriver = $delegate(BoardC.RadioDriver)
 const alarm = $config<AlarmMgr.Obj>()
 const fiber = $config<FiberMgr.Obj>()
 
-var pktbuf = $table<u8>('rw', 25)
+var pktbuf = $table<u8>()
 
 export namespace em$meta {
+    export function em$init() {
+        for (const _ of $range(25)) pktbuf.$$add(0)
+    }
     export function em$configure() {
         Config.phy.$$val = Config.Phy.BLE_1M
     }

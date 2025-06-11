@@ -9,8 +9,8 @@ import * as IntrVec from '@em.arch.arm/IntrVec.em'
 
 export type SleepCB = cb_t<[]>
 
-const sleep_enter_tab = $table<SleepCB>('ro')
-const sleep_leave_tab = $table<SleepCB>('ro')
+const sleep_enter_tab = $table<SleepCB>()
+const sleep_leave_tab = $table<SleepCB>()
 
 export namespace em$meta {
     export function addSleepEnter(cb: SleepCB) {

@@ -9,8 +9,8 @@ class Desc extends $struct {
     inc: u8
 }
 
-const desc_tab = $table<Desc>('ro')
-const val_tab = $table<u16>('ro')
+const desc_tab = $table<Desc>()
+const val_tab = $table<u16>()
 
 import * as Fs from 'fs'
 

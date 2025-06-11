@@ -12,7 +12,7 @@ export const RadioDriver = $delegate(BoardC.RadioDriver)
 
 const ticker = $config<TickerMgr.Obj>()
 
-let adv_pkt = $table<u8>('rw')
+let adv_pkt = $table<u8>()
 
 export namespace em$meta {
     export function em$configure() {

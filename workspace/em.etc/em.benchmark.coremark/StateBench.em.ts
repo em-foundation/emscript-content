@@ -19,10 +19,10 @@ enum State {
     SCIENTIFIC,
 }
 
-const intPat = $table<text_t>('ro')
-const fltPat = $table<text_t>('ro')
-const sciPat = $table<text_t>('ro')
-const errPat = $table<text_t>('ro')
+const intPat = $table<text_t>()
+const fltPat = $table<text_t>()
+const sciPat = $table<text_t>()
+const errPat = $table<text_t>()
 
 const intPatLen = $config<u16>()
 const fltPatLen = $config<u16>()
@@ -31,7 +31,7 @@ const errPatLen = $config<u16>()
 
 class StateCnt extends $vector<u32> { $len = NUM_STATES }
 
-let membuf = $table<u8>('rw')
+let membuf = $table<u8>()
 
 export namespace em$meta {
     export function em$init() {
