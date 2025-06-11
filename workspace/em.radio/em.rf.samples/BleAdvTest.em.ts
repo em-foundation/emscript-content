@@ -22,7 +22,7 @@ export namespace em$meta {
         ticker.$$val = TickerMgr.em$meta.create()
         let bytes = [0x22, 14, 0xCC, 0xCC, 0xBB, 0xBB, 0xAA, 0xAA, 4, 0x08, c$`E`, c$`M`, c$`S`, 2, 0x01, 0x06]
         for (const b of bytes) {
-            adv_pkt.$add(b)
+            adv_pkt.$$add(b)
         }
     }
 }

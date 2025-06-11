@@ -19,7 +19,7 @@ export namespace em$meta {
 
     export function addHandlerInfo(hi: HandlerInfo): u8 {
         const chan = <u8>handler_info_tab.$len
-        handler_info_tab.$add(hi)
+        handler_info_tab.$$add(hi)
         return chan
     }
 }

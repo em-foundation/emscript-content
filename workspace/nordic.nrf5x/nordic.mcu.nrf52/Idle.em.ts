@@ -14,11 +14,11 @@ const sleep_leave_tab = $table<SleepCB>('ro')
 
 export namespace em$meta {
     export function addSleepEnter(cb: SleepCB) {
-        sleep_enter_tab.$add(cb)
+        sleep_enter_tab.$$add(cb)
     }
 
     export function addSleepLeave(cb: SleepCB) {
-        sleep_leave_tab.$add(cb)
+        sleep_leave_tab.$$add(cb)
     }
 }
 

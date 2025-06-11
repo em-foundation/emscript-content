@@ -70,20 +70,20 @@ export namespace em$meta {
         }
         finalize() {
             this.flush()
-            desc_tab.$add(this.cur_desc)
+            desc_tab.$$add(this.cur_desc)
         }
         private flush() {
             const diff = (this.cur_addr - this.prev_addr) >> (this.cur_desc.inc / 2)
             if (diff > 1) {
                 for (const _ of $range(1, diff)) {
                     this.cur_serial += 1
-                    val_tab.$add(0)
+                    val_tab.$$add(0)
                     this.cur_desc.cnt += 1
                 }
             }
             this.cur_serial += 1
             // if (this.cur_addr > 0x6000) console.log($sprintf('[%04x] = %04x (%d)', this.cur_addr, this.cur_val, this.cur_val))
-            val_tab.$add(this.cur_val)
+            val_tab.$$add(this.cur_val)
             this.cur_val = 0
             this.cur_desc.cnt += 1
         }

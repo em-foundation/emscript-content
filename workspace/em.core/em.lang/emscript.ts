@@ -117,12 +117,6 @@ namespace em {
                 return false
             }
         })
-        Object.defineProperty(prx, '$$em$config', {
-            value: 'param',
-            enumerable: false,
-            writable: false,
-            configurable: false
-        })
         return prx
     }
 
@@ -422,11 +416,34 @@ namespace em {
                 return false
             }
         })
-        Object.defineProperty(prx, '$$em$config', {
-            value: 'proxy',
-            enumerable: false,
-            writable: false,
-            configurable: false
+        return prx
+    }
+
+    // #endregion
+
+    const __REF__ = null
+    // #region
+
+    type em$ref2_t<T> = T & { $obj: T }
+
+    export function $ref2<T>(obj?: T): em$ref2_t<T> {
+        let _o = obj ?? null
+        let prx = new Proxy({} as any, {
+            get(_, prop) {
+                if (prop === '$obj') return _o
+                if (prop === '$$em$config') return 'ref2'
+                return (_o as any)[prop]
+            },
+            set(_, prop, val) {
+                if (prop === '$obj') {
+                    _o = val
+                    return true
+                }
+                if (typeof _o === 'object' && _o !== null) {
+                    return Reflect.set(_o, prop, val)
+                }
+                return false
+            }
         })
         return prx
     }
@@ -599,8 +616,9 @@ namespace em {
         get $len(): u16 {
             return this.elems.length
         }
-        $add(e: T) {
+        $$add(e: T): ptr_t<T> {
             this.elems.push(e)
+            return new em$ptr<T>(this.elems, this.elems.length - 1)
         }
         $frame(beg: i16, len: u16 = 0) {
             return frame$create<T>(this.elems, 0, beg, len)
@@ -1089,6 +1107,7 @@ declare global {
     type i64 = em.i64
     type ptr_t<T> = em.ptr_t<T>
     type ref_t<T> = em.ref_t<T>
+    type ref2_t<T> = T & { $obj: T }
     type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
@@ -1114,6 +1133,7 @@ declare global {
     const $proxy: typeof em.$proxy
     const $range: typeof em.$range
     const $ref: typeof em.$ref
+    const $ref2: typeof em.$ref2
     const $sizeof: typeof em.$sizeof
     const $sprintf: typeof sprintf
     const $struct: typeof em.$struct
@@ -1149,6 +1169,7 @@ Object.assign(globalThis, {
     $proxy: em.$proxy,
     $range: em.$range,
     $ref: em.$ref,
+    $ref2: em.$ref2,
     $sizeof: em.$sizeof,
     $sprintf: sprintf,
     $struct: em.$struct,

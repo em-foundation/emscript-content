@@ -587,13 +587,13 @@ export namespace em$meta {
 
     export function em$construct() {
         //
-        for (const w of LRF_MCE_binary_genfsk) LRF_MCE_patch_genfsk.$add(w)
-        for (const w of LRF_PBE_binary_generic) LRF_PBE_patch_generic.$add(w)
-        for (const w of LRF_RFE_binary_genfsk) LRF_RFE_patch_genfsk.$add(w)
+        for (const w of LRF_MCE_binary_genfsk) LRF_MCE_patch_genfsk.$$add(w)
+        for (const w of LRF_PBE_binary_generic) LRF_PBE_patch_generic.$$add(w)
+        for (const w of LRF_RFE_binary_genfsk) LRF_RFE_patch_genfsk.$$add(w)
         //
-        for (const w of LRF_MCE_binary_ble5) LRF_MCE_patch_ble5.$add(w)
-        for (const w of LRF_PBE_binary_ble5) LRF_PBE_patch_ble5.$add(w)
-        for (const w of LRF_RFE_binary_ble5) LRF_RFE_patch_ble5.$add(w)
+        for (const w of LRF_MCE_binary_ble5) LRF_MCE_patch_ble5.$$add(w)
+        for (const w of LRF_PBE_binary_ble5) LRF_PBE_patch_ble5.$$add(w)
+        for (const w of LRF_RFE_binary_ble5) LRF_RFE_patch_ble5.$$add(w)
     }
 }
 

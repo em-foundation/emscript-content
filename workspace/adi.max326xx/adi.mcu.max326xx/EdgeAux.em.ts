@@ -19,7 +19,7 @@ export namespace em$meta {
     }
 
     export function addHandlerInfo(hi: HandlerInfo) {
-        handler_info_tab.$add(hi)
+        handler_info_tab.$$add(hi)
     }
 }
 

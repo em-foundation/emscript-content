@@ -25,9 +25,9 @@ export namespace em$meta {
         }
         dimN.$$val = i - 1
         for (let _ of $range(dimN * dimN)) {
-            matA.$add(0)
-            matB.$add(0)
-            matC.$add(0)
+            matA.$$add(0)
+            matB.$$add(0)
+            matC.$$add(0)
         }
     }
 }

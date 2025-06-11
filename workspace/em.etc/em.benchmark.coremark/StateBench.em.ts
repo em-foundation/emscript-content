@@ -35,33 +35,33 @@ let membuf = $table<u8>('rw')
 
 export namespace em$meta {
     export function em$init() {
-        intPat.$add(t$`5012`)
-        intPat.$add(t$`1234`)
-        intPat.$add(t$`-874`)
-        intPat.$add(t$`+122`)
+        intPat.$$add(t$`5012`)
+        intPat.$$add(t$`1234`)
+        intPat.$$add(t$`-874`)
+        intPat.$$add(t$`+122`)
         intPatLen.$$val = intPat[0].$len
         //
-        fltPat.$add(t$`35.54400`)
-        fltPat.$add(t$`.1234500`)
-        fltPat.$add(t$`-110.700`)
-        fltPat.$add(t$`+0.64400`)
+        fltPat.$$add(t$`35.54400`)
+        fltPat.$$add(t$`.1234500`)
+        fltPat.$$add(t$`-110.700`)
+        fltPat.$$add(t$`+0.64400`)
         fltPatLen.$$val = fltPat[0].$len
         //
-        sciPat.$add(t$`5.500e+3`)
-        sciPat.$add(t$`-.123e-2`)
-        sciPat.$add(t$`-87e+832`)
-        sciPat.$add(t$`+0.6e-12`)
+        sciPat.$$add(t$`5.500e+3`)
+        sciPat.$$add(t$`-.123e-2`)
+        sciPat.$$add(t$`-87e+832`)
+        sciPat.$$add(t$`+0.6e-12`)
         sciPatLen.$$val = sciPat[0].$len
         //
-        errPat.$add(t$`T0.3e-1F`)
-        errPat.$add(t$`-T.T++Tq`)
-        errPat.$add(t$`1T3.4e4z`)
-        errPat.$add(t$`34.0e-T^`)
+        errPat.$$add(t$`T0.3e-1F`)
+        errPat.$$add(t$`-T.T++Tq`)
+        errPat.$$add(t$`1T3.4e4z`)
+        errPat.$$add(t$`34.0e-T^`)
         errPatLen.$$val = errPat[0].$len
     }
 
     export function em$construct() {
-        for (let _ of $range(memsize)) membuf.$add(0)
+        for (let _ of $range(memsize)) membuf.$$add(0)
     }
 }
 
