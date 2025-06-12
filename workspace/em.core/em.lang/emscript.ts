@@ -155,55 +155,6 @@ namespace em {
     const __FRAME__ = null
     // #region
 
-    class em$ptr<T> implements ptr_t<T> {
-        [index: number]: T
-        __em$class = 'em$ptr'
-        constructor(private arr: T[], private idx: u16 = 0) {
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        return target.arr[idx + Number(prop)]
-                    }
-                    return (target as any)[prop]
-                },
-                set(target, prop, value) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        target.arr[idx + Number(prop)] = value
-                        return true
-                    }
-                    return false
-                },
-            })
-        }
-        get $$() {
-            return this.arr[this.idx]
-        }
-        set $$(v: T) {
-            this.arr[this.idx] = v
-        }
-        $cur() {
-            return this.idx
-        }
-        $dec() {
-            this.idx -= 1
-        }
-        $inc() {
-            this.idx += 1
-        }
-    }
-
-    class em$ref<T> implements ref_t<T> {
-        $$: T
-        __em$class = 'em$ref'
-        constructor(lval: T) {
-            this.$$ = lval
-        }
-    }
-
-    export function $ref<T>(lval: T): ref_t<T> {
-        return new em$ref<T>(lval)
-    }
-
     class em$frame<T> implements frame_t<T> {
         __em$class = 'em$frame'
         __$type: string
@@ -232,15 +183,15 @@ namespace em {
                 },
             })
         }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
+        [Symbol.iterator](): Iterator<eref_t<T>> {
             let idx = this.$start
             let items = this.items
             return {
-                next(): IteratorResult<ref_t<T>> {
+                next(): IteratorResult<eref_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         idx += 1
-                        return { value: new em$ptr<T>(items, cur), done: false }
+                        return { value: em$eref<T>(items, cur, ''), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }
@@ -310,28 +261,104 @@ namespace em {
     const __REF__ = null
     // #region
 
-    type em$ref2_t<T> = T & { $obj: T }
+    type eref_t<T> = T & { $test: bool_t }
 
-    export function $ref2<T>(obj?: T): em$ref2_t<T> {
-        let _o = obj ?? null
+    function em$eref<T>(arr: T[], idx: i16, cn: string): eref_t<T> {
+        let _e = (idx >= 0 && idx < arr.length) ? arr[idx] : null
         let prx = new Proxy({} as any, {
             get(_, prop) {
-                if (prop === '$obj') return _o
-                if (prop === '$$em$config') return 'ref2'
-                return (_o as any)[prop]
+                if (prop === '$test') return _e !== null
+                if (prop === '$cname') return cn
+                if (prop === '$idx') return idx
+                if (prop === '__em$class') return 'em$eref'
+                return (_e as any)[prop]
             },
             set(_, prop, val) {
-                if (prop === '$obj') {
-                    _o = val
-                    return true
-                }
-                if (typeof _o === 'object' && _o !== null) {
-                    return Reflect.set(_o, prop, val)
+                if (typeof _e === 'object' && _e !== null) {
+                    return Reflect.set(_e, prop, val)
                 }
                 return false
             }
         })
         return prx
+    }
+
+    class em$oref<T> implements ref_t<T> {
+        __em$class = 'em$oref'
+        constructor(
+            private arr: T[],
+            private idx: u16,
+            private cname: string
+        ) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        return target.arr[idx + Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+                set(target, prop, value) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        target.arr[idx + Number(prop)] = value
+                        return true
+                    }
+                    return false
+                },
+            })
+        }
+        get $$() {
+            return this.arr[this.idx]
+        }
+        set $$(v: T) {
+            this.arr[this.idx] = v
+        }
+    } class em$ptr<T> implements ptr_t<T> {
+        [index: number]: T
+        __em$class = 'em$ptr'
+        constructor(private arr: T[], private idx: u16 = 0) {
+            return new globalThis.Proxy(this, {
+                get(target, prop) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        return target.arr[idx + Number(prop)]
+                    }
+                    return (target as any)[prop]
+                },
+                set(target, prop, value) {
+                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
+                        target.arr[idx + Number(prop)] = value
+                        return true
+                    }
+                    return false
+                },
+            })
+        }
+        get $$() {
+            return this.arr[this.idx]
+        }
+        set $$(v: T) {
+            this.arr[this.idx] = v
+        }
+        $cur() {
+            return this.idx
+        }
+        $dec() {
+            this.idx -= 1
+        }
+        $inc() {
+            this.idx += 1
+        }
+    }
+
+    class em$ref<T> implements ref_t<T> {
+        $$: T
+        __em$class = 'em$ref'
+        constructor(lval: T) {
+            this.$$ = lval
+        }
+    }
+
+    export function $ref<T>(lval: T): ref_t<T> {
+        return new em$ref<T>(lval)
     }
 
     // #endregion
@@ -495,37 +522,6 @@ namespace em {
 
     type TableAccess = 'ro' | 'rw'
 
-    class em$oref<T> implements ref_t<T> {
-        __em$class = 'em$oref'
-        constructor(
-            private arr: T[],
-            private idx: u16,
-            private cname: string
-        ) {
-            return new globalThis.Proxy(this, {
-                get(target, prop) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        return target.arr[idx + Number(prop)]
-                    }
-                    return (target as any)[prop]
-                },
-                set(target, prop, value) {
-                    if (typeof prop === 'string' && !isNaN(Number(prop))) {
-                        target.arr[idx + Number(prop)] = value
-                        return true
-                    }
-                    return false
-                },
-            })
-        }
-        get $$() {
-            return this.arr[this.idx]
-        }
-        set $$(v: T) {
-            this.arr[this.idx] = v
-        }
-    }
-
     class em$table_t<T> {
         private $$em$config: string = 'table'
         private elems: T[] = []
@@ -533,30 +529,33 @@ namespace em {
         get $len(): u16 {
             return this.elems.length
         }
-        $$add(e: T): ref_t<T> {
+        $$add(e: T): eref_t<T> {
             this.elems.push(e)
-            return new em$oref<T>(this.elems, this.elems.length - 1, this.cname)
+            return em$eref<T>(this.elems, this.elems.length - 1, this.cname)
         }
         $frame(beg: i16, len: u16 = 0) {
             return frame$create<T>(this.elems, 0, beg, len)
         }
-        $null(): ref_t<T> {
-            return new em$oref<T>(this.elems, -1, this.cname)
+        $null(): eref_t<T> {
+            return em$eref<T>(this.elems, -1, this.cname)
         }
         $ptr(): ptr_t<T> {
             return new em$ptr<T>(this.elems)
         }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
+        $ref(idx: u16): eref_t<T> {
+            return em$eref<T>(this.elems, idx, this.cname)
+        }
+        [Symbol.iterator](): Iterator<eref_t<T>> {
             // TODO combine with ARRAY
             let idx = 0
             let elems = this.elems
             let cn = this.cname
             return {
-                next(): IteratorResult<ref_t<T>> {
+                next(): IteratorResult<eref_t<T>> {
                     if (idx < elems.length) {
                         let cur = idx
                         idx += 1
-                        return { value: new em$oref<T>(elems, idx, cn), done: false }
+                        return { value: em$eref<T>(elems, idx, cn), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }
@@ -671,7 +670,7 @@ namespace em {
     export interface frame_t<T> extends index_t<T> {
         $len: u16
         $frame(beg: i16, len: u16): frame_t<T>
-        [Symbol.iterator](): Iterator<ref_t<T>>
+        [Symbol.iterator](): Iterator<eref_t<T>>
     }
 
     export interface ref_t<T> {
@@ -990,16 +989,16 @@ namespace em {
             }
             return new globalThis.Proxy(o, handler)
         }
-        [Symbol.iterator](): Iterator<ref_t<T>> {
+        [Symbol.iterator](): Iterator<eref_t<T>> {
             // TODO combine with FRAME
             let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<ref_t<T>> {
+                next(): IteratorResult<eref_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         idx += 1
-                        return { value: new em$ptr<T>(items, cur), done: false }
+                        return { value: em$eref<T>(items, cur, ''), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }
@@ -1031,6 +1030,7 @@ declare global {
     type ptr_t<T> = em.ptr_t<T>
     type ref_t<T> = em.ref_t<T>
     type ref2_t<T> = T & { $obj: T }
+    type eref_t<T> = T & {}
     type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
@@ -1055,7 +1055,6 @@ declare global {
     const $proxy: typeof em.$proxy
     const $range: typeof em.$range
     const $ref: typeof em.$ref
-    const $ref2: typeof em.$ref2
     const $sizeof: typeof em.$sizeof
     const $sprintf: typeof sprintf
     const $struct: typeof em.$struct
@@ -1090,7 +1089,6 @@ Object.assign(globalThis, {
     $proxy: em.$proxy,
     $range: em.$range,
     $ref: em.$ref,
-    $ref2: em.$ref2,
     $sizeof: em.$sizeof,
     $sprintf: sprintf,
     $struct: em.$struct,

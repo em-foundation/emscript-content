@@ -33,6 +33,23 @@ namespace em {
     auto $null = nullptr;
     typedef decltype(nullptr) null_t;
 
+    template <typename T> struct ref_t {
+        T* $$;
+        constexpr ref_t(T* lval = null) : $$ (lval) {}
+        T& operator*() const { return *$$; }
+        T* operator->() const { return $$; }
+        operator arg_t() const { return (arg_t)($$); }
+        operator void*() const { return (void*)($$); }
+        explicit operator bool() const { return $$ != null; }
+        bool operator==(null_t) const { return $$ == null; }
+        bool operator!=(null_t) const { return $$ != null; }
+    };
+
+    template <typename T>
+    constexpr ref_t<T> $ref(T& lval) { // Template the factory function and pass by reference
+        return ref_t<T>(&lval);
+    }    
+
     template <typename T> struct frame_t {
         static frame_t<T> create(T arr[], u16 dim, i16 beg, u16 len) {
             auto idx = (u16)((beg < 0) ? dim + beg : beg);
@@ -49,13 +66,12 @@ namespace em {
         struct Iterator {
             T*current;
             constexpr Iterator(T* ptr) : current(ptr) {}
-            T operator*() const { return (T)(*current); }
+            ref_t<T> operator*() const { return ref_t<T>(current); }
             Iterator &operator++() { ++current; return *this; }
             bool operator!=(const Iterator &other) const { return current != other.current; }
         };
         constexpr Iterator begin() const { return Iterator($start); }
         constexpr Iterator end() const { return Iterator($start + $len); }
-
     };
 
     template <typename T> struct index_t {
@@ -112,23 +128,6 @@ namespace em {
     u16 $sizeof() {
         return sizeof(T);
     }
-
-    template <typename T> struct ref_t {
-        T* $$;
-        constexpr ref_t(T* lval = null) : $$ (lval) {}
-        T& operator*() const { return *$$; }
-        T* operator->() const { return $$; }
-        operator arg_t() const { return (arg_t)($$); }
-        operator void*() const { return (void*)($$); }
-        explicit operator bool() const { return $$ != null; }
-        bool operator==(null_t) const { return $$ == null; }
-        bool operator!=(null_t) const { return $$ != null; }
-    };
-
-    template <typename T>
-    constexpr ref_t<T> $ref(T& lval) { // Template the factory function and pass by reference
-        return ref_t<T>(&lval);
-    }    
 
     template <typename T>
     constexpr ref_t<T> $ref(T* val) { // Template the factory function and pass by reference
