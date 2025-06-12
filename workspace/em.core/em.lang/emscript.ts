@@ -183,15 +183,15 @@ namespace em {
                 },
             })
         }
-        [Symbol.iterator](): Iterator<eref_t<T>> {
+        [Symbol.iterator](): Iterator<ptr_t<T>> {
             let idx = this.$start
             let items = this.items
             return {
-                next(): IteratorResult<eref_t<T>> {
+                next(): IteratorResult<ptr_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         idx += 1
-                        return { value: em$eref<T>(items, cur, ''), done: false }
+                        return { value: new em$ptr<T>(items, cur), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }
@@ -670,7 +670,7 @@ namespace em {
     export interface frame_t<T> extends index_t<T> {
         $len: u16
         $frame(beg: i16, len: u16): frame_t<T>
-        [Symbol.iterator](): Iterator<eref_t<T>>
+        [Symbol.iterator](): Iterator<ptr_t<T>>
     }
 
     export interface ref_t<T> {
@@ -989,16 +989,16 @@ namespace em {
             }
             return new globalThis.Proxy(o, handler)
         }
-        [Symbol.iterator](): Iterator<eref_t<T>> {
+        [Symbol.iterator](): Iterator<ptr_t<T>> {
             // TODO combine with FRAME
             let idx = 0
             let items = this.items
             return {
-                next(): IteratorResult<eref_t<T>> {
+                next(): IteratorResult<ptr_t<T>> {
                     if (idx < items.length) {
                         let cur = idx
                         idx += 1
-                        return { value: em$eref<T>(items, cur, ''), done: false }
+                        return { value: new em$ptr<T>(items, cur), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }

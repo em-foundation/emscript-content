@@ -4,7 +4,7 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 
 export function putbuf(buf: frame_t<u8>) {
-    for (const p of buf) putch(p)
+    for (const p123 of buf) putch(p123.$$)
 }
 
 export function putch(ch: u8) {
