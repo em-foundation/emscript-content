@@ -23,8 +23,11 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    for (const i of $range(elem_tab.$len)) {
-        const e = elem_tab[i]
-        printf`data = %d, link = %x\n`(e.data, e.link)
-    }
+    elem_tab.$ptr().$$.data
+    // let efg = elem_tab.$ptr()
+    // let e = efg.$$
+    // printf`data = %d\n`(e.data)
+    // for (const efg of elem_tab) {
+    //     printf`link = %x\n`(efg.$$.link)
+    // }
 }
