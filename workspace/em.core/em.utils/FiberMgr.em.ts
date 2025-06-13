@@ -4,10 +4,10 @@ export const $U = em.$declare('MODULE')
 import * as Common from '@em.mcu/Common.em'
 
 export type Body = cb_t<[arg_t]>
-export type Obj = ref_t<Fiber>
+export type Obj = $$<Fiber>
 
 class Fiber extends $struct {
-    link: ref_t<Fiber>
+    link: $$<Fiber>
     body: Body
     arg: arg_t
 }
@@ -16,13 +16,13 @@ interface Fiber {
 }
 
 class List extends $struct {
-    head: ref_t<Fiber>
-    tail: ref_t<Fiber>
+    head: $$<Fiber>
+    tail: $$<Fiber>
 }
 interface List {
     empty(this: List): bool_t
-    give(this: List, elem: ref_t<Fiber>): void
-    take(this: List): ref_t<Fiber>
+    give(this: List, elem: $$<Fiber>): void
+    take(this: List): $$<Fiber>
 }
 
 var fiber_tab = $table<Fiber>()
@@ -67,7 +67,7 @@ List.prototype.empty = function (this: List): bool_t {
     return this.head == $null
 }
 
-List.prototype.give = function (this: List, elem: ref_t<Fiber>): void {
+List.prototype.give = function (this: List, elem: $$<Fiber>): void {
     if (this.empty()) {
         this.head = elem
     } else {
@@ -77,7 +77,7 @@ List.prototype.give = function (this: List, elem: ref_t<Fiber>): void {
     elem.$$.link = $null
 }
 
-List.prototype.take = function (this: List): ref_t<Fiber> {
+List.prototype.take = function (this: List): $$<Fiber> {
     let e = this.head
     this.head = e.$$.link
     e.$$.link = $null

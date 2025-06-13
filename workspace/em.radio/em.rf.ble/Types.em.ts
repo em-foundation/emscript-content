@@ -56,7 +56,7 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-function AdvHdr__init(self: ref_t<AdvHdr>, adv_type: u8): void {
+function AdvHdr__init(self: $$<AdvHdr>, adv_type: u8): void {
     const src = $ref(ADV_LEG_INIT)
     e$`memcpy(self, src, sizeof (AdvHdr))`
     self.$$.advType = adv_type

@@ -7,7 +7,7 @@ import * as WakeupTimerI from '@em.hal/WakeupTimerI.em'
 
 export const WakeupTimer = $proxy<WakeupTimerI.$I>()
 
-export type Obj = ref_t<Alarm>
+export type Obj = $$<Alarm>
 
 type Secs24p8 = TimeTypes.Secs24p8
 type Thresh = WakeupTimerI.Thresh

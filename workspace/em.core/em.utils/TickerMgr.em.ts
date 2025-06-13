@@ -6,7 +6,7 @@ import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
 
 export type Callback = cb_t<[]>
-export type Obj = ref_t<Ticker>
+export type Obj = $$<Ticker>
 
 class Ticker extends $struct {
     _alarm: AlarmMgr.Obj
