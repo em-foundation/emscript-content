@@ -5,12 +5,12 @@ import * as BusyWait from '@em.utils/BusyWait.em'
 
 class Elem extends $struct {
     data: u8
-    link: ref_t<Elem>
+    link: $$<Elem>
 }
 
 var elem_tab = $table<Elem>()
 
-const head = $config<ref_t<Elem>>()
+const head = $config<$$<Elem>>()
 
 export namespace em$meta {
     export function em$init() {
