@@ -16,7 +16,7 @@ export namespace em$meta {
     export function em$init() {
         let prev = elem_tab.$null()
         for (const i of $range(3)) {
-            const e = elem_tab.$$add(Elem.$make())
+            const e = elem_tab.$$add()
             e.$$.data = i + 10
             e.$$.link = prev
             prev = e
