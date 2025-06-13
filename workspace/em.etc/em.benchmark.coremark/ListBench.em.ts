@@ -12,19 +12,19 @@ export class Data extends $struct {
 }
 
 class Elem extends $struct {
-    next: ref_t<Elem>
-    data: ref_t<Data>
+    next: $$<Elem>
+    data: $$<Data>
 }
 
 var data_tab = $table<Data>()
 var elem_tab = $table<Elem>()
 
-type Comparator = (a: ref_t<Data>, b: ref_t<Data>) => i32
+type Comparator = (a: $$<Data>, b: $$<Data>) => i32
 
 const maxElems = $config<u16>()
 
-let curHead_c = $config<ref_t<Elem>>()
-let curHead: ref_t<Elem>
+let curHead_c = $config<$$<Elem>>()
+let curHead: $$<Elem>
 
 export namespace em$meta {
     export function em$construct() {
@@ -128,7 +128,7 @@ export function setup() {
 
 // private
 
-function find(list: ref_t<Elem>, data: ref_t<Data>): ref_t<Elem> {
+function find(list: $$<Elem>, data: $$<Data>): $$<Elem> {
     let elem = list
     if (data.$$.idx >= 0) {
         while (elem && elem.$$.data.$$.idx != data.$$.idx) {
@@ -145,7 +145,7 @@ function find(list: ref_t<Elem>, data: ref_t<Data>): ref_t<Elem> {
     return elem
 }
 
-function idxCompare(a: ref_t<Data>, b: ref_t<Data>): i32 {
+function idxCompare(a: $$<Data>, b: $$<Data>): i32 {
     a.$$.val = <i16>(
         (((<u16>a.$$.val) & 0xff00) | (0x00ff & (<u16>(a.$$.val >> 8))))
     )
@@ -155,7 +155,7 @@ function idxCompare(a: ref_t<Data>, b: ref_t<Data>): i32 {
     return a.$$.idx - b.$$.idx
 }
 
-function pr(list: ref_t<Elem>, name: text_t) {
+function pr(list: $$<Elem>, name: text_t) {
     let sz = 0
     printf`%s\n[`(name)
     for (let e = list; e != null; e = e.$$.next) {
@@ -165,7 +165,7 @@ function pr(list: ref_t<Elem>, name: text_t) {
     printf`\n], size = %d\n`(sz)
 }
 
-function remove(item: ref_t<Elem>): ref_t<Elem> {
+function remove(item: $$<Elem>): $$<Elem> {
     let ret = item.$$.next
     let tmp = item.$$.data
     item.$$.data = ret.$$.data
@@ -175,7 +175,7 @@ function remove(item: ref_t<Elem>): ref_t<Elem> {
     return ret
 }
 
-function reverse(list: ref_t<Elem>): ref_t<Elem> {
+function reverse(list: $$<Elem>): $$<Elem> {
     let next = elem_tab.$null()
     while (list) {
         let tmp = list.$$.next
@@ -186,10 +186,10 @@ function reverse(list: ref_t<Elem>): ref_t<Elem> {
     return next
 }
 
-function sort(list: ref_t<Elem>, cmp: Comparator): ref_t<Elem> {
+function sort(list: $$<Elem>, cmp: Comparator): $$<Elem> {
     let insize = <i32>1
-    let q: ref_t<Elem>
-    let e: ref_t<Elem>
+    let q: $$<Elem>
+    let e: $$<Elem>
     while (true) {
         let p = list
         let tail = (list = elem_tab.$null())
@@ -250,7 +250,7 @@ function sort(list: ref_t<Elem>, cmp: Comparator): ref_t<Elem> {
     return list
 }
 
-function unremove(removed: ref_t<Elem>, modified: ref_t<Elem>) {
+function unremove(removed: $$<Elem>, modified: $$<Elem>) {
     let tmp = removed.$$.data
     removed.$$.data = modified.$$.data
     modified.$$.data = tmp
@@ -263,7 +263,7 @@ function unremove(removed: ref_t<Elem>, modified: ref_t<Elem>) {
 import * as Bench0 from '@em.benchmark.coremark/StateBench.em'
 import * as Bench1 from '@em.benchmark.coremark/MatrixBench.em'
 
-function valCalc(pval: ref_t<i16>): i16 {
+function valCalc(pval: $$<i16>): i16 {
     let val = <u16>pval.$$
     let optype = (<u8>(val >> 7)) & 1
     if (optype) return <i16>(val & 0x007f)
@@ -294,7 +294,7 @@ function valCalc(pval: ref_t<i16>): i16 {
     return <i16>ret
 }
 
-function valCompare(a: ref_t<Data>, b: ref_t<Data>): i32 {
+function valCompare(a: $$<Data>, b: $$<Data>): i32 {
     let val1 = valCalc($ref(a.$$.val))
     let val2 = valCalc($ref(b.$$.val))
     return val1 - val2
