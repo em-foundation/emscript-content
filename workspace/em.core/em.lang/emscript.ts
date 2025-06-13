@@ -529,33 +529,33 @@ namespace em {
         get $len(): u16 {
             return this.elems.length
         }
-        $$add(e: T): eref_t<T> {
+        $$add(e: T): ref_t<T> {
             this.elems.push(e)
-            return em$eref<T>(this.elems, this.elems.length - 1, this.cname)
+            return new em$oref<T>(this.elems, this.elems.length - 1, this.cname)
         }
         $frame(beg: i16, len: u16 = 0) {
             return frame$create<T>(this.elems, 0, beg, len)
         }
-        $null(): eref_t<T> {
-            return em$eref<T>(this.elems, -1, this.cname)
+        $null(): ref_t<T> {
+            return new em$oref<T>(this.elems, -1, this.cname)
         }
         $ptr(): ptr_t<T> {
             return new em$ptr<T>(this.elems)
         }
-        $ref(idx: u16): eref_t<T> {
-            return em$eref<T>(this.elems, idx, this.cname)
+        $ref(idx: u16): ref_t<T> {
+            return new em$oref<T>(this.elems, idx, this.cname)
         }
-        [Symbol.iterator](): Iterator<eref_t<T>> {
+        [Symbol.iterator](): Iterator<ref_t<T>> {
             // TODO combine with ARRAY
             let idx = 0
             let elems = this.elems
             let cn = this.cname
             return {
-                next(): IteratorResult<eref_t<T>> {
+                next(): IteratorResult<ref_t<T>> {
                     if (idx < elems.length) {
                         let cur = idx
                         idx += 1
-                        return { value: em$eref<T>(elems, idx, cn), done: false }
+                        return { value: new em$oref<T>(elems, idx, cn), done: false }
                     } else {
                         return { value: undefined as any, done: true }
                     }

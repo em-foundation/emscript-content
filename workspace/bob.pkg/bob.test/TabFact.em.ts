@@ -5,20 +5,20 @@ import * as BusyWait from '@em.utils/BusyWait.em'
 
 class Elem extends $struct {
     data: u8
-    link: eref_t<Elem>
+    link: ref_t<Elem>
 }
 
 var elem_tab = $table<Elem>()
 
-const head = $config<eref_t<Elem>>()
+const head = $config<ref_t<Elem>>()
 
 export namespace em$meta {
     export function em$init() {
         let prev = elem_tab.$null()
         for (const i of $range(3)) {
             const e = elem_tab.$$add(Elem.$make())
-            e.data = i + 10
-            e.link = prev
+            e.$$.data = i + 10
+            e.$$.link = prev
             prev = e
         }
         head.$$val = prev
@@ -28,8 +28,8 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    printf`%d\n`(BusyWait.scalar)
-    // printf`data = %d\n`(head.data)           // Y
+    // printf`%d\n`(BusyWait.scalar)            // Y
+    printf`data = %d\n`(head.$$.data)           // Y
 
     // em.$reg32[100] = elem_tab[1].data           // Y
 
