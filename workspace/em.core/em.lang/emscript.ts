@@ -46,6 +46,10 @@ namespace em {
     const __CB__ = null
     // #region
 
+    export interface cb_t<A extends any[] = []> {
+        (...args: A): void
+    }
+
     export function $cb<A extends any[]>(
         fxn: (...args: A) => void,
         cname?: string
@@ -75,10 +79,6 @@ namespace em {
 
     const __CHAR__ = null
     // #region
-
-    export function char_t(cs: string): u8 {
-        return cs.charCodeAt(1)
-    }
 
     export function c$(sa: TemplateStringsArray): em.u8 {
         return sa[0].charCodeAt(0)
@@ -154,6 +154,12 @@ namespace em {
 
     const __FRAME__ = null
     // #region
+
+    export interface frame_t<T> extends index_t<T> {
+        $len: u16
+        $frame(beg: i16, len: u16): frame_t<T>
+        [Symbol.iterator](): Iterator<ptr_t<T>>
+    }
 
     class em$frame<T> implements frame_t<T> {
         __em$class = 'em$frame'
@@ -258,29 +264,20 @@ namespace em {
 
     // #endregion
 
-    const __REF__ = null
+    const __PTR__ = null
     // #region
 
-    type eref_t<T> = T & { $test: bool_t }
+    export interface ref_t<T> {
+        $$: T
+        __em$class: string
+    }
 
-    function em$eref<T>(arr: T[], idx: i16, cn: string): eref_t<T> {
-        let _e = (idx >= 0 && idx < arr.length) ? arr[idx] : null
-        let prx = new Proxy({} as any, {
-            get(_, prop) {
-                if (prop === '$test') return _e !== null
-                if (prop === '$cname') return cn
-                if (prop === '$idx') return idx
-                if (prop === '__em$class') return 'em$eref'
-                return (_e as any)[prop]
-            },
-            set(_, prop, val) {
-                if (typeof _e === 'object' && _e !== null) {
-                    return Reflect.set(_e, prop, val)
-                }
-                return false
-            }
-        })
-        return prx
+    export type index_t<T> = { [index: number]: T }
+
+    export interface ptr_t<T> extends ref_t<T>, index_t<T> {
+        $cur(): u32
+        $dec(): void
+        $inc(): void
     }
 
     class em$oref<T> implements ref_t<T> {
@@ -312,7 +309,9 @@ namespace em {
         set $$(v: T) {
             this.arr[this.idx] = v
         }
-    } class em$ptr<T> implements ptr_t<T> {
+    }
+
+    class em$ptr<T> implements ptr_t<T> {
         [index: number]: T
         __em$class = 'em$ptr'
         constructor(private arr: T[], private idx: u16 = 0) {
@@ -360,6 +359,42 @@ namespace em {
     export function $ref<T>(lval: T): ref_t<T> {
         return new em$ref<T>(lval)
     }
+
+    type eref_t<T> = T & { $test: bool_t }
+
+    function em$eref<T>(arr: T[], idx: i16, cn: string): eref_t<T> {
+        let _e = (idx >= 0 && idx < arr.length) ? arr[idx] : null
+        let prx = new Proxy({} as any, {
+            get(_, prop) {
+                if (prop === '$test') return _e !== null
+                if (prop === '$cname') return cn
+                if (prop === '$idx') return idx
+                if (prop === '__em$class') return 'em$eref'
+                return (_e as any)[prop]
+            },
+            set(_, prop, val) {
+                if (typeof _e === 'object' && _e !== null) {
+                    return Reflect.set(_e, prop, val)
+                }
+                return false
+            }
+        })
+        return prx
+    }
+
+    // #endregion
+
+    const __REG__ = null
+    // #region
+
+    export interface $Reg {
+        $$: number
+        $h: number
+        $: $Reg[]
+    }
+
+    export let $reg16: index_t<u16>
+    export let $reg32: index_t<u32>
 
     // #endregion
 
@@ -501,12 +536,25 @@ namespace em {
     export type u32 = number & { __u32?: never }
     export type u64 = number & { __u64?: never }
 
+    export type arg_t =
+        | bool_t
+        | i8
+        | i16
+        | i32
+        | text_t
+        | u8
+        | u16
+        | u32
+        | cb_t<any>
+        | ptr_t<any>
+        | ref_t<any>
+
+    export type volatile_t<T> = T
+
     // #endregion
 
     const __STRUCT__ = null
     // #region
-
-    export type struct_t<T extends { [key: string]: any }> = T
 
     export abstract class $struct {
         static $make<T extends $struct>(this: { new(): T }): T {
@@ -519,6 +567,8 @@ namespace em {
 
     const __TABLE__ = null
     // #region
+
+    export type table_t<T> = em$table_t<T> & index_t<T>
 
     type TableAccess = 'ro' | 'rw'
 
@@ -591,11 +641,11 @@ namespace em {
     const __TEXT__ = null
     // #region
 
-    export function t$(sa: TemplateStringsArray): em$text_t & index_t<u8> {
+    export type text_t = em$text_t & index_t<u8>
+
+    export function t$(sa: TemplateStringsArray): text_t {
         return text(sa[0])
     }
-
-    export type text_t = em$text_t & index_t<u8>
 
     class em$text_t {
         private str: string
@@ -641,85 +691,6 @@ namespace em {
             },
         }
         return new globalThis.Proxy(new em$text_t(str), handler)
-    }
-
-    // #endregion
-
-    const __TRAITS__ = null
-    // #region
-
-    export type arg_t =
-        | bool_t
-        | i8
-        | i16
-        | i32
-        | text_t
-        | u8
-        | u16
-        | u32
-        | cb_t<any>
-        | ptr_t<any>
-        | ref_t<any>
-
-    export interface cb_t<A extends any[] = []> {
-        (...args: A): void
-    }
-
-    export type dim_t<T, N extends number> = T[]
-
-    export interface frame_t<T> extends index_t<T> {
-        $len: u16
-        $frame(beg: i16, len: u16): frame_t<T>
-        [Symbol.iterator](): Iterator<ptr_t<T>>
-    }
-
-    export interface ref_t<T> {
-        $$: T
-        __em$class: string
-    }
-
-    export interface ptr_t<T> extends ref_t<T>, index_t<T> {
-        $cur(): u32
-        $dec(): void
-        $inc(): void
-    }
-
-    export type table_t<T> = em$table_t<T> & index_t<T>
-
-    export type volatile_t<T> = T
-
-    export interface $Reg {
-        $$: number
-        $h: number
-        $: $Reg[]
-    }
-
-    export let $reg16: index_t<u16>
-    export let $reg32: index_t<u32>
-
-    export type ArrayLike<T> = index_t<T> & { $len: u16 }
-
-    export type index_t<T> = { [index: number]: T }
-
-    export interface Boxed<T> {
-        $$: T
-    }
-
-    type Contained<T> = Boxed<T> & Sized
-
-    interface MemInfo {
-        size: number
-        align: number
-    }
-
-    interface Factory {
-        alignof: number
-        sizeof: number
-    }
-
-    export type Sized = {
-        $alignof: number
-        $sizeof: number
     }
 
     // #endregion
@@ -810,13 +781,6 @@ namespace em {
             for (let i = start; i < stop; i += step) yield i
         } else {
             for (let i = start; i > stop; i += step) yield i
-        }
-    }
-
-    class em$BoxedVal<T> {
-        $$: T
-        constructor(v: T) {
-            this.$$ = v
         }
     }
 
@@ -957,6 +921,8 @@ namespace em {
     const __VECTOR__ = null
     // #region
 
+    export type dim_t<T, N extends number> = T[]
+
     export class $vector<T> implements frame_t<T> {
         __em$class = 'em$vector'
         $len: u16
@@ -1031,7 +997,6 @@ declare global {
     type ref_t<T> = em.ref_t<T>
     type ref2_t<T> = T & { $obj: T }
     type eref_t<T> = T & {}
-    type struct_t<T extends { [key: string]: any }> = em.struct_t<T>
     type u8 = em.u8
     type u16 = em.u8
     type u32 = em.u32
