@@ -66,7 +66,7 @@ namespace em {
         struct Iterator {
             T*current;
             constexpr Iterator(T* ptr) : current(ptr) {}
-            ref_t<T> operator*() const { return ref_t<T>(current); }
+            T operator*() const { return (T)(*current); }
             Iterator &operator++() { ++current; return *this; }
             bool operator!=(const Iterator &other) const { return current != other.current; }
         };
