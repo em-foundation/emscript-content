@@ -31,7 +31,7 @@ var ready_list = List.$make()
 
 export namespace em$meta {
     export function create(body: Body, arg: arg_t = 0): Obj {
-        let fiber = fiber_tab.$$add(Fiber.$make())
+        let fiber = fiber_tab.$$add()
         fiber.$$.body = body
         fiber.$$.arg = arg
         return fiber

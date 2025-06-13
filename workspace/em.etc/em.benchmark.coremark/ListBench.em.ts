@@ -30,15 +30,15 @@ export namespace em$meta {
     export function em$construct() {
         let itemSize = 16 + $sizeof<Data>()
         maxElems.$$val = Math.round(memsize / itemSize) - 3
-        curHead = elem_tab.$$add(Elem.$make())
-        curHead.$$.data = data_tab.$$add(Data.$make())
+        curHead = elem_tab.$$add()
+        curHead.$$.data = data_tab.$$add()
         let p = curHead
         for (let _ of $range(maxElems - 1)) {
-            let q = (p.$$.next = elem_tab.$$add(Elem.$make()))
-            q.$$.data = data_tab.$$add(Data.$make())
+            let q = (p.$$.next = elem_tab.$$add())
+            q.$$.data = data_tab.$$add()
             p = q
         }
-        p.$$.data = data_tab.$$add(Data.$make())
+        p.$$.data = data_tab.$$add()
         p.$$.next = elem_tab.$null()
         curHead_c.$$val = curHead
     }

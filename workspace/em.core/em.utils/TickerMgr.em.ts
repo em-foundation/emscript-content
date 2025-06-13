@@ -23,7 +23,7 @@ var ticker_tab = $table<Ticker>()
 
 export namespace em$meta {
     export function create(): Obj {
-        let ticker = ticker_tab.$$add(Ticker.$make())
+        let ticker = ticker_tab.$$add()
         let fiber = FiberMgr.em$meta.create($cb(alarmFB), ticker_tab.$len - 1)
         let alarm = AlarmMgr.em$meta.create(fiber)
         ticker.$$._alarm = alarm

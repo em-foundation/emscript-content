@@ -28,7 +28,7 @@ var alarm_tab = $table<Alarm>()
 
 export namespace em$meta {
     export function create(fiber: FiberMgr.Obj): Obj {
-        let alarm = alarm_tab.$$add(Alarm.$make())
+        let alarm = alarm_tab.$$add()
         alarm.$$._fiber = fiber
         return alarm
     }
