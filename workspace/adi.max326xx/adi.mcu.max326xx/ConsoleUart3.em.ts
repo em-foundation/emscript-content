@@ -17,8 +17,6 @@ export namespace em$meta {
 
     const IBRO_FREQ = 7_372_800
 
-    const IBRO_FREQ = 7_372_800
-
     export function em$construct() {
         clkdiv.$$val = Math.round(IBRO_FREQ / baud)
         Idle.em$meta.addSleepEnter($cb(sleepEnter))
