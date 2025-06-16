@@ -134,11 +134,6 @@ namespace em {
         return ref_t<T>(val);
     }    
 
-    template <typename T>
-    constexpr ref_t<T> $ref(T* val) { // Template the factory function and pass by reference
-        return ref_t<T>(val);
-    }    
-
     template <typename T, u16 N> struct table_ro {
         T $$[N];
         static constexpr u16 $len = N;

@@ -89,21 +89,3 @@ function doSleep() {
     IntrVec.PRIMASK_set(0)
 }
 
-function doSleep() {
-    for (let cb of sleep_enter_tab) cb()
-    $['%%b:'](2)
-    $['%%b-']
-    Debug.reset()
-    disablePins()
-    IntrVec.PRIMASK_set(1)
-    $R.PWRSEQ.LPCN.$$ |= $R.F_PWRSEQ_LPCN_LPWKST_CLR
-    $R.MCR.CTRL.$$ |= $R.F_MCR_CTRL_ERTCO_EN
-    e$`SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk`
-    $R.GCR.PM.$$ |= $R.S_GCR_PM_MODE_STANDBY
-    e$`asm volatile ("wfi")`
-    Debug.startup()
-    $['%%b+']
-    for (let cb of sleep_leave_tab) cb()
-    IntrVec.PRIMASK_set(0)
-}
-

@@ -21,15 +21,6 @@ export namespace em$template {
 
     //>> ---- em$targ ---- <<//
 
-    export namespace em$meta {
-        export function em$construct() {
-            Common.Idle.$$.em$meta.addSleepEnter($cb(sleepEnter))
-            Common.Idle.$$.em$meta.addSleepLeave($cb(sleepLeave))
-        }
-    }
-
-    //>> ---- em$targ ---- <<//
-
     export function em$startup(): void {
         sleepLeave()
     }
