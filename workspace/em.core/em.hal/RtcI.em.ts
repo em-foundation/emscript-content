@@ -9,5 +9,5 @@ export interface $I {
     disable(): void
     enable(thresh: T.RtcThresh, handler: Handler): void
     getRawTime(): T.RawTime
-    toThresh(secs: T.Secs24p8): T.RtcThresh
+    toThresh(qsecs: T.Secs30p2): T.RtcThresh
 }

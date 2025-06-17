@@ -73,7 +73,7 @@ export function Secs24p8ToUsecs(s24p8: Secs24p8): u64 {
 }
 
 export function Secs30p2_initMsecs(msecs: u32): Secs30p2 {
-    return (msecs * 2) / 125
+    return msecs / 250
 }
 
 export function Secs30p2_ZERO(): Secs30p2 {

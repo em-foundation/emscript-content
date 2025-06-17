@@ -22,8 +22,8 @@ export namespace em$meta {
 // var count = 5
 
 export function em$run() {
-    app_ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(appTickCb))
-    sys_ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_500), $cb(sysTickCb))
+    app_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_000), $cb(appTickCb))
+    sys_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_500), $cb(sysTickCb))
     FiberMgr.run()
 }
 
