@@ -1,5 +1,5 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', RtcI)
 
 import * as $R from '@nordic.distro.nrf54/REGS.em'
 
