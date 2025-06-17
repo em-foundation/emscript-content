@@ -36,9 +36,6 @@ export function disable() {
 
 export function enable(thresh: u32, handler: Handler) {
     cur_hlr = handler
-    // const ctr = $R.RTC0.COUNTER.$$
-    // $['%%>'](ctr)
-    // $['%%>'](thresh)
     $R.RTC0.CC[0].$$ = thresh
     $R.RTC0.INTENSET.$$ = $R.RTC_INTENSET_COMPARE0_Msk
 }
@@ -51,10 +48,8 @@ export function getRawTime(): TimeTypes.RawTime {
     return res
 }
 
-export function toThresh(delta: TimeTypes.Secs24p8): u32 {
-    const ctr = $R.RTC0.COUNTER.$$
-    const thr = ctr + (delta >> (8 - SUBS_Cnt))
-    return thr
+export function toThresh(secs: TimeTypes.Secs24p8): u32 {
+    return secs >> (8 - SUBS_Cnt)
 }
 
 export function RTC0_isr$$() {
