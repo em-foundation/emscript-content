@@ -1,12 +1,13 @@
 import em from '@$$emscript'
-export const $U = em.$declare('MODULE')
+export const $U = em.$declare('MODULE', RtcI)
 
 import * as $R from '@nordic.distro.nrf52/REGS.em'
 
 import * as IntrVec from '@em.arch.arm/IntrVec.em'
-import * as TimeTypes from '@em.utils/TimeTypes.em'
+import * as RtcI from '@em.hal/RtcI.em'
+import * as T from '@em.utils/TimeTypes.em'
 
-export type Handler = cb_t<[]>
+export type Handler = RtcI.Handler
 
 export namespace em$meta {
     export function em$construct() {
@@ -34,21 +35,21 @@ export function disable() {
     $R.RTC0.EVENTS_COMPARE[0].$$ = 0
 }
 
-export function enable(thresh: u32, handler: Handler) {
+export function enable(thresh: T.RtcThresh, handler: Handler) {
     cur_hlr = handler
     $R.RTC0.CC[0].$$ = thresh
     $R.RTC0.INTENSET.$$ = $R.RTC_INTENSET_COMPARE0_Msk
 }
 
-export function getRawTime(): TimeTypes.RawTime {
-    let res = TimeTypes.RawTime.$make()
+export function getRawTime(): T.RawTime {
+    let res = T.RawTime.$make()
     const ctr = $R.RTC0.COUNTER.$$
     res.secs = ctr >> SUBS_Cnt
     res.subs = (ctr & SUBS_Msk) << (32 - SUBS_Cnt)
     return res
 }
 
-export function toThresh(secs: TimeTypes.Secs24p8): u32 {
+export function toThresh(secs: T.Secs24p8): T.RtcThresh {
     return secs >> (8 - SUBS_Cnt)
 }
 

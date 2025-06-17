@@ -21,6 +21,7 @@ export class TimeParts extends $struct {
     milliseconds: u32
 }
 
+export type RtcThresh = u32
 export type Secs24p8 = u32
 
 export function RawTime_ZERO(): RawTime {

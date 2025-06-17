@@ -19,7 +19,7 @@ export namespace em$meta {
     }
 }
 
-var count = 5
+// var count = 5
 
 export function em$run() {
     app_ticker.$$.start(TimeTypes.Secs24p8_initMsecs(1_000), $cb(appTickCb))
@@ -28,7 +28,7 @@ export function em$run() {
 }
 
 function appTickCb() {
-    if (count-- == 0) halt()
+    // if (count-- == 0) halt()
     $['%%c']
     AppLed.wink(100)
 }

@@ -3,26 +3,23 @@ export const $U = em.$declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
-import * as TimeTypes from '@em.utils/TimeTypes.em'
-import * as WakeupTimerI from '@em.hal/WakeupTimerI.em'
+import * as RtcI from '@em.hal/RtcI.em'
+import * as T from '@em.utils/TimeTypes.em'
 
-export const WakeupTimer = $proxy<WakeupTimerI.$I>()
+export const Rtc = $proxy<RtcI.$I>()
 
 export type Obj = $$<Alarm>
 
-type Secs24p8 = TimeTypes.Secs24p8
-type Thresh = WakeupTimerI.Thresh
-
 class Alarm extends $struct {
     _fiber: FiberMgr.Obj
-    _thresh: Thresh
-    _wup_time: Secs24p8
+    _thresh: T.RtcThresh
+    _wup_time: T.Secs24p8
 }
 interface Alarm {
     cancel(this: Alarm): void
     isActive(this: Alarm): bool_t
-    wakeup(this: Alarm, delta: Secs24p8): void
-    wakeupAligned(this: Alarm, delta: Secs24p8): void
+    wakeup(this: Alarm, delta: T.Secs24p8): void
+    wakeupAligned(this: Alarm, delta: T.Secs24p8): void
 }
 
 var alarm_tab = $table<Alarm>()
@@ -37,10 +34,10 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-function dispatch(cur_time: Secs24p8) {
-    WakeupTimer.disable()
+function dispatch(cur_time: T.Secs24p8) {
+    Rtc.disable()
     let nxt_alarm = <Obj>$null
-    let max_wup_time = ~(<Secs24p8>0)
+    let max_wup_time = ~(<T.Secs24p8>0)
     for (let a of alarm_tab) {
         // iterate through all alarms
         if (a.$$._wup_time == 0) continue // INACTIVE state
@@ -56,23 +53,23 @@ function dispatch(cur_time: Secs24p8) {
         }
     }
     if (nxt_alarm) {
-        WakeupTimer.enable(nxt_alarm.$$._thresh, $cb(wakeupHandler))
+        Rtc.enable(nxt_alarm.$$._thresh, $cb(wakeupHandler))
     }
 }
 
-function readCurTime(): Secs24p8 {
-    return TimeTypes.RawTimeToSecs24p8(Common.Uptimer.read())
+function readCurTime(): T.Secs24p8 {
+    return T.RawTimeToSecs24p8(Common.Uptimer.read())
 }
 
-function setup(alarm: Obj, delta: Secs24p8, aligned: bool_t) {
+function setup(alarm: Obj, delta: T.Secs24p8, aligned: bool_t) {
     const cur_time = readCurTime()
     let wup_time = cur_time + delta
     if (aligned) {
         wup_time -= wup_time % delta
     }
-    alarm.$$._thresh = WakeupTimer.secsToThresh(wup_time)
+    alarm.$$._thresh = Rtc.toThresh(wup_time)
     alarm.$$._wup_time = wup_time
-    printf`ct = %08x, wt = %08x, th = %08x\n`(cur_time, wup_time, alarm.$$._thresh)
+    // printf`ct = %08x, wt = %08x, th = %08x\n`(cur_time, wup_time, alarm.$$._thresh)
     dispatch(cur_time)
 }
 
@@ -88,10 +85,10 @@ Alarm.prototype.isActive = function (this: Alarm): bool_t {
     return this._wup_time != 0
 }
 
-Alarm.prototype.wakeup = function (this: Alarm, delta: Secs24p8) {
+Alarm.prototype.wakeup = function (this: Alarm, delta: T.Secs24p8) {
     setup($ref(this), delta, false)
 }
 
-Alarm.prototype.wakeupAligned = function (this: Alarm, delta: Secs24p8) {
+Alarm.prototype.wakeupAligned = function (this: Alarm, delta: T.Secs24p8) {
     setup($ref(this), delta, true)
 }
