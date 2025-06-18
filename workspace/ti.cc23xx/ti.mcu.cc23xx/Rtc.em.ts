@@ -51,8 +51,8 @@ export function getRawTime(): T.RawTime {
     return res
 }
 
-export function toThresh(secs: T.Secs24p8): u32 {
-    return secs << 8
+export function toThresh(qsecs: T.Secs30p2): u32 {
+    return qsecs << 14
 }
 
 export function CPUIRQ0_isr$$() {
