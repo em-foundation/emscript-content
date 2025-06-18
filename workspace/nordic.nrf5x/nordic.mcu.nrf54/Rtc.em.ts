@@ -50,8 +50,8 @@ export function getRawTime(): T.RawTime {
     return res
 }
 
-export function toThresh(secs: T.Secs24p8): u32 {
-    return T.Secs24p8ToUsecs(secs)
+export function toThresh(secs: T.Secs30p2): T.RtcThresh {
+    return T.Secs30p2ToUsecs(secs)
 }
 
 export function GRTC_0_isr$$() {
