@@ -22,7 +22,6 @@ import * as Rtc from '@adi.mcu.max326xx/Rtc.em'
 import * as SysOsc from '@adi.mcu.max326xx/SysOsc.em'
 import * as Uptimer from '@adi.mcu.max326xx/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
-import * as WakeupTimer from '@adi.mcu.max326xx/WakeupTimerRtc.em'
 
 export { OneShot }
 

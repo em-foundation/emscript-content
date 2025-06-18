@@ -21,7 +21,6 @@ import * as RadioDriver from '@nordic.radio.nrf52/RadioDriver.em'
 import * as Rtc from '@nordic.mcu.nrf52/Rtc.em'
 import * as Uptimer from '@nordic.mcu.nrf52/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
-// import * as WakeupTimer from '@nordic.mcu.nrf52/WakeupTimerRtc.em'
 
 export { OneShot, RadioDriver }
 
