@@ -61,8 +61,8 @@ export function getRawTime(): T.RawTime {
     return res
 }
 
-export function toThresh(secs: T.Secs24p8): T.RtcThresh {
-    return secs // wup_time
+export function toThresh(qsecs: T.Secs30p2): T.RtcThresh {
+    return qsecs // wup_time
 }
 
 export function RTC_isr$$() {
@@ -72,7 +72,7 @@ export function RTC_isr$$() {
     if (hlr != $null) hlr()
 }
 
-function toTicks(wup_time: T.Secs24p8): T.RtcThresh {
-    const cur_time = T.RawTimeToSecs24p8(getRawTime())
-    return 0xFFFF_FFFF - ((wup_time - cur_time) << 4)
+function toTicks(wup_time: T.Secs30p2): T.RtcThresh {
+    const cur_time = T.RawTimeToSecs30p2(getRawTime())
+    return 0xFFFF_FFFF - ((wup_time - cur_time) << 10)
 }
