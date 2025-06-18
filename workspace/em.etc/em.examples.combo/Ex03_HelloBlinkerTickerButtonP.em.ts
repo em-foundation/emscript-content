@@ -11,10 +11,10 @@ import * as TimeTypes from '@em.utils/TimeTypes.em'
 const MAX_DIVIDED_BY = 8
 const MAX_PRESS_TIME_MS = 2000
 const MIN_PRESS_TIME_MS = 10
-const TICKER_APP_PERIOD_MS = 2000
+const TICKER_APP_PERIOD_MS = 3000
 const TICKER_PRINT_PERIOD_MS = 5000
 const TICKER_RATE_CHANGE_PERIOD_MS = 1 * TimeTypes.SECONDS_PER_MINUTE * TimeTypes.MILLISECONDS_PER_SECOND
-const TICKER_SYS_PERIOD_MS = 1500
+const TICKER_SYS_PERIOD_MS = 2000
 
 // app resources
 const AppBut = $delegate(BoardC.AppBut)
@@ -22,16 +22,16 @@ const AppLed = $delegate(BoardC.AppLed)
 const SysLed = $delegate(BoardC.SysLed)
 
 const ticker_app = $config<TickerMgr.Obj>()
+const ticker_sys = $config<TickerMgr.Obj>()
 const ticker_print = $config<TickerMgr.Obj>()
 const ticker_rate_change = $config<TickerMgr.Obj>()
-const ticker_sys = $config<TickerMgr.Obj>()
 
 export namespace em$meta {
     export function em$construct() {
         ticker_app.$$val = TickerMgr.em$meta.create()
+        ticker_sys.$$val = TickerMgr.em$meta.create()
         ticker_print.$$val = TickerMgr.em$meta.create()
         ticker_rate_change.$$val = TickerMgr.em$meta.create()
-        ticker_sys.$$val = TickerMgr.em$meta.create()
     }
 }
 
@@ -49,6 +49,22 @@ let total_errors = 0
 
 export function em$run() {
     printf`\nEx03_HelloBlinkerTickerButtonP program startup\n\n`()
+
+    //quick sanity checks
+    if (TimeTypes.Secs30p2_initMsecs(TICKER_APP_PERIOD_MS / MAX_DIVIDED_BY) == 0) {
+        printf`ERROR:  TICKER_APP_PERIOD_MS too short\n`()
+        halt()
+    }
+    if (TimeTypes.Secs30p2_initMsecs(TICKER_SYS_PERIOD_MS / MAX_DIVIDED_BY) == 0) {
+        printf`ERROR:  TICKER_SYS_PERIOD_MS too short\n`()
+        halt()
+    }
+    if (TimeTypes.Secs30p2_initMsecs(TICKER_PRINT_PERIOD_MS) <= TimeTypes.Secs30p2_initMsecs(TICKER_APP_PERIOD_MS) ||
+        TimeTypes.Secs30p2_initMsecs(TICKER_PRINT_PERIOD_MS) <= TimeTypes.Secs30p2_initMsecs(TICKER_SYS_PERIOD_MS)) {
+        printf`ERROR:  TICKER_PRINT_PERIOD_MS too short\n`()
+        halt()
+    }
+
     startLedTickers()
     startPrintTicker()
     startRateChangeTicker()
@@ -124,28 +140,25 @@ function startButton() {
 }
 
 function startLedTickers() {
-    ticker_app.$$.start(
-        TimeTypes.Secs24p8_initMsecs(TICKER_APP_PERIOD_MS) / divided_by,
-        $cb(tickCbApp)
-    )
-    ticker_sys.$$.start(
-        TimeTypes.Secs24p8_initMsecs(TICKER_SYS_PERIOD_MS) / divided_by,
-        $cb(tickCbSys)
-    )
-    expected_count_app = (divided_by * TICKER_PRINT_PERIOD_MS) / TICKER_APP_PERIOD_MS
-    expected_count_sys = (divided_by * TICKER_PRINT_PERIOD_MS) / TICKER_SYS_PERIOD_MS
+    const app_period = TimeTypes.Secs30p2_initMsecs(TICKER_APP_PERIOD_MS / divided_by)
+    const sys_period = TimeTypes.Secs30p2_initMsecs(TICKER_SYS_PERIOD_MS / divided_by)
+    const print_period = TimeTypes.Secs30p2_initMsecs(TICKER_PRINT_PERIOD_MS)
+    ticker_app.$$.start(app_period, $cb(tickCbApp))
+    ticker_sys.$$.start(sys_period, $cb(tickCbSys))
+    expected_count_app = print_period / app_period
+    expected_count_sys = print_period / sys_period
 }
 
 function startPrintTicker() {
     ticker_print.$$.start(
-        TimeTypes.Secs24p8_initMsecs(TICKER_PRINT_PERIOD_MS),
+        TimeTypes.Secs30p2_initMsecs(TICKER_PRINT_PERIOD_MS),
         $cb(tickCbPrint)
     )
 }
 
 function startRateChangeTicker() {
     ticker_rate_change.$$.start(
-        TimeTypes.Secs24p8_initMsecs(TICKER_RATE_CHANGE_PERIOD_MS),
+        TimeTypes.Secs30p2_initMsecs(TICKER_RATE_CHANGE_PERIOD_MS),
         $cb(tickCbRateChange)
     )
 }
