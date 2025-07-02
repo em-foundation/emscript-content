@@ -627,7 +627,7 @@ export function loadAll() {
 
 function loadPatch(dsta: u32, src: frame_t<u32>) {
     for (const w of src) {
-        em.$reg32[dsta] = w.$$
+        $reg32[dsta] = w.$$
         dsta += 4
     }
 }

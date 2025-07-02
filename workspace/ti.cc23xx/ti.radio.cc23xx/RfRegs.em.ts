@@ -109,7 +109,7 @@ export function setup() {
         const base = (desc.inc == 2) ? PBE_RAM_BASE_ADDR : LRF_BASE_ADDR
         let dst = base + desc.off
         for (const _ of $range(desc.cnt)) {
-            em.$reg16[dst] = src.$$
+            $reg16[dst] = src.$$
             src.$inc()
             dst += desc.inc
         }

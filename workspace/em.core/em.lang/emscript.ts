@@ -1027,6 +1027,8 @@ declare global {
     const $proxy: typeof em.$proxy
     const $range: typeof em.$range
     const $ref: typeof em.$ref
+    const $reg16: typeof em.$reg16
+    const $reg32: typeof em.$reg32
     const $sizeof: typeof em.$sizeof
     const $sprintf: typeof sprintf
     const $struct: typeof em.$struct
