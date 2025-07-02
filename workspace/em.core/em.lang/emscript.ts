@@ -1016,6 +1016,7 @@ declare global {
     const $cb$null: typeof em.$cb$null
     const $clone: typeof em.$clone
     const $config: typeof em.$config
+    const $declare: typeof em.$declare
     const $default: typeof em.$default
     const $delegate: typeof em.$delegate
     const $frame: typeof em.$frame
@@ -1050,6 +1051,7 @@ Object.assign(globalThis, {
     $cb$null: em.$cb$null,
     $clone: em.$clone,
     $config: em.$config,
+    $declare: em.$declare,
     $default: em.$default,
     $delegate: em.$delegate,
     $frame: em.$frame,
