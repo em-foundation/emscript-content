@@ -1009,6 +1009,7 @@ declare global {
     type text_t = em.text_t
     type volatile_t<T> = em.volatile_t<T>
     type $$<T> = em.$$<T>
+    type $Reg = em.$Reg
     const $: typeof em.$
     const $bkpt: typeof em.$bkpt
     const $board: typeof em.$board
