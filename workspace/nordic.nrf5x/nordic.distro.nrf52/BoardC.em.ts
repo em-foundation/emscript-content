@@ -1,5 +1,5 @@
-import em from '@$$emscript'
-export const $U = em.$declare('COMPOSITE')
+import '@$$emscript'
+export const $U = $declare('COMPOSITE')
 
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'

@@ -1045,6 +1045,7 @@ declare global {
     const t$: typeof em.t$
     const $$tdefs: Map<string, string>
     const $$units: Map<string, any>
+    const __$declare: typeof em.__$declare
 }
 
 Object.assign(globalThis, {
@@ -1079,6 +1080,7 @@ Object.assign(globalThis, {
     c$: em.c$,
     e$: em.e$,
     t$: em.t$,
+    __$declare: em.__$declare,
 })
 
 export default em
