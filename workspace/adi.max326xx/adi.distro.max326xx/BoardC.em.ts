@@ -57,7 +57,7 @@ export const DEFAULTS = {
 }
 
 export function em$configure(): void {
-    if (em.isBareMetal()) return
+    if ($isbare()) return
     const brd = $board(DEFAULTS)
     const ConsoleUart = brd.useLpUart ? ConsoleUart3 : ConsoleUart0
     $using(BoardController)

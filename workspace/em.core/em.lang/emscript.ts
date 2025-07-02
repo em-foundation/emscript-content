@@ -36,7 +36,7 @@ namespace em {
         return deepAssign(res, bobj)
     }
 
-    export function isBareMetal(): boolean {
+    export function $isbare(): boolean {
         const brd: string = $property('em.lang.BoardKind', '')
         return brd == '<bare-metal>'
     }
@@ -1022,6 +1022,7 @@ declare global {
     const $delegate: typeof em.$delegate
     const $frame: typeof em.$frame
     const $implements: typeof em.$implements
+    const $isbare: typeof em.$isbare
     const $null: any
     const $outfile: typeof em.$outfile
     const $property: typeof em.$property
@@ -1059,6 +1060,7 @@ Object.assign(globalThis, {
     $delegate: em.$delegate,
     $frame: em.$frame,
     $implements: em.$implements,
+    $isbare: em.$isbare,
     $null: null as any,
     $outfile: em.$outfile,
     $property: em.$property,

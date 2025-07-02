@@ -52,7 +52,7 @@ export const DEFAULTS = {
 }
 
 export function em$configure(): void {
-    if (em.isBareMetal()) return
+    if ($isbare()) return
     const brd = $board(DEFAULTS)
     $using(BoardController)
     $using(Console)
