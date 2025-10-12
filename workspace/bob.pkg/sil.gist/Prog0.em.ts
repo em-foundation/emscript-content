@@ -1,16 +1,17 @@
 import '@$$emscript'
 export const $U = $declare('MODULE')
 
+import * as $R from '@silabs.distro.efr32x/REGS.em'
+
 export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    const PORT = 0
-    const PIN = 4
-    const MODE = 4
-    e$`CMU->CLKEN0_SET = CMU_CLKEN0_HFRCO0`
-    e$`CMU->CLKEN0_SET = CMU_CLKEN0_GPIO`
-    e$`GPIO->P[PORT].MODEL = MODE << (PIN * 4)`
-    e$`GPIO->P_SET[PORT].DOUT = 1 << PIN`
+    const port = 0
+    const pin = 4
+    $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_HFRCO0
+    $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_GPIO
+    $R.GPIO.P[port].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_PUSHPULL << (pin * 4)
+    $R.GPIO.P_SET[port].DOUT.$$ = 1 << pin
 }
