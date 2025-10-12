@@ -176,4 +176,11 @@ export function em$generate() {
 
     `)
     out.close()
+    const ext = (process.platform === 'win32') ? '.exe' : 'Exe'
+    out = $outfile('load.sh', 0o755)
+    const exec = `${tools}/segger-jlink/JLink${ext}`
+    out.addText(`${exec} -CommandFile ../silabs.efr32x/silabs.distro.efr32x/jlink-cmds`)
+    out.close()
+
+
 }
