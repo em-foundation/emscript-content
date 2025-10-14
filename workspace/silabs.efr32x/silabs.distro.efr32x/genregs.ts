@@ -4,12 +4,18 @@ import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
     'CMU',
+    'DEVINFO',
     'GPIO',
     'GPIO_PORT',
+    'HFRCO',
+    'USART',
 ])
 const INSTS = [
     ['CMU', 'CMU'],
+    ['DEVINFO', 'DEVINFO'],
     ['GPIO', 'GPIO'],
+    ['HFRCO0', 'HFRCO'],
+    ['USART0', 'USART'],
 ]
 
 let meta = em.$outfile('REGS.em.ts')
@@ -21,7 +27,7 @@ function genConsts() {
     while (true) {
         const ln = nextLine()
         if (ln === null) break
-        const m = ln.match(/\s*#define\s+(\w+)\s+\((.+?)\)/)
+        const m = ln.match(/^\s*\#define\s+(\w+)\s+(\S+)/)
         if (!m) break
         meta.print("export const %1: any = '%2'\n", m[1], m[2])
     }
@@ -35,7 +41,7 @@ function scanConsts(): boolean {
     while (true) {
         const ln = nextLine()
         if (ln === null) break
-        if (!ln.startsWith('/* Bit fields')) return true
+        if (ln.startsWith('/* Bit fields')) return true
     }
     return false
 }
