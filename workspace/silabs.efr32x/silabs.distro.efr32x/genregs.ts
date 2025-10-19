@@ -5,16 +5,20 @@ import em from '../../em.core/em.lang/emscript'
 const TYPE_SET = new Set<string>([
     'CMU',
     'DEVINFO',
+    'DPLL',
     'GPIO',
     'GPIO_PORT',
     'HFRCO',
+    'HFXO',
     'USART',
 ])
 const INSTS = [
     ['CMU', 'CMU'],
     ['DEVINFO', 'DEVINFO'],
+    ['DPLL0', 'DPLL'],
     ['GPIO', 'GPIO'],
     ['HFRCO0', 'HFRCO'],
+    ['HFXO0', 'HFXO'],
     ['USART0', 'USART'],
 ]
 
