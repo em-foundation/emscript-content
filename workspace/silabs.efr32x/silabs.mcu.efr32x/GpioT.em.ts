@@ -43,7 +43,7 @@ export namespace em$template {
     }
 
     export function makeOutput(): void {
-        $R.GPIO.P[pn].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_PUSHPULL << (pid * 4)
+        $R.GPIO.P[pn].MODEL.$$ |= $R.GPIO_P_MODEL_MODE0_PUSHPULL << (pid * 4)
     }
 
     export function pinId(): i16 {

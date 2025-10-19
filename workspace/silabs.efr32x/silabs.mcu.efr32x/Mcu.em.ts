@@ -11,6 +11,7 @@ export namespace em$meta { }
 //>> ---- em$targ ---- <<//
 
 export function startup(): void {
+    //
     $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_HFXO0
     $R.HFXO0.XTALCFG.$$ = 0x0b200820
     $R.HFXO0.XTALCTRL.$$ = 0x83797907
@@ -26,20 +27,8 @@ export function startup(): void {
     $R.DPLL0.EN.$$ = 1
     $R.CMU.SYSCLKCTRL_CLR.$$ = $R._CMU_SYSCLKCTRL_CLKSEL_MASK
     $R.CMU.SYSCLKCTRL_SET.$$ = $R.CMU_SYSCLKCTRL_CLKSEL_HFRCODPLL
-
-
-
-    // $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_DPLL0
-    // $R.CMU.DPLLREFCLKCTRL.$$ = $R.CMU_DPLLREFCLKCTRL_CLKSEL_HFXO
-    // $R.DPLL0.EN.$$ = 0
-    // while (($R.DPLL0.STATUS.$$ & $R.DPLL_STATUS_RDY) == 0) { }
-    // $R.DPLL0.CFG.$$ = 0x5 // TODO
-    // $R.DPLL0.CFG1.$$ = 0x0eff077f // TODO
-    // $R.DPLL0.EN.$$ = 1
-    // while (($R.DPLL0.STATUS.$$ & $R.DPLL_STATUS_RDY) == 0) { }
-    // $R.CMU.SYSCLKCTRL_SET.$$ = $R.CMU_SYSCLKCTRL_CLKSEL_HFRCODPLL
     //
     $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_GPIO
     Debug.startup()
-    $['%%a:'](2)
+    $['%%a:'](3)
 }
