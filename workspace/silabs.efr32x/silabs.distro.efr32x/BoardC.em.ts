@@ -4,6 +4,7 @@ export const $U = $declare('COMPOSITE')
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
+import * as Console from '@em.lang/Console.em'
 import * as ConsoleUart from '@em.utils/SoftUart.em'
 import * as Debug from '@em.lang/Debug.em'
 import * as GlobalInterrupts from '@em.arch.arm/GlobalInterrupts.em'
@@ -40,6 +41,7 @@ export function em$configure(): void {
     if ($isbare()) return
     const brd = BOARD
     $using(BoardController)
+    $using(Console)
     AppOut.pin_num.$$val = brd.pins.appOut
     BoardController.Led.$$dlg = SysLed
     BusyWait.scalar.$$val = 6
