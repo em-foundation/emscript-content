@@ -17,6 +17,8 @@ import * as Poller from '@em.mcu/Poller.em'
 import * as Uptimer from '@em.hal/UptimerN.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 
+export const AppLed = $clone(LedT)
+export const AppLedPin = $clone(GpioT)
 export const AppOut = $clone(GpioT)
 export const DbgA = $clone(GpioT)
 export const DbgB = $clone(GpioT)
@@ -28,6 +30,7 @@ export const SysLedPin = $clone(GpioT)
 export const BOARD = {
     /** setting applies to {app,com,sys}Led pins */ activeLowLeds: false,
     pins: {
+        appLed: <i16>0xC00,
         appOut: <i16>0xB01,
         sysDbgA: <i16>0xB02,
         sysDbgB: <i16>0xB03,
@@ -42,6 +45,9 @@ export function em$configure(): void {
     const brd = BOARD
     $using(BoardController)
     $using(Console)
+    AppLed.Pin.$$dlg = AppLedPin
+    AppLed.active_low.$$val = brd.activeLowLeds
+    AppLedPin.pin_num.$$val = brd.pins.appLed
     AppOut.pin_num.$$val = brd.pins.appOut
     BoardController.Led.$$dlg = SysLed
     BusyWait.scalar.$$val = 7
