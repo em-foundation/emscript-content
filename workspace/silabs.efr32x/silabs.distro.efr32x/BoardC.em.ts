@@ -71,6 +71,7 @@ export function em$configure(): void {
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds
     SysLedPin.pin_num.$$val = brd.pins.sysLed
-    UsCounter.MHZ.$$val = 20
+    UsCounter.MHZ_P.$$val = 192
+    UsCounter.MHZ_Q.$$val = 5
 }
 

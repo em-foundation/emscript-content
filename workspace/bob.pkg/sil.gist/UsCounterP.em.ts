@@ -8,8 +8,9 @@ export namespace em$meta { }
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
+    Common.UsCounter.set(50)
     $['%%d+']
-    Common.UsCounter.set(100)
     Common.UsCounter.spin()
     $['%%d-']
+    Common.BusyWait.wait(1000)
 }
