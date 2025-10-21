@@ -11,6 +11,7 @@ const TYPE_SET = new Set<string>([
     'GPIO_PORT',
     'HFRCO',
     'HFXO',
+    'TIMER',
     'USART',
 ])
 const INSTS = [
@@ -21,6 +22,7 @@ const INSTS = [
     ['GPIO', 'GPIO'],
     ['HFRCO0', 'HFRCO'],
     ['HFXO0', 'HFXO'],
+    ['TIMER0', 'TIMER'],
     ['USART0', 'USART'],
 ]
 
@@ -33,7 +35,7 @@ function genConsts() {
     while (true) {
         const ln = nextLine()
         if (ln === null) break
-        const m = ln.match(/^\s*\#define\s+(\w+)\s+(\S+)/)
+        const m = ln.match(/^\s*\#define\s+(\w+)\s+(.+)$/)
         if (!m) break
         meta.print("export const %1: any = '%2'\n", m[1], m[2])
     }
