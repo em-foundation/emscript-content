@@ -40,4 +40,8 @@ export function exec() {
     doPause()
 }
 
+export function setPauseOnly(pause_only: bool_t) {
+
+}
+
 export function wakeup() { }

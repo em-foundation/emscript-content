@@ -12,10 +12,12 @@ import * as GpioT from '@silabs.mcu.efr32x/GpioT.em'
 import * as Idle from '@silabs.mcu.efr32x/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@silabs.mcu.efr32x/Mcu.em'
-import * as OneShot from '@em.hal/OneShotN.em'
+import * as OneShot from '@silabs.mcu.efr32x/OneShotTimer0.em'
 import * as Poller from '@em.mcu/Poller.em'
 import * as Uptimer from '@em.hal/UptimerN.em'
 import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
+
+export { OneShot }
 
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)

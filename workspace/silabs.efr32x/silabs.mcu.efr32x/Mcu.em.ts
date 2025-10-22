@@ -28,6 +28,9 @@ export function startup(): void {
     $R.CMU.SYSCLKCTRL_CLR.$$ = $R._CMU_SYSCLKCTRL_CLKSEL_MASK
     $R.CMU.SYSCLKCTRL_SET.$$ = $R.CMU_SYSCLKCTRL_CLKSEL_HFRCODPLL
     //
+    $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_FSRCO
+    $R.CMU.EM01GRPACLKCTRL_SET.$$ = $R.CMU_EM01GRPACLKCTRL_CLKSEL_FSRCO
+    //
     $R.CMU.CLKEN0_SET.$$ = $R.CMU_CLKEN0_GPIO
     Debug.startup()
     $['%%a:'](3)

@@ -34,7 +34,5 @@ export function em$run() {
 
 export function TIMER0_isr$$() {
     $['%%d-']
-    // printf`$IF = %08x\n`($R.TIMER0.IF.$$)
-    // printf`$IEN = %08x\n`($R.TIMER0.IEN.$$)
     halt()
 }
