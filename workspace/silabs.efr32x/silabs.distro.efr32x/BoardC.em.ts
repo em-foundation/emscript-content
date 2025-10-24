@@ -19,6 +19,7 @@ import * as UsCounter from '@em.arch.arm/UsCounterSystick.em'
 
 export { OneShot }
 
+export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOut = $clone(GpioT)
@@ -32,6 +33,7 @@ export const SysLedPin = $clone(GpioT)
 export const BOARD = {
     /** setting applies to {app,com,sys}Led pins */ activeLowLeds: false,
     pins: {
+        appBut: <i16>0xC07,
         appLed: <i16>0xC00,
         appOut: <i16>0xB01,
         sysDbgA: <i16>0xB02,
@@ -47,6 +49,7 @@ export function em$configure(): void {
     const brd = BOARD
     $using(BoardController)
     $using(Console)
+    AppButPin.pin_num.$$val = brd.pins.appBut
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds
     AppLedPin.pin_num.$$val = brd.pins.appLed

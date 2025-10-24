@@ -28,7 +28,7 @@ export namespace em$template {
     }
 
     export function get(): bool_t {
-        return false
+        return ($R.GPIO.P[pn].DIN.$$ & (1 << pid)) != 0 ? true : false
     }
 
     export function isInput(): bool_t {
@@ -40,10 +40,12 @@ export namespace em$template {
     }
 
     export function makeInput(): void {
+        $R.GPIO.P_SET[pn].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_INPUT << (pid * 4)
     }
 
+
     export function makeOutput(): void {
-        $R.GPIO.P[pn].MODEL.$$ |= $R.GPIO_P_MODEL_MODE0_PUSHPULL << (pid * 4)
+        $R.GPIO.P_SET[pn].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_PUSHPULL << (pid * 4)
     }
 
     export function pinId(): i16 {
@@ -61,6 +63,7 @@ export namespace em$template {
     }
 
     export function setInternalPullup(enable: bool_t): void {
+        $R.GPIO.P_SET[pn].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_INPUTPULL << (pid * 4)
     }
 
     export function toggle(): void {
