@@ -33,15 +33,25 @@ function doPause() {
 }
 
 function doSleep() {
-
+    $['%%b:'](2)
+    $['%%b-']
+    IntrVec.PRIMASK_set(1)
+    e$`SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk`
+    e$`asm volatile ("wfi")`
+    $['%%b+']
+    IntrVec.PRIMASK_set(0)
 }
 
 export function exec() {
-    doPause()
+    if (cur_pause_only) {
+        doPause()
+    } else {
+        doSleep()
+    }
 }
 
 export function setPauseOnly(pause_only: bool_t) {
-
+    cur_pause_only = pause_only
 }
 
 export function wakeup() { }
