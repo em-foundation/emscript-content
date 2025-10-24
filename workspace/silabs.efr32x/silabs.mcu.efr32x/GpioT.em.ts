@@ -53,6 +53,7 @@ export namespace em$template {
     }
 
     export function reset(): void {
+        $R.GPIO.P_SET[pn].MODEL.$$ = $R.GPIO_P_MODEL_MODE0_DISABLED << (pid * 4)
     }
 
     export function set(): void {
