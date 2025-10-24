@@ -7,6 +7,254 @@ export function em$generate() {
     out.close()
 }
 
+// -------- BURTC -------- //
+
+export interface BURTC_t {
+    IPVERSION: $Reg
+    EN: $Reg
+    CFG: $Reg
+    CMD: $Reg
+    STATUS: $Reg
+    IF: $Reg
+    IEN: $Reg
+    PRECNT: $Reg
+    CNT: $Reg
+    EM4WUEN: $Reg
+    SYNCBUSY: $Reg
+    LOCK: $Reg
+    COMP: $Reg
+    IPVERSION_SET: $Reg
+    EN_SET: $Reg
+    CFG_SET: $Reg
+    CMD_SET: $Reg
+    STATUS_SET: $Reg
+    IF_SET: $Reg
+    IEN_SET: $Reg
+    PRECNT_SET: $Reg
+    CNT_SET: $Reg
+    EM4WUEN_SET: $Reg
+    SYNCBUSY_SET: $Reg
+    LOCK_SET: $Reg
+    COMP_SET: $Reg
+    IPVERSION_CLR: $Reg
+    EN_CLR: $Reg
+    CFG_CLR: $Reg
+    CMD_CLR: $Reg
+    STATUS_CLR: $Reg
+    IF_CLR: $Reg
+    IEN_CLR: $Reg
+    PRECNT_CLR: $Reg
+    CNT_CLR: $Reg
+    EM4WUEN_CLR: $Reg
+    SYNCBUSY_CLR: $Reg
+    LOCK_CLR: $Reg
+    COMP_CLR: $Reg
+    IPVERSION_TGL: $Reg
+    EN_TGL: $Reg
+    CFG_TGL: $Reg
+    CMD_TGL: $Reg
+    STATUS_TGL: $Reg
+    IF_TGL: $Reg
+    IEN_TGL: $Reg
+    PRECNT_TGL: $Reg
+    CNT_TGL: $Reg
+    EM4WUEN_TGL: $Reg
+    SYNCBUSY_TGL: $Reg
+    LOCK_TGL: $Reg
+    COMP_TGL: $Reg
+}
+export const _BURTC_IPVERSION_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_IPVERSION           */'
+export const _BURTC_IPVERSION_MASK: any = '0xFFFFFFFFUL                              /**< Mask for BURTC_IPVERSION                    */'
+export const _BURTC_IPVERSION_IPVERSION_SHIFT: any = '0                                         /**< Shift value for BURTC_IPVERSION             */'
+export const _BURTC_IPVERSION_IPVERSION_MASK: any = '0xFFFFFFFFUL                              /**< Bit mask for BURTC_IPVERSION                */'
+export const _BURTC_IPVERSION_IPVERSION_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_IPVERSION            */'
+export const BURTC_IPVERSION_IPVERSION_DEFAULT: any = '(_BURTC_IPVERSION_IPVERSION_DEFAULT << 0) /**< Shifted mode DEFAULT for BURTC_IPVERSION    */'
+export const _BURTC_EN_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_EN                  */'
+export const _BURTC_EN_MASK: any = '0x00000001UL                              /**< Mask for BURTC_EN                           */'
+export const BURTC_EN_EN: any = '(0x1UL << 0)                              /**< BURTC Enable                                */'
+export const _BURTC_EN_EN_SHIFT: any = '0                                         /**< Shift value for BURTC_EN                    */'
+export const _BURTC_EN_EN_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_EN                       */'
+export const _BURTC_EN_EN_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_EN                   */'
+export const BURTC_EN_EN_DEFAULT: any = '(_BURTC_EN_EN_DEFAULT << 0)               /**< Shifted mode DEFAULT for BURTC_EN           */'
+export const _BURTC_CFG_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_CFG                 */'
+export const _BURTC_CFG_MASK: any = '0x000000F3UL                              /**< Mask for BURTC_CFG                          */'
+export const BURTC_CFG_DEBUGRUN: any = '(0x1UL << 0)                              /**< Debug Mode Run Enable                       */'
+export const _BURTC_CFG_DEBUGRUN_SHIFT: any = '0                                         /**< Shift value for BURTC_DEBUGRUN              */'
+export const _BURTC_CFG_DEBUGRUN_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_DEBUGRUN                 */'
+export const _BURTC_CFG_DEBUGRUN_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CFG                  */'
+export const _BURTC_CFG_DEBUGRUN_DISABLE: any = '0x00000000UL                              /**< Mode DISABLE for BURTC_CFG                  */'
+export const _BURTC_CFG_DEBUGRUN_ENABLE: any = '0x00000001UL                              /**< Mode ENABLE for BURTC_CFG                   */'
+export const BURTC_CFG_DEBUGRUN_DEFAULT: any = '(_BURTC_CFG_DEBUGRUN_DEFAULT << 0)        /**< Shifted mode DEFAULT for BURTC_CFG          */'
+export const BURTC_CFG_DEBUGRUN_DISABLE: any = '(_BURTC_CFG_DEBUGRUN_DISABLE << 0)        /**< Shifted mode DISABLE for BURTC_CFG          */'
+export const BURTC_CFG_DEBUGRUN_ENABLE: any = '(_BURTC_CFG_DEBUGRUN_ENABLE << 0)         /**< Shifted mode ENABLE for BURTC_CFG           */'
+export const BURTC_CFG_COMPTOP: any = '(0x1UL << 1)                              /**< Compare Channel is Top Value                */'
+export const _BURTC_CFG_COMPTOP_SHIFT: any = '1                                         /**< Shift value for BURTC_COMPTOP               */'
+export const _BURTC_CFG_COMPTOP_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_COMPTOP                  */'
+export const _BURTC_CFG_COMPTOP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CFG                  */'
+export const _BURTC_CFG_COMPTOP_DISABLE: any = '0x00000000UL                              /**< Mode DISABLE for BURTC_CFG                  */'
+export const _BURTC_CFG_COMPTOP_ENABLE: any = '0x00000001UL                              /**< Mode ENABLE for BURTC_CFG                   */'
+export const BURTC_CFG_COMPTOP_DEFAULT: any = '(_BURTC_CFG_COMPTOP_DEFAULT << 1)         /**< Shifted mode DEFAULT for BURTC_CFG          */'
+export const BURTC_CFG_COMPTOP_DISABLE: any = '(_BURTC_CFG_COMPTOP_DISABLE << 1)         /**< Shifted mode DISABLE for BURTC_CFG          */'
+export const BURTC_CFG_COMPTOP_ENABLE: any = '(_BURTC_CFG_COMPTOP_ENABLE << 1)          /**< Shifted mode ENABLE for BURTC_CFG           */'
+export const _BURTC_CFG_CNTPRESC_SHIFT: any = '4                                         /**< Shift value for BURTC_CNTPRESC              */'
+export const _BURTC_CFG_CNTPRESC_MASK: any = '0xF0UL                                    /**< Bit mask for BURTC_CNTPRESC                 */'
+export const _BURTC_CFG_CNTPRESC_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CFG                  */'
+export const _BURTC_CFG_CNTPRESC_DIV1: any = '0x00000000UL                              /**< Mode DIV1 for BURTC_CFG                     */'
+export const _BURTC_CFG_CNTPRESC_DIV2: any = '0x00000001UL                              /**< Mode DIV2 for BURTC_CFG                     */'
+export const _BURTC_CFG_CNTPRESC_DIV4: any = '0x00000002UL                              /**< Mode DIV4 for BURTC_CFG                     */'
+export const _BURTC_CFG_CNTPRESC_DIV8: any = '0x00000003UL                              /**< Mode DIV8 for BURTC_CFG                     */'
+export const _BURTC_CFG_CNTPRESC_DIV16: any = '0x00000004UL                              /**< Mode DIV16 for BURTC_CFG                    */'
+export const _BURTC_CFG_CNTPRESC_DIV32: any = '0x00000005UL                              /**< Mode DIV32 for BURTC_CFG                    */'
+export const _BURTC_CFG_CNTPRESC_DIV64: any = '0x00000006UL                              /**< Mode DIV64 for BURTC_CFG                    */'
+export const _BURTC_CFG_CNTPRESC_DIV128: any = '0x00000007UL                              /**< Mode DIV128 for BURTC_CFG                   */'
+export const _BURTC_CFG_CNTPRESC_DIV256: any = '0x00000008UL                              /**< Mode DIV256 for BURTC_CFG                   */'
+export const _BURTC_CFG_CNTPRESC_DIV512: any = '0x00000009UL                              /**< Mode DIV512 for BURTC_CFG                   */'
+export const _BURTC_CFG_CNTPRESC_DIV1024: any = '0x0000000AUL                              /**< Mode DIV1024 for BURTC_CFG                  */'
+export const _BURTC_CFG_CNTPRESC_DIV2048: any = '0x0000000BUL                              /**< Mode DIV2048 for BURTC_CFG                  */'
+export const _BURTC_CFG_CNTPRESC_DIV4096: any = '0x0000000CUL                              /**< Mode DIV4096 for BURTC_CFG                  */'
+export const _BURTC_CFG_CNTPRESC_DIV8192: any = '0x0000000DUL                              /**< Mode DIV8192 for BURTC_CFG                  */'
+export const _BURTC_CFG_CNTPRESC_DIV16384: any = '0x0000000EUL                              /**< Mode DIV16384 for BURTC_CFG                 */'
+export const _BURTC_CFG_CNTPRESC_DIV32768: any = '0x0000000FUL                              /**< Mode DIV32768 for BURTC_CFG                 */'
+export const BURTC_CFG_CNTPRESC_DEFAULT: any = '(_BURTC_CFG_CNTPRESC_DEFAULT << 4)        /**< Shifted mode DEFAULT for BURTC_CFG          */'
+export const BURTC_CFG_CNTPRESC_DIV1: any = '(_BURTC_CFG_CNTPRESC_DIV1 << 4)           /**< Shifted mode DIV1 for BURTC_CFG             */'
+export const BURTC_CFG_CNTPRESC_DIV2: any = '(_BURTC_CFG_CNTPRESC_DIV2 << 4)           /**< Shifted mode DIV2 for BURTC_CFG             */'
+export const BURTC_CFG_CNTPRESC_DIV4: any = '(_BURTC_CFG_CNTPRESC_DIV4 << 4)           /**< Shifted mode DIV4 for BURTC_CFG             */'
+export const BURTC_CFG_CNTPRESC_DIV8: any = '(_BURTC_CFG_CNTPRESC_DIV8 << 4)           /**< Shifted mode DIV8 for BURTC_CFG             */'
+export const BURTC_CFG_CNTPRESC_DIV16: any = '(_BURTC_CFG_CNTPRESC_DIV16 << 4)          /**< Shifted mode DIV16 for BURTC_CFG            */'
+export const BURTC_CFG_CNTPRESC_DIV32: any = '(_BURTC_CFG_CNTPRESC_DIV32 << 4)          /**< Shifted mode DIV32 for BURTC_CFG            */'
+export const BURTC_CFG_CNTPRESC_DIV64: any = '(_BURTC_CFG_CNTPRESC_DIV64 << 4)          /**< Shifted mode DIV64 for BURTC_CFG            */'
+export const BURTC_CFG_CNTPRESC_DIV128: any = '(_BURTC_CFG_CNTPRESC_DIV128 << 4)         /**< Shifted mode DIV128 for BURTC_CFG           */'
+export const BURTC_CFG_CNTPRESC_DIV256: any = '(_BURTC_CFG_CNTPRESC_DIV256 << 4)         /**< Shifted mode DIV256 for BURTC_CFG           */'
+export const BURTC_CFG_CNTPRESC_DIV512: any = '(_BURTC_CFG_CNTPRESC_DIV512 << 4)         /**< Shifted mode DIV512 for BURTC_CFG           */'
+export const BURTC_CFG_CNTPRESC_DIV1024: any = '(_BURTC_CFG_CNTPRESC_DIV1024 << 4)        /**< Shifted mode DIV1024 for BURTC_CFG          */'
+export const BURTC_CFG_CNTPRESC_DIV2048: any = '(_BURTC_CFG_CNTPRESC_DIV2048 << 4)        /**< Shifted mode DIV2048 for BURTC_CFG          */'
+export const BURTC_CFG_CNTPRESC_DIV4096: any = '(_BURTC_CFG_CNTPRESC_DIV4096 << 4)        /**< Shifted mode DIV4096 for BURTC_CFG          */'
+export const BURTC_CFG_CNTPRESC_DIV8192: any = '(_BURTC_CFG_CNTPRESC_DIV8192 << 4)        /**< Shifted mode DIV8192 for BURTC_CFG          */'
+export const BURTC_CFG_CNTPRESC_DIV16384: any = '(_BURTC_CFG_CNTPRESC_DIV16384 << 4)       /**< Shifted mode DIV16384 for BURTC_CFG         */'
+export const BURTC_CFG_CNTPRESC_DIV32768: any = '(_BURTC_CFG_CNTPRESC_DIV32768 << 4)       /**< Shifted mode DIV32768 for BURTC_CFG         */'
+export const _BURTC_CMD_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_CMD                 */'
+export const _BURTC_CMD_MASK: any = '0x00000003UL                              /**< Mask for BURTC_CMD                          */'
+export const BURTC_CMD_START: any = '(0x1UL << 0)                              /**< Start BURTC counter                         */'
+export const _BURTC_CMD_START_SHIFT: any = '0                                         /**< Shift value for BURTC_START                 */'
+export const _BURTC_CMD_START_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_START                    */'
+export const _BURTC_CMD_START_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CMD                  */'
+export const BURTC_CMD_START_DEFAULT: any = '(_BURTC_CMD_START_DEFAULT << 0)           /**< Shifted mode DEFAULT for BURTC_CMD          */'
+export const BURTC_CMD_STOP: any = '(0x1UL << 1)                              /**< Stop BURTC counter                          */'
+export const _BURTC_CMD_STOP_SHIFT: any = '1                                         /**< Shift value for BURTC_STOP                  */'
+export const _BURTC_CMD_STOP_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_STOP                     */'
+export const _BURTC_CMD_STOP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CMD                  */'
+export const BURTC_CMD_STOP_DEFAULT: any = '(_BURTC_CMD_STOP_DEFAULT << 1)            /**< Shifted mode DEFAULT for BURTC_CMD          */'
+export const _BURTC_STATUS_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_STATUS              */'
+export const _BURTC_STATUS_MASK: any = '0x00000003UL                              /**< Mask for BURTC_STATUS                       */'
+export const BURTC_STATUS_RUNNING: any = '(0x1UL << 0)                              /**< BURTC running status                        */'
+export const _BURTC_STATUS_RUNNING_SHIFT: any = '0                                         /**< Shift value for BURTC_RUNNING               */'
+export const _BURTC_STATUS_RUNNING_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_RUNNING                  */'
+export const _BURTC_STATUS_RUNNING_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_STATUS               */'
+export const BURTC_STATUS_RUNNING_DEFAULT: any = '(_BURTC_STATUS_RUNNING_DEFAULT << 0)      /**< Shifted mode DEFAULT for BURTC_STATUS       */'
+export const BURTC_STATUS_LOCK: any = '(0x1UL << 1)                              /**< Configuration Lock Status                   */'
+export const _BURTC_STATUS_LOCK_SHIFT: any = '1                                         /**< Shift value for BURTC_LOCK                  */'
+export const _BURTC_STATUS_LOCK_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_LOCK                     */'
+export const _BURTC_STATUS_LOCK_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_STATUS               */'
+export const _BURTC_STATUS_LOCK_UNLOCKED: any = '0x00000000UL                              /**< Mode UNLOCKED for BURTC_STATUS              */'
+export const _BURTC_STATUS_LOCK_LOCKED: any = '0x00000001UL                              /**< Mode LOCKED for BURTC_STATUS                */'
+export const BURTC_STATUS_LOCK_DEFAULT: any = '(_BURTC_STATUS_LOCK_DEFAULT << 1)         /**< Shifted mode DEFAULT for BURTC_STATUS       */'
+export const BURTC_STATUS_LOCK_UNLOCKED: any = '(_BURTC_STATUS_LOCK_UNLOCKED << 1)        /**< Shifted mode UNLOCKED for BURTC_STATUS      */'
+export const BURTC_STATUS_LOCK_LOCKED: any = '(_BURTC_STATUS_LOCK_LOCKED << 1)          /**< Shifted mode LOCKED for BURTC_STATUS        */'
+export const _BURTC_IF_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_IF                  */'
+export const _BURTC_IF_MASK: any = '0x00000003UL                              /**< Mask for BURTC_IF                           */'
+export const BURTC_IF_OF: any = '(0x1UL << 0)                              /**< Overflow Interrupt Flag                     */'
+export const _BURTC_IF_OF_SHIFT: any = '0                                         /**< Shift value for BURTC_OF                    */'
+export const _BURTC_IF_OF_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_OF                       */'
+export const _BURTC_IF_OF_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_IF                   */'
+export const BURTC_IF_OF_DEFAULT: any = '(_BURTC_IF_OF_DEFAULT << 0)               /**< Shifted mode DEFAULT for BURTC_IF           */'
+export const BURTC_IF_COMP: any = '(0x1UL << 1)                              /**< Compare Match Interrupt Flag                */'
+export const _BURTC_IF_COMP_SHIFT: any = '1                                         /**< Shift value for BURTC_COMP                  */'
+export const _BURTC_IF_COMP_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_COMP                     */'
+export const _BURTC_IF_COMP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_IF                   */'
+export const BURTC_IF_COMP_DEFAULT: any = '(_BURTC_IF_COMP_DEFAULT << 1)             /**< Shifted mode DEFAULT for BURTC_IF           */'
+export const _BURTC_IEN_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_IEN                 */'
+export const _BURTC_IEN_MASK: any = '0x00000003UL                              /**< Mask for BURTC_IEN                          */'
+export const BURTC_IEN_OF: any = '(0x1UL << 0)                              /**< Overflow Interrupt Flag                     */'
+export const _BURTC_IEN_OF_SHIFT: any = '0                                         /**< Shift value for BURTC_OF                    */'
+export const _BURTC_IEN_OF_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_OF                       */'
+export const _BURTC_IEN_OF_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_IEN                  */'
+export const BURTC_IEN_OF_DEFAULT: any = '(_BURTC_IEN_OF_DEFAULT << 0)              /**< Shifted mode DEFAULT for BURTC_IEN          */'
+export const BURTC_IEN_COMP: any = '(0x1UL << 1)                              /**< Compare Match Interrupt Flag                */'
+export const _BURTC_IEN_COMP_SHIFT: any = '1                                         /**< Shift value for BURTC_COMP                  */'
+export const _BURTC_IEN_COMP_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_COMP                     */'
+export const _BURTC_IEN_COMP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_IEN                  */'
+export const BURTC_IEN_COMP_DEFAULT: any = '(_BURTC_IEN_COMP_DEFAULT << 1)            /**< Shifted mode DEFAULT for BURTC_IEN          */'
+export const _BURTC_PRECNT_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_PRECNT              */'
+export const _BURTC_PRECNT_MASK: any = '0x00007FFFUL                              /**< Mask for BURTC_PRECNT                       */'
+export const _BURTC_PRECNT_PRECNT_SHIFT: any = '0                                         /**< Shift value for BURTC_PRECNT                */'
+export const _BURTC_PRECNT_PRECNT_MASK: any = '0x7FFFUL                                  /**< Bit mask for BURTC_PRECNT                   */'
+export const _BURTC_PRECNT_PRECNT_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_PRECNT               */'
+export const BURTC_PRECNT_PRECNT_DEFAULT: any = '(_BURTC_PRECNT_PRECNT_DEFAULT << 0)       /**< Shifted mode DEFAULT for BURTC_PRECNT       */'
+export const _BURTC_CNT_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_CNT                 */'
+export const _BURTC_CNT_MASK: any = '0xFFFFFFFFUL                              /**< Mask for BURTC_CNT                          */'
+export const _BURTC_CNT_CNT_SHIFT: any = '0                                         /**< Shift value for BURTC_CNT                   */'
+export const _BURTC_CNT_CNT_MASK: any = '0xFFFFFFFFUL                              /**< Bit mask for BURTC_CNT                      */'
+export const _BURTC_CNT_CNT_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_CNT                  */'
+export const BURTC_CNT_CNT_DEFAULT: any = '(_BURTC_CNT_CNT_DEFAULT << 0)             /**< Shifted mode DEFAULT for BURTC_CNT          */'
+export const _BURTC_EM4WUEN_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_EM4WUEN             */'
+export const _BURTC_EM4WUEN_MASK: any = '0x00000003UL                              /**< Mask for BURTC_EM4WUEN                      */'
+export const BURTC_EM4WUEN_OFEM4WUEN: any = '(0x1UL << 0)                              /**< Overflow EM4 Wakeup Enable                  */'
+export const _BURTC_EM4WUEN_OFEM4WUEN_SHIFT: any = '0                                         /**< Shift value for BURTC_OFEM4WUEN             */'
+export const _BURTC_EM4WUEN_OFEM4WUEN_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_OFEM4WUEN                */'
+export const _BURTC_EM4WUEN_OFEM4WUEN_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_EM4WUEN              */'
+export const BURTC_EM4WUEN_OFEM4WUEN_DEFAULT: any = '(_BURTC_EM4WUEN_OFEM4WUEN_DEFAULT << 0)   /**< Shifted mode DEFAULT for BURTC_EM4WUEN      */'
+export const BURTC_EM4WUEN_COMPEM4WUEN: any = '(0x1UL << 1)                              /**< Compare Match EM4 Wakeup Enable             */'
+export const _BURTC_EM4WUEN_COMPEM4WUEN_SHIFT: any = '1                                         /**< Shift value for BURTC_COMPEM4WUEN           */'
+export const _BURTC_EM4WUEN_COMPEM4WUEN_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_COMPEM4WUEN              */'
+export const _BURTC_EM4WUEN_COMPEM4WUEN_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_EM4WUEN              */'
+export const BURTC_EM4WUEN_COMPEM4WUEN_DEFAULT: any = '(_BURTC_EM4WUEN_COMPEM4WUEN_DEFAULT << 1) /**< Shifted mode DEFAULT for BURTC_EM4WUEN      */'
+export const _BURTC_SYNCBUSY_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_SYNCBUSY            */'
+export const _BURTC_SYNCBUSY_MASK: any = '0x0000003FUL                              /**< Mask for BURTC_SYNCBUSY                     */'
+export const BURTC_SYNCBUSY_START: any = '(0x1UL << 0)                              /**< Sync busy for START                         */'
+export const _BURTC_SYNCBUSY_START_SHIFT: any = '0                                         /**< Shift value for BURTC_START                 */'
+export const _BURTC_SYNCBUSY_START_MASK: any = '0x1UL                                     /**< Bit mask for BURTC_START                    */'
+export const _BURTC_SYNCBUSY_START_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_START_DEFAULT: any = '(_BURTC_SYNCBUSY_START_DEFAULT << 0)      /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const BURTC_SYNCBUSY_STOP: any = '(0x1UL << 1)                              /**< Sync busy for STOP                          */'
+export const _BURTC_SYNCBUSY_STOP_SHIFT: any = '1                                         /**< Shift value for BURTC_STOP                  */'
+export const _BURTC_SYNCBUSY_STOP_MASK: any = '0x2UL                                     /**< Bit mask for BURTC_STOP                     */'
+export const _BURTC_SYNCBUSY_STOP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_STOP_DEFAULT: any = '(_BURTC_SYNCBUSY_STOP_DEFAULT << 1)       /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const BURTC_SYNCBUSY_PRECNT: any = '(0x1UL << 2)                              /**< Sync busy for PRECNT                        */'
+export const _BURTC_SYNCBUSY_PRECNT_SHIFT: any = '2                                         /**< Shift value for BURTC_PRECNT                */'
+export const _BURTC_SYNCBUSY_PRECNT_MASK: any = '0x4UL                                     /**< Bit mask for BURTC_PRECNT                   */'
+export const _BURTC_SYNCBUSY_PRECNT_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_PRECNT_DEFAULT: any = '(_BURTC_SYNCBUSY_PRECNT_DEFAULT << 2)     /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const BURTC_SYNCBUSY_CNT: any = '(0x1UL << 3)                              /**< Sync busy for CNT                           */'
+export const _BURTC_SYNCBUSY_CNT_SHIFT: any = '3                                         /**< Shift value for BURTC_CNT                   */'
+export const _BURTC_SYNCBUSY_CNT_MASK: any = '0x8UL                                     /**< Bit mask for BURTC_CNT                      */'
+export const _BURTC_SYNCBUSY_CNT_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_CNT_DEFAULT: any = '(_BURTC_SYNCBUSY_CNT_DEFAULT << 3)        /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const BURTC_SYNCBUSY_COMP: any = '(0x1UL << 4)                              /**< Sync busy for COMP                          */'
+export const _BURTC_SYNCBUSY_COMP_SHIFT: any = '4                                         /**< Shift value for BURTC_COMP                  */'
+export const _BURTC_SYNCBUSY_COMP_MASK: any = '0x10UL                                    /**< Bit mask for BURTC_COMP                     */'
+export const _BURTC_SYNCBUSY_COMP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_COMP_DEFAULT: any = '(_BURTC_SYNCBUSY_COMP_DEFAULT << 4)       /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const BURTC_SYNCBUSY_EN: any = '(0x1UL << 5)                              /**< Sync busy for EN                            */'
+export const _BURTC_SYNCBUSY_EN_SHIFT: any = '5                                         /**< Shift value for BURTC_EN                    */'
+export const _BURTC_SYNCBUSY_EN_MASK: any = '0x20UL                                    /**< Bit mask for BURTC_EN                       */'
+export const _BURTC_SYNCBUSY_EN_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_SYNCBUSY             */'
+export const BURTC_SYNCBUSY_EN_DEFAULT: any = '(_BURTC_SYNCBUSY_EN_DEFAULT << 5)         /**< Shifted mode DEFAULT for BURTC_SYNCBUSY     */'
+export const _BURTC_LOCK_RESETVALUE: any = '0x0000AEE8UL                              /**< Default value for BURTC_LOCK                */'
+export const _BURTC_LOCK_MASK: any = '0x0000FFFFUL                              /**< Mask for BURTC_LOCK                         */'
+export const _BURTC_LOCK_LOCKKEY_SHIFT: any = '0                                         /**< Shift value for BURTC_LOCKKEY               */'
+export const _BURTC_LOCK_LOCKKEY_MASK: any = '0xFFFFUL                                  /**< Bit mask for BURTC_LOCKKEY                  */'
+export const _BURTC_LOCK_LOCKKEY_DEFAULT: any = '0x0000AEE8UL                              /**< Mode DEFAULT for BURTC_LOCK                 */'
+export const _BURTC_LOCK_LOCKKEY_UNLOCK: any = '0x0000AEE8UL                              /**< Mode UNLOCK for BURTC_LOCK                  */'
+export const BURTC_LOCK_LOCKKEY_DEFAULT: any = '(_BURTC_LOCK_LOCKKEY_DEFAULT << 0)        /**< Shifted mode DEFAULT for BURTC_LOCK         */'
+export const BURTC_LOCK_LOCKKEY_UNLOCK: any = '(_BURTC_LOCK_LOCKKEY_UNLOCK << 0)         /**< Shifted mode UNLOCK for BURTC_LOCK          */'
+export const _BURTC_COMP_RESETVALUE: any = '0x00000000UL                              /**< Default value for BURTC_COMP                */'
+export const _BURTC_COMP_MASK: any = '0xFFFFFFFFUL                              /**< Mask for BURTC_COMP                         */'
+export const _BURTC_COMP_COMP_SHIFT: any = '0                                         /**< Shift value for BURTC_COMP                  */'
+export const _BURTC_COMP_COMP_MASK: any = '0xFFFFFFFFUL                              /**< Bit mask for BURTC_COMP                     */'
+export const _BURTC_COMP_COMP_DEFAULT: any = '0x00000000UL                              /**< Mode DEFAULT for BURTC_COMP                 */'
+export const BURTC_COMP_COMP_DEFAULT: any = '(_BURTC_COMP_COMP_DEFAULT << 0)           /**< Shifted mode DEFAULT for BURTC_COMP         */'
+
 // -------- CMU -------- //
 
 export interface CMU_t {
@@ -5245,6 +5493,341 @@ export const _HFXO_LOCK_LOCKKEY_UNLOCK: any = '0x0000580EUL                     
 export const HFXO_LOCK_LOCKKEY_DEFAULT: any = '(_HFXO_LOCK_LOCKKEY_DEFAULT << 0)     /**< Shifted mode DEFAULT for HFXO_LOCK          */'
 export const HFXO_LOCK_LOCKKEY_UNLOCK: any = '(_HFXO_LOCK_LOCKKEY_UNLOCK << 0)      /**< Shifted mode UNLOCK for HFXO_LOCK           */'
 
+// -------- RTCC_CC -------- //
+
+export interface RTCC_CC_t {
+    CTRL: $Reg
+    OCVALUE: $Reg
+    ICVALUE: $Reg
+}
+
+// -------- RTCC -------- //
+
+export interface RTCC_t {
+    IPVERSION: $Reg
+    EN: $Reg
+    CFG: $Reg
+    CMD: $Reg
+    STATUS: $Reg
+    IF: $Reg
+    IEN: $Reg
+    PRECNT: $Reg
+    CNT: $Reg
+    COMBCNT: $Reg
+    SYNCBUSY: $Reg
+    LOCK: $Reg
+    CC: dim_t<RTCC_CC_t, 3>
+    IPVERSION_SET: $Reg
+    EN_SET: $Reg
+    CFG_SET: $Reg
+    CMD_SET: $Reg
+    STATUS_SET: $Reg
+    IF_SET: $Reg
+    IEN_SET: $Reg
+    PRECNT_SET: $Reg
+    CNT_SET: $Reg
+    COMBCNT_SET: $Reg
+    SYNCBUSY_SET: $Reg
+    LOCK_SET: $Reg
+    CC_SET: dim_t<RTCC_CC_t, 3>
+    IPVERSION_CLR: $Reg
+    EN_CLR: $Reg
+    CFG_CLR: $Reg
+    CMD_CLR: $Reg
+    STATUS_CLR: $Reg
+    IF_CLR: $Reg
+    IEN_CLR: $Reg
+    PRECNT_CLR: $Reg
+    CNT_CLR: $Reg
+    COMBCNT_CLR: $Reg
+    SYNCBUSY_CLR: $Reg
+    LOCK_CLR: $Reg
+    CC_CLR: dim_t<RTCC_CC_t, 3>
+    IPVERSION_TGL: $Reg
+    EN_TGL: $Reg
+    CFG_TGL: $Reg
+    CMD_TGL: $Reg
+    STATUS_TGL: $Reg
+    IF_TGL: $Reg
+    IEN_TGL: $Reg
+    PRECNT_TGL: $Reg
+    CNT_TGL: $Reg
+    COMBCNT_TGL: $Reg
+    SYNCBUSY_TGL: $Reg
+    LOCK_TGL: $Reg
+    CC_TGL: dim_t<RTCC_CC_t, 3>
+}
+export const _RTCC_IPVERSION_RESETVALUE: any = '0x00000001UL                             /**< Default value for RTCC_IPVERSION            */'
+export const _RTCC_IPVERSION_MASK: any = '0xFFFFFFFFUL                             /**< Mask for RTCC_IPVERSION                     */'
+export const _RTCC_IPVERSION_IPVERSION_SHIFT: any = '0                                        /**< Shift value for RTCC_IPVERSION              */'
+export const _RTCC_IPVERSION_IPVERSION_MASK: any = '0xFFFFFFFFUL                             /**< Bit mask for RTCC_IPVERSION                 */'
+export const _RTCC_IPVERSION_IPVERSION_DEFAULT: any = '0x00000001UL                             /**< Mode DEFAULT for RTCC_IPVERSION             */'
+export const RTCC_IPVERSION_IPVERSION_DEFAULT: any = '(_RTCC_IPVERSION_IPVERSION_DEFAULT << 0) /**< Shifted mode DEFAULT for RTCC_IPVERSION     */'
+export const _RTCC_EN_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_EN                   */'
+export const _RTCC_EN_MASK: any = '0x00000001UL                            /**< Mask for RTCC_EN                            */'
+export const RTCC_EN_EN: any = '(0x1UL << 0)                            /**< RTCC Enable                                 */'
+export const _RTCC_EN_EN_SHIFT: any = '0                                       /**< Shift value for RTCC_EN                     */'
+export const _RTCC_EN_EN_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_EN                        */'
+export const _RTCC_EN_EN_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_EN                    */'
+export const RTCC_EN_EN_DEFAULT: any = '(_RTCC_EN_EN_DEFAULT << 0)              /**< Shifted mode DEFAULT for RTCC_EN            */'
+export const _RTCC_CFG_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CFG                  */'
+export const _RTCC_CFG_MASK: any = '0x000000FFUL                            /**< Mask for RTCC_CFG                           */'
+export const RTCC_CFG_DEBUGRUN: any = '(0x1UL << 0)                            /**< Debug Mode Run Enable                       */'
+export const _RTCC_CFG_DEBUGRUN_SHIFT: any = '0                                       /**< Shift value for RTCC_DEBUGRUN               */'
+export const _RTCC_CFG_DEBUGRUN_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_DEBUGRUN                  */'
+export const _RTCC_CFG_DEBUGRUN_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CFG                   */'
+export const _RTCC_CFG_DEBUGRUN_X0: any = '0x00000000UL                            /**< Mode X0 for RTCC_CFG                        */'
+export const _RTCC_CFG_DEBUGRUN_X1: any = '0x00000001UL                            /**< Mode X1 for RTCC_CFG                        */'
+export const RTCC_CFG_DEBUGRUN_DEFAULT: any = '(_RTCC_CFG_DEBUGRUN_DEFAULT << 0)       /**< Shifted mode DEFAULT for RTCC_CFG           */'
+export const RTCC_CFG_DEBUGRUN_X0: any = '(_RTCC_CFG_DEBUGRUN_X0 << 0)            /**< Shifted mode X0 for RTCC_CFG                */'
+export const RTCC_CFG_DEBUGRUN_X1: any = '(_RTCC_CFG_DEBUGRUN_X1 << 0)            /**< Shifted mode X1 for RTCC_CFG                */'
+export const RTCC_CFG_PRECNTCCV0TOP: any = '(0x1UL << 1)                            /**< Pre-counter CCV0 top value enable.          */'
+export const _RTCC_CFG_PRECNTCCV0TOP_SHIFT: any = '1                                       /**< Shift value for RTCC_PRECNTCCV0TOP          */'
+export const _RTCC_CFG_PRECNTCCV0TOP_MASK: any = '0x2UL                                   /**< Bit mask for RTCC_PRECNTCCV0TOP             */'
+export const _RTCC_CFG_PRECNTCCV0TOP_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CFG                   */'
+export const RTCC_CFG_PRECNTCCV0TOP_DEFAULT: any = '(_RTCC_CFG_PRECNTCCV0TOP_DEFAULT << 1)  /**< Shifted mode DEFAULT for RTCC_CFG           */'
+export const RTCC_CFG_CNTCCV1TOP: any = '(0x1UL << 2)                            /**< CCV1 top value enable                       */'
+export const _RTCC_CFG_CNTCCV1TOP_SHIFT: any = '2                                       /**< Shift value for RTCC_CNTCCV1TOP             */'
+export const _RTCC_CFG_CNTCCV1TOP_MASK: any = '0x4UL                                   /**< Bit mask for RTCC_CNTCCV1TOP                */'
+export const _RTCC_CFG_CNTCCV1TOP_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CFG                   */'
+export const RTCC_CFG_CNTCCV1TOP_DEFAULT: any = '(_RTCC_CFG_CNTCCV1TOP_DEFAULT << 2)     /**< Shifted mode DEFAULT for RTCC_CFG           */'
+export const RTCC_CFG_CNTTICK: any = '(0x1UL << 3)                            /**< Counter prescaler mode.                     */'
+export const _RTCC_CFG_CNTTICK_SHIFT: any = '3                                       /**< Shift value for RTCC_CNTTICK                */'
+export const _RTCC_CFG_CNTTICK_MASK: any = '0x8UL                                   /**< Bit mask for RTCC_CNTTICK                   */'
+export const _RTCC_CFG_CNTTICK_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTTICK_PRESC: any = '0x00000000UL                            /**< Mode PRESC for RTCC_CFG                     */'
+export const _RTCC_CFG_CNTTICK_CCV0MATCH: any = '0x00000001UL                            /**< Mode CCV0MATCH for RTCC_CFG                 */'
+export const RTCC_CFG_CNTTICK_DEFAULT: any = '(_RTCC_CFG_CNTTICK_DEFAULT << 3)        /**< Shifted mode DEFAULT for RTCC_CFG           */'
+export const RTCC_CFG_CNTTICK_PRESC: any = '(_RTCC_CFG_CNTTICK_PRESC << 3)          /**< Shifted mode PRESC for RTCC_CFG             */'
+export const RTCC_CFG_CNTTICK_CCV0MATCH: any = '(_RTCC_CFG_CNTTICK_CCV0MATCH << 3)      /**< Shifted mode CCV0MATCH for RTCC_CFG         */'
+export const _RTCC_CFG_CNTPRESC_SHIFT: any = '4                                       /**< Shift value for RTCC_CNTPRESC               */'
+export const _RTCC_CFG_CNTPRESC_MASK: any = '0xF0UL                                  /**< Bit mask for RTCC_CNTPRESC                  */'
+export const _RTCC_CFG_CNTPRESC_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTPRESC_DIV1: any = '0x00000000UL                            /**< Mode DIV1 for RTCC_CFG                      */'
+export const _RTCC_CFG_CNTPRESC_DIV2: any = '0x00000001UL                            /**< Mode DIV2 for RTCC_CFG                      */'
+export const _RTCC_CFG_CNTPRESC_DIV4: any = '0x00000002UL                            /**< Mode DIV4 for RTCC_CFG                      */'
+export const _RTCC_CFG_CNTPRESC_DIV8: any = '0x00000003UL                            /**< Mode DIV8 for RTCC_CFG                      */'
+export const _RTCC_CFG_CNTPRESC_DIV16: any = '0x00000004UL                            /**< Mode DIV16 for RTCC_CFG                     */'
+export const _RTCC_CFG_CNTPRESC_DIV32: any = '0x00000005UL                            /**< Mode DIV32 for RTCC_CFG                     */'
+export const _RTCC_CFG_CNTPRESC_DIV64: any = '0x00000006UL                            /**< Mode DIV64 for RTCC_CFG                     */'
+export const _RTCC_CFG_CNTPRESC_DIV128: any = '0x00000007UL                            /**< Mode DIV128 for RTCC_CFG                    */'
+export const _RTCC_CFG_CNTPRESC_DIV256: any = '0x00000008UL                            /**< Mode DIV256 for RTCC_CFG                    */'
+export const _RTCC_CFG_CNTPRESC_DIV512: any = '0x00000009UL                            /**< Mode DIV512 for RTCC_CFG                    */'
+export const _RTCC_CFG_CNTPRESC_DIV1024: any = '0x0000000AUL                            /**< Mode DIV1024 for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTPRESC_DIV2048: any = '0x0000000BUL                            /**< Mode DIV2048 for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTPRESC_DIV4096: any = '0x0000000CUL                            /**< Mode DIV4096 for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTPRESC_DIV8192: any = '0x0000000DUL                            /**< Mode DIV8192 for RTCC_CFG                   */'
+export const _RTCC_CFG_CNTPRESC_DIV16384: any = '0x0000000EUL                            /**< Mode DIV16384 for RTCC_CFG                  */'
+export const _RTCC_CFG_CNTPRESC_DIV32768: any = '0x0000000FUL                            /**< Mode DIV32768 for RTCC_CFG                  */'
+export const RTCC_CFG_CNTPRESC_DEFAULT: any = '(_RTCC_CFG_CNTPRESC_DEFAULT << 4)       /**< Shifted mode DEFAULT for RTCC_CFG           */'
+export const RTCC_CFG_CNTPRESC_DIV1: any = '(_RTCC_CFG_CNTPRESC_DIV1 << 4)          /**< Shifted mode DIV1 for RTCC_CFG              */'
+export const RTCC_CFG_CNTPRESC_DIV2: any = '(_RTCC_CFG_CNTPRESC_DIV2 << 4)          /**< Shifted mode DIV2 for RTCC_CFG              */'
+export const RTCC_CFG_CNTPRESC_DIV4: any = '(_RTCC_CFG_CNTPRESC_DIV4 << 4)          /**< Shifted mode DIV4 for RTCC_CFG              */'
+export const RTCC_CFG_CNTPRESC_DIV8: any = '(_RTCC_CFG_CNTPRESC_DIV8 << 4)          /**< Shifted mode DIV8 for RTCC_CFG              */'
+export const RTCC_CFG_CNTPRESC_DIV16: any = '(_RTCC_CFG_CNTPRESC_DIV16 << 4)         /**< Shifted mode DIV16 for RTCC_CFG             */'
+export const RTCC_CFG_CNTPRESC_DIV32: any = '(_RTCC_CFG_CNTPRESC_DIV32 << 4)         /**< Shifted mode DIV32 for RTCC_CFG             */'
+export const RTCC_CFG_CNTPRESC_DIV64: any = '(_RTCC_CFG_CNTPRESC_DIV64 << 4)         /**< Shifted mode DIV64 for RTCC_CFG             */'
+export const RTCC_CFG_CNTPRESC_DIV128: any = '(_RTCC_CFG_CNTPRESC_DIV128 << 4)        /**< Shifted mode DIV128 for RTCC_CFG            */'
+export const RTCC_CFG_CNTPRESC_DIV256: any = '(_RTCC_CFG_CNTPRESC_DIV256 << 4)        /**< Shifted mode DIV256 for RTCC_CFG            */'
+export const RTCC_CFG_CNTPRESC_DIV512: any = '(_RTCC_CFG_CNTPRESC_DIV512 << 4)        /**< Shifted mode DIV512 for RTCC_CFG            */'
+export const RTCC_CFG_CNTPRESC_DIV1024: any = '(_RTCC_CFG_CNTPRESC_DIV1024 << 4)       /**< Shifted mode DIV1024 for RTCC_CFG           */'
+export const RTCC_CFG_CNTPRESC_DIV2048: any = '(_RTCC_CFG_CNTPRESC_DIV2048 << 4)       /**< Shifted mode DIV2048 for RTCC_CFG           */'
+export const RTCC_CFG_CNTPRESC_DIV4096: any = '(_RTCC_CFG_CNTPRESC_DIV4096 << 4)       /**< Shifted mode DIV4096 for RTCC_CFG           */'
+export const RTCC_CFG_CNTPRESC_DIV8192: any = '(_RTCC_CFG_CNTPRESC_DIV8192 << 4)       /**< Shifted mode DIV8192 for RTCC_CFG           */'
+export const RTCC_CFG_CNTPRESC_DIV16384: any = '(_RTCC_CFG_CNTPRESC_DIV16384 << 4)      /**< Shifted mode DIV16384 for RTCC_CFG          */'
+export const RTCC_CFG_CNTPRESC_DIV32768: any = '(_RTCC_CFG_CNTPRESC_DIV32768 << 4)      /**< Shifted mode DIV32768 for RTCC_CFG          */'
+export const _RTCC_CMD_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CMD                  */'
+export const _RTCC_CMD_MASK: any = '0x00000003UL                            /**< Mask for RTCC_CMD                           */'
+export const RTCC_CMD_START: any = '(0x1UL << 0)                            /**< Start RTCC main counter                     */'
+export const _RTCC_CMD_START_SHIFT: any = '0                                       /**< Shift value for RTCC_START                  */'
+export const _RTCC_CMD_START_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_START                     */'
+export const _RTCC_CMD_START_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CMD                   */'
+export const RTCC_CMD_START_DEFAULT: any = '(_RTCC_CMD_START_DEFAULT << 0)          /**< Shifted mode DEFAULT for RTCC_CMD           */'
+export const RTCC_CMD_STOP: any = '(0x1UL << 1)                            /**< Stop RTCC main counter                      */'
+export const _RTCC_CMD_STOP_SHIFT: any = '1                                       /**< Shift value for RTCC_STOP                   */'
+export const _RTCC_CMD_STOP_MASK: any = '0x2UL                                   /**< Bit mask for RTCC_STOP                      */'
+export const _RTCC_CMD_STOP_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CMD                   */'
+export const RTCC_CMD_STOP_DEFAULT: any = '(_RTCC_CMD_STOP_DEFAULT << 1)           /**< Shifted mode DEFAULT for RTCC_CMD           */'
+export const _RTCC_STATUS_RESETVALUE: any = '0x00000000UL                                /**< Default value for RTCC_STATUS               */'
+export const _RTCC_STATUS_MASK: any = '0x00000003UL                                /**< Mask for RTCC_STATUS                        */'
+export const RTCC_STATUS_RUNNING: any = '(0x1UL << 0)                                /**< RTCC running status                         */'
+export const _RTCC_STATUS_RUNNING_SHIFT: any = '0                                           /**< Shift value for RTCC_RUNNING                */'
+export const _RTCC_STATUS_RUNNING_MASK: any = '0x1UL                                       /**< Bit mask for RTCC_RUNNING                   */'
+export const _RTCC_STATUS_RUNNING_DEFAULT: any = '0x00000000UL                                /**< Mode DEFAULT for RTCC_STATUS                */'
+export const RTCC_STATUS_RUNNING_DEFAULT: any = '(_RTCC_STATUS_RUNNING_DEFAULT << 0)         /**< Shifted mode DEFAULT for RTCC_STATUS        */'
+export const RTCC_STATUS_RTCCLOCKSTATUS: any = '(0x1UL << 1)                                /**< Lock Status                                 */'
+export const _RTCC_STATUS_RTCCLOCKSTATUS_SHIFT: any = '1                                           /**< Shift value for RTCC_RTCCLOCKSTATUS         */'
+export const _RTCC_STATUS_RTCCLOCKSTATUS_MASK: any = '0x2UL                                       /**< Bit mask for RTCC_RTCCLOCKSTATUS            */'
+export const _RTCC_STATUS_RTCCLOCKSTATUS_DEFAULT: any = '0x00000000UL                                /**< Mode DEFAULT for RTCC_STATUS                */'
+export const _RTCC_STATUS_RTCCLOCKSTATUS_UNLOCKED: any = '0x00000000UL                                /**< Mode UNLOCKED for RTCC_STATUS               */'
+export const _RTCC_STATUS_RTCCLOCKSTATUS_LOCKED: any = '0x00000001UL                                /**< Mode LOCKED for RTCC_STATUS                 */'
+export const RTCC_STATUS_RTCCLOCKSTATUS_DEFAULT: any = '(_RTCC_STATUS_RTCCLOCKSTATUS_DEFAULT << 1)  /**< Shifted mode DEFAULT for RTCC_STATUS        */'
+export const RTCC_STATUS_RTCCLOCKSTATUS_UNLOCKED: any = '(_RTCC_STATUS_RTCCLOCKSTATUS_UNLOCKED << 1) /**< Shifted mode UNLOCKED for RTCC_STATUS       */'
+export const RTCC_STATUS_RTCCLOCKSTATUS_LOCKED: any = '(_RTCC_STATUS_RTCCLOCKSTATUS_LOCKED << 1)   /**< Shifted mode LOCKED for RTCC_STATUS         */'
+export const _RTCC_IF_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_IF                   */'
+export const _RTCC_IF_MASK: any = '0x000003FFUL                            /**< Mask for RTCC_IF                            */'
+export const RTCC_IF_OF: any = '(0x1UL << 0)                            /**< Overflow Interrupt Flag                     */'
+export const _RTCC_IF_OF_SHIFT: any = '0                                       /**< Shift value for RTCC_OF                     */'
+export const _RTCC_IF_OF_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_OF                        */'
+export const _RTCC_IF_OF_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IF                    */'
+export const RTCC_IF_OF_DEFAULT: any = '(_RTCC_IF_OF_DEFAULT << 0)              /**< Shifted mode DEFAULT for RTCC_IF            */'
+export const RTCC_IF_CNTTICK: any = '(0x1UL << 1)                            /**< Main counter tick                           */'
+export const _RTCC_IF_CNTTICK_SHIFT: any = '1                                       /**< Shift value for RTCC_CNTTICK                */'
+export const _RTCC_IF_CNTTICK_MASK: any = '0x2UL                                   /**< Bit mask for RTCC_CNTTICK                   */'
+export const _RTCC_IF_CNTTICK_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IF                    */'
+export const RTCC_IF_CNTTICK_DEFAULT: any = '(_RTCC_IF_CNTTICK_DEFAULT << 1)         /**< Shifted mode DEFAULT for RTCC_IF            */'
+export const RTCC_IF_CC0: any = '(0x1UL << 4)                            /**< CC Channel n Interrupt Flag                 */'
+export const _RTCC_IF_CC0_SHIFT: any = '4                                       /**< Shift value for RTCC_CC0                    */'
+export const _RTCC_IF_CC0_MASK: any = '0x10UL                                  /**< Bit mask for RTCC_CC0                       */'
+export const _RTCC_IF_CC0_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IF                    */'
+export const RTCC_IF_CC0_DEFAULT: any = '(_RTCC_IF_CC0_DEFAULT << 4)             /**< Shifted mode DEFAULT for RTCC_IF            */'
+export const RTCC_IF_CC1: any = '(0x1UL << 6)                            /**< CC Channel n Interrupt Flag                 */'
+export const _RTCC_IF_CC1_SHIFT: any = '6                                       /**< Shift value for RTCC_CC1                    */'
+export const _RTCC_IF_CC1_MASK: any = '0x40UL                                  /**< Bit mask for RTCC_CC1                       */'
+export const _RTCC_IF_CC1_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IF                    */'
+export const RTCC_IF_CC1_DEFAULT: any = '(_RTCC_IF_CC1_DEFAULT << 6)             /**< Shifted mode DEFAULT for RTCC_IF            */'
+export const RTCC_IF_CC2: any = '(0x1UL << 8)                            /**< CC Channel n Interrupt Flag                 */'
+export const _RTCC_IF_CC2_SHIFT: any = '8                                       /**< Shift value for RTCC_CC2                    */'
+export const _RTCC_IF_CC2_MASK: any = '0x100UL                                 /**< Bit mask for RTCC_CC2                       */'
+export const _RTCC_IF_CC2_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IF                    */'
+export const RTCC_IF_CC2_DEFAULT: any = '(_RTCC_IF_CC2_DEFAULT << 8)             /**< Shifted mode DEFAULT for RTCC_IF            */'
+export const _RTCC_IEN_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_IEN                  */'
+export const _RTCC_IEN_MASK: any = '0x000003FFUL                            /**< Mask for RTCC_IEN                           */'
+export const RTCC_IEN_OF: any = '(0x1UL << 0)                            /**< OF Interrupt Enable                         */'
+export const _RTCC_IEN_OF_SHIFT: any = '0                                       /**< Shift value for RTCC_OF                     */'
+export const _RTCC_IEN_OF_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_OF                        */'
+export const _RTCC_IEN_OF_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IEN                   */'
+export const RTCC_IEN_OF_DEFAULT: any = '(_RTCC_IEN_OF_DEFAULT << 0)             /**< Shifted mode DEFAULT for RTCC_IEN           */'
+export const RTCC_IEN_CNTTICK: any = '(0x1UL << 1)                            /**< CNTTICK Interrupt Enable                    */'
+export const _RTCC_IEN_CNTTICK_SHIFT: any = '1                                       /**< Shift value for RTCC_CNTTICK                */'
+export const _RTCC_IEN_CNTTICK_MASK: any = '0x2UL                                   /**< Bit mask for RTCC_CNTTICK                   */'
+export const _RTCC_IEN_CNTTICK_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IEN                   */'
+export const RTCC_IEN_CNTTICK_DEFAULT: any = '(_RTCC_IEN_CNTTICK_DEFAULT << 1)        /**< Shifted mode DEFAULT for RTCC_IEN           */'
+export const RTCC_IEN_CC0: any = '(0x1UL << 4)                            /**< CC Channel n Interrupt Enable               */'
+export const _RTCC_IEN_CC0_SHIFT: any = '4                                       /**< Shift value for RTCC_CC0                    */'
+export const _RTCC_IEN_CC0_MASK: any = '0x10UL                                  /**< Bit mask for RTCC_CC0                       */'
+export const _RTCC_IEN_CC0_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IEN                   */'
+export const RTCC_IEN_CC0_DEFAULT: any = '(_RTCC_IEN_CC0_DEFAULT << 4)            /**< Shifted mode DEFAULT for RTCC_IEN           */'
+export const RTCC_IEN_CC1: any = '(0x1UL << 6)                            /**< CC Channel n Interrupt Enable               */'
+export const _RTCC_IEN_CC1_SHIFT: any = '6                                       /**< Shift value for RTCC_CC1                    */'
+export const _RTCC_IEN_CC1_MASK: any = '0x40UL                                  /**< Bit mask for RTCC_CC1                       */'
+export const _RTCC_IEN_CC1_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IEN                   */'
+export const RTCC_IEN_CC1_DEFAULT: any = '(_RTCC_IEN_CC1_DEFAULT << 6)            /**< Shifted mode DEFAULT for RTCC_IEN           */'
+export const RTCC_IEN_CC2: any = '(0x1UL << 8)                            /**< CC Channel n Interrupt Enable               */'
+export const _RTCC_IEN_CC2_SHIFT: any = '8                                       /**< Shift value for RTCC_CC2                    */'
+export const _RTCC_IEN_CC2_MASK: any = '0x100UL                                 /**< Bit mask for RTCC_CC2                       */'
+export const _RTCC_IEN_CC2_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_IEN                   */'
+export const RTCC_IEN_CC2_DEFAULT: any = '(_RTCC_IEN_CC2_DEFAULT << 8)            /**< Shifted mode DEFAULT for RTCC_IEN           */'
+export const _RTCC_PRECNT_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_PRECNT               */'
+export const _RTCC_PRECNT_MASK: any = '0x00007FFFUL                            /**< Mask for RTCC_PRECNT                        */'
+export const _RTCC_PRECNT_PRECNT_SHIFT: any = '0                                       /**< Shift value for RTCC_PRECNT                 */'
+export const _RTCC_PRECNT_PRECNT_MASK: any = '0x7FFFUL                                /**< Bit mask for RTCC_PRECNT                    */'
+export const _RTCC_PRECNT_PRECNT_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_PRECNT                */'
+export const RTCC_PRECNT_PRECNT_DEFAULT: any = '(_RTCC_PRECNT_PRECNT_DEFAULT << 0)      /**< Shifted mode DEFAULT for RTCC_PRECNT        */'
+export const _RTCC_CNT_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CNT                  */'
+export const _RTCC_CNT_MASK: any = '0xFFFFFFFFUL                            /**< Mask for RTCC_CNT                           */'
+export const _RTCC_CNT_CNT_SHIFT: any = '0                                       /**< Shift value for RTCC_CNT                    */'
+export const _RTCC_CNT_CNT_MASK: any = '0xFFFFFFFFUL                            /**< Bit mask for RTCC_CNT                       */'
+export const _RTCC_CNT_CNT_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CNT                   */'
+export const RTCC_CNT_CNT_DEFAULT: any = '(_RTCC_CNT_CNT_DEFAULT << 0)            /**< Shifted mode DEFAULT for RTCC_CNT           */'
+export const _RTCC_COMBCNT_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_COMBCNT              */'
+export const _RTCC_COMBCNT_MASK: any = '0xFFFFFFFFUL                            /**< Mask for RTCC_COMBCNT                       */'
+export const _RTCC_COMBCNT_PRECNT_SHIFT: any = '0                                       /**< Shift value for RTCC_PRECNT                 */'
+export const _RTCC_COMBCNT_PRECNT_MASK: any = '0x7FFFUL                                /**< Bit mask for RTCC_PRECNT                    */'
+export const _RTCC_COMBCNT_PRECNT_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_COMBCNT               */'
+export const RTCC_COMBCNT_PRECNT_DEFAULT: any = '(_RTCC_COMBCNT_PRECNT_DEFAULT << 0)     /**< Shifted mode DEFAULT for RTCC_COMBCNT       */'
+export const _RTCC_COMBCNT_CNTLSB_SHIFT: any = '15                                      /**< Shift value for RTCC_CNTLSB                 */'
+export const _RTCC_COMBCNT_CNTLSB_MASK: any = '0xFFFF8000UL                            /**< Bit mask for RTCC_CNTLSB                    */'
+export const _RTCC_COMBCNT_CNTLSB_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_COMBCNT               */'
+export const RTCC_COMBCNT_CNTLSB_DEFAULT: any = '(_RTCC_COMBCNT_CNTLSB_DEFAULT << 15)    /**< Shifted mode DEFAULT for RTCC_COMBCNT       */'
+export const _RTCC_SYNCBUSY_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_SYNCBUSY             */'
+export const _RTCC_SYNCBUSY_MASK: any = '0x0000000FUL                            /**< Mask for RTCC_SYNCBUSY                      */'
+export const RTCC_SYNCBUSY_START: any = '(0x1UL << 0)                            /**< Sync busy for START                         */'
+export const _RTCC_SYNCBUSY_START_SHIFT: any = '0                                       /**< Shift value for RTCC_START                  */'
+export const _RTCC_SYNCBUSY_START_MASK: any = '0x1UL                                   /**< Bit mask for RTCC_START                     */'
+export const _RTCC_SYNCBUSY_START_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_SYNCBUSY              */'
+export const RTCC_SYNCBUSY_START_DEFAULT: any = '(_RTCC_SYNCBUSY_START_DEFAULT << 0)     /**< Shifted mode DEFAULT for RTCC_SYNCBUSY      */'
+export const RTCC_SYNCBUSY_STOP: any = '(0x1UL << 1)                            /**< Sync busy for STOP                          */'
+export const _RTCC_SYNCBUSY_STOP_SHIFT: any = '1                                       /**< Shift value for RTCC_STOP                   */'
+export const _RTCC_SYNCBUSY_STOP_MASK: any = '0x2UL                                   /**< Bit mask for RTCC_STOP                      */'
+export const _RTCC_SYNCBUSY_STOP_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_SYNCBUSY              */'
+export const RTCC_SYNCBUSY_STOP_DEFAULT: any = '(_RTCC_SYNCBUSY_STOP_DEFAULT << 1)      /**< Shifted mode DEFAULT for RTCC_SYNCBUSY      */'
+export const RTCC_SYNCBUSY_PRECNT: any = '(0x1UL << 2)                            /**< Sync busy for PRECNT                        */'
+export const _RTCC_SYNCBUSY_PRECNT_SHIFT: any = '2                                       /**< Shift value for RTCC_PRECNT                 */'
+export const _RTCC_SYNCBUSY_PRECNT_MASK: any = '0x4UL                                   /**< Bit mask for RTCC_PRECNT                    */'
+export const _RTCC_SYNCBUSY_PRECNT_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_SYNCBUSY              */'
+export const RTCC_SYNCBUSY_PRECNT_DEFAULT: any = '(_RTCC_SYNCBUSY_PRECNT_DEFAULT << 2)    /**< Shifted mode DEFAULT for RTCC_SYNCBUSY      */'
+export const RTCC_SYNCBUSY_CNT: any = '(0x1UL << 3)                            /**< Sync busy for CNT                           */'
+export const _RTCC_SYNCBUSY_CNT_SHIFT: any = '3                                       /**< Shift value for RTCC_CNT                    */'
+export const _RTCC_SYNCBUSY_CNT_MASK: any = '0x8UL                                   /**< Bit mask for RTCC_CNT                       */'
+export const _RTCC_SYNCBUSY_CNT_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_SYNCBUSY              */'
+export const RTCC_SYNCBUSY_CNT_DEFAULT: any = '(_RTCC_SYNCBUSY_CNT_DEFAULT << 3)       /**< Shifted mode DEFAULT for RTCC_SYNCBUSY      */'
+export const _RTCC_LOCK_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_LOCK                 */'
+export const _RTCC_LOCK_MASK: any = '0x0000FFFFUL                            /**< Mask for RTCC_LOCK                          */'
+export const _RTCC_LOCK_LOCKKEY_SHIFT: any = '0                                       /**< Shift value for RTCC_LOCKKEY                */'
+export const _RTCC_LOCK_LOCKKEY_MASK: any = '0xFFFFUL                                /**< Bit mask for RTCC_LOCKKEY                   */'
+export const _RTCC_LOCK_LOCKKEY_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_LOCK                  */'
+export const _RTCC_LOCK_LOCKKEY_UNLOCK: any = '0x0000AEE8UL                            /**< Mode UNLOCK for RTCC_LOCK                   */'
+export const RTCC_LOCK_LOCKKEY_DEFAULT: any = '(_RTCC_LOCK_LOCKKEY_DEFAULT << 0)       /**< Shifted mode DEFAULT for RTCC_LOCK          */'
+export const RTCC_LOCK_LOCKKEY_UNLOCK: any = '(_RTCC_LOCK_LOCKKEY_UNLOCK << 0)        /**< Shifted mode UNLOCK for RTCC_LOCK           */'
+export const _RTCC_CC_CTRL_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CC_CTRL              */'
+export const _RTCC_CC_CTRL_MASK: any = '0x000000FFUL                            /**< Mask for RTCC_CC_CTRL                       */'
+export const _RTCC_CC_CTRL_MODE_SHIFT: any = '0                                       /**< Shift value for RTCC_MODE                   */'
+export const _RTCC_CC_CTRL_MODE_MASK: any = '0x3UL                                   /**< Bit mask for RTCC_MODE                      */'
+export const _RTCC_CC_CTRL_MODE_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_CTRL               */'
+export const _RTCC_CC_CTRL_MODE_OFF: any = '0x00000000UL                            /**< Mode OFF for RTCC_CC_CTRL                   */'
+export const _RTCC_CC_CTRL_MODE_INPUTCAPTURE: any = '0x00000001UL                            /**< Mode INPUTCAPTURE for RTCC_CC_CTRL          */'
+export const _RTCC_CC_CTRL_MODE_OUTPUTCOMPARE: any = '0x00000002UL                            /**< Mode OUTPUTCOMPARE for RTCC_CC_CTRL         */'
+export const RTCC_CC_CTRL_MODE_DEFAULT: any = '(_RTCC_CC_CTRL_MODE_DEFAULT << 0)       /**< Shifted mode DEFAULT for RTCC_CC_CTRL       */'
+export const RTCC_CC_CTRL_MODE_OFF: any = '(_RTCC_CC_CTRL_MODE_OFF << 0)           /**< Shifted mode OFF for RTCC_CC_CTRL           */'
+export const RTCC_CC_CTRL_MODE_INPUTCAPTURE: any = '(_RTCC_CC_CTRL_MODE_INPUTCAPTURE << 0)  /**< Shifted mode INPUTCAPTURE for RTCC_CC_CTRL  */'
+export const RTCC_CC_CTRL_MODE_OUTPUTCOMPARE: any = '(_RTCC_CC_CTRL_MODE_OUTPUTCOMPARE << 0) /**< Shifted mode OUTPUTCOMPARE for RTCC_CC_CTRL */'
+export const _RTCC_CC_CTRL_CMOA_SHIFT: any = '2                                       /**< Shift value for RTCC_CMOA                   */'
+export const _RTCC_CC_CTRL_CMOA_MASK: any = '0xCUL                                   /**< Bit mask for RTCC_CMOA                      */'
+export const _RTCC_CC_CTRL_CMOA_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_CTRL               */'
+export const _RTCC_CC_CTRL_CMOA_PULSE: any = '0x00000000UL                            /**< Mode PULSE for RTCC_CC_CTRL                 */'
+export const _RTCC_CC_CTRL_CMOA_TOGGLE: any = '0x00000001UL                            /**< Mode TOGGLE for RTCC_CC_CTRL                */'
+export const _RTCC_CC_CTRL_CMOA_CLEAR: any = '0x00000002UL                            /**< Mode CLEAR for RTCC_CC_CTRL                 */'
+export const _RTCC_CC_CTRL_CMOA_SET: any = '0x00000003UL                            /**< Mode SET for RTCC_CC_CTRL                   */'
+export const RTCC_CC_CTRL_CMOA_DEFAULT: any = '(_RTCC_CC_CTRL_CMOA_DEFAULT << 2)       /**< Shifted mode DEFAULT for RTCC_CC_CTRL       */'
+export const RTCC_CC_CTRL_CMOA_PULSE: any = '(_RTCC_CC_CTRL_CMOA_PULSE << 2)         /**< Shifted mode PULSE for RTCC_CC_CTRL         */'
+export const RTCC_CC_CTRL_CMOA_TOGGLE: any = '(_RTCC_CC_CTRL_CMOA_TOGGLE << 2)        /**< Shifted mode TOGGLE for RTCC_CC_CTRL        */'
+export const RTCC_CC_CTRL_CMOA_CLEAR: any = '(_RTCC_CC_CTRL_CMOA_CLEAR << 2)         /**< Shifted mode CLEAR for RTCC_CC_CTRL         */'
+export const RTCC_CC_CTRL_CMOA_SET: any = '(_RTCC_CC_CTRL_CMOA_SET << 2)           /**< Shifted mode SET for RTCC_CC_CTRL           */'
+export const RTCC_CC_CTRL_COMPBASE: any = '(0x1UL << 4)                            /**< Capture compare channel comparison base.    */'
+export const _RTCC_CC_CTRL_COMPBASE_SHIFT: any = '4                                       /**< Shift value for RTCC_COMPBASE               */'
+export const _RTCC_CC_CTRL_COMPBASE_MASK: any = '0x10UL                                  /**< Bit mask for RTCC_COMPBASE                  */'
+export const _RTCC_CC_CTRL_COMPBASE_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_CTRL               */'
+export const _RTCC_CC_CTRL_COMPBASE_CNT: any = '0x00000000UL                            /**< Mode CNT for RTCC_CC_CTRL                   */'
+export const _RTCC_CC_CTRL_COMPBASE_PRECNT: any = '0x00000001UL                            /**< Mode PRECNT for RTCC_CC_CTRL                */'
+export const RTCC_CC_CTRL_COMPBASE_DEFAULT: any = '(_RTCC_CC_CTRL_COMPBASE_DEFAULT << 4)   /**< Shifted mode DEFAULT for RTCC_CC_CTRL       */'
+export const RTCC_CC_CTRL_COMPBASE_CNT: any = '(_RTCC_CC_CTRL_COMPBASE_CNT << 4)       /**< Shifted mode CNT for RTCC_CC_CTRL           */'
+export const RTCC_CC_CTRL_COMPBASE_PRECNT: any = '(_RTCC_CC_CTRL_COMPBASE_PRECNT << 4)    /**< Shifted mode PRECNT for RTCC_CC_CTRL        */'
+export const _RTCC_CC_CTRL_ICEDGE_SHIFT: any = '5                                       /**< Shift value for RTCC_ICEDGE                 */'
+export const _RTCC_CC_CTRL_ICEDGE_MASK: any = '0x60UL                                  /**< Bit mask for RTCC_ICEDGE                    */'
+export const _RTCC_CC_CTRL_ICEDGE_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_CTRL               */'
+export const _RTCC_CC_CTRL_ICEDGE_RISING: any = '0x00000000UL                            /**< Mode RISING for RTCC_CC_CTRL                */'
+export const _RTCC_CC_CTRL_ICEDGE_FALLING: any = '0x00000001UL                            /**< Mode FALLING for RTCC_CC_CTRL               */'
+export const _RTCC_CC_CTRL_ICEDGE_BOTH: any = '0x00000002UL                            /**< Mode BOTH for RTCC_CC_CTRL                  */'
+export const _RTCC_CC_CTRL_ICEDGE_NONE: any = '0x00000003UL                            /**< Mode NONE for RTCC_CC_CTRL                  */'
+export const RTCC_CC_CTRL_ICEDGE_DEFAULT: any = '(_RTCC_CC_CTRL_ICEDGE_DEFAULT << 5)     /**< Shifted mode DEFAULT for RTCC_CC_CTRL       */'
+export const RTCC_CC_CTRL_ICEDGE_RISING: any = '(_RTCC_CC_CTRL_ICEDGE_RISING << 5)      /**< Shifted mode RISING for RTCC_CC_CTRL        */'
+export const RTCC_CC_CTRL_ICEDGE_FALLING: any = '(_RTCC_CC_CTRL_ICEDGE_FALLING << 5)     /**< Shifted mode FALLING for RTCC_CC_CTRL       */'
+export const RTCC_CC_CTRL_ICEDGE_BOTH: any = '(_RTCC_CC_CTRL_ICEDGE_BOTH << 5)        /**< Shifted mode BOTH for RTCC_CC_CTRL          */'
+export const RTCC_CC_CTRL_ICEDGE_NONE: any = '(_RTCC_CC_CTRL_ICEDGE_NONE << 5)        /**< Shifted mode NONE for RTCC_CC_CTRL          */'
+export const _RTCC_CC_OCVALUE_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CC_OCVALUE           */'
+export const _RTCC_CC_OCVALUE_MASK: any = '0xFFFFFFFFUL                            /**< Mask for RTCC_CC_OCVALUE                    */'
+export const _RTCC_CC_OCVALUE_OC_SHIFT: any = '0                                       /**< Shift value for RTCC_OC                     */'
+export const _RTCC_CC_OCVALUE_OC_MASK: any = '0xFFFFFFFFUL                            /**< Bit mask for RTCC_OC                        */'
+export const _RTCC_CC_OCVALUE_OC_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_OCVALUE            */'
+export const RTCC_CC_OCVALUE_OC_DEFAULT: any = '(_RTCC_CC_OCVALUE_OC_DEFAULT << 0)      /**< Shifted mode DEFAULT for RTCC_CC_OCVALUE    */'
+export const _RTCC_CC_ICVALUE_RESETVALUE: any = '0x00000000UL                            /**< Default value for RTCC_CC_ICVALUE           */'
+export const _RTCC_CC_ICVALUE_MASK: any = '0xFFFFFFFFUL                            /**< Mask for RTCC_CC_ICVALUE                    */'
+export const _RTCC_CC_ICVALUE_IC_SHIFT: any = '0                                       /**< Shift value for RTCC_IC                     */'
+export const _RTCC_CC_ICVALUE_IC_MASK: any = '0xFFFFFFFFUL                            /**< Bit mask for RTCC_IC                        */'
+export const _RTCC_CC_ICVALUE_IC_DEFAULT: any = '0x00000000UL                            /**< Mode DEFAULT for RTCC_CC_ICVALUE            */'
+export const RTCC_CC_ICVALUE_IC_DEFAULT: any = '(_RTCC_CC_ICVALUE_IC_DEFAULT << 0)      /**< Shifted mode DEFAULT for RTCC_CC_ICVALUE    */'
+
 // -------- TIMER_CC -------- //
 
 export interface TIMER_CC_t {
@@ -7458,6 +8041,7 @@ export const USART_TIMECMP2_RESTARTEN_ENABLE: any = '(_USART_TIMECMP2_RESTARTEN_
 
 // -------- INSTANCES -------- //
 
+export const BURTC = {} as BURTC_t
 export const CMU = {} as CMU_t
 export const DEVINFO = {} as DEVINFO_t
 export const DPLL0 = {} as DPLL_t
@@ -7465,5 +8049,6 @@ export const EUART0 = {} as EUSART_t
 export const GPIO = {} as GPIO_t
 export const HFRCO0 = {} as HFRCO_t
 export const HFXO0 = {} as HFXO_t
+export const RTCC = {} as RTCC_t
 export const TIMER0 = {} as TIMER_t
 export const USART0 = {} as USART_t

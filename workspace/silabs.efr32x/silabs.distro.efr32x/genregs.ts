@@ -3,6 +3,7 @@ import * as Fs from 'fs'
 import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
+    'BURTC',
     'CMU',
     'DEVINFO',
     'DPLL',
@@ -11,10 +12,12 @@ const TYPE_SET = new Set<string>([
     'GPIO_PORT',
     'HFRCO',
     'HFXO',
+    'RTCC',
     'TIMER',
     'USART',
 ])
 const INSTS = [
+    ['BURTC', 'BURTC'],
     ['CMU', 'CMU'],
     ['DEVINFO', 'DEVINFO'],
     ['DPLL0', 'DPLL'],
@@ -22,6 +25,7 @@ const INSTS = [
     ['GPIO', 'GPIO'],
     ['HFRCO0', 'HFRCO'],
     ['HFXO0', 'HFXO'],
+    ['RTCC', 'RTCC'],
     ['TIMER0', 'TIMER'],
     ['USART0', 'USART'],
 ]
