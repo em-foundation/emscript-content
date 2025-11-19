@@ -1,0 +1,6 @@
+#ifndef __REGS_M
+#define __REGS_M
+
+#include "../../emm.9305/emm.distro.9305/inc/t9305_periph.h"
+
+#endif

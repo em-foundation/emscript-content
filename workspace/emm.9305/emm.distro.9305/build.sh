@@ -38,7 +38,7 @@ CFLAGS=" \
 "
 
 CINCS=" \
-    -I . \
+    -I. \
 "
 
 COPTS=" \
