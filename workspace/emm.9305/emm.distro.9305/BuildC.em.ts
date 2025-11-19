@@ -17,7 +17,10 @@ export function em$generate() {
     LinkerC.genScript()
     let opt = $property('em.build.Optimize', 'Oz')
     let tools = $property('em.build.ToolsHome', '')
-    let out = $outfile('build.sh', 0o755)
-    out.addFile('../emm.9305/emm.distro.9305/build.sh')
-    out.close()
+    let bld_out = $outfile('build.sh', 0o755)
+    bld_out.addFile('../emm.9305/emm.distro.9305/build.sh')
+    bld_out.close()
+    let dbg_out = $outfile('debug.sh', 0o755)
+    dbg_out.addFile('../emm.9305/emm.distro.9305/debug.sh')
+    dbg_out.close()
 }

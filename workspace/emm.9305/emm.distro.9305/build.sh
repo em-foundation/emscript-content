@@ -42,7 +42,7 @@ CINCS=" \
 "
 
 COPTS=" \
-    -O0 \
+    -g -O0 \
 "
 
 LFLAGS=" \
@@ -50,7 +50,7 @@ LFLAGS=" \
     -Bgrouplib \
     -Xnocompress \
     -e em__start \
-    -m -Coutput=main.out.map -Cfunctions \
+    -m -C output=$OUT/main.out.map -C functions \
 "
 
 LIBS=" \
@@ -59,6 +59,8 @@ LIBS=" \
 $ARC/ccac.exe $CFLAGS $CINCS $COPTS -c main.cpp -o $OUT/main.obj
 $ARC/ldac.exe $LFLAGS linkcmd.ld $OUT/main.obj -o $OUT/main.out $LIBS
 $ARC/elf2hex -QIo $OUT/main.out.hex $OUT/main.out
+cp $OUT/main.out.hex $OUT/main.out.ihex
 $ARC/elfdumpac -T -o $OUT/main.out.dis $OUT/main.out
 $ARC/nmac -x -p -v $OUT/main.out > $OUT/main.out.syma
 $ARC/nmac -x -p -n $OUT/main.out > $OUT/main.out.symn
+$ARC/elfdumpac -h $OUT/main.out

@@ -1,12 +1,13 @@
 MEMORY {
     DMEM : ORIGIN = 0x0080_0000, LENGTH = 32K
     IMEM : ORIGIN = 0x0030_0000, LENGTH = 512K
+    INFO : ORIGIN = 0x0040_0000, LENGTH = 32K
 }
 
 SECTIONS {
 
-    .boot : {
-        KEEP(*(.boot))
+    .entry : {
+        KEEP(*(.entry.*))
         . = ALIGN(., 0x400);
     } > IMEM
 
@@ -37,6 +38,15 @@ SECTIONS {
         *(.sbss .sbss.*)
         . = ALIGN(., 4);
     } > DMEM
+
+    GROUP: {
+        .info_const TYPE(data): {
+            *(.info_const*)
+        }
+        .info TYPE(text): {
+            *(.info*)
+        }
+    } > INFO
 
     __bss_addr__ = ADDR(.bss);
     __bss_size__ = SIZEOF(.bss) / 4;
