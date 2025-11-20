@@ -25,6 +25,7 @@ endm
 em_reset
 
 break em__start, hard, temp
+#break main, hard, temp
 
 # Run until breakpoint
 continue

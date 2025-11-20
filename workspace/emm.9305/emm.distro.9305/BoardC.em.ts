@@ -7,6 +7,7 @@ import * as LedT from '@em.utils/LedT.em'
 
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
+export const AppOutPin = $clone(GpioT)
 export const SysLed = $clone(LedT)
 export const SysLedPin = $clone(GpioT)
 
@@ -30,6 +31,7 @@ export function em$configure(): void {
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds
     AppLedPin.pin_num.$$val = brd.pins.appLed
+    AppOutPin.pin_num.$$val = brd.pins.appOut
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds
     SysLedPin.pin_num.$$val = brd.pins.sysLed

@@ -4,10 +4,8 @@ import em from '../../em.core/em.lang/emscript'
 
 const TYPE_SET = new Set<string>([
     'GPIO',
+    'UART',
 ])
-const INSTS = [
-    ['GPIO', 'GPIO'],
-]
 
 let meta = em.$outfile('REGS.em.ts')
 
@@ -94,35 +92,4 @@ meta.genTitle('INSTANCES')
 for (const itype of TYPE_SET) {
     meta.print('export const %1 = {} as %1_t\n', itype)
 }
-
-
-// for (const itype of TYPE_SET) {
-//     src_lines = Fs.readFileSync(`inc/efr32mg22_${itype.toLowerCase()}.h`, 'utf-8').split('\n')
-//     cur_idx = 0
-//     while (true) {
-//         const sname = scanStruct()
-//         if (!sname) break
-//         meta.genTitle(sname)
-//         meta.print('export interface %1_t {\n%+', sname)
-//         for (const [fname, ftype, fdim] of scanFields()) {
-//             if (fdim) {
-//                 meta.print('%t%1: dim_t<%2, %3>\n', fname, ftype, fdim)
-// 
-//             } else {
-//                 meta.print('%t%1: %2\n', fname, ftype)
-//             }
-//         }
-//         meta.print('%-}\n')
-//     }
-//     cur_idx = 0
-//     while (scanConsts()) {
-//         genConsts()
-//     }
-// }
-// 
-// meta.genTitle('INSTANCES')
-// for (const [iname, itype] of INSTS) {
-//     meta.print('export const %1 = {} as %2_t\n', iname, itype)
-// }
-
 meta.close()
