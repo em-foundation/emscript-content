@@ -63,4 +63,4 @@ cp $OUT/main.out.hex $OUT/main.out.ihex
 $ARC/elfdumpac -T -o $OUT/main.out.dis $OUT/main.out
 $ARC/nmac -x -p -v $OUT/main.out > $OUT/main.out.syma
 $ARC/nmac -x -p -n $OUT/main.out > $OUT/main.out.symn
-$ARC/elfdumpac -h $OUT/main.out
+objdump -h $OUT/main.out
