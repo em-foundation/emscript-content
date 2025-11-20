@@ -36,7 +36,6 @@ export function em$run() {
 
 function put(b: u8) {
     $R.UART.RegUARTTxFIFO1B.$$ = b
-
 }
 
 function flush() {

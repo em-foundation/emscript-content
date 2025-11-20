@@ -2,8 +2,15 @@ import '@$$emscript'
 export const $U = $declare('COMPOSITE')
 
 import * as BusyWait from '@em.utils/BusyWait.em'
+import * as Common from '@em.mcu/Common.em'
+import * as ConsoleUart from '@emm.mcu.9305/ConsoleUart.em'
+import * as GlobalInterrupts from '@emm.mcu.9305/GlobalInterrupts.em'
 import * as GpioT from '@emm.mcu.9305/GpioT.em'
+import * as Idle from '@emm.mcu.9305/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
+import * as Mcu from '@emm.mcu.9305/Mcu.em'
+import * as Uptimer from '@em.hal/UptimerN.em'
+import * as UsCounter from '@emm.mcu.9305/UsCounter.em'
 
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
@@ -32,6 +39,15 @@ export function em$configure(): void {
     AppLed.active_low.$$val = brd.activeLowLeds
     AppLedPin.pin_num.$$val = brd.pins.appLed
     AppOutPin.pin_num.$$val = brd.pins.appOut
+    BusyWait.scalar.$$val = 17
+    Common.BusyWait.$$dlg = BusyWait
+    Common.ConsoleUart.$$dlg = ConsoleUart
+    Common.GlobalInterrupts.$$dlg = GlobalInterrupts
+    Common.Idle.$$dlg = Idle
+    Common.Mcu.$$dlg = Mcu
+    Common.Uptimer.$$dlg = Uptimer
+    Common.UsCounter.$$dlg = UsCounter
+    ConsoleUart.TxPin.$$dlg = AppOutPin
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds
     SysLedPin.pin_num.$$val = brd.pins.sysLed

@@ -11,6 +11,7 @@ rm -rf $OUT
 mkdir $OUT
 
 CFLAGS=" \
+    -std=c++14 \
     -DDEVICE=0x9305 \
     -D__T9305__ \
     -tcf=em9305 \
@@ -37,6 +38,7 @@ CFLAGS=" \
     -Wno-constexpr-not-const \
     -Wno-sign-conversion \
     -Wno-unused-function \
+    -Wno-unused-but-set-variable \
 "
 
 CINCS=" \
