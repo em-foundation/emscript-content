@@ -6,5 +6,4 @@ export namespace em$meta { }
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    halt()
 }

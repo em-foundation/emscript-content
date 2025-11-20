@@ -23,4 +23,7 @@ export function em$generate() {
     let dbg_out = $outfile('debug.sh', 0o755)
     dbg_out.addFile('../emm.9305/emm.distro.9305/debug.sh')
     dbg_out.close()
+    let lod_out = $outfile('load.sh', 0o755)
+    lod_out.addFile('../emm.9305/emm.distro.9305/load.sh')
+    lod_out.close()
 }
