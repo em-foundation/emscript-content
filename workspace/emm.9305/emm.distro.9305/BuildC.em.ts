@@ -1,12 +1,14 @@
 import '@$$emscript'
 export const $U = $declare('COMPOSITE')
 
+import * as BoardC from '@emm.distro.9305/BoardC.em'
 import * as LinkerC from '@emm.distro.9305/LinkerC.em'
 import * as REGS from '@emm.distro.9305/REGS.em'
 import * as StartupC from '@emm.distro.9305/StartupC.em'
 import * as TargC from '@em.lang/TargC.em'
 
 export function em$configure() {
+    $using(BoardC)
     $using(LinkerC)
     $using(REGS)
     $using(StartupC)

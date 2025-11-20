@@ -1,7 +1,7 @@
 MEMORY {
     DMEM : ORIGIN = 0x0080_0000, LENGTH = 32K
     IMEM : ORIGIN = 0x0030_0000, LENGTH = 512K
-    INFO : ORIGIN = 0x0040_0000, LENGTH = 32K
+    // INFO : ORIGIN = 0x0040_0000, LENGTH = 32K
 }
 
 SECTIONS {
@@ -22,7 +22,7 @@ SECTIONS {
     } > IMEM
 
     .const : {
-        *(.rodata .rodata.* .constdata .constdata.*)
+        *(.rodata .rodata* .constdata .constdata*)
         . = ALIGN(., 4);
     } > IMEM
 
@@ -39,14 +39,14 @@ SECTIONS {
         . = ALIGN(., 4);
     } > DMEM
 
-    GROUP: {
-        .info_const TYPE(data): {
-            *(.info_const*)
-        }
-        .info TYPE(text): {
-            *(.info*)
-        }
-    } > INFO
+    // GROUP: {
+    //     .info_const TYPE(data): {
+    //         *(.info_const*)
+    //     }
+    //     .info TYPE(text): {
+    //         *(.info*)
+    //     }
+    // } > INFO
 
     __bss_addr__ = ADDR(.bss);
     __bss_size__ = SIZEOF(.bss) / 4;
@@ -57,4 +57,6 @@ SECTIONS {
     __code_load__ = ~0;
     __code_size__ = ~0;
     __stack_top__ = 0x0080_8000;
+
+    __CTORS_INIT = 0;
 }

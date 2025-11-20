@@ -35,6 +35,8 @@ CFLAGS=" \
     -DNVM_CODE \
     -Hpurge \
     -Wno-constexpr-not-const \
+    -Wno-sign-conversion \
+    -Wno-unused-function \
 "
 
 CINCS=" \
@@ -42,7 +44,7 @@ CINCS=" \
 "
 
 COPTS=" \
-    -g -O0 \
+    -Os \
 "
 
 LFLAGS=" \
@@ -50,7 +52,7 @@ LFLAGS=" \
     -Bgrouplib \
     -Xnocompress \
     -e em__start \
-    -m -C output=$OUT/main.out.map -C functions \
+    -m -C output=$OUT/main.out.map -C functions -C unmangle \
 "
 
 LIBS=" \
