@@ -44,7 +44,7 @@ CINCS=" \
 "
 
 COPTS=" \
-    -g -Os  \
+    -Os  \
 "
 
 LFLAGS=" \

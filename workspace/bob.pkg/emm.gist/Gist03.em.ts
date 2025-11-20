@@ -23,7 +23,22 @@ export function em$run() {
     AppOutPin.set()
     $R.GPIO.RegGPIOOutSel1.$$ |= 3 << $R.GPIO_OUT_SEL7_SHIFT
     $R.UART.RegUARTCtrl.$$ |= $R.UART_TX_EN_MASK
-    $R.UART.RegUARTTxFIFO1B.$$ = 0x55
+    //
+    for (const i of $range(5)) {
+        put(0x10 + i)
+        AppLedPin.set()
+        flush()
+        AppLedPin.clear()
+    }
     //
     SysLedPin.set()
+}
+
+function put(b: u8) {
+    $R.UART.RegUARTTxFIFO1B.$$ = b
+
+}
+
+function flush() {
+    while ($R.UART.RegUARTStat.$$ & $R.UART_TX_BUSY_MASK) { }
 }
