@@ -4,6 +4,7 @@ export const $U = $declare('COMPOSITE')
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
+import * as Console from '@em.lang/Console.em'
 import * as ConsoleUart from '@emm.mcu.9305/ConsoleUart.em'
 import * as GlobalInterrupts from '@emm.mcu.9305/GlobalInterrupts.em'
 import * as GpioT from '@emm.mcu.9305/GpioT.em'
@@ -38,6 +39,7 @@ export const DEFAULTS = {
 export function em$configure(): void {
     if ($isbare()) return
     $using(BoardController)
+    $using(Console)
     const brd = $board(DEFAULTS)
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds
