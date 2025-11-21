@@ -37,11 +37,13 @@ export const DEFAULTS = {
 
 export function em$configure(): void {
     if ($isbare()) return
+    $using(BoardController)
     const brd = $board(DEFAULTS)
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds
     AppLedPin.pin_num.$$val = brd.pins.appLed
     AppOutPin.pin_num.$$val = brd.pins.appOut
+    BoardController.Led.$$dlg = SysLed
     BusyWait.scalar.$$val = 17
     Common.BusyWait.$$dlg = BusyWait
     Common.ConsoleUart.$$dlg = ConsoleUart
