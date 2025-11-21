@@ -1,6 +1,7 @@
 import '@$$emscript'
 export const $U = $declare('COMPOSITE')
 
+import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
 import * as ConsoleUart from '@emm.mcu.9305/ConsoleUart.em'
@@ -9,6 +10,8 @@ import * as GpioT from '@emm.mcu.9305/GpioT.em'
 import * as Idle from '@emm.mcu.9305/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@emm.mcu.9305/Mcu.em'
+import * as OneShot from '@em.hal/OneShotN.em'
+import * as Poller from '@em.mcu/Poller.em'
 import * as Uptimer from '@em.hal/UptimerN.em'
 import * as UsCounter from '@emm.mcu.9305/UsCounter.em'
 
@@ -48,6 +51,7 @@ export function em$configure(): void {
     Common.Uptimer.$$dlg = Uptimer
     Common.UsCounter.$$dlg = UsCounter
     ConsoleUart.TxPin.$$dlg = AppOutPin
+    Poller.OneShot.$$dlg = OneShot
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds
     SysLedPin.pin_num.$$val = brd.pins.sysLed
