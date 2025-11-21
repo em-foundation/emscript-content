@@ -6,6 +6,7 @@ import * as BusyWait from '@em.utils/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
 import * as Console from '@em.lang/Console.em'
 import * as ConsoleUart from '@emm.mcu.9305/ConsoleUart.em'
+import * as Debug from '@em.lang/Debug.em'
 import * as GlobalInterrupts from '@emm.mcu.9305/GlobalInterrupts.em'
 import * as GpioT from '@emm.mcu.9305/GpioT.em'
 import * as Idle from '@emm.mcu.9305/Idle.em'
@@ -19,6 +20,10 @@ import * as UsCounter from '@emm.mcu.9305/UsCounter.em'
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOutPin = $clone(GpioT)
+export const DbgA = $clone(GpioT)
+export const DbgB = $clone(GpioT)
+export const DbgC = $clone(GpioT)
+export const DbgD = $clone(GpioT)
 export const SysLed = $clone(LedT)
 export const SysLedPin = $clone(GpioT)
 
@@ -55,6 +60,14 @@ export function em$configure(): void {
     Common.Uptimer.$$dlg = Uptimer
     Common.UsCounter.$$dlg = UsCounter
     ConsoleUart.TxPin.$$dlg = AppOutPin
+    DbgA.pin_num.$$val = brd.pins.sysDbgA
+    DbgB.pin_num.$$val = brd.pins.sysDbgB
+    DbgC.pin_num.$$val = brd.pins.sysDbgC
+    DbgD.pin_num.$$val = brd.pins.sysDbgD
+    Debug.DbgA.$$dlg = DbgA
+    Debug.DbgB.$$dlg = DbgB
+    Debug.DbgC.$$dlg = DbgC
+    Debug.DbgD.$$dlg = DbgD
     Poller.OneShot.$$dlg = OneShot
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds

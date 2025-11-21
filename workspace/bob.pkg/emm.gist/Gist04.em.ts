@@ -11,10 +11,15 @@ export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
+let count = 5
+
 export function em$run() {
-    AppLed.on()
-    Common.BusyWait.wait(500_000)
-    AppLed.off()
-    Common.ConsoleUart.put(0x4)
-    SysLed.on()
+    e$`asm("nop")`
+    e$`asm("nop")`
+    e$`asm("nop")`
+    e$`asm("nop")`
+    // for (const i of $range(5)) {
+    //     count = i
+    // }
+    printf`count = %d\n`(count)
 }

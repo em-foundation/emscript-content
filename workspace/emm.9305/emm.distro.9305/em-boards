@@ -3,4 +3,8 @@ EM9305_DVK :
     pins:
         appLed:     8     
         appOut:     7
+        sysDbgA:    0
+        sysDbgB:    1
+        sysDbgC:    2
+        sysDbgD:    3
         sysLed:     6

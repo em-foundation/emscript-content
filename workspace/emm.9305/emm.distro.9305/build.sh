@@ -38,7 +38,9 @@ CFLAGS=" \
     -Wno-constexpr-not-const \
     -Wno-sign-conversion \
     -Wno-unused-function \
+    -Wno-unused-variable \
     -Wno-unused-but-set-variable \
+    -Wno-implicit-int-conversion \
 "
 
 CINCS=" \
@@ -61,6 +63,7 @@ LIBS=" \
 "
 
 $ARC/ccac.exe $CFLAGS $CINCS $COPTS -c main.cpp -o $OUT/main.obj
+$ARC/ccac.exe $CFLAGS $CINCS $COPTS -S main.cpp -o $OUT/main.s
 $ARC/ldac.exe $LFLAGS linkcmd.ld $OUT/main.obj -o $OUT/main.out $LIBS
 $ARC/elf2hex -QIo $OUT/main.out.hex $OUT/main.out
 cp $OUT/main.out.hex $OUT/main.out.ihex

@@ -1,5 +1,5 @@
 MEMORY {
-    DMEM : ORIGIN = 0x0080_0000, LENGTH = 32K
+    DMEM : ORIGIN = 0x0080_1000, LENGTH = 24K
     IMEM : ORIGIN = 0x0030_0000, LENGTH = 512K
     // INFO : ORIGIN = 0x0040_0000, LENGTH = 32K
 }
@@ -24,14 +24,13 @@ SECTIONS {
     .const : {
         *(.rodata .rodata* .constdata .constdata*)
         . = ALIGN(., 4);
+        __data_load_start__ = ALIGN(., 4);
     } > IMEM
 
-    __data_load_start__ = ALIGN(., 4);
-
-    .data : AT(__data_load_start__) {
+    .data : {
         *(.data .data.* .sdata .sdata.*)
         . = ALIGN(., 4);
-    } > DMEM
+    } > DMEM AT > IMEM
 
     .bss (NOLOAD): {
         *(.bss .bss.*)

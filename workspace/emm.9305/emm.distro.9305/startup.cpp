@@ -18,89 +18,36 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     asm ("mov_s	%sp,__stack_top__");
     uint32_t *src;
     uint32_t *dst;
-    volatile uint32_t sz;
+    uint32_t sz;
     sz = (uint32_t)&__bss_size__;
     dst = &__bss_addr__;
-    asm("nop");
-    asm("nop");
-    asm("nop");
-    for (uint32_t i = 0; i < sz; i++) {     // TODO -- while (sz--) not working
-        dst[i] = 0;
+    while (sz--) {
+        *dst++ = 0;
     }
     sz = (uint32_t)&__data_size__;
     src = &__data_load__;
     dst = &__data_addr__;
-    for (uint32_t i = 0; i < sz; i++) {
-        dst[i] = src[i];
+    while (sz--) {
+        *dst++ = *src++;
     }
     main();
     __builtin_unreachable();    
 }
 
-// #define __EM_BOOT_FLASH__ 0
-// 
-// #include <stdbool.h>
-// #include <stdint.h>
-// 
-// extern uint32_t __bss_addr__;
-// extern uint32_t __bss_size__;
-// extern uint32_t __code_addr__;
-// extern uint32_t __code_load__;
-// extern uint32_t __code_size__;
-// extern uint32_t __data_addr__;
-// extern uint32_t __data_load__;
-// extern uint32_t __data_size__;
-// extern uint32_t __global_pointer__;
-// extern uint32_t __stack_top__;
-// 
-// extern "C" int main();
-// extern "C" bool __is_warm();
-// 
-// typedef struct {
-//     unsigned int* codeLoad;
-//     unsigned int* codeAddr;
-//     unsigned int* bssAddr;
-//     unsigned int bssSize;
-// } __em_desc_t;
-// 
-// extern "C" void __attribute__((section(".start"), noreturn)) em__start() {
-// 
-//     if (!__is_warm()) {
-//         uint32_t *src;
-//         uint32_t *dst;
-//         volatile uint32_t sz;
-//         sz = (uint32_t)&__bss_size__;
-//         dst = &__bss_addr__;
-//         asm("nop");
-//         asm("nop");
-//         asm("nop");
-//         for (uint32_t i = 0; i < sz; i++) {     // TODO -- while (sz--) not working
-//             dst[i] = 0;
-//         }
-//         sz = (uint32_t)&__data_size__;
-//         src = &__data_load__;
-//         dst = &__data_addr__;
-//         for (uint32_t i = 0; i < sz; i++) {
-//             dst[i] = src[i];
-//         }
-// #if __EM_BOOT_FLASH__ == 1
-//         sz = (uint32_t)&__code_size__;
-//         src = &__code_load__;
-//         dst = &__code_addr__;
-//         for (uint32_t i = 0; i < sz; i++) {
-//             dst[i] = src[i];
-//         }
-// #endif
-//     }
-// 
-//     main();
-//     __builtin_unreachable();
-// }
-// 
-// #if __EM_BOOT_FLASH__ == 1
-// extern "C" const void* __attribute__((section(".start_vec"))) __em_start_vec[] = {
-//     (void*)&__stack_top__ ,
-//     (void*)em__start,
-// };
-// #endif
+extern "C" void* memcpy(void* dst, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dst;
+    const unsigned char* s = (unsigned char*)src;
+    while (n--) {
+        *d++ = *s++;
+    }
+    return dst;
+}
 
+extern "C" void* memset(void *s, int c, size_t n) {
+    unsigned char *ptr = (unsigned char *)s;
+    unsigned char value = (unsigned char)c;
+    for (size_t i = 0; i < n; i++) {
+        ptr[i] = value;
+    }
+    return s;
+}
