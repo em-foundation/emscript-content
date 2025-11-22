@@ -3,4 +3,7 @@
 
 #include "../../emm.9305/emm.distro.9305/inc/t9305_periph.h"
 
+#include <arc/arc_intrinsics.h>
+#include <arc/arc_reg.h>
+
 #endif
