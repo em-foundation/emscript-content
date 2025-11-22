@@ -15,7 +15,7 @@ import * as Mcu from '@emm.mcu.9305/Mcu.em'
 import * as OneShot from '@em.hal/OneShotN.em'
 import * as Poller from '@em.mcu/Poller.em'
 import * as Uptimer from '@em.hal/UptimerN.em'
-import * as UsCounter from '@emm.mcu.9305/UsCounter.em'
+import * as UsCounter from '@em.arch.arc/UsCounterTimer0.em'
 
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
