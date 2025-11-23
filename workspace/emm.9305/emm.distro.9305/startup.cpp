@@ -30,11 +30,20 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     while (sz--) {
         *dst++ = *src++;
     }
+#if __EM_BOOT_FLASH__ == 1
+    sz = (uint32_t)&__code_size__;
+    src = &__code_load__;
+    dst = &__code_addr__;
+    while (sz--) {
+        *dst++ = *src++;
+    }
+#endif
+    *em::$reg32((uint32_t)&SYS->RegMemCfg) |= MEM_DRAM6_IN_ICCM_MASK;
     main();
     __builtin_unreachable();    
 }
 
-extern "C" void* memcpy(void* dst, const void* src, size_t n) {
+extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const void* src, size_t n) {
     unsigned char* d = (unsigned char*)dst;
     const unsigned char* s = (unsigned char*)src;
     while (n--) {
@@ -43,7 +52,7 @@ extern "C" void* memcpy(void* dst, const void* src, size_t n) {
     return dst;
 }
 
-extern "C" void* memset(void *s, int c, size_t n) {
+extern "C"  __attribute__ ((section(".entry"))) void* memset(void *s, int c, size_t n) {
     unsigned char *ptr = (unsigned char *)s;
     unsigned char value = (unsigned char)c;
     for (size_t i = 0; i < n; i++) {
