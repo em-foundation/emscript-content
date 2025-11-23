@@ -1,3 +1,3 @@
 #!/bin/sh
 
-bleng-load .out/main.out.ihex
+bleng-load --spi_disable .out/main.out.ihex
