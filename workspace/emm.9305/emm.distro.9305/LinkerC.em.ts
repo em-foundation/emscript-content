@@ -169,4 +169,7 @@ export function genScript() {
         `)
     }
     out.close()
+    let rom_out = $outfile('rom.sym')
+    rom_out.addFile('../emm.9305/emm.distro.9305/rom.sym')
+    rom_out.close()
 }

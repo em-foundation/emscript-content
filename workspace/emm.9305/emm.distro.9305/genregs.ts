@@ -2,9 +2,11 @@ import * as Fs from 'fs'
 
 import em from '../../em.core/em.lang/emscript'
 
-const TYPE_SET = new Set<string>([
-    'GPIO',
-    'UART',
+const PERI_MAP = new Map<string, string>([
+    ['GPIO', 'GPIO'],
+    ['PML', 'PML'],
+    ['SYS', 'System'],
+    ['UART', 'UART']
 ])
 
 let meta = em.$outfile('REGS.em.ts')
@@ -72,24 +74,24 @@ export function em$generate() {
 }
 `)
 
-for (const itype of TYPE_SET) {
-    src_lines = Fs.readFileSync(`inc/t9305_${itype.toLowerCase()}.h`, 'utf-8').split('\n')
+for (const pt of PERI_MAP.values()) {
+    src_lines = Fs.readFileSync(`inc/t9305_${pt.toLowerCase()}.h`, 'utf-8').split('\n')
     cur_idx = 0
     if (!scanStruct()) break
-    meta.genTitle(`${itype} TYPE`)
-    meta.print('export interface %1_t {\n%+', itype)
+    meta.genTitle(`${pt} TYPE`)
+    meta.print('export interface %1_t {\n%+', pt)
     for (const fld of scanFields()) {
         meta.print('%t%1: $Reg\n', fld)
     }
     meta.print('%-}\n')
     cur_idx = 0
-    meta.genTitle(`${itype} CONSTANTS`)
+    meta.genTitle(`${pt} CONSTANTS`)
     while (scanConsts()) {
         genConsts()
     }
 }
 meta.genTitle('INSTANCES')
-for (const itype of TYPE_SET) {
-    meta.print('export const %1 = {} as %1_t\n', itype)
+for (const [pn, pt] of PERI_MAP) {
+    meta.print('export const %1 = {} as %2_t\n', pn, pt)
 }
 meta.close()
