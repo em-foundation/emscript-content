@@ -34,7 +34,10 @@ function scanConsts(): boolean {
     while (true) {
         const ln = nextLine()
         if (ln === null) break
-        if (ln.startsWith('//') && ln.endsWith('.r32')) return true
+        const m = ln.match(/^\/\/\s(\w+)\.r32$/)
+        if (!m) continue
+        meta.print("// REGISTER %1\n", m[1])
+        return true
     }
     return false
 }
