@@ -6,4 +6,6 @@
 #include <arc/arc_intrinsics.h>
 #include <arc/arc_reg.h>
 
+extern "C" void PML_PowerDownNvmAndSleep(uint32_t mode);
+
 #endif
