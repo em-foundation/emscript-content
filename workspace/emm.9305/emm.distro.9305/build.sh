@@ -29,7 +29,6 @@ CFLAGS=" \
     -Hnoivt \
     -ffunction-sections \
     -fdata-sections \
-    -fno-builtin \
     -Wno-cast-align \
     -Mb \
     -DNDEBUG \

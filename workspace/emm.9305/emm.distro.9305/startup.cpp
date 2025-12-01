@@ -43,17 +43,16 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     __builtin_unreachable();    
 }
 
-// extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const void* src, size_t n) {
-//     unsigned char* d = (unsigned char*)dst;
-//     const unsigned char* s = (unsigned char*)src;
-//     while (n--) {
-//         *d++ = *s++;
-//     }
-//     return dst;
-// }
+extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const void* src, size_t n) {
+    unsigned char* d = (unsigned char*)dst;
+    const unsigned char* s = (unsigned char*)src;
+    while (n--) {
+        *d++ = *s++;
+    }
+    return dst;
+}
 
-// extern "C"  __attribute__ ((section(".entry"))) void* memset(void *s, int c, size_t n) {
-extern "C"  void* memset(void *s, int c, size_t n) {
+extern "C"  __attribute__ ((section(".entry"))) void* memset(void *s, int c, size_t n) {
     unsigned char *ptr = (unsigned char *)s;
     unsigned char value = (unsigned char)c;
     for (size_t i = 0; i < n; i++) {
