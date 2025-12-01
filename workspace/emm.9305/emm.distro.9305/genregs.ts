@@ -4,6 +4,7 @@ import em from '../../em.core/em.lang/emscript'
 
 const PERI_MAP = new Map<string, string>([
     ['GPIO', 'GPIO'],
+    ['IRQ', 'IRQ'],
     ['PML', 'PML'],
     ['SYS', 'System'],
     ['UART', 'UART']
