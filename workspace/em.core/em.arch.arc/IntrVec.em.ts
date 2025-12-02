@@ -81,27 +81,7 @@ export namespace em$meta {
 export function em$startup() {
     e$`_sr((int)(&__vector_table), INT_VECTOR_BASE)`
 }
-// 
-// export function NVIC_clear(irqN: u16) {
-//     e$`NVIC_ClearPendingIRQ((IRQn_Type)irqN)`
-// }
-// 
-// export function NVIC_disable(irqN: u16) {
-//     e$`NVIC_DisableIRQ((IRQn_Type)irqN)`
-// }
-// 
-// export function NVIC_enable(irqN: u16) {
-//     e$`NVIC_EnableIRQ((IRQn_Type)irqN)`
-// }
-// 
-// export function PRIMASK_get(): u32 {
-//     return e$`__get_PRIMASK()`
-// }
-// 
-// export function PRIMASK_set(m: u32) {
-//     e$`__set_PRIMASK(m)`
-// }
-// 
+
 export function DEFAULT_isr$$() {
     IsrDefault.exec()
     fail()

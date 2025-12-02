@@ -26,7 +26,10 @@ export function em$run() {
     // const val = 100 / zero
     // printf`val = %d\n`(val)
 
-    e$`asm("swi")`
+    // e$`asm("swi")`
+
+    const stat32: u32 = e$`_lr(STATUS32)`
+    printf`stat32 = %08x\n`(stat32)
 }
 
 export function SWI_isr$$() {
