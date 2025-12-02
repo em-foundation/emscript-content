@@ -21,12 +21,14 @@ export function em$run() {
     printf`stat32 = %08x\n`(stat32)
     $R.PML.RegSleepTimCompareCfg.$$ = 1
     $R.PML.RegSleepTimCompare0.$$ = 32768
-    $R.IRQ.RegIRQSleepTimEn.$$ = 1 // $R.REG_IRQ_SLEEP_TIM_EN_MASK
+    $R.IRQ.RegIRQSleepTimEn.$$ = 0x0001_0001 // $R.REG_IRQ_SLEEP_TIM_EN_MASK
     $R.IRQ.RegIRQSleepTimMsk.$$ = 1 // $R.REG_IRQ_SLEEP_TIM_MSK_MASK
 
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%d+']
-    Common.BusyWait.wait(2_000_000)
+    e$`PML_PowerDownNvmAndSleep(1)`
+    // e$`asm ("sleep")`
+    // Common.BusyWait.wait(2_000_000)
     // while ($R.PML.RegSleepTimCount.$$ < 20000) { }
     // while (($R.IRQ.RegIRQSleepTimSts.$$ & 0x1) == 0) { }
     $['%%d-']
@@ -42,5 +44,5 @@ export function em$run() {
 }
 
 export function SLEEP_TIMER_OUT_CMP_0_isr$$() {
-    halt()
+    $['%%a']
 }
