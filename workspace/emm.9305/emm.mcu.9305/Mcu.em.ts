@@ -18,13 +18,13 @@ export function startup(): void {
     Debug.startup()
     $['%%a:'](2)
     if (use_sram) {
-        $['%%a:'](2)
-        $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_BO_RST_EN_MASK
-        $R.PML.RegPmlDomain.$$ &= ~$R.PML_NVM_REQ_ON_MASK
-        while ($R.SYS.RegPmlSts.$$ & $R.PML_NVM_REQ_ON_MASK) { }
-        $R.PML.RegPmlCtrl.$$ & ~ ~$R.PML_NVM_SW_EN_MASK
-        $R.SYS.RegClkCtrlDisable.$$ = $R.CLK_DIS_NVM_MASK
-        // e$`*em::$reg32((uint32_t)&PML->RegPmlCtrl) = REG_PML_CTRL_RESET_VALUE`
-        e$`_sr(1, IC_CTRL)`
+        e$`PML_PowerDownNvm()`
+        // $['%%a:'](2)
+        // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_BO_RST_EN_MASK
+        // $R.PML.RegPmlDomain.$$ &= ~$R.PML_NVM_REQ_ON_MASK
+        // while ($R.SYS.RegPmlSts.$$ & $R.PML_NVM_REQ_ON_MASK) { }
+        // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_SW_EN_MASK
+        // $R.SYS.RegClkCtrlDisable.$$ = $R.CLK_DIS_NVM_MASK
+        // e$`_sr(1, IC_CTRL)`
     }
 }

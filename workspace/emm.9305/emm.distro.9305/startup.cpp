@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "../em.arch.arc/intr.cpp"
+
 extern uint32_t __bss_addr__;
 extern uint32_t __bss_size__;
 extern uint32_t __code_addr__;
@@ -52,7 +54,8 @@ extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const voi
     return dst;
 }
 
-extern "C"  __attribute__ ((section(".entry"))) void* memset(void *s, int c, size_t n) {
+// extern "C"  __attribute__ ((section(".entry"))) void* memset(void *s, int c, size_t n) {
+extern "C"  void* memset(void *s, int c, size_t n) {
     unsigned char *ptr = (unsigned char *)s;
     unsigned char value = (unsigned char)c;
     for (size_t i = 0; i < n; i++) {

@@ -19,7 +19,7 @@ export function genScript() {
             |->     } > BMEM
             |-> 
             |->     .intvec : {
-            |->         KEEP(*(.intvec))
+            |->         KEEP(*(.intvec.*))
             |->     } > IMEM
             |-> 
             |->     .text : {
