@@ -17,8 +17,33 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
+var cur_pause_only = true
+
+export function em$startup() {
+    $['%%b+']
+}
+
+function doPause() {
+    $['%%b:'](1)
+    $['%%b-']
+    e$`PML_PowerDownNvmAndSleep(1)`
+    $['%%b+']
+}
+
+
+function doSleep() {
+    $['%%b:'](2)
+    $['%%b-']
+    e$`PML_PowerDownNvmAndSleep(6)`
+}
+
+
 export function exec() {
-    return
+    if (cur_pause_only) {
+        doPause()
+    } else {
+        doSleep()
+    }
 }
 
 export function wakeup() {

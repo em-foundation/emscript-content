@@ -17,8 +17,6 @@ export namespace em$meta {
 
 export function em$run() {
     Common.GlobalInterrupts.enable()
-    // const stat32: u32 = e$`_lr(STATUS32)`
-    // printf`stat32 = %08x\n`(stat32)
 
     $R.PML.RegSleepTimCompareCfg.$$ = 1
     $R.PML.RegSleepTimCompare0.$$ = 32768
@@ -27,16 +25,18 @@ export function em$run() {
 
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%d+']
-    $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
-    $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
-    $R.PML.RegPmlCtrl.$$ |= $R.PML_LATCH_PAD_EN_MASK
-    e$`PML_SetHfClkFrequency(0)`
-    e$`PML_PowerDownNvmAndSleep(1)`
+    Common.Idle.exec()
+    $['%%d-']
+
+    // $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
+    // $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
+    // $R.PML.RegPmlCtrl.$$ |= $R.PML_LATCH_PAD_EN_MASK
+    // e$`PML_SetHfClkFrequency(0)`
+    // e$`PML_PowerDownNvmAndSleep(1)`
     // e$`asm ("sleep")`
     // Common.BusyWait.wait(2_000_000)
     // while ($R.PML.RegSleepTimCount.$$ < 20000) { }
     // while (($R.IRQ.RegIRQSleepTimSts.$$ & 0x1) == 0) { }
-    $['%%d-']
 
 
     // printf`sts = %08x\n`(sts)
