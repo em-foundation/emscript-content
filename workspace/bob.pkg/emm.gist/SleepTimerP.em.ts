@@ -17,8 +17,9 @@ export namespace em$meta {
 
 export function em$run() {
     Common.GlobalInterrupts.enable()
-    const stat32: u32 = e$`_lr(STATUS32)`
-    printf`stat32 = %08x\n`(stat32)
+    // const stat32: u32 = e$`_lr(STATUS32)`
+    // printf`stat32 = %08x\n`(stat32)
+
     $R.PML.RegSleepTimCompareCfg.$$ = 1
     $R.PML.RegSleepTimCompare0.$$ = 32768
     $R.IRQ.RegIRQSleepTimEn.$$ = 0x0001_0001 // $R.REG_IRQ_SLEEP_TIM_EN_MASK
@@ -26,6 +27,10 @@ export function em$run() {
 
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%d+']
+    $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
+    $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
+    $R.PML.RegPmlCtrl.$$ |= $R.PML_LATCH_PAD_EN_MASK
+    e$`PML_SetHfClkFrequency(0)`
     e$`PML_PowerDownNvmAndSleep(1)`
     // e$`asm ("sleep")`
     // Common.BusyWait.wait(2_000_000)

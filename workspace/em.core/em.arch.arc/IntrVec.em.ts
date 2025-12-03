@@ -42,12 +42,12 @@ export namespace em$meta {
                         |-> //
                         |-> typedef void( *intfunc )( void );
                         |-> 
-                        |-> extern "C" void _start( void );
+                        |-> extern "C" void em__start( void );
                         |-> 
                         |-> extern "C" void DEFAULT_isr$$( void );
                         |-> 
                         |-> extern "C" const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
-                        |->     _start,
+                        |->     em__start,
         `)
         for (let n of intr_list) {
             const s =
