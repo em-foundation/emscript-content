@@ -10,8 +10,39 @@ OUT=.out
 rm -rf $OUT
 mkdir $OUT
 
+CPPFLAGS=" \
+    -DDEVICE=0x9305 \
+    -D__T9305__ \
+    -tcf=em9305 \
+    -Wall \
+    -Wconversion \
+    -Hhostlib= \
+    -Hnocrt \
+    -Hon=Long_enums \
+    -Hnocopyr \
+    -Hnosdata \
+    -nostdsysteminc \
+    -Hccm \
+    -mllvm \
+    -align-labels=false \
+    -Hnoivt \
+    -ffunction-sections \
+    -fdata-sections \
+    -Wno-cast-align \
+    -Mb \
+    -DNDEBUG \
+    -DHW_DI=5 \
+    -DNVM_CODE \
+    -Hpurge \
+    -Wno-constexpr-not-const \
+    -Wno-sign-conversion \
+    -Wno-unused-function \
+    -Wno-unused-variable \
+    -Wno-unused-but-set-variable \
+    -Wno-implicit-int-conversion \
+"
+
 CFLAGS=" \
-    -std=c++14 \
     -DDEVICE=0x9305 \
     -D__T9305__ \
     -tcf=em9305 \
@@ -62,9 +93,11 @@ LFLAGS=" \
 LIBS=" \
 "
 
-$ARC/ccac.exe $CFLAGS $CINCS $COPTS -c main.cpp -o $OUT/main.obj
-$ARC/ccac.exe $CFLAGS $CINCS $COPTS -S main.cpp -o $OUT/main.s
-$ARC/ldac.exe $LFLAGS -Bsymin_weak="rom.sym" linkcmd.ld $OUT/main.obj -o $OUT/main.out $LIBS
+$ARC/ccac.exe $CFLAGS $CINCS $COPTS -std=c++14 -c main.cpp -o $OUT/main.obj
+$ARC/ccac.exe $CFLAGS $CINCS $COPTS -std=c++14 -S main.cpp -o $OUT/main.s
+$ARC/ccac.exe $CFLAGS $CINCS $COPTS -c startup.c -o $OUT/startup.obj
+$ARC/ccac.exe $CFLAGS $CINCS $COPTS -S startup.c -o $OUT/startup.s
+$ARC/ldac.exe $LFLAGS -Bsymin_weak="rom.sym" linkcmd.ld $OUT/main.obj $OUT/startup.obj -o $OUT/main.out $LIBS
 $ARC/elf2hex -QIo $OUT/main.out.hex $OUT/main.out
 cp $OUT/main.out.hex $OUT/main.out.ihex
 $ARC/elfdumpac -T -o $OUT/main.out.dis $OUT/main.out

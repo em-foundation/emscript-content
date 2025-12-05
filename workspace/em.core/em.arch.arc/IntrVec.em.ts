@@ -37,16 +37,28 @@ export namespace em$meta {
 
     export function em$generate() {
         let len = intr_list.length + 1
-        let out = $outfile('em.arch.arc/intr.cpp')
+        let out = $outfile('em.arch.arc/intr.c')
         out.addFrag(`
                         |-> //
                         |-> typedef void( *intfunc )( void );
                         |-> 
-                        |-> extern "C" void em__start( void );
+                        |-> extern void em__start( void );
                         |-> 
-                        |-> extern "C" void DEFAULT_isr$$( void );
-                        |-> 
-                        |-> extern "C" const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
+                        |-> extern void DEFAULT_isr$$( void );
+                        |-> void _Interrupt DEFAULT_isr$$__I( void ) {
+                        |->     DEFAULT_isr$$();
+                        |-> }
+        `)
+        for (let n of used_set) {
+            out.addFrag(`
+                        |-> extern void ${n}_isr$$( void );
+                        |-> void _Interrupt ${n}_isr$$__I( void ) {
+                        |->     ${n}_isr$$();
+                        |-> }
+            `)
+        }
+        out.addFrag(`                        
+                        |-> const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
                         |->     em__start,
         `)
         for (let n of intr_list) {
@@ -54,10 +66,10 @@ export namespace em$meta {
                 n == NO_VEC
                     ? '0'
                     : used_set.has(n)
-                        ? `${n}_isr$$`
-                        : 'DEFAULT_isr$$'
+                        ? `(intfunc)${n}_isr$$__I`
+                        : '(intfunc)DEFAULT_isr$$__I'
             out.addFrag(`
-                        |-> /**/${s},
+                        |->     ${s},
             `)
         }
         out.addFrag(`
@@ -77,6 +89,8 @@ export namespace em$meta {
 }
 
 //>> ---- em$targ ---- <<//
+
+e$`extern "C" int __vector_table`
 
 export function em$startup() {
     e$`_sr((int)(&__vector_table), INT_VECTOR_BASE)`

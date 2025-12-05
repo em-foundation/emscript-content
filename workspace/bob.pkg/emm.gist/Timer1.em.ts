@@ -24,5 +24,6 @@ export function em$run() {
 }
 
 export function ARC_TIMER_1_isr$$() {
+    e$`_sr(0x0, REG_CONTROL1)`
     $['%%a-']
 }
