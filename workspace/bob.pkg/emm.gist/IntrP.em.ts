@@ -30,6 +30,8 @@ export function em$run() {
 
     const stat32: u32 = e$`_lr(STATUS32)`
     printf`stat32 = %08x\n`(stat32)
+    const ctrl: u32 = e$`_lr(AUX_IRQ_CONTROL)`
+    printf`ctrl = %08x\n`(ctrl)
 }
 
 export function SWI_isr$$() {
