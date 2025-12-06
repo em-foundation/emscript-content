@@ -1,6 +1,7 @@
 EM9305_DVK :
     activeLowLeds:  false
     pins:
+        appBut:     5
         appLed:     8     
         appOut:     7
         sysDbgA:    0

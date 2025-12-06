@@ -17,18 +17,19 @@ export namespace em$meta {
 
 export function em$run() {
     Common.GlobalInterrupts.enable()
-    let stat32: volatile_t<u32> = e$`_lr(STATUS32)`
-    printf`stat32 = %08x\n`(stat32)
     $R.PML.RegSleepTimCompareCfg.$$ = 1
     $R.PML.RegSleepTimCompare0.$$ = 32768
     $R.IRQ.RegIRQSleepTimEn.$$ = 0x0001_0001 // $R.REG_IRQ_SLEEP_TIM_EN_MASK
     $R.IRQ.RegIRQSleepTimMsk.$$ = 1 // $R.REG_IRQ_SLEEP_TIM_MSK_MASK
-    $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%d+']
-    Common.Idle.exec()
+    e$`asm ("sleep 1")`
+    // Common.BusyWait.wait(2_000_000)
+    // Common.Idle.exec()
     $['%%d-']
 }
 
 export function SLEEP_TIMER_OUT_CMP_0_isr$$() {
+    $R.IRQ.RegIRQSleepTimSts.$$ = 1
+    $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%a']
 }

@@ -27,15 +27,15 @@ export namespace em$template {
     }
 
     export function get(): bool_t {
-        return false
+        return ($R.GPIO.RegGPIODataIn.$$ & mask) ? true : false
     }
 
     export function isInput(): bool_t {
-        return false
+        return ($R.GPIO.RegGPIOInputEn.$$ & mask) != 0
     }
 
     export function isOutput(): bool_t {
-        return true
+        return ($R.GPIO.RegGPIOOutputEn.$$ & mask) != 0
     }
 
     export function makeInput(): void {
