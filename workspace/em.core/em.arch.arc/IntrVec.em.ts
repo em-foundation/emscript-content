@@ -33,6 +33,7 @@ export namespace em$meta {
 
     export function em$init() {
         for (let name of core_intrs) addIntr(name)
+        useIntr('DEFAULT')
     }
 
     export function em$generate() {
@@ -40,20 +41,20 @@ export namespace em$meta {
         let out = $outfile('em.arch.arc/intr.c')
         out.addFrag(`
                         |-> //
+                        |-> 
                         |-> typedef void( *intfunc )( void );
                         |-> 
                         |-> extern void em__start( void );
                         |-> 
-                        |-> extern void DEFAULT_isr$$( void );
-                        |-> void _Interrupt DEFAULT_isr$$__I( void ) {
-                        |->     DEFAULT_isr$$();
+                        |-> void isr$$_exec( intfunc fxn ) {
+                        |->     fxn();
                         |-> }
         `)
         for (let n of used_set) {
             out.addFrag(`
                         |-> extern void ${n}_isr$$( void );
-                        |-> void _Interrupt ${n}_isr$$__I( void ) {
-                        |->     ${n}_isr$$();
+                        |-> void ${n}_isr$$__I( void ) {
+                        |->     isr$$_exec((intfunc)${n}_isr$$);
                         |-> }
             `)
         }
