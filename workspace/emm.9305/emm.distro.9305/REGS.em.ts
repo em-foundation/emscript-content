@@ -4699,4 +4699,4 @@ export const IRQ = {} as IRQ_t
 export const PML = {} as PML_t
 export const SYS = {} as System_t
 export const UART = {} as UART_t
-export const UNI = {} as UNI_TIM_t
+export const UTIM = {} as UNI_TIM_t
