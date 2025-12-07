@@ -19,6 +19,7 @@ export function em$run() {
     Common.GlobalInterrupts.enable()
     $R.IRQ.RegIRQUniTimEnSet.$$ = $R.IRQ_UT2_FULL_VAL_EN_SET_MASK
     $R.IRQ.RegIRQUniTimMskSet.$$ = $R.IRQ_UT2_FULL_VAL_MSK_SET_MASK
+    $R.UTIM.RegUniTimer2Cfg.$$ = 5
     $R.UTIM.RegUniTimer2Ctrl.$$ = $R.UT2_CLEAR_MASK
     $R.UTIM.RegUniTimer2Limit.$$ = 100000
     $R.UTIM.RegUniTimer2Ctrl.$$ = ($R.UT2_ENABLE_MASK | $R.UT2_START_SW_MASK)

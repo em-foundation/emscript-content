@@ -27,7 +27,8 @@ export function em$startup() {
 function doPause() {
     $['%%b:'](1)
     $['%%b-']
-    IntrVec.wait()
+    e$`PML_PowerDownNvmAndSleep(1)`
+    // IntrVec.wait()
     $['%%b+']
 }
 
