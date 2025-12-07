@@ -7,7 +7,8 @@ const PERI_MAP = new Map<string, string>([
     ['IRQ', 'IRQ'],
     ['PML', 'PML'],
     ['SYS', 'System'],
-    ['UART', 'UART']
+    ['UART', 'UART'],
+    ['UNI', 'UNI_TIM']
 ])
 
 let meta = em.$outfile('REGS.em.ts')

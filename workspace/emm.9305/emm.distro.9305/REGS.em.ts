@@ -4442,6 +4442,256 @@ export const UART_RX_FIFO_NUM_BYTES_SHIFT: any = '24'
 export const UART_RX_FIFO_NUM_BYTES_MASK: any = '0x7F000000u'
 export const UART_RX_FIFO_NUM_BYTES_BMASK: any = '0x7Fu'
 
+// -------- UNI_TIM TYPE -------- //
+
+export interface UNI_TIM_t {
+    RegUniTimer2Cfg: $Reg
+    RegUniTimer2Ctrl: $Reg
+    RegUniTimer2Stat: $Reg
+    RegUniTimer2Count: $Reg
+    RegUniTimer2Limit: $Reg
+    RegUniTimer2Compare0: $Reg
+    RegUniTimer2Compare1: $Reg
+    RegUniTimer2Compare2: $Reg
+    RegUniTimer2Compare3: $Reg
+    RegUniTimer2Capture: $Reg
+    RegUniTimer3Cfg: $Reg
+    RegUniTimer3Ctrl: $Reg
+    RegUniTimer3Stat: $Reg
+    RegUniTimer3Count: $Reg
+    RegUniTimer3Limit: $Reg
+    RegUniTimer3Compare0: $Reg
+    RegUniTimer3Compare1: $Reg
+    RegUniTimer3Compare2: $Reg
+    RegUniTimer3Compare3: $Reg
+    RegUniTimer3Capture: $Reg
+}
+
+// -------- UNI_TIM CONSTANTS -------- //
+
+// REGISTER RegUniTimer2Cfg
+export const REG_UNI_TIMER2_CFG_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_CFG_MASK: any = '0x0001FDE7u'
+export const UT2_PRESCALER_SEL_SHIFT: any = '0'
+export const UT2_PRESCALER_SEL_MASK: any = '0x00000007u'
+export const UT2_PRESCALER_SEL_BMASK: any = '0x7u'
+export const UT2_CLK_SEL_SHIFT: any = '5'
+export const UT2_CLK_SEL_MASK: any = '0x00000020u'
+export const UT2_CLK_SEL_BMASK: any = '0x1u'
+export const UT2_START_SEL_SHIFT: any = '6'
+export const UT2_START_SEL_MASK: any = '0x00000040u'
+export const UT2_START_SEL_BMASK: any = '0x1u'
+export const UT2_PULSE_CFG_SHIFT: any = '7'
+export const UT2_PULSE_CFG_MASK: any = '0x00000080u'
+export const UT2_PULSE_CFG_BMASK: any = '0x1u'
+export const UT2_AUTO_RESTART_CFG_SHIFT: any = '8'
+export const UT2_AUTO_RESTART_CFG_MASK: any = '0x00000100u'
+export const UT2_AUTO_RESTART_CFG_BMASK: any = '0x1u'
+export const UT2_CPT_EVT_SRC_SHIFT: any = '10'
+export const UT2_CPT_EVT_SRC_MASK: any = '0x00000400u'
+export const UT2_CPT_EVT_SRC_BMASK: any = '0x1u'
+export const UT2_CAPT_EDG_SHIFT: any = '11'
+export const UT2_CAPT_EDG_MASK: any = '0x00001800u'
+export const UT2_CAPT_EDG_BMASK: any = '0x3u'
+export const UT2_ACT_COMPARE_SHIFT: any = '13'
+export const UT2_ACT_COMPARE_MASK: any = '0x00006000u'
+export const UT2_ACT_COMPARE_BMASK: any = '0x3u'
+export const UT2_ACT_LIMIT_SHIFT: any = '15'
+export const UT2_ACT_LIMIT_MASK: any = '0x00018000u'
+export const UT2_ACT_LIMIT_BMASK: any = '0x3u'
+// REGISTER RegUniTimer2Ctrl
+export const REG_UNI_TIMER2_CTRL_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_CTRL_MASK: any = '0x00070F07u'
+export const UT2_ENABLE_SHIFT: any = '0'
+export const UT2_ENABLE_MASK: any = '0x00000001u'
+export const UT2_ENABLE_BMASK: any = '0x1u'
+export const UT2_START_SW_SHIFT: any = '1'
+export const UT2_START_SW_MASK: any = '0x00000002u'
+export const UT2_START_SW_BMASK: any = '0x1u'
+export const UT2_CAPTURE_SW_SHIFT: any = '2'
+export const UT2_CAPTURE_SW_MASK: any = '0x00000004u'
+export const UT2_CAPTURE_SW_BMASK: any = '0x1u'
+export const UT2_OUT_EN0_SHIFT: any = '8'
+export const UT2_OUT_EN0_MASK: any = '0x00000100u'
+export const UT2_OUT_EN0_BMASK: any = '0x1u'
+export const UT2_OUT_EN1_SHIFT: any = '9'
+export const UT2_OUT_EN1_MASK: any = '0x00000200u'
+export const UT2_OUT_EN1_BMASK: any = '0x1u'
+export const UT2_OUT_EN2_SHIFT: any = '10'
+export const UT2_OUT_EN2_MASK: any = '0x00000400u'
+export const UT2_OUT_EN2_BMASK: any = '0x1u'
+export const UT2_OUT_EN3_SHIFT: any = '11'
+export const UT2_OUT_EN3_MASK: any = '0x00000800u'
+export const UT2_OUT_EN3_BMASK: any = '0x1u'
+export const UT2_CLEAR_SHIFT: any = '16'
+export const UT2_CLEAR_MASK: any = '0x00010000u'
+export const UT2_CLEAR_BMASK: any = '0x1u'
+export const UT2_CLEAR_OUT_SHIFT: any = '17'
+export const UT2_CLEAR_OUT_MASK: any = '0x00020000u'
+export const UT2_CLEAR_OUT_BMASK: any = '0x1u'
+export const UT2_SET_OUT_SHIFT: any = '18'
+export const UT2_SET_OUT_MASK: any = '0x00040000u'
+export const UT2_SET_OUT_BMASK: any = '0x1u'
+// REGISTER RegUniTimer2Stat
+export const REG_UNI_TIMER2_STAT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_STAT_MASK: any = '0x00000001u'
+export const UT2_RUN_STAT_SHIFT: any = '0'
+export const UT2_RUN_STAT_MASK: any = '0x00000001u'
+export const UT2_RUN_STAT_BMASK: any = '0x1u'
+// REGISTER RegUniTimer2Count
+export const REG_UNI_TIMER2_COUNT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_COUNT_MASK: any = '0xFFFFFFFFu'
+export const UT2_COUNT_SHIFT: any = '0'
+export const UT2_COUNT_MASK: any = '0xFFFFFFFFu'
+export const UT2_COUNT_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Limit
+export const REG_UNI_TIMER2_LIMIT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_LIMIT_MASK: any = '0xFFFFFFFFu'
+export const UT2_LIMIT_SHIFT: any = '0'
+export const UT2_LIMIT_MASK: any = '0xFFFFFFFFu'
+export const UT2_LIMIT_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Compare0
+export const REG_UNI_TIMER2_COMPARE0_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_COMPARE0_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE0_SHIFT: any = '0'
+export const UT2_COMPARE0_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE0_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Compare1
+export const REG_UNI_TIMER2_COMPARE1_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_COMPARE1_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE1_SHIFT: any = '0'
+export const UT2_COMPARE1_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE1_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Compare2
+export const REG_UNI_TIMER2_COMPARE2_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_COMPARE2_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE2_SHIFT: any = '0'
+export const UT2_COMPARE2_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE2_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Compare3
+export const REG_UNI_TIMER2_COMPARE3_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_COMPARE3_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE3_SHIFT: any = '0'
+export const UT2_COMPARE3_MASK: any = '0xFFFFFFFFu'
+export const UT2_COMPARE3_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer2Capture
+export const REG_UNI_TIMER2_CAPTURE_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER2_CAPTURE_MASK: any = '0xFFFFFFFFu'
+export const UT2_CAPTURE_SHIFT: any = '0'
+export const UT2_CAPTURE_MASK: any = '0xFFFFFFFFu'
+export const UT2_CAPTURE_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Cfg
+export const REG_UNI_TIMER3_CFG_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_CFG_MASK: any = '0x0001FDE7u'
+export const UT3_PRESCALER_SEL_SHIFT: any = '0'
+export const UT3_PRESCALER_SEL_MASK: any = '0x00000007u'
+export const UT3_PRESCALER_SEL_BMASK: any = '0x7u'
+export const UT3_CLK_SEL_SHIFT: any = '5'
+export const UT3_CLK_SEL_MASK: any = '0x00000020u'
+export const UT3_CLK_SEL_BMASK: any = '0x1u'
+export const UT3_START_SEL_SHIFT: any = '6'
+export const UT3_START_SEL_MASK: any = '0x00000040u'
+export const UT3_START_SEL_BMASK: any = '0x1u'
+export const UT3_PULSE_CFG_SHIFT: any = '7'
+export const UT3_PULSE_CFG_MASK: any = '0x00000080u'
+export const UT3_PULSE_CFG_BMASK: any = '0x1u'
+export const UT3_AUTO_RESTART_CFG_SHIFT: any = '8'
+export const UT3_AUTO_RESTART_CFG_MASK: any = '0x00000100u'
+export const UT3_AUTO_RESTART_CFG_BMASK: any = '0x1u'
+export const UT3_CPT_EVT_SRC_SHIFT: any = '10'
+export const UT3_CPT_EVT_SRC_MASK: any = '0x00000400u'
+export const UT3_CPT_EVT_SRC_BMASK: any = '0x1u'
+export const UT3_CAPT_EDG_SHIFT: any = '11'
+export const UT3_CAPT_EDG_MASK: any = '0x00001800u'
+export const UT3_CAPT_EDG_BMASK: any = '0x3u'
+export const UT3_ACT_COMPARE_SHIFT: any = '13'
+export const UT3_ACT_COMPARE_MASK: any = '0x00006000u'
+export const UT3_ACT_COMPARE_BMASK: any = '0x3u'
+export const UT3_ACT_LIMIT_SHIFT: any = '15'
+export const UT3_ACT_LIMIT_MASK: any = '0x00018000u'
+export const UT3_ACT_LIMIT_BMASK: any = '0x3u'
+// REGISTER RegUniTimer3Ctrl
+export const REG_UNI_TIMER3_CTRL_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_CTRL_MASK: any = '0x00070F07u'
+export const UT3_ENABLE_SHIFT: any = '0'
+export const UT3_ENABLE_MASK: any = '0x00000001u'
+export const UT3_ENABLE_BMASK: any = '0x1u'
+export const UT3_START_SW_SHIFT: any = '1'
+export const UT3_START_SW_MASK: any = '0x00000002u'
+export const UT3_START_SW_BMASK: any = '0x1u'
+export const UT3_CAPTURE_SW_SHIFT: any = '2'
+export const UT3_CAPTURE_SW_MASK: any = '0x00000004u'
+export const UT3_CAPTURE_SW_BMASK: any = '0x1u'
+export const UT3_OUT_EN0_SHIFT: any = '8'
+export const UT3_OUT_EN0_MASK: any = '0x00000100u'
+export const UT3_OUT_EN0_BMASK: any = '0x1u'
+export const UT3_OUT_EN1_SHIFT: any = '9'
+export const UT3_OUT_EN1_MASK: any = '0x00000200u'
+export const UT3_OUT_EN1_BMASK: any = '0x1u'
+export const UT3_OUT_EN2_SHIFT: any = '10'
+export const UT3_OUT_EN2_MASK: any = '0x00000400u'
+export const UT3_OUT_EN2_BMASK: any = '0x1u'
+export const UT3_OUT_EN3_SHIFT: any = '11'
+export const UT3_OUT_EN3_MASK: any = '0x00000800u'
+export const UT3_OUT_EN3_BMASK: any = '0x1u'
+export const UT3_CLEAR_SHIFT: any = '16'
+export const UT3_CLEAR_MASK: any = '0x00010000u'
+export const UT3_CLEAR_BMASK: any = '0x1u'
+export const UT3_CLEAR_OUT_SHIFT: any = '17'
+export const UT3_CLEAR_OUT_MASK: any = '0x00020000u'
+export const UT3_CLEAR_OUT_BMASK: any = '0x1u'
+export const UT3_SET_OUT_SHIFT: any = '18'
+export const UT3_SET_OUT_MASK: any = '0x00040000u'
+export const UT3_SET_OUT_BMASK: any = '0x1u'
+// REGISTER RegUniTimer3Stat
+export const REG_UNI_TIMER3_STAT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_STAT_MASK: any = '0x00000001u'
+export const UT3_RUN_STAT_SHIFT: any = '0'
+export const UT3_RUN_STAT_MASK: any = '0x00000001u'
+export const UT3_RUN_STAT_BMASK: any = '0x1u'
+// REGISTER RegUniTimer3Count
+export const REG_UNI_TIMER3_COUNT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_COUNT_MASK: any = '0xFFFFFFFFu'
+export const UT3_COUNT_SHIFT: any = '0'
+export const UT3_COUNT_MASK: any = '0xFFFFFFFFu'
+export const UT3_COUNT_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Limit
+export const REG_UNI_TIMER3_LIMIT_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_LIMIT_MASK: any = '0xFFFFFFFFu'
+export const UT3_LIMIT_SHIFT: any = '0'
+export const UT3_LIMIT_MASK: any = '0xFFFFFFFFu'
+export const UT3_LIMIT_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Compare0
+export const REG_UNI_TIMER3_COMPARE0_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_COMPARE0_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE0_SHIFT: any = '0'
+export const UT3_COMPARE0_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE0_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Compare1
+export const REG_UNI_TIMER3_COMPARE1_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_COMPARE1_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE1_SHIFT: any = '0'
+export const UT3_COMPARE1_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE1_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Compare2
+export const REG_UNI_TIMER3_COMPARE2_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_COMPARE2_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE2_SHIFT: any = '0'
+export const UT3_COMPARE2_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE2_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Compare3
+export const REG_UNI_TIMER3_COMPARE3_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_COMPARE3_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE3_SHIFT: any = '0'
+export const UT3_COMPARE3_MASK: any = '0xFFFFFFFFu'
+export const UT3_COMPARE3_BMASK: any = '0xFFFFFFFFu'
+// REGISTER RegUniTimer3Capture
+export const REG_UNI_TIMER3_CAPTURE_RESET_VALUE: any = '0x00000000u'
+export const REG_UNI_TIMER3_CAPTURE_MASK: any = '0xFFFFFFFFu'
+export const UT3_CAPTURE_SHIFT: any = '0'
+export const UT3_CAPTURE_MASK: any = '0xFFFFFFFFu'
+export const UT3_CAPTURE_BMASK: any = '0xFFFFFFFFu'
+
 // -------- INSTANCES -------- //
 
 export const GPIO = {} as GPIO_t
@@ -4449,3 +4699,4 @@ export const IRQ = {} as IRQ_t
 export const PML = {} as PML_t
 export const SYS = {} as System_t
 export const UART = {} as UART_t
+export const UNI = {} as UNI_TIM_t
