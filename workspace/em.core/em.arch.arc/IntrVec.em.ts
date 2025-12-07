@@ -46,6 +46,8 @@ export namespace em$meta {
                         |-> 
                         |-> extern void em__start( void );
                         |-> 
+                        |-> volatile int isr$$_flag = 0;
+                        |-> 
                         |-> void isr$$_exec() {
                         |->     asm ("st.aw %r0,[%sp,-88]");
                         |->     asm ("st_s %r1,[%sp,4]");
@@ -67,8 +69,11 @@ export namespace em$meta {
                         |->     asm ("st %lp_count,[%sp,68]");
                         |->     asm ("lr %r0,[%lp_start]");
                         |->     asm ("st_s %r0,[%sp,72]");
+                        |->     //
+                        |->     isr$$_flag = 1;
                         |->     asm ("ld_s %r0,[%sp,88]");
                         |->     asm ("jl_s [%r0]");
+                        |->     //
                         |->     asm ("lr %r0,[%lp_end]");
                         |->     asm ("st_s %r0,[%sp,76]");
                         |->     asm ("lr %r0,[%acc0_ghi]");
@@ -149,10 +154,17 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 e$`extern "C" int __vector_table`
+e$`extern "C" volatile int isr$$_flag`
 
 export function em$startup() {
     e$`_sr((int)(&__vector_table), INT_VECTOR_BASE)`
 }
+
+export function wait() {
+    while (e$`isr$$_flag == 0`) { }
+    e$`isr$$_flag = 0`
+}
+
 
 export function DEFAULT_isr$$() {
     IsrDefault.exec()

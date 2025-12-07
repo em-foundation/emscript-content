@@ -2,6 +2,7 @@ import '@$$emscript'
 export const $U = $declare('MODULE', IdleI)
 
 import * as IdleI from '@em.hal/IdleI.em'
+import * as IntrVec from '@em.arch.arc/IntrVec.em'
 
 export type SleepCB = cb_t<[]>
 
@@ -26,7 +27,7 @@ export function em$startup() {
 function doPause() {
     $['%%b:'](1)
     $['%%b-']
-    e$`PML_PowerDownNvmAndSleep(1)`
+    IntrVec.wait()
     $['%%b+']
 }
 
@@ -34,7 +35,7 @@ function doPause() {
 function doSleep() {
     $['%%b:'](2)
     $['%%b-']
-    e$`PML_PowerDownNvmAndSleep(6)`
+    IntrVec.wait()
 }
 
 
