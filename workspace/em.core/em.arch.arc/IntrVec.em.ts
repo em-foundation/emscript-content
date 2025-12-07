@@ -46,15 +46,72 @@ export namespace em$meta {
                         |-> 
                         |-> extern void em__start( void );
                         |-> 
-                        |-> void isr$$_exec( intfunc fxn ) {
-                        |->     fxn();
+                        |-> void isr$$_exec() {
+                        |->     asm ("st.aw %r0,[%sp,-88]");
+                        |->     asm ("st_s %r1,[%sp,4]");
+                        |->     asm ("st_s %r2,[%sp,8]");
+                        |->     asm ("st_s %r3,[%sp,12]");
+                        |->     asm ("st %r4,[%sp,16]");
+                        |->     asm ("st %r5,[%sp,20]");
+                        |->     asm ("st %r6,[%sp,24]");
+                        |->     asm ("st %r7,[%sp,28]");
+                        |->     asm ("st %r8,[%sp,32]");
+                        |->     asm ("st %r9,[%sp,36]");
+                        |->     asm ("st %r10,[%sp,40]");
+                        |->     asm ("st %r11,[%sp,44]");
+                        |->     asm ("st_s %r12,[%sp,48]");
+                        |->     asm ("st %r30,[%sp,52]");
+                        |->     asm ("st %blink,[%sp,56]");
+                        |->     asm ("st %accl,[%sp,60]");
+                        |->     asm ("st %acch,[%sp,64]");
+                        |->     asm ("st %lp_count,[%sp,68]");
+                        |->     asm ("lr %r0,[%lp_start]");
+                        |->     asm ("st_s %r0,[%sp,72]");
+                        |->     asm ("ld_s %r0,[%sp,88]");
+                        |->     asm ("jl_s [%r0]");
+                        |->     asm ("lr %r0,[%lp_end]");
+                        |->     asm ("st_s %r0,[%sp,76]");
+                        |->     asm ("lr %r0,[%acc0_ghi]");
+                        |->     asm ("st_s %r0,[%sp,80]");
+                        |->     asm ("lr %r0,[%acc0_glo]");
+                        |->     asm ("st_s %r0,[%sp,84]");
+                        |->     asm ("ld_s %r0,[%sp,84]");
+                        |->     asm ("sr %r0,[%acc0_glo]");
+                        |->     asm ("ld_s %r0,[%sp,80]");
+                        |->     asm ("sr %r0,[%acc0_ghi]");
+                        |->     asm ("ld_s %r0,[%sp,76]");
+                        |->     asm ("sr %r0,[%lp_end]");
+                        |->     asm ("ld_s %r0,[%sp,72]");
+                        |->     asm ("sr %r0,[%lp_start]");
+                        |->     asm ("ld_s %r0,[%sp,68]");
+                        |->     asm ("ld %acch,[%sp,64]");
+                        |->     asm ("mov %lp_count,%r0");
+                        |->     asm ("ld %accl,[%sp,60]");
+                        |->     asm ("ld %blink,[%sp,56]");
+                        |->     asm ("ld %r30,[%sp,52]");
+                        |->     asm ("ld_s %r12,[%sp,48]");
+                        |->     asm ("ld %r11,[%sp,44]");
+                        |->     asm ("ld %r10,[%sp,40]");
+                        |->     asm ("ld %r9,[%sp,36]");
+                        |->     asm ("ld %r8,[%sp,32]");
+                        |->     asm ("ld %r7,[%sp,28]");
+                        |->     asm ("ld %r6,[%sp,24]");
+                        |->     asm ("ld %r5,[%sp,20]");
+                        |->     asm ("ld %r4,[%sp,16]");
+                        |->     asm ("ld_s %r3,[%sp,12]");
+                        |->     asm ("ld_s %r2,[%sp,8]");
+                        |->     asm ("ld_s %r1,[%sp,4]");
+                        |->     asm ("ld.ab %r0,[%sp,88]");
+                        |->     asm ("add %sp,%sp,4");
+                        |->     asm ("rtie");
                         |-> }
         `)
         for (let n of used_set) {
             out.addFrag(`
                         |-> extern void ${n}_isr$$( void );
                         |-> void ${n}_isr$$__I( void ) {
-                        |->     isr$$_exec((intfunc)${n}_isr$$);
+                        |->     asm ("st.aw ${n}_isr$$,[%sp,-4]");
+                        |->     asm ("b isr$$_exec");
                         |-> }
             `)
         }
