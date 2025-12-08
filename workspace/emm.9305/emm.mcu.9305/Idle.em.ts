@@ -28,7 +28,6 @@ function doPause() {
     $['%%b:'](1)
     $['%%b-']
     e$`PML_PowerDownNvmAndSleep(1)`
-    // IntrVec.wait()
     $['%%b+']
 }
 
@@ -36,9 +35,10 @@ function doPause() {
 function doSleep() {
     $['%%b:'](2)
     $['%%b-']
-    IntrVec.wait()
+    // IntrVec.wait()
+    e$`PML_PowerDownNvmAndSleep(5)`
+    $['%%b+']
 }
-
 
 export function exec() {
     if (cur_pause_only) {
