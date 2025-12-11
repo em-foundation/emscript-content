@@ -3,6 +3,7 @@ export const $U = $declare('MODULE', IdleI)
 
 import * as $R from '@emm.distro.9305/REGS.em'
 
+import * as Debug from '@em.lang/Debug.em'
 import * as IdleI from '@em.hal/IdleI.em'
 import * as IntrVec from '@em.arch.arc/IntrVec.em'
 import * as MemDump from '@em.utils/MemDump.em'
@@ -41,6 +42,7 @@ function doSleep() {
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
     $['%%b:'](2)
     $['%%b-']
+    Debug.reset()
     e$`PML_PowerDownNvmAndSleep(6)`
     $['%%b+']
 }
