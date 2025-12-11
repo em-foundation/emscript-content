@@ -123,7 +123,7 @@ export namespace em$meta {
         }
         out.addFrag(`                        
                         |-> extern "C" const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
-                        |->     em__start,
+                        |->     _start,
         `)
         for (let n of intr_list) {
             const s =

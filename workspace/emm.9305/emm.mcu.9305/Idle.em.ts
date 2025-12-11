@@ -5,19 +5,18 @@ import * as $R from '@emm.distro.9305/REGS.em'
 
 import * as Debug from '@em.lang/Debug.em'
 import * as IdleI from '@em.hal/IdleI.em'
-import * as IntrVec from '@em.arch.arc/IntrVec.em'
-import * as MemDump from '@em.utils/MemDump.em'
-
 
 export type SleepCB = cb_t<[]>
 
+const sleep_enter_tab = $table<SleepCB>()
+
 export namespace em$meta {
     export function addSleepEnter(cb: SleepCB) {
-        return
+        sleep_enter_tab.$$add(cb)
     }
 
     export function addSleepLeave(cb: SleepCB) {
-        return
+        // empty
     }
 }
 
@@ -40,11 +39,11 @@ function doPause() {
 function doSleep() {
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
+    for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
     Debug.reset()
     e$`PML_PowerDownNvmAndSleep(6)`
-    $['%%b+']
 }
 
 export function exec() {
