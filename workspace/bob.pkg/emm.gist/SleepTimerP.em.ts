@@ -19,17 +19,15 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-var cnt: u8 = 10
-
 export function em$run() {
-    // printf`isWarm = %d\n`(Common.Mcu.isWarm())
-    // if ($R.PML.RegSleepTimCount.$$ != 0) {
-    //     // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
-    //     // MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
+    // if (Common.Mcu.isWarm()) {
+    //     MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
+    //     MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
     //     halt();
     // }
-
-    $['%%>'](cnt++)
+    AppLed.on()
+    Common.BusyWait.wait(10000)
+    AppLed.off()
     Common.GlobalInterrupts.enable()
     $R.IRQ.RegIRQSleepTimEnSet.$$ = 1
     $R.IRQ.RegIRQSleepTimMskSet.$$ = 1
@@ -38,11 +36,9 @@ export function em$run() {
     // const sts = $R.IRQ.RegIRQSleepTimSts.$$
     // $['%%>'](<u8>sts)
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
-    $R.PML.RegSleepTimCompare0.$$ = 32768 / 2
+    $R.PML.RegSleepTimCompare0.$$ = 20000
     while ($R.PML.RegSleepTimCount.$$ != 0) { }
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
-
-
     $['%%d']
     Common.Idle.exec()
 }

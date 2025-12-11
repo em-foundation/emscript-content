@@ -37,16 +37,11 @@ function doPause() {
 
 
 function doSleep() {
+    $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
-
-    // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
-    // MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
-    // halt()
-
-
     $['%%b:'](2)
     $['%%b-']
-    e$`PML_PowerDownNvmAndSleep(5)`
+    e$`PML_PowerDownNvmAndSleep(6)`
     $['%%b+']
 }
 
