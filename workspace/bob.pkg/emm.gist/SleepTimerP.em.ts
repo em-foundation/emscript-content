@@ -19,11 +19,9 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-e$`extern "C" uint32_t PML_GetResetFlags()`
 
 export function em$run() {
-    const flgs: u32 = e$`PML_GetResetFlags()`
-    printf`flgs = %08x\n`(flgs)
+    printf`isWarm = %d\n`(Common.Mcu.isWarm())
     if ($R.PML.RegSleepTimCount.$$ != 0) {
         // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
         // MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
