@@ -20,11 +20,6 @@ export namespace em$meta {
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    // if (Common.Mcu.isWarm()) {
-    //     MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
-    //     MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
-    //     halt();
-    // }
     AppLed.on()
     Common.BusyWait.wait(10000)
     AppLed.off()
@@ -33,8 +28,6 @@ export function em$run() {
     $R.IRQ.RegIRQSleepTimMskSet.$$ = 1
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_CLEAR_MASK
     $R.PML.RegSleepTimCtrl.$$ = 0
-    // const sts = $R.IRQ.RegIRQSleepTimSts.$$
-    // $['%%>'](<u8>sts)
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
     $R.PML.RegSleepTimCompare0.$$ = 20000
     while ($R.PML.RegSleepTimCount.$$ != 0) { }
