@@ -38,17 +38,17 @@ export namespace em$meta {
 
     export function em$generate() {
         let len = intr_list.length + 1
-        let out = $outfile('em.arch.arc/intr.c')
+        let out = $outfile('em.arch.arc/intr.cpp')
         out.addFrag(`
                         |-> //
                         |-> 
                         |-> typedef void( *intfunc )( void );
                         |-> 
-                        |-> extern void em__start( void );
+                        |-> extern "C" void em__start( void );
                         |-> 
-                        |-> volatile int isr$$_flag = 0;
+                        |-> extern "C" volatile int isr$$_flag = 0;
                         |-> 
-                        |-> void isr$$_exec() {
+                        |-> extern "C" void isr$$_exec() {
                         |->     asm ("st.aw %r0,[%sp,-88]");
                         |->     asm ("st_s %r1,[%sp,4]");
                         |->     asm ("st_s %r2,[%sp,8]");
@@ -113,15 +113,15 @@ export namespace em$meta {
         `)
         for (let n of used_set) {
             out.addFrag(`
-                        |-> extern void ${n}_isr$$( void );
-                        |-> void ${n}_isr$$__I( void ) {
+                        |-> extern "C" void ${n}_isr$$( void );
+                        |-> extern "C" void ${n}_isr$$__I( void ) {
                         |->     asm ("st.aw ${n}_isr$$,[%sp,-4]");
                         |->     asm ("b isr$$_exec");
                         |-> }
             `)
         }
         out.addFrag(`                        
-                        |-> const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
+                        |-> extern "C" const intfunc  __attribute__((section(".intvec"))) __vector_table[${len}] = {
                         |->     em__start,
         `)
         for (let n of intr_list) {
@@ -153,9 +153,6 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
-e$`extern "C" int __vector_table`
-e$`extern "C" volatile int isr$$_flag`
-
 export function em$startup() {
     e$`_sr((int)(&__vector_table), INT_VECTOR_BASE)`
 }
@@ -170,5 +167,3 @@ export function DEFAULT_isr$$() {
     IsrDefault.exec()
     fail()
 }
-// 
-// function emptyIsr() { }

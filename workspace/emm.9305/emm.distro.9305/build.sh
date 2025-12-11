@@ -95,9 +95,7 @@ LIBS=" \
 
 $ARC/ccac.exe $CFLAGS $CINCS $COPTS -std=c++14 -c main.cpp -o $OUT/main.obj
 $ARC/ccac.exe $CFLAGS $CINCS $COPTS -std=c++14 -S main.cpp -o $OUT/main.s
-$ARC/ccac.exe $CFLAGS $CINCS $COPTS -c startup.c -o $OUT/startup.obj
-$ARC/ccac.exe $CFLAGS $CINCS $COPTS -S startup.c -o $OUT/startup.s
-$ARC/ldac.exe $LFLAGS -Bsymin_weak="rom.sym" linkcmd.ld $OUT/main.obj $OUT/startup.obj -o $OUT/main.out $LIBS
+$ARC/ldac.exe $LFLAGS -Bsymin_weak="rom.sym" linkcmd.ld $OUT/main.obj -o $OUT/main.out $LIBS
 $ARC/elf2hex -QIo $OUT/main.out.hex $OUT/main.out
 cp $OUT/main.out.hex $OUT/main.out.ihex
 $ARC/elfdumpac -T -o $OUT/main.out.dis $OUT/main.out
