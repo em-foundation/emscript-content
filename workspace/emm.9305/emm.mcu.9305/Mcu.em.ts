@@ -15,16 +15,26 @@ export namespace em$meta {
 }
 
 export function startup(): void {
+    $R.PML.RegPmlCtrl.$$ = $R.PML_RF_SW_EN_MASK | $R.PML_NVM_SW_EN_MASK | $R.PML_NVM_BO_RST_EN_MASK | $R.PML_VBAT_MON_EN_MASK
+    $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 0x2
+    $R.PML.RegPmlPadClk.$$ = 0x9
+    $R.PML.RegPmlLvl.$$ = $R.PML_LDO_DIG_LVL_MASK | 0x4f
+    $R.PML.RegPmlDCDCCtrl.$$ = 0x0001_1b02
+    $R.PML.RegPmlLFRC.$$ = $R.PML_LF_RC_CHOP_EN_MASK
+
     Debug.startup()
     $['%%a:'](2)
-    if (use_sram) {
-        e$`PML_PowerDownNvm()`
-        // $['%%a:'](2)
-        // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_BO_RST_EN_MASK
-        // $R.PML.RegPmlDomain.$$ &= ~$R.PML_NVM_REQ_ON_MASK
-        // while ($R.SYS.RegPmlSts.$$ & $R.PML_NVM_REQ_ON_MASK) { }
-        // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_SW_EN_MASK
-        // $R.SYS.RegClkCtrlDisable.$$ = $R.CLK_DIS_NVM_MASK
-        // e$`_sr(1, IC_CTRL)`
-    }
+    //// if ($R.PML.RegPmlFlg.$$ != 0) {
+    ////     $['%%a:'](2)
+    //// }
+    //// if (use_sram) {
+    ////     e$`PML_PowerDownNvm()`
+    ////     // $['%%a:'](2)
+    ////     // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_BO_RST_EN_MASK
+    ////     // $R.PML.RegPmlDomain.$$ &= ~$R.PML_NVM_REQ_ON_MASK
+    ////     // while ($R.SYS.RegPmlSts.$$ & $R.PML_NVM_REQ_ON_MASK) { }
+    ////     // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_SW_EN_MASK
+    ////     // $R.SYS.RegClkCtrlDisable.$$ = $R.CLK_DIS_NVM_MASK
+    ////     // e$`_sr(1, IC_CTRL)`
+    //// }
 }
