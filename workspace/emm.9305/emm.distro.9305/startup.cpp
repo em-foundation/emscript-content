@@ -48,7 +48,7 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     __builtin_unreachable();    
 }
 
-extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const void* src, size_t n) {
+extern "C" void* memcpy(void* dst, const void* src, size_t n) {
     unsigned char* d = (unsigned char*)dst;
     const unsigned char* s = (unsigned char*)src;
     while (n--) {
