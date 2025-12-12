@@ -9,10 +9,20 @@ export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
+var thresh: u32 = 0
+
 export function set(time_us: u32) {
+    thresh = time_us * MHZ
 }
 
 export function spin() {
+    start()
+    while (true) {
+        const cnt: u32 = e$`_lr(REG_COUNT0)`
+        if (cnt < thresh) continue
+        thresh = 0
+        return
+    }
 }
 
 export function start() {
