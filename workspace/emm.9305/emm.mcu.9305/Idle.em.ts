@@ -5,6 +5,7 @@ import * as $R from '@emm.distro.9305/REGS.em'
 
 import * as Debug from '@em.lang/Debug.em'
 import * as IdleI from '@em.hal/IdleI.em'
+import * as MemDump from '@em.utils/MemDump.em'
 
 export type SleepCB = cb_t<[]>
 
@@ -39,6 +40,8 @@ function doPause() {
 function doSleep() {
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
+    // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
+    // halt()
     for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']

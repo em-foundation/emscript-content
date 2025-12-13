@@ -12,11 +12,11 @@ export namespace em$meta { }
 var thresh: u32 = 0
 
 export function set(time_us: u32) {
+    start()
     thresh = time_us * MHZ
 }
 
 export function spin() {
-    start()
     while (true) {
         const cnt: u32 = e$`_lr(REG_COUNT0)`
         if (cnt < thresh) continue

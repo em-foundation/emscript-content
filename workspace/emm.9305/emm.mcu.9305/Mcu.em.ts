@@ -25,14 +25,15 @@ export function startup(): void {
         $R.PML_NVM_SW_EN_MASK |
         $R.PML_NVM_BO_RST_EN_MASK |
         $R.PML_VBAT_MON_EN_MASK |
-        0
-    // $R.PML_SLP_TIM_ON_XTAL_MASK |
-    // $R.PML_LF_XTAL_EN_SHIFT
+        $R.PML_SLP_TIM_ON_XTAL_MASK |
+        0x1
     $R.PML.RegPmlCtrl.$$ = msk
     $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 0x2
     $R.PML.RegPmlPadClk.$$ = 0x9
-    $R.PML.RegPmlLvl.$$ = $R.PML_LDO_DIG_LVL_MASK | 0x4f
-    $R.PML.RegPmlDCDCCtrl.$$ = 0x0001_1b02
+    $R.PML.RegPmlLvl.$$ = $R.PML_LDO_DIG_LVL_MASK | 0xb44
+    $R.PML.RegPmlDCDCTim.$$ = 0x0b05_0b05
+    $R.PML.RegPmlDCDCPer.$$ = 0x30d4_1717
+    $R.PML.RegPmlDCDCCtrl.$$ = 0x0007_0002
     $R.PML.RegPmlLFRC.$$ = $R.PML_LF_RC_CHOP_EN_MASK
 
     Debug.startup()

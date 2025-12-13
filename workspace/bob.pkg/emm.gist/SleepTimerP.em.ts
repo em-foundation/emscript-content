@@ -29,7 +29,7 @@ export function em$run() {
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_CLEAR_MASK
     $R.PML.RegSleepTimCtrl.$$ = 0
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
-    $R.PML.RegSleepTimCompare0.$$ = 20000
+    $R.PML.RegSleepTimCompare0.$$ = 32678
     while ($R.PML.RegSleepTimCount.$$ != 0) { }
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
     $['%%d']
