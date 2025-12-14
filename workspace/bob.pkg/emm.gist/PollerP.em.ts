@@ -9,7 +9,7 @@ export namespace em$meta { }
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    Common.GlobalInterrupts.enable()
+    // Common.GlobalInterrupts.enable()
     $['%%d']
     Poller.pause(200)
     $['%%d']

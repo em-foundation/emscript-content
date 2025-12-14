@@ -1,6 +1,7 @@
 import '@$$emscript'
 export const $U = $declare('COMPOSITE')
 
+import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
 import * as Common from '@em.mcu/Common.em'
@@ -13,11 +14,12 @@ import * as Idle from '@emm.mcu.9305/Idle.em'
 import * as LedT from '@em.utils/LedT.em'
 import * as Mcu from '@emm.mcu.9305/Mcu.em'
 import * as OneShot from '@emm.mcu.9305/OneShotUniTim2.em'
-// import * as OneShot from '@emm.mcu.9305/OneShotTimer1.em'
-// import * as OneShot from '@em.hal/OneShotN.em'
 import * as Poller from '@em.mcu/Poller.em'
+import * as Rtc from '@emm.mcu.9305/RtcSleepTimer.em'
 import * as Uptimer from '@em.hal/UptimerN.em'
 import * as UsCounter from '@em.arch.arc/UsCounterTimer0.em'
+
+export { OneShot }
 
 export const AppButPin = $clone(GpioT)
 export const AppLed = $clone(LedT)
@@ -49,6 +51,7 @@ export function em$configure(): void {
     $using(BoardController)
     $using(Console)
     const brd = $board(DEFAULTS)
+    AlarmMgr.Rtc.$$dlg = Rtc
     AppButPin.pin_num.$$val = brd.pins.appBut
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds

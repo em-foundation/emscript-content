@@ -32,7 +32,7 @@ export function em$startup() {
 function doPause() {
     $['%%b:'](1)
     $['%%b-']
-    e$`PML_PowerDownNvmAndSleep(1)`
+    e$`asm ("sleep 0x10")`  // enable interrupts
     $['%%b+']
 }
 

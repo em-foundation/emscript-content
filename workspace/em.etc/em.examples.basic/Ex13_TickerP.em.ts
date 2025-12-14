@@ -19,18 +19,18 @@ export namespace em$meta {
     }
 }
 
-const DEBUG = false
+const DBG_FLG = false
 
 var count = 5
 
 export function em$run() {
     app_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_000), $cb(appTickCb))
-    sys_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_500), $cb(sysTickCb))
+    // sys_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_500), $cb(sysTickCb))
     FiberMgr.run()
 }
 
 function appTickCb() {
-    if (DEBUG && count-- == 0) halt()
+    if (DBG_FLG && count-- == 0) halt()
     $['%%c']
     AppLed.wink(100)
 }
