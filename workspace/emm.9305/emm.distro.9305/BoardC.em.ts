@@ -16,7 +16,7 @@ import * as Mcu from '@emm.mcu.9305/Mcu.em'
 import * as OneShot from '@emm.mcu.9305/OneShotUniTim2.em'
 import * as Poller from '@em.mcu/Poller.em'
 import * as Rtc from '@emm.mcu.9305/RtcSleepTimer.em'
-import * as Uptimer from '@em.hal/UptimerN.em'
+import * as Uptimer from '@em.utils/UptimerRtc.em'
 import * as UsCounter from '@em.arch.arc/UsCounterTimer0.em'
 
 export { OneShot }
@@ -79,4 +79,5 @@ export function em$configure(): void {
     SysLed.Pin.$$dlg = SysLedPin
     SysLed.active_low.$$val = brd.activeLowLeds
     SysLedPin.pin_num.$$val = brd.pins.sysLed
+    Uptimer.Rtc.$$dlg = Rtc
 }

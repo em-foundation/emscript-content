@@ -2,6 +2,7 @@ import '@$$emscript'
 export const $U = $declare('MODULE')
 
 import * as BoardC from '@$distro/BoardC.em'
+import * as Common from '@em.mcu/Common.em'
 import * as FiberMgr from '@em.utils/FiberMgr.em'
 import * as TickerMgr from '@em.utils/TickerMgr.em'
 import * as TimeTypes from '@em.utils/TimeTypes.em'
@@ -24,8 +25,10 @@ const DBG_FLG = false
 var count = 5
 
 export function em$run() {
-    app_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_000), $cb(appTickCb))
-    // sys_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_500), $cb(sysTickCb))
+    if (!Common.Mcu.isWarm()) {
+        app_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_000), $cb(appTickCb))
+    }
+    sys_ticker.$$.start(TimeTypes.Secs30p2_initMsecs(1_500), $cb(sysTickCb))
     FiberMgr.run()
 }
 

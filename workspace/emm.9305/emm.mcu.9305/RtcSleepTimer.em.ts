@@ -19,22 +19,26 @@ export namespace em$meta {
 
 var cur_hlr = <Handler>$null
 
+export function em$startup() {
+    $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
+}
+
 export function disable(): void {
     cur_hlr = $null
 }
 
 export function enable(thresh: T.RtcThresh, handler: Handler): void {
     cur_hlr = handler
-    $R.PML.RegSleepTimCtrl.$$ = $R.ST_CLEAR_MASK
-    $R.PML.RegSleepTimCtrl.$$ = 0
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
     $R.PML.RegSleepTimCompare0.$$ = thresh
-    while ($R.PML.RegSleepTimCount.$$ != 0) { }
-    $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
 }
 
 export function getRawTime(): T.RawTime {
-    return T.RawTime_ZERO()
+    const cnt = $R.PML.RegSleepTimCount.$$
+    let res = T.RawTime.$make()
+    res.secs = cnt >> 15
+    res.subs = cnt << 17
+    return res
 }
 
 export function toThresh(qsecs: T.Secs30p2): T.RtcThresh {
