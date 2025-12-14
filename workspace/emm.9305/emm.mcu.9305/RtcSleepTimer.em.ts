@@ -28,7 +28,7 @@ export function enable(thresh: T.RtcThresh, handler: Handler): void {
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_CLEAR_MASK
     $R.PML.RegSleepTimCtrl.$$ = 0
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
-    $R.PML.RegSleepTimCompare0.$$ = 32678
+    $R.PML.RegSleepTimCompare0.$$ = thresh
     while ($R.PML.RegSleepTimCount.$$ != 0) { }
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_RUN_EN_MASK
 }
@@ -38,7 +38,7 @@ export function getRawTime(): T.RawTime {
 }
 
 export function toThresh(qsecs: T.Secs30p2): T.RtcThresh {
-    return qsecs >> 13
+    return qsecs << 13
 }
 
 function sleepLeave() {
