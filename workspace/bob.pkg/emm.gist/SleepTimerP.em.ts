@@ -23,9 +23,12 @@ export function em$run() {
     AppLed.on()
     Common.BusyWait.wait(10000)
     AppLed.off()
-    Common.GlobalInterrupts.enable()
-    $R.IRQ.RegIRQSleepTimEnSet.$$ = 1
-    $R.IRQ.RegIRQSleepTimMskSet.$$ = 1
+    if (Common.Mcu.isWarm()) {
+        halt()
+    }
+    // Common.GlobalInterrupts.enable()
+    // $R.IRQ.RegIRQSleepTimEnSet.$$ = 1
+    // $R.IRQ.RegIRQSleepTimMskSet.$$ = 1
     $R.PML.RegSleepTimCtrl.$$ = $R.ST_CLEAR_MASK
     $R.PML.RegSleepTimCtrl.$$ = 0
     $R.PML.RegSleepTimCompareCfg.$$ = 0x0001_0001
@@ -37,6 +40,7 @@ export function em$run() {
 }
 
 export function SLEEP_TIMER_OUT_CMP_0_isr$$() {
+    halt()
     $['%%c']
     $R.IRQ.RegIRQSleepTimStsClr.$$ = 1
     $R.PML.RegSleepTimCtrl.$$ = 0

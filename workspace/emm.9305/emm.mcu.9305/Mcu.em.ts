@@ -14,6 +14,10 @@ export namespace em$meta {
     }
 }
 
+export function isWarm_$$(): bool_t {
+    return isWarm()
+}
+
 export function isWarm(): bool_t {
     const flags: u32 = e$`PML_GetResetFlags()`
     return (flags & ($R.PML_SLEEP_FLG_MASK | $R.PML_DEEP_SLEEP_FLG_MASK)) != 0
@@ -35,20 +39,14 @@ export function startup(): void {
     $R.PML.RegPmlDCDCPer.$$ = 0x30d4_1717
     $R.PML.RegPmlDCDCCtrl.$$ = 0x0007_0002
     $R.PML.RegPmlLFRC.$$ = $R.PML_LF_RC_CHOP_EN_MASK
-
     Debug.startup()
     $['%%a:'](2)
-    //// if ($R.PML.RegPmlFlg.$$ != 0) {
-    ////     $['%%a:'](2)
-    //// }
-    //// if (use_sram) {
-    ////     e$`PML_PowerDownNvm()`
-    ////     // $['%%a:'](2)
-    ////     // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_BO_RST_EN_MASK
-    ////     // $R.PML.RegPmlDomain.$$ &= ~$R.PML_NVM_REQ_ON_MASK
-    ////     // while ($R.SYS.RegPmlSts.$$ & $R.PML_NVM_REQ_ON_MASK) { }
-    ////     // $R.PML.RegPmlCtrl.$$ &= ~$R.PML_NVM_SW_EN_MASK
-    ////     // $R.SYS.RegClkCtrlDisable.$$ = $R.CLK_DIS_NVM_MASK
-    ////     // e$`_sr(1, IC_CTRL)`
-    //// }
+    if (isWarm()) {
+        $['%%a:'](2)
+    }
+    if (use_sram) {
+        e$`PML_PowerDownNvm()`
+        e$`_sr(1, IC_CTRL)`
+        $['%%a:'](2)
+    }
 }

@@ -5,11 +5,11 @@ import * as $R from '@emm.distro.9305/REGS.em'
 
 import * as Debug from '@em.lang/Debug.em'
 import * as IdleI from '@em.hal/IdleI.em'
-import * as MemDump from '@em.utils/MemDump.em'
 
 export type SleepCB = cb_t<[]>
 
 const sleep_enter_tab = $table<SleepCB>()
+const sleep_leave_tab = $table<SleepCB>()
 
 export namespace em$meta {
     export function addSleepEnter(cb: SleepCB) {
@@ -17,7 +17,7 @@ export namespace em$meta {
     }
 
     export function addSleepLeave(cb: SleepCB) {
-        // empty
+        sleep_leave_tab.$$add(cb)
     }
 }
 
@@ -40,8 +40,6 @@ function doPause() {
 function doSleep() {
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
-    // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
-    // halt()
     for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
@@ -57,6 +55,10 @@ export function exec() {
     }
 }
 
+export function setPauseOnly(pause_only: bool_t) {
+    cur_pause_only = pause_only
+}
+
 export function wakeup() {
-    return
+    for (let cb of sleep_leave_tab) cb()
 }
