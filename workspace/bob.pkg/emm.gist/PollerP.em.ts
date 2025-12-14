@@ -11,6 +11,6 @@ export namespace em$meta { }
 export function em$run() {
     Common.GlobalInterrupts.enable()
     $['%%d']
-    Poller.upause(100)
+    Poller.pause(200)
     $['%%d']
 }

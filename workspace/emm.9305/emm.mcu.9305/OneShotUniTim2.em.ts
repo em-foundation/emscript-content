@@ -38,7 +38,7 @@ export function uenable(usecs: u32, handler: Handler, arg: arg_t): void {
     $R.IRQ.RegIRQUniTimMskSet.$$ = $R.IRQ_UT2_FULL_VAL_MSK_SET_MASK
     $R.UTIM.RegUniTimer2Cfg.$$ = 5
     $R.UTIM.RegUniTimer2Ctrl.$$ = $R.UT2_CLEAR_MASK
-    $R.UTIM.RegUniTimer2Limit.$$ = 500000
+    $R.UTIM.RegUniTimer2Limit.$$ = (usecs * 3) / 4
     $R.UTIM.RegUniTimer2Ctrl.$$ = ($R.UT2_ENABLE_MASK | $R.UT2_START_SW_MASK)
 }
 
