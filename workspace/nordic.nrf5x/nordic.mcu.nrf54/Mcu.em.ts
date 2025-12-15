@@ -45,6 +45,10 @@ export function startup(): void {
     $['%%a:'](2)
 }
 
+export function isWarm(): bool_t {
+    return false
+}
+
 function unprotect() {
     const CLEAR: u32 = (
         $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_WRITEPROTECTION_Clear << $R.TAMPC_PROTECT_DOMAIN_DBGEN_CTRL_WRITEPROTECTION_Pos |
