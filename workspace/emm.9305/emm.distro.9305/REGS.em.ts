@@ -10,24 +10,24 @@ export function em$generate() {
 // -------- GPIO TYPE -------- //
 
 export interface GPIO_t {
-    RegGPIOInputEn: $Reg
-    RegGPIOOutputEn: $Reg
-    RegGPIOPuEn: $Reg
-    RegGPIOPdEn: $Reg
-    RegGPIOOdEn: $Reg
-    RegGPIOOutSel0: $Reg
-    RegGPIOOutSel1: $Reg
-    RegGPIOOutSel2: $Reg
-    RegGPIOInpSel0: $Reg
-    RegGPIOInpSel1: $Reg
-    RegGPIOInpSel2: $Reg
-    RegGPIOInpSel3: $Reg
-    RegGPIODataOut: $Reg
-    RegGPIODataOutSet: $Reg
-    RegGPIODataOutClr: $Reg
-    RegGPIODataIn: $Reg
-    RegGPIOIRQPolarity: $Reg
-    RegGPIOCfg: $Reg
+    RegGPIOInputEn: $Reg                // 0x00
+    RegGPIOOutputEn: $Reg               // 0x04
+    RegGPIOPuEn: $Reg                   // 0x08
+    RegGPIOPdEn: $Reg                   // 0x0c
+    RegGPIOOdEn: $Reg                   // 0x10
+    RegGPIOOutSel0: $Reg                // 0x14
+    RegGPIOOutSel1: $Reg                // 0x18
+    RegGPIOOutSel2: $Reg                // 0x1c
+    RegGPIOInpSel0: $Reg                // 0x20
+    RegGPIOInpSel1: $Reg                // 0x24
+    RegGPIOInpSel2: $Reg                // 0x28
+    RegGPIOInpSel3: $Reg                // 0x2c
+    RegGPIODataOut: $Reg                // 0x30
+    RegGPIODataOutSet: $Reg             // 0x34
+    RegGPIODataOutClr: $Reg             // 0x38
+    RegGPIODataIn: $Reg                 // 0x3c
+    RegGPIOIRQPolarity: $Reg            // 0x40
+    RegGPIOCfg: $Reg                    // 0x44
 }
 
 // -------- GPIO CONSTANTS -------- //
@@ -246,168 +246,168 @@ export const GPIO_USB_SUSP_N_BMASK: any = '0x1u'
 // -------- IRQ TYPE -------- //
 
 export interface IRQ_t {
-    RegIRQProtTimEn: $Reg
-    RegIRQProtTimEnSet: $Reg
-    RegIRQProtTimEnClr: $Reg
-    RegIRQProtTimMsk: $Reg
-    RegIRQProtTimMskSet: $Reg
-    RegIRQProtTimMskClr: $Reg
-    RegIRQProtTimSts: $Reg
-    RegIRQProtTimStsSet: $Reg
-    RegIRQProtTimStsClr: $Reg
-    RegIRQSleepTimEn: $Reg
-    RegIRQSleepTimEnSet: $Reg
-    RegIRQSleepTimEnClr: $Reg
-    RegIRQSleepTimMsk: $Reg
-    RegIRQSleepTimMskSet: $Reg
-    RegIRQSleepTimMskClr: $Reg
-    RegIRQSleepTimSts: $Reg
-    RegIRQSleepTimStsSet: $Reg
-    RegIRQSleepTimStsClr: $Reg
-    RegIRQRFEn: $Reg
-    RegIRQRFEnSet: $Reg
-    RegIRQRFEnClr: $Reg
-    RegIRQRFMsk: $Reg
-    RegIRQRFMskSet: $Reg
-    RegIRQRFMskClr: $Reg
-    RegIRQRFSts: $Reg
-    RegIRQRFStsSet: $Reg
-    RegIRQRFStsClr: $Reg
-    RegIRQSPISEn: $Reg
-    RegIRQSPISEnSet: $Reg
-    RegIRQSPISEnClr: $Reg
-    RegIRQSPISMsk: $Reg
-    RegIRQSPISMskSet: $Reg
-    RegIRQSPISMskClr: $Reg
-    RegIRQSPISSts: $Reg
-    RegIRQSPISStsSet: $Reg
-    RegIRQSPISStsClr: $Reg
-    RegIRQUARTEn: $Reg
-    RegIRQUARTEnSet: $Reg
-    RegIRQUARTEnClr: $Reg
-    RegIRQUARTMsk: $Reg
-    RegIRQUARTMskSet: $Reg
-    RegIRQUARTMskClr: $Reg
-    RegIRQUARTSts: $Reg
-    RegIRQUARTStsSet: $Reg
-    RegIRQUARTStsClr: $Reg
-    RegIRQGPIOEn: $Reg
-    RegIRQGPIOEnSet: $Reg
-    RegIRQGPIOEnClr: $Reg
-    RegIRQGPIOMsk: $Reg
-    RegIRQGPIOMskSet: $Reg
-    RegIRQGPIOMskClr: $Reg
-    RegIRQGPIOSts: $Reg
-    RegIRQGPIOStsSet: $Reg
-    RegIRQGPIOStsClr: $Reg
-    RegIRQUniTimEn: $Reg
-    RegIRQUniTimEnSet: $Reg
-    RegIRQUniTimEnClr: $Reg
-    RegIRQUniTimMsk: $Reg
-    RegIRQUniTimMskSet: $Reg
-    RegIRQUniTimMskClr: $Reg
-    RegIRQUniTimSts: $Reg
-    RegIRQUniTimStsSet: $Reg
-    RegIRQUniTimStsClr: $Reg
-    RegIRQSPIMEn: $Reg
-    RegIRQSPIMEnSet: $Reg
-    RegIRQSPIMEnClr: $Reg
-    RegIRQSPIMMsk: $Reg
-    RegIRQSPIMMskSet: $Reg
-    RegIRQSPIMMskClr: $Reg
-    RegIRQSPIMSts: $Reg
-    RegIRQSPIMStsSet: $Reg
-    RegIRQSPIMStsClr: $Reg
-    RegIRQI2CEn: $Reg
-    RegIRQI2CEnSet: $Reg
-    RegIRQI2CEnClr: $Reg
-    RegIRQI2CMsk: $Reg
-    RegIRQI2CMskSet: $Reg
-    RegIRQI2CMskClr: $Reg
-    RegIRQI2CSts: $Reg
-    RegIRQI2CStsSet: $Reg
-    RegIRQI2CStsClr: $Reg
-    RegIRQRCCalEn: $Reg
-    RegIRQRCCalEnSet: $Reg
-    RegIRQRCCalEnClr: $Reg
-    RegIRQRCCalMsk: $Reg
-    RegIRQRCCalMskSet: $Reg
-    RegIRQRCCalMskClr: $Reg
-    RegIRQRCCalSts: $Reg
-    RegIRQRCCalStsSet: $Reg
-    RegIRQRCCalStsClr: $Reg
-    RegIrqAdcEn: $Reg
-    RegIrqAdcEnSet: $Reg
-    RegIrqAdcEnClr: $Reg
-    RegIrqAdcMsk: $Reg
-    RegIrqAdcMskSet: $Reg
-    RegIrqAdcMskClr: $Reg
-    RegIrqAdcSts: $Reg
-    RegIrqAdcStsSet: $Reg
-    RegIrqAdcStsClr: $Reg
-    RegIRQPMLEn: $Reg
-    RegIRQPMLEnSet: $Reg
-    RegIRQPMLEnClr: $Reg
-    RegIRQPMLMsk: $Reg
-    RegIRQPMLMskSet: $Reg
-    RegIRQPMLMskClr: $Reg
-    RegIRQPMLSts: $Reg
-    RegIRQPMLStsSet: $Reg
-    RegIRQPMLStsClr: $Reg
-    RegIrqNvmEn: $Reg
-    RegIrqNvmEnSet: $Reg
-    RegIrqNvmEnClr: $Reg
-    RegIrqNvmMsk: $Reg
-    RegIrqNvmMskSet: $Reg
-    RegIrqNvmMskClr: $Reg
-    RegIrqNvmSts: $Reg
-    RegIrqNvmStsSet: $Reg
-    RegIrqNvmStsClr: $Reg
-    RegIrqQDecEn: $Reg
-    RegIrqQDecEnSet: $Reg
-    RegIrqQDecEnClr: $Reg
-    RegIrqQDecMsk: $Reg
-    RegIrqQDecMskSet: $Reg
-    RegIrqQDecMskClr: $Reg
-    RegIrqQDecSts: $Reg
-    RegIrqQDecStsSet: $Reg
-    RegIrqQDecStsClr: $Reg
-    RegIrqUsbEn: $Reg
-    RegIrqUsbEnSet: $Reg
-    RegIrqUsbEnClr: $Reg
-    RegIrqUsbMsk: $Reg
-    RegIrqUsbMskSet: $Reg
-    RegIrqUsbMskClr: $Reg
-    RegIrqUsbSts: $Reg
-    RegIrqUsbStsSet: $Reg
-    RegIrqUsbStsClr: $Reg
-    RegIrqCryptoEn: $Reg
-    RegIrqCryptoEnSet: $Reg
-    RegIrqCryptoEnClr: $Reg
-    RegIrqCryptoMsk: $Reg
-    RegIrqCryptoMskSet: $Reg
-    RegIrqCryptoMskClr: $Reg
-    RegIrqCryptoSts: $Reg
-    RegIrqCryptoStsSet: $Reg
-    RegIrqCryptoStsClr: $Reg
-    RegIrqI2sEn: $Reg
-    RegIrqI2sEnSet: $Reg
-    RegIrqI2sEnClr: $Reg
-    RegIrqI2sMsk: $Reg
-    RegIrqI2sMskSet: $Reg
-    RegIrqI2sMskClr: $Reg
-    RegIrqI2sSts: $Reg
-    RegIrqI2sStsSet: $Reg
-    RegIrqI2sStsClr: $Reg
-    RegIRQRESERVED0: $Reg
-    RegIRQRESERVED1: $Reg
-    RegIRQRESERVED2: $Reg
-    RegIRQSWIMsk: $Reg
-    RegIRQSWIMskSet: $Reg
-    RegIRQSWIMskClr: $Reg
-    RegIRQSWISts: $Reg
-    RegIRQSWIStsSet: $Reg
-    RegIRQSWIStsClr: $Reg
+    RegIRQProtTimEn: $Reg               // 0x00
+    RegIRQProtTimEnSet: $Reg            // 0x04
+    RegIRQProtTimEnClr: $Reg            // 0x08
+    RegIRQProtTimMsk: $Reg              // 0x0c
+    RegIRQProtTimMskSet: $Reg           // 0x10
+    RegIRQProtTimMskClr: $Reg           // 0x14
+    RegIRQProtTimSts: $Reg              // 0x18
+    RegIRQProtTimStsSet: $Reg           // 0x1c
+    RegIRQProtTimStsClr: $Reg           // 0x20
+    RegIRQSleepTimEn: $Reg              // 0x24
+    RegIRQSleepTimEnSet: $Reg           // 0x28
+    RegIRQSleepTimEnClr: $Reg           // 0x2c
+    RegIRQSleepTimMsk: $Reg             // 0x30
+    RegIRQSleepTimMskSet: $Reg          // 0x34
+    RegIRQSleepTimMskClr: $Reg          // 0x38
+    RegIRQSleepTimSts: $Reg             // 0x3c
+    RegIRQSleepTimStsSet: $Reg          // 0x40
+    RegIRQSleepTimStsClr: $Reg          // 0x44
+    RegIRQRFEn: $Reg                    // 0x48
+    RegIRQRFEnSet: $Reg                 // 0x4c
+    RegIRQRFEnClr: $Reg                 // 0x50
+    RegIRQRFMsk: $Reg                   // 0x54
+    RegIRQRFMskSet: $Reg                // 0x58
+    RegIRQRFMskClr: $Reg                // 0x5c
+    RegIRQRFSts: $Reg                   // 0x60
+    RegIRQRFStsSet: $Reg                // 0x64
+    RegIRQRFStsClr: $Reg                // 0x68
+    RegIRQSPISEn: $Reg                  // 0x6c
+    RegIRQSPISEnSet: $Reg               // 0x70
+    RegIRQSPISEnClr: $Reg               // 0x74
+    RegIRQSPISMsk: $Reg                 // 0x78
+    RegIRQSPISMskSet: $Reg              // 0x7c
+    RegIRQSPISMskClr: $Reg              // 0x80
+    RegIRQSPISSts: $Reg                 // 0x84
+    RegIRQSPISStsSet: $Reg              // 0x88
+    RegIRQSPISStsClr: $Reg              // 0x8c
+    RegIRQUARTEn: $Reg                  // 0x90
+    RegIRQUARTEnSet: $Reg               // 0x94
+    RegIRQUARTEnClr: $Reg               // 0x98
+    RegIRQUARTMsk: $Reg                 // 0x9c
+    RegIRQUARTMskSet: $Reg              // 0xa0
+    RegIRQUARTMskClr: $Reg              // 0xa4
+    RegIRQUARTSts: $Reg                 // 0xa8
+    RegIRQUARTStsSet: $Reg              // 0xac
+    RegIRQUARTStsClr: $Reg              // 0xb0
+    RegIRQGPIOEn: $Reg                  // 0xb4
+    RegIRQGPIOEnSet: $Reg               // 0xb8
+    RegIRQGPIOEnClr: $Reg               // 0xbc
+    RegIRQGPIOMsk: $Reg                 // 0xc0
+    RegIRQGPIOMskSet: $Reg              // 0xc4
+    RegIRQGPIOMskClr: $Reg              // 0xc8
+    RegIRQGPIOSts: $Reg                 // 0xcc
+    RegIRQGPIOStsSet: $Reg              // 0xd0
+    RegIRQGPIOStsClr: $Reg              // 0xd4
+    RegIRQUniTimEn: $Reg                // 0xd8
+    RegIRQUniTimEnSet: $Reg             // 0xdc
+    RegIRQUniTimEnClr: $Reg             // 0xe0
+    RegIRQUniTimMsk: $Reg               // 0xe4
+    RegIRQUniTimMskSet: $Reg            // 0xe8
+    RegIRQUniTimMskClr: $Reg            // 0xec
+    RegIRQUniTimSts: $Reg               // 0xf0
+    RegIRQUniTimStsSet: $Reg            // 0xf4
+    RegIRQUniTimStsClr: $Reg            // 0xf8
+    RegIRQSPIMEn: $Reg                  // 0xfc
+    RegIRQSPIMEnSet: $Reg               // 0x100
+    RegIRQSPIMEnClr: $Reg               // 0x104
+    RegIRQSPIMMsk: $Reg                 // 0x108
+    RegIRQSPIMMskSet: $Reg              // 0x10c
+    RegIRQSPIMMskClr: $Reg              // 0x110
+    RegIRQSPIMSts: $Reg                 // 0x114
+    RegIRQSPIMStsSet: $Reg              // 0x118
+    RegIRQSPIMStsClr: $Reg              // 0x11c
+    RegIRQI2CEn: $Reg                   // 0x120
+    RegIRQI2CEnSet: $Reg                // 0x124
+    RegIRQI2CEnClr: $Reg                // 0x128
+    RegIRQI2CMsk: $Reg                  // 0x12c
+    RegIRQI2CMskSet: $Reg               // 0x130
+    RegIRQI2CMskClr: $Reg               // 0x134
+    RegIRQI2CSts: $Reg                  // 0x138
+    RegIRQI2CStsSet: $Reg               // 0x13c
+    RegIRQI2CStsClr: $Reg               // 0x140
+    RegIRQRCCalEn: $Reg                 // 0x144
+    RegIRQRCCalEnSet: $Reg              // 0x148
+    RegIRQRCCalEnClr: $Reg              // 0x14c
+    RegIRQRCCalMsk: $Reg                // 0x150
+    RegIRQRCCalMskSet: $Reg             // 0x154
+    RegIRQRCCalMskClr: $Reg             // 0x158
+    RegIRQRCCalSts: $Reg                // 0x15c
+    RegIRQRCCalStsSet: $Reg             // 0x160
+    RegIRQRCCalStsClr: $Reg             // 0x164
+    RegIrqAdcEn: $Reg                   // 0x168
+    RegIrqAdcEnSet: $Reg                // 0x16c
+    RegIrqAdcEnClr: $Reg                // 0x170
+    RegIrqAdcMsk: $Reg                  // 0x174
+    RegIrqAdcMskSet: $Reg               // 0x178
+    RegIrqAdcMskClr: $Reg               // 0x17c
+    RegIrqAdcSts: $Reg                  // 0x180
+    RegIrqAdcStsSet: $Reg               // 0x184
+    RegIrqAdcStsClr: $Reg               // 0x188
+    RegIRQPMLEn: $Reg                   // 0x18c
+    RegIRQPMLEnSet: $Reg                // 0x190
+    RegIRQPMLEnClr: $Reg                // 0x194
+    RegIRQPMLMsk: $Reg                  // 0x198
+    RegIRQPMLMskSet: $Reg               // 0x19c
+    RegIRQPMLMskClr: $Reg               // 0x1a0
+    RegIRQPMLSts: $Reg                  // 0x1a4
+    RegIRQPMLStsSet: $Reg               // 0x1a8
+    RegIRQPMLStsClr: $Reg               // 0x1ac
+    RegIrqNvmEn: $Reg                   // 0x1b0
+    RegIrqNvmEnSet: $Reg                // 0x1b4
+    RegIrqNvmEnClr: $Reg                // 0x1b8
+    RegIrqNvmMsk: $Reg                  // 0x1bc
+    RegIrqNvmMskSet: $Reg               // 0x1c0
+    RegIrqNvmMskClr: $Reg               // 0x1c4
+    RegIrqNvmSts: $Reg                  // 0x1c8
+    RegIrqNvmStsSet: $Reg               // 0x1cc
+    RegIrqNvmStsClr: $Reg               // 0x1d0
+    RegIrqQDecEn: $Reg                  // 0x1d4
+    RegIrqQDecEnSet: $Reg               // 0x1d8
+    RegIrqQDecEnClr: $Reg               // 0x1dc
+    RegIrqQDecMsk: $Reg                 // 0x1e0
+    RegIrqQDecMskSet: $Reg              // 0x1e4
+    RegIrqQDecMskClr: $Reg              // 0x1e8
+    RegIrqQDecSts: $Reg                 // 0x1ec
+    RegIrqQDecStsSet: $Reg              // 0x1f0
+    RegIrqQDecStsClr: $Reg              // 0x1f4
+    RegIrqUsbEn: $Reg                   // 0x1f8
+    RegIrqUsbEnSet: $Reg                // 0x1fc
+    RegIrqUsbEnClr: $Reg                // 0x200
+    RegIrqUsbMsk: $Reg                  // 0x204
+    RegIrqUsbMskSet: $Reg               // 0x208
+    RegIrqUsbMskClr: $Reg               // 0x20c
+    RegIrqUsbSts: $Reg                  // 0x210
+    RegIrqUsbStsSet: $Reg               // 0x214
+    RegIrqUsbStsClr: $Reg               // 0x218
+    RegIrqCryptoEn: $Reg                // 0x21c
+    RegIrqCryptoEnSet: $Reg             // 0x220
+    RegIrqCryptoEnClr: $Reg             // 0x224
+    RegIrqCryptoMsk: $Reg               // 0x228
+    RegIrqCryptoMskSet: $Reg            // 0x22c
+    RegIrqCryptoMskClr: $Reg            // 0x230
+    RegIrqCryptoSts: $Reg               // 0x234
+    RegIrqCryptoStsSet: $Reg            // 0x238
+    RegIrqCryptoStsClr: $Reg            // 0x23c
+    RegIrqI2sEn: $Reg                   // 0x240
+    RegIrqI2sEnSet: $Reg                // 0x244
+    RegIrqI2sEnClr: $Reg                // 0x248
+    RegIrqI2sMsk: $Reg                  // 0x24c
+    RegIrqI2sMskSet: $Reg               // 0x250
+    RegIrqI2sMskClr: $Reg               // 0x254
+    RegIrqI2sSts: $Reg                  // 0x258
+    RegIrqI2sStsSet: $Reg               // 0x25c
+    RegIrqI2sStsClr: $Reg               // 0x260
+    RegIRQRESERVED0: $Reg               // 0x264
+    RegIRQRESERVED1: $Reg               // 0x268
+    RegIRQRESERVED2: $Reg               // 0x26c
+    RegIRQSWIMsk: $Reg                  // 0x270
+    RegIRQSWIMskSet: $Reg               // 0x274
+    RegIRQSWIMskClr: $Reg               // 0x278
+    RegIRQSWISts: $Reg                  // 0x27c
+    RegIRQSWIStsSet: $Reg               // 0x280
+    RegIRQSWIStsClr: $Reg               // 0x284
 }
 
 // -------- IRQ CONSTANTS -------- //
@@ -3116,50 +3116,50 @@ export const IRQ_SWI_STS_CLR_BMASK: any = '0x3FFu'
 // -------- PML TYPE -------- //
 
 export interface PML_t {
-    RegPmlFlg: $Reg
-    RegPmlCtrl: $Reg
-    RegPmlDomain: $Reg
-    RegPmlLvl: $Reg
-    RegPmlPadWake: $Reg
-    RegPmlDCDCTim: $Reg
-    RegPmlDCDCPer: $Reg
-    RegPmlDCDCCtrl: $Reg
-    RegPmlLockBits: $Reg
-    RegPmlSWRst: $Reg
-    RegPmlTrim: $Reg
-    RegPmlRev: $Reg
-    RegPmlSysMode: $Reg
-    RegPmlPadClk: $Reg
-    RegGPIOCfgDeb: $Reg
-    RegTstEn: $Reg
-    RegTstScanEn: $Reg
-    RegTstPadMode: $Reg
-    RegTstPadLoop: $Reg
-    RegTstCtrl: $Reg
-    RegTstAna: $Reg
-    RegTstBus: $Reg
-    RegSleepTimCtrl: $Reg
-    RegSleepTimCount: $Reg
-    RegSleepTimCountHigh: $Reg
-    RegSleepTimCompareCfg: $Reg
-    RegSleepTimCompare0: $Reg
-    RegSleepTimCompare1: $Reg
-    RegSleepTimCompare2: $Reg
-    RegSleepTimCompare3: $Reg
-    RegSleepTimCaptureCtrl: $Reg
-    RegSleepTimCaptureHWEvtSel: $Reg
-    RegSleepTimCapture0: $Reg
-    RegSleepTimCapture1: $Reg
-    RegSleepTimCapture2: $Reg
-    RegSleepTimCapture3: $Reg
-    RegNvmLockMain0: $Reg
-    RegNvmLockMain1: $Reg
-    RegNvmLockInfo: $Reg
-    RegNvmLockMaster: $Reg
-    RegNvmKcLockKey: $Reg
-    RegNvmRedunCfg: $Reg
-    RegTstLFRC: $Reg
-    RegPmlLFRC: $Reg
+    RegPmlFlg: $Reg                     // 0x00
+    RegPmlCtrl: $Reg                    // 0x04
+    RegPmlDomain: $Reg                  // 0x08
+    RegPmlLvl: $Reg                     // 0x0c
+    RegPmlPadWake: $Reg                 // 0x10
+    RegPmlDCDCTim: $Reg                 // 0x14
+    RegPmlDCDCPer: $Reg                 // 0x18
+    RegPmlDCDCCtrl: $Reg                // 0x1c
+    RegPmlLockBits: $Reg                // 0x20
+    RegPmlSWRst: $Reg                   // 0x24
+    RegPmlTrim: $Reg                    // 0x28
+    RegPmlRev: $Reg                     // 0x2c
+    RegPmlSysMode: $Reg                 // 0x30
+    RegPmlPadClk: $Reg                  // 0x34
+    RegGPIOCfgDeb: $Reg                 // 0x38
+    RegTstEn: $Reg                      // 0x3c
+    RegTstScanEn: $Reg                  // 0x40
+    RegTstPadMode: $Reg                 // 0x44
+    RegTstPadLoop: $Reg                 // 0x48
+    RegTstCtrl: $Reg                    // 0x4c
+    RegTstAna: $Reg                     // 0x50
+    RegTstBus: $Reg                     // 0x54
+    RegSleepTimCtrl: $Reg               // 0x58
+    RegSleepTimCount: $Reg              // 0x5c
+    RegSleepTimCountHigh: $Reg          // 0x60
+    RegSleepTimCompareCfg: $Reg         // 0x64
+    RegSleepTimCompare0: $Reg           // 0x68
+    RegSleepTimCompare1: $Reg           // 0x6c
+    RegSleepTimCompare2: $Reg           // 0x70
+    RegSleepTimCompare3: $Reg           // 0x74
+    RegSleepTimCaptureCtrl: $Reg        // 0x78
+    RegSleepTimCaptureHWEvtSel: $Reg    // 0x7c
+    RegSleepTimCapture0: $Reg           // 0x80
+    RegSleepTimCapture1: $Reg           // 0x84
+    RegSleepTimCapture2: $Reg           // 0x88
+    RegSleepTimCapture3: $Reg           // 0x8c
+    RegNvmLockMain0: $Reg               // 0x90
+    RegNvmLockMain1: $Reg               // 0x94
+    RegNvmLockInfo: $Reg                // 0x98
+    RegNvmLockMaster: $Reg              // 0x9c
+    RegNvmKcLockKey: $Reg               // 0xa0
+    RegNvmRedunCfg: $Reg                // 0xa4
+    RegTstLFRC: $Reg                    // 0xa8
+    RegPmlLFRC: $Reg                    // 0xac
 }
 
 // -------- PML CONSTANTS -------- //
@@ -3813,25 +3813,25 @@ export const PML_LF_RC_CHOP_EN_BMASK: any = '0x1u'
 // -------- System TYPE -------- //
 
 export interface System_t {
-    RegClkCfg: $Reg
-    RegClkCtrlForce: $Reg
-    RegClkCtrlDisable: $Reg
-    RegMemRamMargin: $Reg
-    RegMemRomMargin: $Reg
-    RegMemCfg: $Reg
-    RegMemTst: $Reg
-    RegDmaChSrcCfg1: $Reg
-    RegDmaChSrcCfg2: $Reg
-    RegUsbEn: $Reg
-    RegUsbTst: $Reg
-    RegDPRTstSel0: $Reg
-    RegDPRTstSel1: $Reg
-    RegDprTstCfg1: $Reg
-    RegPmlSts: $Reg
-    RegPmlWakeSts: $Reg
-    RegPmlDcdcT2: $Reg
-    RegPwrMetCtrl: $Reg
-    RegPwrMetVal: $Reg
+    RegClkCfg: $Reg                     // 0x00
+    RegClkCtrlForce: $Reg               // 0x04
+    RegClkCtrlDisable: $Reg             // 0x08
+    RegMemRamMargin: $Reg               // 0x0c
+    RegMemRomMargin: $Reg               // 0x10
+    RegMemCfg: $Reg                     // 0x14
+    RegMemTst: $Reg                     // 0x18
+    RegDmaChSrcCfg1: $Reg               // 0x1c
+    RegDmaChSrcCfg2: $Reg               // 0x20
+    RegUsbEn: $Reg                      // 0x24
+    RegUsbTst: $Reg                     // 0x28
+    RegDPRTstSel0: $Reg                 // 0x2c
+    RegDPRTstSel1: $Reg                 // 0x30
+    RegDprTstCfg1: $Reg                 // 0x34
+    RegPmlSts: $Reg                     // 0x38
+    RegPmlWakeSts: $Reg                 // 0x3c
+    RegPmlDcdcT2: $Reg                  // 0x40
+    RegPwrMetCtrl: $Reg                 // 0x44
+    RegPwrMetVal: $Reg                  // 0x48
 }
 
 // -------- System CONSTANTS -------- //
@@ -4278,21 +4278,21 @@ export const PWR_MET_STS_RUN_BMASK: any = '0x1u'
 // -------- UART TYPE -------- //
 
 export interface UART_t {
-    RegUARTCfg: $Reg
-    RegUARTCtrl: $Reg
-    RegUARTStat: $Reg
-    RegUARTBaudRate: $Reg
-    RegUARTRxFIFO1B: $Reg
-    RegUARTRxFIFO2B: $Reg
-    RegUARTRxFIFO3B: $Reg
-    RegUARTRxFIFO4B: $Reg
-    RegUARTTxFIFO1B: $Reg
-    RegUARTTxFIFO2B: $Reg
-    RegUARTTxFIFO3B: $Reg
-    RegUARTTxFIFO4B: $Reg
-    RegUARTFIFOCfg: $Reg
-    RegUARTFIFOCtrl: $Reg
-    RegUARTFIFOStat: $Reg
+    RegUARTCfg: $Reg                    // 0x00
+    RegUARTCtrl: $Reg                   // 0x04
+    RegUARTStat: $Reg                   // 0x08
+    RegUARTBaudRate: $Reg               // 0x0c
+    RegUARTRxFIFO1B: $Reg               // 0x10
+    RegUARTRxFIFO2B: $Reg               // 0x14
+    RegUARTRxFIFO3B: $Reg               // 0x18
+    RegUARTRxFIFO4B: $Reg               // 0x1c
+    RegUARTTxFIFO1B: $Reg               // 0x20
+    RegUARTTxFIFO2B: $Reg               // 0x24
+    RegUARTTxFIFO3B: $Reg               // 0x28
+    RegUARTTxFIFO4B: $Reg               // 0x2c
+    RegUARTFIFOCfg: $Reg                // 0x30
+    RegUARTFIFOCtrl: $Reg               // 0x34
+    RegUARTFIFOStat: $Reg               // 0x38
 }
 
 // -------- UART CONSTANTS -------- //
@@ -4445,26 +4445,26 @@ export const UART_RX_FIFO_NUM_BYTES_BMASK: any = '0x7Fu'
 // -------- UNI_TIM TYPE -------- //
 
 export interface UNI_TIM_t {
-    RegUniTimer2Cfg: $Reg
-    RegUniTimer2Ctrl: $Reg
-    RegUniTimer2Stat: $Reg
-    RegUniTimer2Count: $Reg
-    RegUniTimer2Limit: $Reg
-    RegUniTimer2Compare0: $Reg
-    RegUniTimer2Compare1: $Reg
-    RegUniTimer2Compare2: $Reg
-    RegUniTimer2Compare3: $Reg
-    RegUniTimer2Capture: $Reg
-    RegUniTimer3Cfg: $Reg
-    RegUniTimer3Ctrl: $Reg
-    RegUniTimer3Stat: $Reg
-    RegUniTimer3Count: $Reg
-    RegUniTimer3Limit: $Reg
-    RegUniTimer3Compare0: $Reg
-    RegUniTimer3Compare1: $Reg
-    RegUniTimer3Compare2: $Reg
-    RegUniTimer3Compare3: $Reg
-    RegUniTimer3Capture: $Reg
+    RegUniTimer2Cfg: $Reg               // 0x00
+    RegUniTimer2Ctrl: $Reg              // 0x04
+    RegUniTimer2Stat: $Reg              // 0x08
+    RegUniTimer2Count: $Reg             // 0x0c
+    RegUniTimer2Limit: $Reg             // 0x10
+    RegUniTimer2Compare0: $Reg          // 0x14
+    RegUniTimer2Compare1: $Reg          // 0x18
+    RegUniTimer2Compare2: $Reg          // 0x1c
+    RegUniTimer2Compare3: $Reg          // 0x20
+    RegUniTimer2Capture: $Reg           // 0x24
+    RegUniTimer3Cfg: $Reg               // 0x28
+    RegUniTimer3Ctrl: $Reg              // 0x2c
+    RegUniTimer3Stat: $Reg              // 0x30
+    RegUniTimer3Count: $Reg             // 0x34
+    RegUniTimer3Limit: $Reg             // 0x38
+    RegUniTimer3Compare0: $Reg          // 0x3c
+    RegUniTimer3Compare1: $Reg          // 0x40
+    RegUniTimer3Compare2: $Reg          // 0x44
+    RegUniTimer3Compare3: $Reg          // 0x48
+    RegUniTimer3Capture: $Reg           // 0x4c
 }
 
 // -------- UNI_TIM CONSTANTS -------- //

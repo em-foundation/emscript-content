@@ -28,6 +28,10 @@ function genConsts() {
     }
 }
 
+function mkOff(n: number): string {
+    return n.toString(16).padStart(2, '0')
+}
+
 function nextLine(): string | null {
     return cur_idx == src_lines.length ? null : src_lines[cur_idx++]
 }
@@ -85,8 +89,12 @@ for (const pt of PERI_MAP.values()) {
     if (!scanStruct()) break
     meta.genTitle(`${pt} TYPE`)
     meta.print('export interface %1_t {\n%+', pt)
+    let off = 0
     for (const fld of scanFields()) {
-        meta.print('%t%1: $Reg\n', fld)
+        const sp = ' '.repeat(30 - fld.length)
+        const os = off
+        meta.print('%t%1: $Reg%2// 0x%3\n', fld, sp, mkOff(off))
+        off += 4
     }
     meta.print('%-}\n')
     cur_idx = 0
