@@ -3,13 +3,12 @@ export const $U = $declare('MODULE')
 
 import * as BoardC from '@$distro/BoardC.em'
 
-const AppButPin = $delegate(BoardC.AppButPin)
+const AppButEdge = $delegate(BoardC.AppButEdge)
 
 export namespace em$meta { }
 
 //>> ---- em$targ ---- <<//
 
 export function em$run() {
-    AppButPin.makeInput()
-    printf`%d %d\n`(AppButPin.isInput(), AppButPin.get())
+    printf`state = %d\n`(AppButEdge.getState())
 }

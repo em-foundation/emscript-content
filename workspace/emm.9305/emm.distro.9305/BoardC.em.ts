@@ -4,10 +4,12 @@ export const $U = $declare('COMPOSITE')
 import * as AlarmMgr from '@em.utils/AlarmMgr.em'
 import * as BoardController from '@em.utils/BoardController.em'
 import * as BusyWait from '@em.utils/BusyWait.em'
+import * as ButtonT from '@em.utils/ButtonT.em'
 import * as Common from '@em.mcu/Common.em'
 import * as Console from '@em.lang/Console.em'
 import * as ConsoleUart from '@emm.mcu.9305/ConsoleUart.em'
 import * as Debug from '@em.lang/Debug.em'
+import * as EdgeT from '@emm.mcu.9305/EdgeT.em'
 import * as GlobalInterrupts from '@em.arch.arc/GlobalInterrupts.em'
 import * as GpioT from '@emm.mcu.9305/GpioT.em'
 import * as Idle from '@emm.mcu.9305/Idle.em'
@@ -21,7 +23,9 @@ import * as UsCounter from '@em.arch.arc/UsCounterTimer0.em'
 
 export { OneShot }
 
+export const AppBut = $clone(ButtonT)
 export const AppButPin = $clone(GpioT)
+export const AppButEdge = $clone(EdgeT)
 export const AppLed = $clone(LedT)
 export const AppLedPin = $clone(GpioT)
 export const AppOutPin = $clone(GpioT)
@@ -52,7 +56,9 @@ export function em$configure(): void {
     $using(Console)
     const brd = $board(DEFAULTS)
     AlarmMgr.Rtc.$$dlg = Rtc
-    AppButPin.pin_num.$$val = brd.pins.appBut
+    AppBut.Edge.$$dlg = AppButEdge
+    AppButEdge.Pin.$$dlg = AppButPin
+    AppButEdge.pin_num.$$val = AppButPin.pin_num.$$val = brd.pins.appBut
     AppLed.Pin.$$dlg = AppLedPin
     AppLed.active_low.$$val = brd.activeLowLeds
     AppLedPin.pin_num.$$val = brd.pins.appLed
