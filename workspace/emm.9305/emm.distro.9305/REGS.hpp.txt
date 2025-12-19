@@ -6,6 +6,7 @@
 #include <arc/arc_intrinsics.h>
 #include <arc/arc_reg.h>
 
+extern "C" void PML_ConfigWakeUpByGpio(uint8_t gpio, bool wakePolarity, bool wakeEnable, bool irqEnable);
 extern "C" uint32_t PML_GetResetFlags();
 extern "C" void PML_PowerDownNvm(void);
 extern "C" void PML_PowerDownNvmAndSleep(uint32_t mode);

@@ -16,17 +16,15 @@ export namespace em$meta {
     export function em$construct() {
         Idle.em$meta.addSleepLeave($cb(sleepLeave))
     }
-    export function addHandlerInfo(hi: HandlerInfo): u8 {
-        const chan = <u8>handler_info_tab.$len
+    export function addHandlerInfo(hi: HandlerInfo) {
         handler_info_tab.$$add(hi)
-        return chan
     }
 }
 
 function sleepLeave() {
     for (let hi of handler_info_tab) {
-        if (hi.$$.handler != $null) {
-            hi.$$.handler()
+        if (hi.handler != $null) {
+            hi.handler()
         }
     }
 }

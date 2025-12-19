@@ -19,25 +19,26 @@ export namespace em$template {
         export function setDetectHandler(h: EdgeI.Handler) {
             let hi = Aux.HandlerInfo.$make()
             hi.handler = h
-            pin_chan.$$val = Aux.em$meta.addHandlerInfo(hi)
+            Aux.em$meta.addHandlerInfo(hi)
         }
     }
 
-    const pc = <u8>pin_chan
     const pid = pin_num & 0xff
     const mask = 1 << pid
-    const int_en = 1 << pc
 
     export function clearDetect(): void {
         // TODO
     }
 
     export function disableDetect(): void {
-        // TODO
+        $R.PML.RegPmlPadWake.$$ &= ~(mask << $R.PML_PAD_WAKE_EN_SHIFT)
     }
 
     export function enableDetect(): void {
-        // TODO
+        $R.IRQ.RegIRQGPIOStsClr.$$ = mask
+        $R.IRQ.RegIRQGPIOMskSet.$$ = mask
+        $R.IRQ.RegIRQGPIOEnSet.$$ = mask
+        $R.PML.RegPmlPadWake.$$ |= (mask << $R.PML_PAD_WAKE_EN_SHIFT)
     }
 
     export function getState(): bool_t {
@@ -50,9 +51,13 @@ export namespace em$template {
     }
 
     export function setDetectFalling() {
+        $R.PML.RegPmlPadWake.$$ &= ~(mask << $R.PML_PAD_WAKE_POL_SHIFT)
+        $R.GPIO.RegGPIOIRQPolarity.$$ &= ~mask
     }
 
     export function setDetectRising() {
+        $R.PML.RegPmlPadWake.$$ |= (mask << $R.PML_PAD_WAKE_POL_SHIFT)
+        $R.GPIO.RegGPIOIRQPolarity.$$ |= mask
     }
 }
 

@@ -40,10 +40,12 @@ export namespace em$template {
 
     export function makeInput(): void {
         $R.GPIO.RegGPIOInputEn.$$ |= mask
+        // $R.GPIO.RegGPIOOutputEn.$$ &= ~mask
     }
 
     export function makeOutput(): void {
         $R.GPIO.RegGPIOOutputEn.$$ |= mask
+        // $R.GPIO.RegGPIOInputEn.$$ &= ~mask
     }
 
     export function pinId(): i16 {
@@ -61,10 +63,12 @@ export namespace em$template {
 
     export function setInternalPulldown(enable: bool_t): void {
         $R.GPIO.RegGPIOPdEn.$$ |= mask
+        // $R.GPIO.RegGPIOPuEn.$$ &= ~mask
     }
 
     export function setInternalPullup(enable: bool_t): void {
         $R.GPIO.RegGPIOPuEn.$$ |= mask
+        // $R.GPIO.RegGPIOPdEn.$$ &= ~mask
     }
 
     export function toggle(): void {
