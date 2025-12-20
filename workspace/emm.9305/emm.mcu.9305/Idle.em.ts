@@ -38,8 +38,10 @@ function doPause() {
 
 
 function doSleep() {
+    $R.PML.RegPmlCtrl.$$ &= ~$R.PML_WAKE_FLG_EN_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_CLEAR_MASK
     $R.PML.RegPmlCtrl.$$ |= $R.PML_WAKE_FLG_EN_MASK
+    $R.PML.RegPmlCtrl.$$ |= $R.PML_LATCH_PAD_EN_MASK
     for (let cb of sleep_enter_tab) cb()
     $['%%b:'](2)
     $['%%b-']
