@@ -27,7 +27,7 @@ export namespace em$template {
     const mask = 1 << pid
 
     export function clearDetect(): void {
-        // TODO
+        $R.PML.RegPmlPadWake.$$ &= ~(mask << $R.PML_PAD_WAKE_EN_SHIFT)
     }
 
     export function disableDetect(): void {

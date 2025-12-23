@@ -38,9 +38,6 @@ export function em$run() {
 }
 
 function handler() {
-    const sts = $R.IRQ.RegIRQGPIOSts.$$
-    printf`sts = %08x\n`(sts)
-    halt()
     AppLed.on()
     Common.BusyWait.wait(20000)
     AppLed.off()
