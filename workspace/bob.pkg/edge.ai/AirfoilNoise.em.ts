@@ -1,7 +1,7 @@
 import '@$$emscript'
 export const $U = $declare('MODULE')
 
-import * as MathF32 from '@em.utils/MathF32.em'
+import * as Console from '@em.lang/Console.em'
 
 const in_min_tab = $table<f32>()
 const in_max_tab = $table<f32>()
@@ -153,7 +153,8 @@ export function em$run() {
     $['%%d+']
     const res = predict(inputs)
     $['%%d-']
-    MathF32.println(res)
+    Console.prF32(res, 9)
+    printf`\n`()
 }
 
 export function predict(inputs: index_t<f32>): f32 {
@@ -187,7 +188,7 @@ function act_clip01(sum: f32): f32 {
 }
 
 function act_sigmoid(z: f32, a: f32): f32 {
-    const e: f32 = MathF32.exp(-a * z)
+    const e: f32 = e$`expf(-a * z)`
     return 1.0 / (1.0 + e)
 }
 
