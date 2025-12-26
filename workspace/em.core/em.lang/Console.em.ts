@@ -3,6 +3,35 @@ export const $U = $declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 
+export function nl() {
+    putch(c$`\n`)
+}
+
+export function prF32(x: f32, lab: text_t = t$``, wid: u8 = 6) {
+    if (lab.$len > 0) {
+        puts(lab.$ptr())
+        const ts = t$` = `
+        puts(ts.$ptr())
+    }
+    if (x < 0.0) {
+        putch(c$`-`)
+        x = -x
+    }
+    const man: u32 = <u32>x
+    let num_buf = NumBuf.$make()
+    let nb = formatNum(num_buf, man, 10, 0, c$` `)
+    putbuf(nb)
+    if (wid == 0) return
+    putch(c$`.`)
+    let frac: f32 = x - <f32>man
+    for (const _ of $range(wid)) {
+        frac *= 10.0
+        const d = <u8>frac
+        putch(c$`0` + d)
+        frac -= d
+    }
+}
+
 export function putbuf(buf: frame_t<u8>) {
     for (const p of buf) putch(p.$$)
 }
