@@ -25,6 +25,20 @@ export function abs(x: f32): f32 {
     return fromBits(u)
 }
 
+export function exp(x: f32): f32 {
+    if (isNaN(x)) return x
+    if (x > <f32>88.7228) return mkInfP()
+    if (x < <f32>-87.336544751) return 0.0
+    if (abs(x) < <f32>1.0e-20) return 1.0
+    const n = toInt(<f32>1.44266950408889634074 * x + copySign(0.5, x))
+    let g = <f32>n
+    g = <f32>2.1219444005469058277e-4 * g + (<f32>-0.693359375 * g + x)
+    let xx = g * g
+    g = g * (((<f32>0.165203300268279130e-4 * xx + <f32>0.694360001511792852e-2) * xx + <f32>0.249999999999999993))
+    xx = 0.5 + g / (((<f32>0.495862884905441294e-3 * xx + <f32>0.555538666969001188e-1) * xx + (0.5 - g)))
+    return ldexp(xx, n + 1)
+}
+
 function isInf(x: f32): bool_t {
     const u = toBits(x)
     return ((u & EXP_MASK) == EXP_MASK) && ((u & FRAC_MASK) == 0)
@@ -169,18 +183,20 @@ function ldexp(x: f32, n: i32): f32 {
 
 
 export function em$run() {
-    printf`\n---- abs ----\n`()
-    abs_T()
-    printf`\n---- bits ----\n`()
-    bits_T()
-    printf`\n---- copySign ----\n`()
-    copySign_T()
-    printf`\n---- toInt ----\n`()
-    toInt_T()
-    printf`\n---- isNaN ----\n`()
-    isNaN_T()
-    printf`\n---- ldexpf ----\n`()
-    ldexpf_T()
+    // printf`\n---- abs ----\n`()
+    // abs_T()
+    // printf`\n---- bits ----\n`()
+    // bits_T()
+    // printf`\n---- copySign ----\n`()
+    // copySign_T()
+    // printf`\n---- toInt ----\n`()
+    // toInt_T()
+    // printf`\n---- isNaN ----\n`()
+    // isNaN_T()
+    // printf`\n---- ldexp ----\n`()
+    // ldexp_T()
+    printf`\n---- expf ----\n`()
+    exp_T()
 }
 
 function bits_T() {
@@ -216,7 +232,7 @@ function isNaN_T() {
     printf`isNaN(NaN) = %d\n`(isNaN(mkNaN()))
 }
 
-function ldexpf_T() {
+function ldexp_T() {
     // basic scaling
     println(ldexp(1.0, 0), t$`(1.0, 0)`)
     println(ldexp(1.0, 1), t$`(1.0, 1)`)
@@ -237,4 +253,30 @@ function ldexpf_T() {
     println(ldexp(mkNaN(), 5), t$`(NaN, 5)`)
     println(ldexp(mkInfP(), 5), t$`(+INF, 5)`)
     println(ldexp(mkInfN(), 5), t$`(-INF, 5)`)
+}
+
+function exp_T() {
+    // sanity
+    println(exp(0.0), t$`exp(0)`);        // 1.0
+    println(exp(1.0), t$`exp(1)`);        // ≈ 2.71828
+    println(exp(-1.0), t$`exp(-1)`);       // ≈ 0.367879
+    // small x (early return path)
+    println(exp(1.0e-21), t$`exp(tiny+)`);    // 1.0
+    println(exp(-1.0e-21), t$`exp(tiny-)`);    // 1.0
+    // moderate range
+    println(exp(5.0), t$`exp(5)`);        // ≈ 148.413
+    println(exp(-5.0), t$`exp(-5)`);       // ≈ 0.0067379
+    // near limits
+    println(exp(88.0), t$`exp(88)`);       // large finite
+    println(exp(88.8), t$`exp(88.8)`);     // +Inf
+    println(exp(-87.3), t$`exp(-87.3)`);    // tiny nonzero
+    println(exp(-90.0), t$`exp(-90)`);      // 0.0
+    // special values
+    println(exp(mkNaN()), t$`exp(NaN)`);      // NaN
+    println(exp(mkInfP()), t$`exp(+Inf)`);     // +Inf
+    println(exp(mkInfN()), t$`exp(-Inf)`);     // 0.0
+    // sign / monotonicity check
+    println(exp(-0.0), t$`exp(-0.0)`);     // 1.0
+    println(exp(0.1), t$`exp(0.1)`);      // > 1.0
+    println(exp(-0.1), t$`exp(-0.1)`);     // < 1.0
 }
