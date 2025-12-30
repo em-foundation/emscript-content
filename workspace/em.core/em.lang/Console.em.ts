@@ -3,67 +3,18 @@ export const $U = $declare('MODULE')
 
 import * as Common from '@em.mcu/Common.em'
 
-export function putbuf(buf: frame_t<u8>) {
-    for (const p of buf) putch(p.$$)
-}
+export class Args extends $vector<u32> { $len = 6 }
+export class NumBuf extends $vector<u8> { $len = 10 }
 
-export function putch(ch: u8) {
-    Common.ConsoleUart.put(ch)
-}
-
-export function puts(sp: ptr_t<u8>) {
-    while (sp.$$) {
-        putch(sp.$$)
-        sp.$inc()
-    }
-}
-
-export function wrC(data: u8) {
-    putch(data)
-}
-
-export function wrU8(data: u8) {
-    putch(0x81)
-    putch(data)
-}
-
-export function wrU16(data: u16) {
-    putch(0x82)
-    let b = <u8>((data >> 8) & 0xff)
-    putch(b)
-    b = <u8>((data >> 0) & 0xff)
-    putch(b)
-}
-
-export function wrU32(data: u32) {
-    putch(0x84)
-    let b = <u8>((data >> 24) & 0xff)
-    putch(b)
-    b = <u8>((data >> 16) & 0xff)
-    putch(b)
-    b = <u8>((data >> 8) & 0xff)
-    putch(b)
-    b = <u8>((data >> 0) & 0xff)
-    putch(b)
-}
-
-// private
-
-e$`static inline void wr(em::u8 data) { wrU8(data); }`
-e$`static inline void wr(em::i8 data) { wrU8((em::u8)data); }`
-e$`static inline void wr(em::u16 data) { wrU16(data); }`
-e$`static inline void wr(em::i16 data) { wrU16((em::u16)data); }`
-e$`static inline void wr(em::u32 data) { wrU32(data); }`
-e$`static inline void wr(em::i32 data) { wrU32((em::u32)data); }`
-
-class Args extends $vector<u32> { $len = 6 }
-class NumBuf extends $vector<u8> { $len = 10 }
-
-function c2d(ch: u8): u8 {
+export function c2d(ch: u8): u8 {
     return ch - c$`0`
 }
 
-function formatNum(
+export function isDigit(ch: u8): bool_t {
+    return ch >= c$`0` && ch <= c$`9`
+}
+
+export function formatNum(
     buf: frame_t<u8>,
     num: u32,
     base: u8,
@@ -85,10 +36,6 @@ function formatNum(
         buf[idx] = pad
     }
     return buf.$frame(idx, 0)
-}
-
-function isDigit(ch: u8): bool_t {
-    return ch >= c$`0` && ch <= c$`9`
 }
 
 export function print(
@@ -154,24 +101,53 @@ export function print(
         }
     }
 }
+export function putbuf(buf: frame_t<u8>) {
+    for (const p of buf) putch(p.$$)
+}
 
+export function putch(ch: u8) {
+    Common.ConsoleUart.put(ch)
+}
 
-export function prF32(x: f32, w: u8 = 3) {
-    if (x < 0.0) {
-        putch(c$`-`)
-        x = -x
-    }
-    const man: u32 = <u32>x
-    let num_buf = NumBuf.$make()
-    let nb = formatNum(num_buf, man, 10, 0, c$` `)
-    putbuf(nb)
-    if (w == 0) return
-    putch(c$`.`)
-    let frac: f32 = x - <f32>man
-    for (const _ of $range(w)) {
-        frac *= 10.0
-        const d = <u8>frac
-        putch(c$`0` + d)
-        frac -= d
+export function puts(sp: ptr_t<u8>) {
+    while (sp.$$) {
+        putch(sp.$$)
+        sp.$inc()
     }
 }
+
+export function wrC(data: u8) {
+    putch(data)
+}
+
+export function wrU8(data: u8) {
+    putch(0x81)
+    putch(data)
+}
+
+export function wrU16(data: u16) {
+    putch(0x82)
+    let b = <u8>((data >> 8) & 0xff)
+    putch(b)
+    b = <u8>((data >> 0) & 0xff)
+    putch(b)
+}
+
+export function wrU32(data: u32) {
+    putch(0x84)
+    let b = <u8>((data >> 24) & 0xff)
+    putch(b)
+    b = <u8>((data >> 16) & 0xff)
+    putch(b)
+    b = <u8>((data >> 8) & 0xff)
+    putch(b)
+    b = <u8>((data >> 0) & 0xff)
+    putch(b)
+}
+
+e$`static inline void wr(em::u8 data) { wrU8(data); }`
+e$`static inline void wr(em::i8 data) { wrU8((em::u8)data); }`
+e$`static inline void wr(em::u16 data) { wrU16(data); }`
+e$`static inline void wr(em::i16 data) { wrU16((em::u16)data); }`
+e$`static inline void wr(em::u32 data) { wrU32(data); }`
+e$`static inline void wr(em::i32 data) { wrU32((em::u32)data); }`

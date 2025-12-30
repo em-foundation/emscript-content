@@ -1,7 +1,7 @@
 import '@$$emscript'
 export const $U = $declare('MODULE')
 
-import * as Console from '@em.lang/Console.em'
+import * as MathF32 from '@em.utils/MathF32.em'
 
 const in_min_tab = $table<f32>()
 const in_max_tab = $table<f32>()
@@ -143,6 +143,8 @@ const out_span: f32 = out_max - out_min
 class Inputs extends $vector<f32> { $len = FEATURES_USED }
 class Neurons extends $vector<f32> { $len = NEURONS }
 
+var res: volatile_t<f32> = 0.0
+
 export function em$run() {
     let inputs = Inputs.$make()
     inputs[0] = 800.0
@@ -151,10 +153,11 @@ export function em$run() {
     inputs[3] = 71.3
     inputs[4] = 0.00266337
     $['%%d+']
-    const res = predict(inputs)
+    for (const _ of $range(100)) {
+        res = predict(inputs)
+    }
     $['%%d-']
-    Console.prF32(res, 9)
-    printf`\n`()
+    MathF32.println(res)
 }
 
 export function predict(inputs: index_t<f32>): f32 {
@@ -188,7 +191,7 @@ function act_clip01(sum: f32): f32 {
 }
 
 function act_sigmoid(z: f32, a: f32): f32 {
-    const e: f32 = e$`expf(-a * z)`
+    const e: f32 = MathF32.exp(-a * z)
     return 1.0 / (1.0 + e)
 }
 
