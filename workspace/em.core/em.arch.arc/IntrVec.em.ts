@@ -44,6 +44,7 @@ export namespace em$meta {
                         |-> 
                         |-> typedef void( *intfunc )( void );
                         |-> 
+                        |-> extern "C" void _start( void );
                         |-> extern "C" void em__start( void );
                         |-> 
                         |-> extern "C" volatile int isr$$_flag = 0;
