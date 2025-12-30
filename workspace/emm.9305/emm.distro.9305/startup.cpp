@@ -19,7 +19,7 @@ extern "C" int main();
 
 extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     asm ("mov_s	%sp,__stack_top__");
-    if (true || !isWarm_$$()) {
+    if (!isWarm_$$()) {
         uint32_t *src;
         uint32_t *dst;
         uint32_t sz;
