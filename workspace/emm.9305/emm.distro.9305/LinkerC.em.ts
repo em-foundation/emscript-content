@@ -117,7 +117,7 @@ export function genScript() {
             |-> MEMORY {
             |->     BMEM : ORIGIN = 0x0030_0000, LENGTH = 8K
             |->     DMEM : ORIGIN = 0x0080_1000, LENGTH = 24K
-            |->     IMEM : ORIGIN = 0x0018_0000, LENGTH = 16K
+            |->     IMEM : ORIGIN = 0x0018_4000, LENGTH = 16K
             |->     LMEM : ORIGIN = 0x0030_2000, LENGTH = 512K - 8K
             |-> 
             |-> }
@@ -156,7 +156,7 @@ export function genScript() {
             |->     __data_addr__ = ADDR(.data);
             |->     __data_load__ = LOADADDR(.data);
             |->     __data_size__ = SIZEOF(.data) / 4;
-            |->     __code_addr__ = 0x0080_C000;
+            |->     __code_addr__ = 0x0080_8000;
             |->     __code_load__ = LOADADDR(.text);
             |->     __code_size__ = ((__data_load__ - __code_load__) / 4);
             |->     __stack_top__ = 0x0080_8000;

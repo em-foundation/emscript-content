@@ -41,7 +41,7 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
         while (sz--) {
             *dst++ = *src++;
         }
-        *em::$reg32((uint32_t)&SYS->RegMemCfg) |= MEM_DRAM6_IN_ICCM_MASK;
+        *em::$reg32((uint32_t)&SYS->RegMemCfg) |= MEM_DRAM5_IN_ICCM_MASK;
  #endif
     }
     main();
