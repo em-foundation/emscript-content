@@ -41,6 +41,7 @@ CFLAGS=" \
     -Wno-unused-variable \
     -Wno-unused-but-set-variable \
     -Wno-implicit-int-conversion \
+    -Wno-uninitialized \
 "
 
 CINCS=" \

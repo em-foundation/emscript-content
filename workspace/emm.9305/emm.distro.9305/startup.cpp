@@ -56,3 +56,12 @@ extern "C" __attribute__ ((section(".entry"))) bool isWarm_$$() {
     return (flags & 0x00000300) != 0;       // SLEEP or DEEP_SLEEP
 
 }
+
+extern "C"  void* memset(void *s, int c, size_t n) {
+    unsigned char *ptr = (unsigned char *)s;
+    unsigned char value = (unsigned char)c;
+    for (size_t i = 0; i < n; i++) {
+        ptr[i] = value;
+    }
+    return s;
+}
