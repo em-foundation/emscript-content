@@ -14,6 +14,11 @@ export namespace em$meta {
     }
 }
 
+export function isWarm(): bool_t {
+    const flags: u32 = e$`PML_GetResetFlags()`
+    return (flags & ($R.PML_SLEEP_FLG_MASK | $R.PML_DEEP_SLEEP_FLG_MASK)) != 0
+}
+
 export function startup(): void {
     $R.PML.RegPmlCtrl.$$ = $R.PML_RF_SW_EN_MASK | $R.PML_NVM_SW_EN_MASK | $R.PML_NVM_BO_RST_EN_MASK | $R.PML_VBAT_MON_EN_MASK
     $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 0x2
