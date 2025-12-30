@@ -19,7 +19,7 @@ extern "C" int main();
 
 extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     asm ("mov_s	%sp,__stack_top__");
-    if (!isWarm_$$()) {
+    if (true || !isWarm_$$()) {
         uint32_t *src;
         uint32_t *dst;
         uint32_t sz;
@@ -46,6 +46,14 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     }
     main();
     __builtin_unreachable();    
+}
+
+extern "C" uint32_t PML_GetResetFlags();
+
+extern "C" __attribute__ ((section(".entry"))) bool isWarm_$$() {
+    uint32_t flags = PML_GetResetFlags();
+    return (flags & 0x00000300) != 0;       // SLEEP or DEEP_SLEEP
+
 }
 
 extern "C" __attribute__ ((section(".entry"))) void* memcpy(void* dst, const void* src, size_t n) {

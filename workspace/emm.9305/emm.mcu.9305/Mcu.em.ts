@@ -14,10 +14,6 @@ export namespace em$meta {
     }
 }
 
-export function isWarm_$$(): bool_t {
-    return isWarm()
-}
-
 export function isWarm(): bool_t {
     const flags: u32 = e$`PML_GetResetFlags()`
     return (flags & ($R.PML_SLEEP_FLG_MASK | $R.PML_DEEP_SLEEP_FLG_MASK)) != 0
