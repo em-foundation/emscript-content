@@ -128,12 +128,9 @@ export function genScript() {
             |->         KEEP(*(.entry.*))
             |->     } > BMEM
             |-> 
-            |->     .intvec : {
-            |->         KEEP(*(.intvec))
-            |->     } > IMEM AT > LMEM
-            |-> 
             |->     .text : {
             |->         *(.start)
+            |->         KEEP(*(.intvec.*))
             |->         *(.text .text.*)
             |->         . = ALIGN(., 4);
             |->     } > IMEM AT > LMEM
