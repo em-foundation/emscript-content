@@ -24,8 +24,8 @@ endm
 # Restart the part and let it enter the idle function.
 em_reset
 
-#break em__start, hard, temp
-break main, hard, temp
+break em__start, hard, temp
+#break main, hard, temp
 
 # Run until breakpoint
 continue
