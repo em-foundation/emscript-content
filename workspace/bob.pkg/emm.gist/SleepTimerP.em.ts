@@ -19,15 +19,17 @@ export namespace em$meta {
 
 //>> ---- em$targ ---- <<//
 
+var cnt: u8 = 10
 
 export function em$run() {
-    printf`isWarm = %d\n`(Common.Mcu.isWarm())
-    if ($R.PML.RegSleepTimCount.$$ != 0) {
-        // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
-        // MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
-        halt();
-    }
+    // printf`isWarm = %d\n`(Common.Mcu.isWarm())
+    // if ($R.PML.RegSleepTimCount.$$ != 0) {
+    //     // MemDump.print(t$`PWRM`, e$`PML_BASE`, e$`sizeof(PML_RegMap_t)`)
+    //     // MemDump.print(t$`SYST`, e$`SYS_BASE`, e$`sizeof(System_RegMap_t)`)
+    //     halt();
+    // }
 
+    $['%%>'](cnt++)
     Common.GlobalInterrupts.enable()
     $R.IRQ.RegIRQSleepTimEnSet.$$ = 1
     $R.IRQ.RegIRQSleepTimMskSet.$$ = 1
