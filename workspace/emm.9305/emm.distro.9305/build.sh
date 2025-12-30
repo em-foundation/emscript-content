@@ -10,39 +10,6 @@ OUT=.out
 rm -rf $OUT
 mkdir $OUT
 
-CPPFLAGS=" \
-    -DDEVICE=0x9305 \
-    -D__T9305__ \
-    -tcf=em9305 \
-    -Wall \
-    -Wconversion \
-    -Hhostlib= \
-    -Hnocrt \
-    -Hon=Long_enums \
-    -Hnocopyr \
-    -Hnosdata \
-    -nostdsysteminc \
-    -Hccm \
-    -mllvm \
-    -align-labels=false \
-    -Hnoivt \
-    -ffunction-sections \
-    -fdata-sections \
-    -fno-builtin \
-    -Wno-cast-align \
-    -Mb \
-    -DNDEBUG \
-    -DHW_DI=5 \
-    -DNVM_CODE \
-    -Hpurge \
-    -Wno-constexpr-not-const \
-    -Wno-sign-conversion \
-    -Wno-unused-function \
-    -Wno-unused-variable \
-    -Wno-unused-but-set-variable \
-    -Wno-implicit-int-conversion \
-"
-
 CFLAGS=" \
     -DDEVICE=0x9305 \
     -D__T9305__ \
