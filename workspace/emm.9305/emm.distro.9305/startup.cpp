@@ -14,14 +14,17 @@ extern uint32_t __data_size__;
 extern uint32_t __global_pointer__;
 extern uint32_t __stack_top__;
 
-extern "C" bool isWarm_$$();
 extern "C" int main();
 
+extern "C" void COMMON_WaitUs(uint32_t us);
 extern "C" void memcpy32(uint32_t *pDestination, const uint32_t *pSource, uint32_t numBytes);
+
+#define DBG 3
 
 extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     asm ("mov_s	%sp,__stack_top__");
-    if (!isWarm_$$()) {
+
+    if (!em__isWarm()) {
         uint32_t *src;
         uint32_t *dst;
         uint32_t sz;
@@ -45,18 +48,22 @@ extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
         *em::$reg32((uint32_t)&SYS->RegMemCfg) |= MEM_DRAM5_IN_ICCM_MASK;
  #endif
     }
+
+    // GPIO->RegGPIOOutputEn.r32 |= 1 << DBG;
+    // GPIO->RegGPIODataOut.r32 ^= (1 << DBG);
+    // COMMON_WaitUs(1000);
+    // GPIO->RegGPIODataOut.r32 ^= (1 << DBG);
+    // COMMON_WaitUs(1000);
+    // GPIO->RegGPIODataOut.r32 ^= (1 << DBG);
+    // COMMON_WaitUs(1000);
+    // GPIO->RegGPIODataOut.r32 ^= (1 << DBG);
+    // COMMON_WaitUs(10000);
+
     main();
     __builtin_unreachable();    
 }
 
-extern "C" uint32_t PML_GetResetFlags();
-
-extern "C" __attribute__ ((section(".entry"))) bool isWarm_$$() {
-    uint32_t flags = PML_GetResetFlags();
-    return (flags & 0x00000300) != 0;       // SLEEP or DEEP_SLEEP
-
-}
-
+// need for C++ constructors
 extern "C"  void* memset(void *s, int c, size_t n) {
     unsigned char *ptr = (unsigned char *)s;
     unsigned char value = (unsigned char)c;

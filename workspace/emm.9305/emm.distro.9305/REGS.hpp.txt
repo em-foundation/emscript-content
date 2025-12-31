@@ -12,4 +12,8 @@ extern "C" void PML_PowerDownNvm(void);
 extern "C" void PML_PowerDownNvmAndSleep(uint32_t mode);
 extern "C" void PML_SetHfClkFrequency(uint32_t freq);
 
+extern "C" uint16_t gPmlResetFlags;
+
+extern "C" bool em__isWarm() { return (gPmlResetFlags & 0x0300) != 0; }
+
 #endif

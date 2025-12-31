@@ -15,8 +15,7 @@ export namespace em$meta {
 }
 
 export function isWarm(): bool_t {
-    const flags: u32 = e$`PML_GetResetFlags()`
-    return (flags & ($R.PML_SLEEP_FLG_MASK | $R.PML_DEEP_SLEEP_FLG_MASK)) != 0
+    return e$`em__isWarm()`
 }
 
 export function startup(): void {
@@ -28,7 +27,7 @@ export function startup(): void {
         $R.PML_SLP_TIM_ON_XTAL_MASK |
         0x1
     $R.PML.RegPmlCtrl.$$ = msk
-    $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 0x2
+    $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 1 << 1
     $R.PML.RegPmlPadClk.$$ = 0x9
     $R.PML.RegPmlLvl.$$ = $R.PML_LDO_DIG_LVL_MASK | 0xb44
     $R.PML.RegPmlDCDCTim.$$ = 0x0b05_0b05
@@ -41,8 +40,8 @@ export function startup(): void {
         $['%%a:'](2)
     }
     if (use_sram) {
+        $R.PML.RegPmlDomain.$$ = $R.PML_NVM_REQ_ON_MASK | 1 << 1 | 1 << 5
         e$`PML_PowerDownNvm()`
         e$`_sr(1, IC_CTRL)`
-        $['%%a:'](2)
     }
 }
