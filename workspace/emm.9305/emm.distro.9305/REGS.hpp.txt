@@ -14,6 +14,6 @@ extern "C" void PML_SetHfClkFrequency(uint32_t freq);
 
 extern "C" uint16_t gPmlResetFlags;
 
-extern "C" bool em__isWarm() { return (gPmlResetFlags & 0x0300) != 0; }
+static inline bool em__IS_WARM() { return (gPmlResetFlags & 0x0300) != 0; }
 
 #endif

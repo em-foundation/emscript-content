@@ -24,7 +24,7 @@ extern "C" void memcpy32(uint32_t *pDestination, const uint32_t *pSource, uint32
 extern "C" __attribute__ ((section(".entry"), noreturn)) void em__start() {
     asm ("mov_s	%sp,__stack_top__");
 
-    if (!em__isWarm()) {
+    if (!em__IS_WARM()) {
         uint32_t *src;
         uint32_t *dst;
         uint32_t sz;

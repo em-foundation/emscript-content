@@ -15,7 +15,7 @@ export namespace em$meta {
 }
 
 export function isWarm(): bool_t {
-    return e$`em__isWarm()`
+    return e$`em__IS_WARM()`
 }
 
 export function startup(): void {
