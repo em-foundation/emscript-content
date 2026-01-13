@@ -2,7 +2,7 @@
 **/.junk/
 node_modules/
 /tools/
-.vscode/
+.vscode/settings.json
 workspace/.emscript
 workspace/emscript.ini
 workspace/emscript-local.ini
