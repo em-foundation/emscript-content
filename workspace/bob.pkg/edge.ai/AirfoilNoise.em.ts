@@ -153,7 +153,7 @@ export function em$run() {
     inputs[3] = 71.3
     inputs[4] = 0.00266337
     $['%%d+']
-    for (const _ of $range(100)) {
+    for (const _ of $range(10)) {
         res = predict(inputs)
     }
     $['%%d-']
